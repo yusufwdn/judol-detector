@@ -42,6 +42,8 @@ DATA_PATH = os.path.join(BASE_DIR, "data", "comments.csv")
 MODEL_PATH = os.path.join(BASE_DIR, "model", "svm_model.joblib")
 
 import sys
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 sys.path.insert(0, BASE_DIR)
 from src.preprocessing import preprocess_batch
 

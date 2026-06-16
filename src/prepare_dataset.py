@@ -6,15 +6,16 @@ Converts raw scraped JSON into a clean, balanced CSV ready for training.
 Steps:
 1. Load spam data from scraper/final_spam.json
 2. Filter by spam_score >= 80 to reduce label noise
-3. Generate synthetic non-spam comments to balance the dataset
+3. Load real non-spam data from scraper/final_non_spam.json (preferred),
+   or fall back to synthetic templates if the file is not available
 4. Shuffle and save to data/comments.csv
 
 Run this script BEFORE train.py:
     python src/prepare_dataset.py
 
 When to re-run:
-- After scraping new spam data
-- After replacing synthetic non-spam with real scraped non-spam data
+- After scraping new spam or non-spam data (run filter.js first, then this)
+- After modifying src/preprocessing.py (always re-run to keep pipeline consistent)
 """
 
 import os
@@ -26,7 +27,8 @@ import pandas as pd
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-INPUT_JSON = os.path.join(BASE_DIR, "scraper", "final_spam.json")
+INPUT_SPAM_JSON = os.path.join(BASE_DIR, "scraper", "final_spam.json")
+INPUT_NON_SPAM_JSON = os.path.join(BASE_DIR, "scraper", "final_non_spam.json")
 OUTPUT_CSV = os.path.join(BASE_DIR, "data", "comments.csv")
 
 # ---------------------------------------------------------------------------
@@ -274,10 +276,41 @@ def load_spam_data(json_path: str, threshold: int) -> list:
     print(f"  Passed primary threshold     : {len(spam_entries) - rescued}")
     print(f"  Rescued via brand regex      : {rescued}")
     print(f"  Skipped (low score / noisy)  : {skipped_low_score}")
-    print(f"    ↳ brand_pattern false pos. : {false_positive_dropped}")
+    print(f"    -> brand_pattern false pos.: {false_positive_dropped}")
     print(f"  Total spam collected         : {len(spam_entries)}")
 
     return spam_entries
+
+
+def load_non_spam_data(json_path: str) -> list:
+    """
+    Load real non-spam entries from scraper/final_non_spam.json.
+    Uses 'original_text' for training-serving consistency (same as spam loader).
+
+    Args:
+        json_path: Path to final_non_spam.json produced by filter.js.
+
+    Returns:
+        List of dicts with keys 'text' and 'label', or empty list if file missing.
+    """
+    if not os.path.exists(json_path):
+        return []
+
+    with open(json_path, "r", encoding="utf-8") as f:
+        raw_data = json.load(f)
+
+    entries = []
+    for entry in raw_data:
+        text = entry.get("original_text", "").strip()
+        if text:
+            entries.append({"text": text, "label": "non_spam"})
+
+    skipped = len(raw_data) - len(entries)
+    print(f"  Total entries in JSON : {len(raw_data)}")
+    if skipped:
+        print(f"  Skipped (empty text)  : {skipped}")
+    print(f"  Loaded                : {len(entries)}")
+    return entries
 
 
 def generate_non_spam_data(target_count: int) -> list:
@@ -341,7 +374,7 @@ def build_and_save_dataset(spam: list, non_spam: list, output_path: str) -> None
     print(f"  Non-spam samples: {len(non_spam)}")
     print(f"  Total           : {len(combined)}")
     print(f"  Ratio (spam:non): {len(spam)}:{len(non_spam)} "
-          f"≈ {len(spam)/max(len(non_spam),1):.1f}:1")
+          f"(~{len(spam)/max(len(non_spam),1):.1f}:1)")
     print(f"\n  Saved to: {output_path}")
 
 
@@ -351,11 +384,16 @@ def main():
     print("=" * 60)
 
     print(f"\n[1/3] Loading spam data (threshold >= {SPAM_SCORE_THRESHOLD})...")
-    spam_data = load_spam_data(INPUT_JSON, SPAM_SCORE_THRESHOLD)
+    spam_data = load_spam_data(INPUT_SPAM_JSON, SPAM_SCORE_THRESHOLD)
 
-    print(f"\n[2/3] Generating {NON_SPAM_TARGET} synthetic non-spam samples...")
-    non_spam_data = generate_non_spam_data(NON_SPAM_TARGET)
-    print(f"  Generated: {len(non_spam_data)} samples")
+    print(f"\n[2/3] Loading non-spam data...")
+    if os.path.exists(INPUT_NON_SPAM_JSON):
+        print(f"  Source: real scraped data ({INPUT_NON_SPAM_JSON})")
+        non_spam_data = load_non_spam_data(INPUT_NON_SPAM_JSON)
+    else:
+        print(f"  Source: synthetic templates (real data not found, run scraper non_spam mode + filter.js)")
+        non_spam_data = generate_non_spam_data(NON_SPAM_TARGET)
+        print(f"  Generated: {len(non_spam_data)} samples")
 
     print("\n[3/3] Merging, shuffling, and saving dataset...")
     build_and_save_dataset(spam_data, non_spam_data, OUTPUT_CSV)
