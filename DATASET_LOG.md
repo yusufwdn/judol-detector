@@ -35,12 +35,24 @@ Berguna untuk bab metodologi skripsi dan untuk melacak versi mana yang menghasil
 
 ### Hasil evaluasi model
 
-- Test set    : 722 sampel (20% dari 3608)
-- Accuracy    : 97.23%
-- Spam Precision : 0.97
-- Spam Recall    : 0.94
-- Spam F1        : 0.95
-- Non-spam F1    : 0.98
+**K-Fold Cross-Validation (cv=5, full dataset):**
+- Fold scores (F1-macro): 0.9572, 0.9621, 0.9738, 0.9705, 0.9669
+- **Mean F1-macro: 96.61% ± 0.59%**
+
+**GridSearchCV (hyperparameter tuning):**
+- C kandidat: [0.01, 0.1, 1, 10, 100]
+- C terpilih: **1** (F1-macro CV = 0.9543)
+
+**Train-test split (80/20, test set = 722 sampel):**
+
+| Metrik | Nilai |
+|--------|-------|
+| Accuracy | 97.23% |
+| F1-macro | 0.9671 |
+| Spam Precision | 0.97 |
+| Spam Recall | 0.94 |
+| Spam F1 | 0.95 |
+| Non-spam F1 | 0.98 |
 
 Confusion matrix:
 ```
@@ -48,6 +60,16 @@ Confusion matrix:
 Aktual non_spam        495 (TN)          7 (FP)
 Aktual spam             13 (FN)        207 (TP)
 ```
+
+→ Lihat gambar: `reports/confusion_matrix_svm.png`
+
+**Perbandingan dengan baseline (data training dan test sama):**
+
+| Model | Accuracy | F1-macro |
+|-------|----------|----------|
+| SVM (C=1, linear) | **97.23%** | **0.9671** |
+| Logistic Regression | 95.15% | 0.9423 |
+| Naive Bayes (MultinomialNB) | 94.32% | 0.9305 |
 
 ---
 

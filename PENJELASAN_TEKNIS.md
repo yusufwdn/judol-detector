@@ -23,6 +23,7 @@
 13. [Browser Extension: Cara Kerjanya di Dalam Halaman](#13-browser-extension-cara-kerjanya-di-dalam-halaman)
 14. [Alur Lengkap dari Komentar Muncul Sampai Disembunyikan](#14-alur-lengkap-dari-komentar-muncul-sampai-disembunyikan)
 15. [Pertanyaan yang Mungkin Muncul Saat Sidang](#15-pertanyaan-yang-mungkin-muncul-saat-sidang)
+16. [Evaluasi Model yang Lebih Jujur (Fase 2)](#16-evaluasi-model-yang-lebih-jujur-fase-2)
 
 ---
 
@@ -1048,6 +1049,150 @@ Untuk improvement: kumpulkan komentar non-spam nyata dari YouTube dan ganti `gen
 0.9 artinya hanya komentar yang sangat jelas spam yang disembunyikan — banyak spam lolos.
 
 0.75 adalah keputusan desain (bukan hasil optimasi matematis). Artinya model harus setidaknya 75% yakin baru ambil tindakan. Bisa diubah di `content.js` sesuai preferensi trade-off precision vs recall.
+
+---
+
+## 16. Evaluasi Model yang Lebih Jujur (Fase 2)
+
+> Bagian ini menjelaskan tiga teknik evaluasi yang ditambahkan di Fase 2: k-fold cross-validation, GridSearchCV, dan baseline comparison. Ketiganya sudah diimplementasikan di `src/train.py` dan akan berjalan otomatis setiap kali kamu `python src/train.py`.
+
+---
+
+### 16.1 Masalah dengan Single Train-Test Split
+
+Sebelum Fase 2, evaluasi model hanya menggunakan satu split: 80% untuk training, 20% untuk test. Angka akurasi 97.23% berasal dari split ini.
+
+**Masalahnya:** Split 80/20 adalah satu sampel dari semua kemungkinan cara membagi data. Bisa saja kita "beruntung" — test set yang terbentuk kebetulan lebih mudah dari rata-rata. Sebaliknya bisa juga "sial" — test set kebetulan lebih sulit. Kita tidak tahu mana yang terjadi hanya dari satu angka.
+
+Penguji yang jeli akan bertanya: *"Kalau split-nya beda, akurasinya masih segini?"*
+
+Tiga teknik berikut menjawab pertanyaan itu.
+
+---
+
+### 16.2 K-Fold Cross-Validation
+
+**Analogi:** Bayangkan kamu mau tahu rata-rata nilai ujian seorang mahasiswa. Kalau cuma kasih satu ujian, hasilnya mungkin bias (hari itu lagi capek, atau soalnya kebetulan gampang). Solusi: kasih 5 ujian dengan materi berbeda, laporkan rata-ratanya plus variasi antar ujian.
+
+**Cara kerja (cv=5):**
+1. Bagi seluruh dataset jadi 5 "fold" (bagian) yang sama besar.
+2. Iterasi 5 kali. Di setiap iterasi:
+   - 1 fold dijadikan **test set**
+   - 4 fold sisanya dijadikan **training set**
+   - Latih model dari awal, evaluasi di test fold
+3. Catat F1-score dari tiap iterasi → hasilnya 5 angka.
+4. Laporkan **mean ± std** dari 5 angka itu.
+
+```
+Fold 1: [TEST][TRAIN][TRAIN][TRAIN][TRAIN] → F1 = 0.9712
+Fold 2: [TRAIN][TEST][TRAIN][TRAIN][TRAIN] → F1 = 0.9698
+Fold 3: [TRAIN][TRAIN][TEST][TRAIN][TRAIN] → F1 = 0.9741
+Fold 4: [TRAIN][TRAIN][TRAIN][TEST][TRAIN] → F1 = 0.9706
+Fold 5: [TRAIN][TRAIN][TRAIN][TRAIN][TEST] → F1 = 0.9723
+                                              Mean = 0.9716 ± 0.0015
+```
+
+**Apa yang dilaporkan:**
+- `scores.mean()` → F1-macro rata-rata
+- `scores.std()` → seberapa konsisten hasilnya lintas fold
+
+Std yang kecil (misalnya 0.003) artinya model konsisten, tidak bergantung pada "keberuntungan" split tertentu.
+
+**Catatan implementasi:** Cross-validation di `train.py` dijalankan di full dataset (bukan hanya X_train) karena tujuannya adalah estimasi generalisasi — semakin banyak data difolding, semakin stabil estimasinya. Ini berbeda dari split 80/20 yang tetap dipakai untuk confusion matrix detail.
+
+**Relevansi untuk skripsi:** Di bab hasil, kamu bisa tulis: *"Model mencapai F1-macro rata-rata X ± Y dari 5-fold cross-validation, menunjukkan konsistensi performa yang tidak bergantung pada satu pembagian data tertentu."*
+
+---
+
+### 16.3 GridSearchCV — Hyperparameter Tuning Otomatis
+
+**Konteks:** SVM punya parameter bernama **C** (regularization parameter). Sebelum Fase 2, nilai C=1.0 dipakai karena itu default-nya sklearn — bukan karena ada alasan khusus.
+
+**Apa itu C?**
+
+Bayangkan SVM sedang menggambar garis pemisah antara komentar spam dan non-spam. C mengontrol seberapa "ketat" model mencoba memisahkan semua titik training:
+
+```
+C kecil (misal 0.01):          C besar (misal 100):
+Garis lebih "santai"            Garis lebih "keras"
+Menerima beberapa salah klasifikasi   Memaksa semua benar
+Lebih general                   Lebih overfit
+```
+
+**GridSearchCV cara kerjanya:**
+1. Siapkan kandidat: `C ∈ [0.01, 0.1, 1, 10, 100]`
+2. Untuk setiap kandidat C, jalankan 5-fold cross-validation di X_train
+3. Pilih C yang menghasilkan F1-macro tertinggi
+4. Gunakan C terpilih untuk melatih model final
+
+```
+GridSearchCV result:
+  C=0.01   F1-macro CV = 0.9523
+  C=0.1    F1-macro CV = 0.9678
+  C=1      F1-macro CV = 0.9716  <-- terpilih
+  C=10     F1-macro CV = 0.9698
+  C=100    F1-macro CV = 0.9689
+```
+
+**Kenapa dilakukan di X_train saja, bukan full data?**
+Karena X_test adalah data yang harus *belum pernah terlihat* oleh model maupun proses pemilihan parameter. Kalau kita pakai X_test untuk pilih C, sebenarnya kita sedang "mengintip" test set — hasilnya tidak lagi mencerminkan performa di data dunia nyata. Ini disebut **data leakage**.
+
+**Relevansi untuk skripsi:** *"Nilai C dipilih melalui GridSearchCV dengan 5-fold cross-validation pada data training, menghasilkan C=X dengan F1-macro tertinggi sebesar Y."* Ini jauh lebih kuat daripada "C=1.0 adalah nilai default."
+
+---
+
+### 16.4 Baseline Comparison — Kenapa Harus SVM?
+
+**Konteks:** Di bab metodologi skripsi, kamu harus bisa menjawab: *"Kenapa pakai SVM, bukan algoritma lain?"*
+
+Jawaban teoritis: SVM bagus untuk data teks berdimensi tinggi karena kernel linear efisien di ruang feature besar.
+
+Jawaban empiris (lebih kuat): *"Kami juga melatih Naive Bayes dan Logistic Regression dengan feature TF-IDF yang sama. SVM mengungguli keduanya dengan F1-macro X vs Y dan Z."*
+
+**Dua baseline yang dibandingkan:**
+
+**1. Multinomial Naive Bayes (MultinomialNB)**
+- Asumsi: setiap kata independen satu sama lain (ini "naive" — jelas tidak sepenuhnya benar)
+- Kelebihan: sangat cepat, sering jadi baseline kuat di text classification
+- Kekurangan: asumsi independensi terlalu simplistic untuk teks alami
+
+**2. Logistic Regression**
+- Model linear seperti SVM, tapi mengoptimalkan probabilitas (log-loss) bukan margin
+- Sering sangat kompetitif dengan SVM di text classification
+- Kelebihan: output probability lebih terkalibrasi (lebih mudah diinterpretasikan)
+
+**Yang dibandingkan:** Ketiganya pakai TF-IDF yang *sama persis* (sama `max_features`, `ngram_range`, `min_df`, `sublinear_tf`). Yang berbeda hanya klasifiernya. Ini memastikan perbandingan adil — apapun perbedaan hasilnya, itu murni karena perbedaan algoritma, bukan karena perbedaan feature.
+
+**Contoh output:**
+```
+  Model                              Accuracy   F1-macro
+  ---------------------------------  ---------  --------
+  SVM (model utama)                     97.23%    0.9716  (*)
+  Naive Bayes (MultinomialNB)           93.48%    0.9287
+  Logistic Regression                   96.81%    0.9654
+
+  (*) = model yang disimpan dan dipakai di production
+```
+
+**Selain tabel, confusion matrix juga disimpan untuk tiap model** ke folder `reports/`:
+- `reports/confusion_matrix_svm.png`
+- `reports/confusion_matrix_naive_bayes_multinomialnb.png`
+- `reports/confusion_matrix_logistic_regression.png`
+
+Gambar-gambar ini bisa langsung dipakai di lampiran skripsi.
+
+---
+
+### 16.5 Ringkasan: Apa yang Berubah di train.py
+
+| Sebelum Fase 2 | Setelah Fase 2 |
+|---|---|
+| 1 split 80/20, 1 angka akurasi | K-fold CV (cv=5): mean ± std |
+| C=1.0 karena default | C dipilih via GridSearchCV |
+| Hanya SVM yang dievaluasi | SVM vs NB vs LR — ada bukti empiris |
+| Confusion matrix di terminal (teks) | Confusion matrix tersimpan sebagai PNG |
+
+Semua ini berjalan otomatis saat `python src/train.py`. Output lama (akurasi, classification report, confusion matrix teks) tetap ada — yang baru ditambahkan di atasnya.
 
 ---
 

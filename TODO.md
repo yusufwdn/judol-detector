@@ -134,10 +134,9 @@ akan terlihat langsung di hasil evaluasi.
 
 ## Fase 2 — Evaluasi Model yang Lebih Jujur
 
-**Tujuan:** Saat ini hasil evaluasi menunjukkan akurasi ~100%, yang
-**kemungkinan besar terlalu optimis** karena test set berasal dari distribusi
-yang sama dan "mudah". Dosen penguji hampir pasti akan menanyakan ini. Fase
-ini membuat evaluasimu lebih kredibel.
+**Tujuan:** Membuat evaluasi lebih kredibel untuk sidang — bukan hanya satu angka akurasi dari satu split.
+→ Lihat penjelasan lengkap di [PENJELASAN_TEKNIS.md §16](PENJELASAN_TEKNIS.md#16-evaluasi-model-yang-lebih-jujur-fase-2)
+→ Hasil tercatat di [DATASET_LOG.md](DATASET_LOG.md)
 
 - [ ] **Buat "hard test set" terpisah** dari hasil Fase 1 (kasus ambigu).
   Jangan campur ke dataset training. Setelah model dilatih dengan
@@ -145,31 +144,28 @@ ini membuat evaluasimu lebih kredibel.
   terpisah dan laporkan hasilnya apa adanya — termasuk kalau hasilnya jelek.
   **Ini justru bagus untuk skripsi**: menunjukkan kamu memahami batasan model,
   bukan menyembunyikannya.
+  ⚠️ **Blocked** — butuh hard examples dari Fase 1 dulu.
 
-- [ ] **Tambahkan k-fold cross-validation** sebagai pelengkap train-test split.
-  Single split (80/20) bisa "kebetulan" menghasilkan split yang mudah.
-  `cross_val_score` dengan `cv=5` memberi gambaran rata-rata + variansi performa.
-  ```python
-  from sklearn.model_selection import cross_val_score
-  scores = cross_val_score(pipeline, X, y, cv=5, scoring='f1_macro')
-  print(scores.mean(), scores.std())
-  ```
+- [✅] **Tambahkan k-fold cross-validation** sebagai pelengkap train-test split.
+  Sudah diimplementasikan di `src/train.py`. Dijalankan otomatis setiap
+  `python src/train.py`. Hasil: **F1-macro 96.61% ± 0.59%** di 5 fold.
 
-- [ ] **Hyperparameter tuning sistematis** (bukan coba-coba manual).
-  Gunakan `GridSearchCV` untuk parameter `C` (dan opsional `ngram_range`,
-  `max_features`). Ini mengubah klaim "C=1.0 adalah default yang baik" menjadi
-  "C=1.0 dipilih melalui grid search dengan hasil X" — jauh lebih kuat untuk
-  bab metodologi.
+- [✅] **Hyperparameter tuning sistematis** (bukan coba-coba manual).
+  `GridSearchCV` dengan `C ∈ [0.01, 0.1, 1, 10, 100]` sudah berjalan di
+  `src/train.py`. Hasil: **C=1 terpilih** (F1-macro CV 0.9543) — sekarang ada
+  justifikasi empiris, bukan sekadar default.
 
-- [ ] **Bandingkan SVM dengan baseline lain** (sebagai pembanding, bukan
-  pengganti).
-  Latih juga `MultinomialNB` (Naive Bayes) dan `LogisticRegression` dengan
-  TF-IDF yang sama, lalu bandingkan F1-score. Ini memperkuat justifikasi
-  "kenapa SVM" di skripsi — dengan bukti empiris, bukan hanya teori.
+- [✅] **Bandingkan SVM dengan baseline lain** (sebagai pembanding, bukan
+  pengganti). Sudah diimplementasikan di `src/train.py`. Hasil:
+  - SVM: accuracy 97.23%, F1-macro 0.9671 ✓
+  - Naive Bayes: accuracy 94.32%, F1-macro 0.9305
+  - Logistic Regression: accuracy 95.15%, F1-macro 0.9423
 
-- [ ] **Visualisasikan confusion matrix** dengan `matplotlib`/`seaborn`
-  (sudah ada di `requirements.txt`, belum dipakai). Simpan sebagai gambar
-  untuk dilampirkan di skripsi.
+- [✅] **Visualisasikan confusion matrix** dengan `matplotlib`/`seaborn`.
+  Tersimpan otomatis ke `reports/` setiap run training:
+  - `reports/confusion_matrix_svm.png`
+  - `reports/confusion_matrix_naive_bayes_multinomialnb.png`
+  - `reports/confusion_matrix_logistic_regression.png`
 
 ---
 

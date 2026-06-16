@@ -1,11 +1,11 @@
-﻿"""
+"""
 train.py
 ========
 Trains the SVM spam classifier pipeline and saves the model to disk.
 
 ML PIPELINE OVERVIEW
 ---------------------
-Training runs through three main stages:
+Training runs through these stages:
 
 1. TF-IDF (Term Frequency - Inverse Document Frequency)
    Converts text into numeric feature vectors.
@@ -13,7 +13,12 @@ Training runs through three main stages:
    - Example: "daftar" appears often in spam but rarely in normal comments
      -> high IDF -> high weight -> useful discriminative feature.
 
-2. SVM (Support Vector Machine)
+2. Hyperparameter Tuning (GridSearchCV)
+   Automatically searches for the best C value via 5-fold cross-validation
+   on the training set. This replaces the previous "C=1.0 as default" approach
+   with an empirically selected value — stronger justification for the thesis.
+
+3. SVM (Support Vector Machine)
    Finds the optimal hyperplane separating the two classes.
    "Optimal" means the widest possible margin to the nearest data points
    (the support vectors) on each side.
@@ -21,31 +26,48 @@ Training runs through three main stages:
    - C      : regularization strength (lower = more generalization)
    - kernel : decision boundary shape ('linear' is best for high-dim text)
 
-3. Evaluation
-   - Accuracy  : overall correct prediction rate
-   - Precision : of all predicted spam, how many are actually spam?
-   - Recall    : of all actual spam, how many did the model catch?
-   - F1-Score  : harmonic mean of precision and recall (primary metric)
+4. Evaluation
+   - K-fold cross-validation (cv=5) on full data: average ± std deviation
+   - Train/test split (80/20): detailed per-class metrics and confusion matrix
+   - Baseline comparison: SVM vs Naive Bayes vs Logistic Regression
 """
 
 import os
+import sys
 import pandas as pd
 import joblib
+import matplotlib
+matplotlib.use("Agg")   # non-interactive backend — safe for Windows terminal
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.svm import SVC
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+from sklearn.metrics import (
+    classification_report, confusion_matrix, accuracy_score, f1_score
+)
 from sklearn.pipeline import Pipeline
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(BASE_DIR, "data", "comments.csv")
 MODEL_PATH = os.path.join(BASE_DIR, "model", "svm_model.joblib")
+REPORTS_DIR = os.path.join(BASE_DIR, "reports")
 
-import sys
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 sys.path.insert(0, BASE_DIR)
 from src.preprocessing import preprocess_batch
+
+# Shared TF-IDF params — same settings used in SVM pipeline and baselines
+# so the comparison is fair (same features, different classifiers).
+TFIDF_PARAMS = dict(
+    max_features=10000,
+    ngram_range=(1, 2),
+    min_df=2,
+    sublinear_tf=True,
+)
 
 
 def load_data(path: str) -> tuple:
@@ -55,33 +77,64 @@ def load_data(path: str) -> tuple:
     Returns:
         tuple: (X, y) where X is a list of text strings and y is a list of labels.
     """
-    print(f"[1/5] Loading dataset from: {path}")
+    print(f"[1/7] Loading dataset from: {path}")
     df = pd.read_csv(path)
 
-    # Ensure required columns are present
     required_cols = {"text", "label"}
     if not required_cols.issubset(df.columns):
         raise ValueError(f"CSV must contain columns: {required_cols}")
 
-    # Drop rows with missing values
     df = df.dropna(subset=["text", "label"])
     df["text"] = df["text"].astype(str)
 
     print(f"    Total rows  : {len(df)}")
     print(f"    Label distribution:")
-    print(df['label'].value_counts().to_string())
+    print(df["label"].value_counts().to_string())
 
     return df["text"].tolist(), df["label"].tolist()
 
 
 def preprocess_data(texts: list) -> list:
     """Run the preprocessing pipeline on all texts in the dataset."""
-    print("\n[2/5] Preprocessing texts...")
+    print("\n[2/7] Preprocessing texts...")
     cleaned = preprocess_batch(texts)
     print(f"    Done. Sample result:")
     print(f"    Raw    : {texts[0][:80]}...")
     print(f"    Cleaned: {cleaned[0][:80]}...")
     return cleaned
+
+
+def run_cross_validation(X: list, y: list) -> None:
+    """
+    Run 5-fold cross-validation on the FULL dataset.
+
+    Why on full data (not just X_train)?
+    Cross-validation's purpose is to estimate how well the model generalizes
+    to unseen data. Using all available data gives the most stable estimate —
+    the more data we fold over, the lower the variance of the estimate.
+
+    This is separate from the 80/20 split: k-fold gives the average score,
+    the split gives the detailed per-class breakdown and confusion matrix.
+
+    The mean ± std output is what you cite in the thesis as the cross-validated
+    F1-score — more credible than a single split's number.
+    """
+    print("\n[3/7] K-Fold Cross-Validation (cv=5)...")
+    print("    Training a temporary pipeline (not the final model)...")
+
+    pipeline = Pipeline([
+        ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
+        ("svm", SVC(kernel="linear", class_weight="balanced", random_state=42))
+    ])
+
+    scores = cross_val_score(pipeline, X, y, cv=5, scoring="f1_macro", n_jobs=-1)
+
+    print(f"\n    Fold scores (F1-macro): {[f'{s:.4f}' for s in scores]}")
+    print(f"    Mean  : {scores.mean():.4f}")
+    print(f"    Std   : {scores.std():.4f}")
+    print(f"\n    Interpretasi: model mencapai F1-macro rata-rata "
+          f"{scores.mean():.2%} +/- {scores.std():.2%} "
+          f"di 5 fold berbeda.")
 
 
 def split_data(X: list, y: list) -> tuple:
@@ -96,7 +149,7 @@ def split_data(X: list, y: list) -> tuple:
     random_state=42 -> fixed seed ensures the split is reproducible
     stratify=y      -> preserves the spam/non-spam ratio in both splits
     """
-    print("\n[3/5] Splitting data...")
+    print("\n[4/7] Splitting data (80% train / 20% test)...")
     X_train, X_test, y_train, y_test = train_test_split(
         X, y,
         test_size=0.2,
@@ -108,40 +161,86 @@ def split_data(X: list, y: list) -> tuple:
     return X_train, X_test, y_train, y_test
 
 
-def build_and_train_pipeline(X_train: list, y_train: list) -> Pipeline:
+def find_best_hyperparams(X_train: list, y_train: list) -> dict:
     """
-    Build and train a scikit-learn Pipeline: TF-IDF -> SVM.
+    Use GridSearchCV to find the optimal C value for the SVM.
+
+    What is C?
+    C is the "regularization parameter" — it controls the trade-off between:
+    - Low C  : the model accepts more misclassifications to get a wider margin
+               (more generalization, less overfitting)
+    - High C : the model tries to classify every training point correctly
+               (tighter fit, more risk of overfitting)
+
+    GridSearchCV trains and evaluates the model for each candidate C value
+    using 5-fold cross-validation on the training set. It picks the C that
+    gives the highest average F1-macro score.
+
+    This is run on X_train only (not the full dataset) to prevent data leakage
+    — the test set must stay completely unseen during all model decisions.
+
+    Returns:
+        dict with 'best_C' and 'best_score'.
+    """
+    print("\n[5/7] Hyperparameter tuning via GridSearchCV...")
+    print("    Searching C in [0.01, 0.1, 1, 10, 100]...")
+    print("    (5-fold CV on training set for each value — ini bisa 1-2 menit)")
+
+    param_grid = {"svm__C": [0.01, 0.1, 1, 10, 100]}
+
+    pipeline = Pipeline([
+        ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
+        ("svm", SVC(
+            kernel="linear",
+            class_weight="balanced",
+            probability=True,
+            random_state=42
+        ))
+    ])
+
+    grid_search = GridSearchCV(
+        pipeline,
+        param_grid,
+        cv=5,
+        scoring="f1_macro",
+        n_jobs=-1,
+        verbose=0,
+    )
+    grid_search.fit(X_train, y_train)
+
+    best_C = grid_search.best_params_["svm__C"]
+    best_score = grid_search.best_score_
+
+    print(f"\n    Grid search results:")
+    for params, mean_score in zip(
+        grid_search.cv_results_["params"],
+        grid_search.cv_results_["mean_test_score"]
+    ):
+        marker = " <-- terpilih" if params["svm__C"] == best_C else ""
+        print(f"      C={params['svm__C']:<6}  F1-macro CV = {mean_score:.4f}{marker}")
+
+    print(f"\n    Best C    : {best_C}")
+    print(f"    Best F1   : {best_score:.4f}")
+
+    return {"best_C": best_C, "best_score": best_score}
+
+
+def build_and_train_pipeline(X_train: list, y_train: list, best_C: float) -> Pipeline:
+    """
+    Build and train the final SVM pipeline using the best C from GridSearchCV.
 
     Why use Pipeline instead of separate steps?
     Pipeline ensures the TF-IDF vectorizer is fitted ONLY on training data.
     If fitted separately on the full dataset before splitting, it would
-    inadvertently leak information from the test set -- a subtle but critical
+    inadvertently leak information from the test set — a subtle but critical
     mistake called data leakage.
-
-    TF-IDF parameters:
-    - max_features=10000 : keep the 10,000 highest-weighted terms
-    - ngram_range=(1,2)  : use single words AND consecutive word pairs
-                           e.g. "daftar sekarang" as one bigram feature
-    - min_df=2           : ignore terms that appear in fewer than 2 documents
-    - sublinear_tf=True  : apply log(TF) to dampen very frequent terms
-
-    SVM parameters:
-    - kernel='linear'        : best choice for high-dimensional text features
-    - C=1.0                  : regularization; lower = more generalization
-    - class_weight='balanced': auto-adjusts weights for imbalanced classes
-    - probability=True       : enables confidence scores (required by the API)
     """
-    print("\n[4/5] Training SVM model...")
+    print(f"\n[6/7] Training final SVM model (C={best_C})...")
 
     pipeline = Pipeline([
-        ("tfidf", TfidfVectorizer(
-            max_features=10000,
-            ngram_range=(1, 2),
-            min_df=2,
-            sublinear_tf=True
-        )),
+        ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
         ("svm", SVC(
-            C=1.0,
+            C=best_C,
             kernel="linear",
             class_weight="balanced",
             probability=True,
@@ -154,9 +253,47 @@ def build_and_train_pipeline(X_train: list, y_train: list) -> Pipeline:
     return pipeline
 
 
-def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> None:
+def save_confusion_matrix_plot(y_test: list, y_pred: list, output_dir: str) -> str:
     """
-    Evaluate model performance and print a detailed report.
+    Save confusion matrix as a heatmap PNG file.
+
+    The plot uses color intensity to show the magnitude of each cell:
+    darker blue = more samples. This is easier to read at a glance than a
+    plain table of numbers, and can be directly embedded in the thesis.
+
+    Returns:
+        str: Path to the saved PNG file.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    labels = ["non_spam", "spam"]
+    cm = confusion_matrix(y_test, y_pred, labels=labels)
+
+    fig, ax = plt.subplots(figsize=(6, 5))
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=labels,
+        yticklabels=labels,
+        linewidths=0.5,
+        ax=ax
+    )
+    ax.set_title("Confusion Matrix — SVM Judol Detector", fontsize=13, pad=12)
+    ax.set_ylabel("Aktual", fontsize=11)
+    ax.set_xlabel("Prediksi", fontsize=11)
+    plt.tight_layout()
+
+    output_path = os.path.join(output_dir, "confusion_matrix_svm.png")
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+    return output_path
+
+
+def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> dict:
+    """
+    Evaluate model performance, print a detailed report, and save confusion
+    matrix plot.
 
     Confusion Matrix layout:
 
@@ -168,31 +305,115 @@ def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> None:
     TP = True Positive  : spam correctly identified
     FP = False Positive : non-spam wrongly flagged as spam
     FN = False Negative : spam that slipped through (most dangerous)
-    """
-    print("\n[5/5] Evaluating model...")
 
+    Returns:
+        dict with accuracy, f1_macro for use in baseline comparison table.
+    """
+    print("\n[7/7] Evaluating model...")
     y_pred = pipeline.predict(X_test)
 
     print("\n" + "=" * 60)
-    print("MODEL EVALUATION REPORT")
+    print("MODEL EVALUATION REPORT — SVM")
     print("=" * 60)
 
     acc = accuracy_score(y_test, y_pred)
-    print(f"\nOverall Accuracy: {acc:.2%}")
+    f1_macro = f1_score(y_test, y_pred, average="macro")
+    print(f"\nOverall Accuracy : {acc:.2%}")
+    print(f"F1-score (macro) : {f1_macro:.4f}")
 
     print("\nPer-class Report:")
     print(classification_report(y_test, y_pred))
 
-    print("Confusion Matrix:")
-    labels = sorted(set(y_test))
+    labels = ["non_spam", "spam"]
     cm = confusion_matrix(y_test, y_pred, labels=labels)
-    print(f"Labels: {labels}")
-    print(cm)
+    print("Confusion Matrix:")
+    print(f"{'':20} {'Prediksi non_spam':>18} {'Prediksi spam':>14}")
+    print(f"{'Aktual non_spam':20} {cm[0][0]:>18} {cm[0][1]:>14}")
+    print(f"{'Aktual spam':20} {cm[1][0]:>18} {cm[1][1]:>14}")
+
     print("\nBreakdown:")
     print(f"  TN (non-spam correctly identified) : {cm[0][0]}")
     print(f"  FP (non-spam wrongly flagged)       : {cm[0][1]}")
     print(f"  FN (spam that slipped through)      : {cm[1][0]}")
     print(f"  TP (spam correctly detected)        : {cm[1][1]}")
+
+    plot_path = save_confusion_matrix_plot(y_test, y_pred, REPORTS_DIR)
+    print(f"\n  Confusion matrix plot saved: {plot_path}")
+    print("=" * 60)
+
+    return {"accuracy": acc, "f1_macro": f1_macro}
+
+
+def compare_baselines(
+    X_train: list, X_test: list, y_train: list, y_test: list, svm_metrics: dict
+) -> None:
+    """
+    Train Naive Bayes and Logistic Regression on the same split and compare
+    F1-scores against the SVM.
+
+    Why compare?
+    SVM is a deliberate choice — but "we chose SVM" needs justification in the
+    thesis. Showing that SVM outperforms simpler baselines gives empirical
+    evidence for that choice, not just a theoretical argument.
+
+    All three models use the same TF-IDF features so the comparison is fair —
+    only the classifier changes.
+
+    Baselines:
+    - MultinomialNB : Naive Bayes, assumes feature independence, very fast,
+                      often a solid baseline for text classification.
+    - LogisticRegression : linear model, similar to SVM but optimizes log-loss
+                           instead of hinge-loss. Often competitive with SVM
+                           on text data.
+    """
+    print("\n" + "=" * 60)
+    print("BASELINE COMPARISON")
+    print("=" * 60)
+
+    baselines = {
+        "Naive Bayes (MultinomialNB)": Pipeline([
+            ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
+            ("clf", MultinomialNB()),
+        ]),
+        "Logistic Regression": Pipeline([
+            ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
+            ("clf", LogisticRegression(
+                max_iter=1000,
+                class_weight="balanced",
+                random_state=42
+            )),
+        ]),
+    }
+
+    results = [
+        ("SVM (model utama)", svm_metrics["accuracy"], svm_metrics["f1_macro"])
+    ]
+
+    for name, pipeline in baselines.items():
+        pipeline.fit(X_train, y_train)
+        y_pred = pipeline.predict(X_test)
+        acc = accuracy_score(y_test, y_pred)
+        f1 = f1_score(y_test, y_pred, average="macro")
+        results.append((name, acc, f1))
+
+    print(f"\n  {'Model':<35} {'Accuracy':>10} {'F1-macro':>10}")
+    print(f"  {'-'*35} {'-'*10} {'-'*10}")
+    for name, acc, f1 in results:
+        marker = " (*)" if name.startswith("SVM") else ""
+        print(f"  {name:<35} {acc:>10.2%} {f1:>10.4f}{marker}")
+    print(f"\n  (*) = model yang disimpan dan dipakai di production")
+
+    # Also save confusion matrix for baselines
+    for name, pipeline in baselines.items():
+        y_pred = pipeline.predict(X_test)
+        slug = name.lower().replace(" ", "_").replace("(", "").replace(")", "")
+        plot_path = save_confusion_matrix_plot(y_test, y_pred, REPORTS_DIR)
+        # Rename the file to include model name
+        import shutil
+        named_path = os.path.join(REPORTS_DIR, f"confusion_matrix_{slug}.png")
+        shutil.move(plot_path, named_path)
+        print(f"  Confusion matrix saved: {named_path}")
+
     print("=" * 60)
 
 
@@ -209,11 +430,31 @@ def main():
     print("SVM TRAINING - JUDOL SPAM DETECTOR")
     print("=" * 60 + "\n")
 
+    # 1. Load raw data
     texts, labels = load_data(DATA_PATH)
+
+    # 2. Preprocess
     cleaned_texts = preprocess_data(texts)
+
+    # 3. K-fold cross-validation (on full data — for thesis reporting)
+    run_cross_validation(cleaned_texts, labels)
+
+    # 4. Split into train and test sets
     X_train, X_test, y_train, y_test = split_data(cleaned_texts, labels)
-    pipeline = build_and_train_pipeline(X_train, y_train)
-    evaluate_model(pipeline, X_test, y_test)
+
+    # 5. Find best C via GridSearchCV (on X_train only — no data leakage)
+    best_params = find_best_hyperparams(X_train, y_train)
+
+    # 6. Train final model with best C
+    pipeline = build_and_train_pipeline(X_train, y_train, best_params["best_C"])
+
+    # 7. Evaluate: metrics + confusion matrix PNG
+    svm_metrics = evaluate_model(pipeline, X_test, y_test)
+
+    # 8. Compare against baselines
+    compare_baselines(X_train, X_test, y_train, y_test, svm_metrics)
+
+    # 9. Save the final SVM model
     save_model(pipeline, MODEL_PATH)
 
     print("\nTraining complete. Start the API server with:")

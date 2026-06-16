@@ -19,3 +19,6 @@ scraper/result/
 .DS_Store
 Thumbs.db
 .vscode/
+
+# --- Reports (commit PNG outputs so thesis advisor can see them) ---
+# reports/*.png are intentionally NOT ignored
