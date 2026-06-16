@@ -30,7 +30,7 @@
 mulai bereksperimen lebih jauh. Ini bukan kerjaan AI/ML, tapi penting supaya
 kerja kerasmu tidak hilang.
 
-- [ ] **Inisialisasi Git repository.**
+- [✅] **Inisialisasi Git repository.**
   Saat ini proyek **belum** di-track oleh Git. Artinya kalau ada file
   ke-overwrite atau ke-hapus tidak sengaja (misalnya `data/comments.csv` atau
   `model/svm_model.joblib` setelah re-training), kamu tidak punya cara untuk
@@ -41,7 +41,7 @@ kerja kerasmu tidak hilang.
   git commit -m "initial commit"
   ```
 
-- [ ] **Buat `.gitignore`.**
+- [✅] **Buat `.gitignore`.**
   Beberapa folder/file sebaiknya TIDAK di-commit:
   - `env/` — virtual environment Python (ribuan file, besar banget, bisa
     di-generate ulang dari `requirements.txt`)
@@ -58,7 +58,7 @@ kerja kerasmu tidak hilang.
   .env
   ```
 
-- [ ] **Putuskan: `model/svm_model.joblib` dan `data/comments.csv` masuk Git
+- [✅] **Putuskan: `model/svm_model.joblib` dan `data/comments.csv` masuk Git
   atau tidak?**
   Dua pendapat:
   - **Masuk Git** → reviewer (dosen) bisa langsung clone dan jalankan tanpa
@@ -69,7 +69,7 @@ kerja kerasmu tidak hilang.
   **Saran:** untuk skripsi, masukkan saja keduanya — ukurannya kecil (model
   ~165 KB, dataset ~1800 baris) dan memudahkan reproduksi.
 
-- [ ] **Cek `.env` scraper tidak ke-expose.**
+- [✅] **Cek `.env` scraper tidak ke-expose.**
   File `.env` berisi `YOUTUBE_API_KEY`. Pastikan file ini ada di `.gitignore`
   SEBELUM commit pertama. Kalau API key sudah pernah ke-push ke remote
   (GitHub dll), segera regenerate key tersebut di Google Cloud Console.
@@ -83,21 +83,19 @@ tidak akan berguna kalau datanya tidak representatif. Ini adalah area dengan
 **ROI (return on investment) tertinggi** untuk skripsimu — perbaikan di sini
 akan terlihat langsung di hasil evaluasi.
 
-- [ ] **Kumpulkan komentar non-spam ASLI dari YouTube** (bukan sintetis).
+- [✅] **Kumpulkan komentar non-spam ASLI dari YouTube** (bukan sintetis).
   Saat ini 700 sampel non-spam dibuat dari template (`NON_SPAM_TEMPLATES` di
   `prepare_dataset.py`). Ini "kompromi pragmatis", bukan ideal.
 
-  **Cara melakukannya:**
-  1. Modifikasi `scraper/index.js` (atau buat script baru) untuk menyimpan
-     komentar dengan `spam_score` rendah (misal < 10) sebagai kandidat
-     non-spam — ini sebenarnya sudah "gratis" karena scraper sudah memproses
-     semua komentar, hanya saja yang di-skip tidak disimpan.
-  2. Simpan kandidat tersebut ke file JSON terpisah, misal
-     `scraper/non_spam_candidates.json`.
-  3. **Review manual** sebagian (tidak perlu semua) untuk memastikan memang
-     bukan spam.
+  **Scraper sudah mendukung mode non_spam** — tinggal jalankan dan integrasikan:
+  1. Scrape komentar non-spam dari beberapa video dengan perintah:
+     ```bash
+     node scraper/index.js <VIDEO_ID> video non_spam
+     ```
+  2. Agregasikan dengan `node scraper/filter.js` → hasilnya di `scraper/final_non_spam.json`.
+  3. **Review manual** sebagian untuk memastikan memang bukan spam.
   4. Modifikasi `prepare_dataset.py`: ganti/lengkapi `generate_non_spam_data()`
-     dengan loader yang membaca file JSON ini.
+     dengan loader yang membaca `scraper/final_non_spam.json`.
 
   **Kenapa ini penting?** Distribusi kalimat sintetis (template) cenderung
   "terlalu bersih" — pola kalimatnya seragam. Model bisa jadi belajar
@@ -105,14 +103,14 @@ akan terlihat langsung di hasil evaluasi.
   sesungguhnya. Ini bisa membuat performa di real-world lebih buruk dari yang
   ditunjukkan test set.
 
-- [ ] **Scrape lebih banyak video untuk variasi spam.**
+- [✅] **Scrape lebih banyak video untuk variasi spam.**
   Variasi video (gaming, berita, musik, podcast, edukasi) akan menangkap gaya
   spam yang berbeda-beda. Jalankan:
   ```bash
-  node scraper/index.js <VIDEO_ID>
+  node scraper/index.js <VIDEO_ID> video spam
   ```
-  pada beberapa video populer Indonesia dari kategori berbeda. Gabungkan hasil
-  `result/*.json` ke `scraper/final_result.json`.
+  pada beberapa video populer Indonesia dari kategori berbeda. Setelah selesai,
+  jalankan `node scraper/filter.js` untuk mengagregasi ke `scraper/final_spam.json`.
 
 - [ ] **Kumpulkan "hard examples" / kasus ambigu secara manual.**
   Cari dan catat manual contoh komentar yang **secara tekstual mirip spam
@@ -126,10 +124,11 @@ akan terlihat langsung di hasil evaluasi.
   Ini akan menjadi **test set khusus** (lihat Fase 2) untuk mengukur seberapa
   baik model menangani kasus abu-abu — bukan hanya kasus mudah.
 
-- [ ] **Dokumentasikan jumlah data setiap kali dataset diperbarui.**
+- [✅] **Dokumentasikan jumlah data setiap kali dataset diperbarui.**
   Catat di README atau di file log sederhana: tanggal, jumlah spam, jumlah
   non-spam, sumber video. Ini berguna untuk bab metodologi skripsi (perlu
   menjelaskan "dataset versi berapa yang dipakai untuk hasil X").
+  → Lihat [DATASET_LOG.md](DATASET_LOG.md)
 
 ---
 
