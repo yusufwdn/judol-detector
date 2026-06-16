@@ -128,8 +128,7 @@ satu komponen menjadi sempurna sendirian.
 
 ### Output Babak 1
 
-`scraper/index.js` menghasilkan `final_result.json` — kumpulan komentar
-"kandidat spam" (saat ini **2318 entries**), masing-masing menyimpan:
+`scraper/index.js` menghasilkan file-file di `result/`, lalu `filter.js` mengagregasikannya menjadi `final_spam.json` — kumpulan komentar "kandidat spam" (saat ini **2318 entries**), masing-masing menyimpan:
 
 ```json
 {

@@ -4,7 +4,7 @@ prepare_dataset.py
 Converts raw scraped JSON into a clean, balanced CSV ready for training.
 
 Steps:
-1. Load spam data from scraper/final_result.json
+1. Load spam data from scraper/final_spam.json
 2. Filter by spam_score >= 80 to reduce label noise
 3. Generate synthetic non-spam comments to balance the dataset
 4. Shuffle and save to data/comments.csv
@@ -26,7 +26,7 @@ import pandas as pd
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-INPUT_JSON = os.path.join(BASE_DIR, "scraper", "final_result.json")
+INPUT_JSON = os.path.join(BASE_DIR, "scraper", "final_spam.json")
 OUTPUT_CSV = os.path.join(BASE_DIR, "data", "comments.csv")
 
 # ---------------------------------------------------------------------------
@@ -227,7 +227,7 @@ def load_spam_data(json_path: str, threshold: int) -> list:
     if not os.path.exists(json_path):
         raise FileNotFoundError(
             f"Scraped JSON not found: {json_path}\n"
-            f"Make sure final_result.json is inside the scraper/ folder."
+            f"Make sure final_spam.json is inside the scraper/ folder."
         )
 
     with open(json_path, "r", encoding="utf-8") as f:

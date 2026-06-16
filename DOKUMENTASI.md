@@ -58,14 +58,14 @@ Bayangkan sistem ini seperti seorang satpam cerdas di depan pintu gedung.
 ┌─────────────────────────────────────────────────────────────────┐
 │                        FASE PENGUMPULAN DATA                    │
 │                                                                 │
-│   YouTube API  ──►  Scraper (index.js)  ──►  final_result.json  │
+│   YouTube API  ──►  Scraper (index.js)  ──►  result/*.json       │
 └─────────────────────────────────────────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                     FASE PERSIAPAN DATASET                      │
 │                                                                 │
-│   final_result.json  ──►  prepare_dataset.py  ──►  comments.csv │
+│   final_spam.json    ──►  prepare_dataset.py  ──►  comments.csv  │
 └─────────────────────────────────────────────────────────────────┘
                                │
                                ▼
@@ -130,10 +130,10 @@ Scraper adalah program Node.js yang berkomunikasi dengan **YouTube Data API v3**
        └── Sudah mencapai target OR tidak ada halaman berikutnya?
                │
                ▼ YA
-           Simpan ke final_result.json
+           Simpan ke result/{label}_{run_mode}_{video_id}_{timestamp}.json
 ```
 
-Setiap entri yang tersimpan di `final_result.json` memiliki struktur berikut:
+Setiap entri yang tersimpan memiliki struktur berikut:
 
 ```json
 {
@@ -261,29 +261,39 @@ Percobaan 4 gagal → berhenti, lempar error
 **Prasyarat:**
 - Node.js sudah terpasang
 - Memiliki YouTube Data API v3 key dari Google Cloud Console
-- File `.env` di root proyek dengan isi:
+- File `.env` di root proyek scraper dengan isi:
 
 ```
 YOUTUBE_API_KEY=masukkan_api_key_anda_disini
-SPAM_TARGET_COUNT=1500
+TARGET_COUNT=1500
 ```
 
-**Perintah:**
+**Perintah scraping:**
 
 ```bash
-# Scrape komentar video biasa
+# Scrape komentar SPAM dari video (default)
 node scraper/index.js <VIDEO_ID>
 
-# Contoh
-node scraper/index.js z-BTQKhWrJc
+# Scrape komentar NON-SPAM dari video
+node scraper/index.js <VIDEO_ID> video non_spam
 
-# Scrape live chat
-node scraper/index.js <VIDEO_ID> live
+# Scrape SPAM dari live chat (saat stream aktif)
+node scraper/index.js <VIDEO_ID> live spam
 ```
 
 > **Cara mendapatkan VIDEO_ID:** Buka video YouTube, lihat URL-nya: `https://www.youtube.com/watch?v=`**`z-BTQKhWrJc`** — bagian setelah `?v=` itulah Video ID.
 
-**Output:** File JSON disimpan di folder `scraper/result/` dengan nama seperti `spam_video_20250601103045_z-BTQKhWrJc.json`. File ini kemudian digabungkan secara manual menjadi `scraper/final_result.json` sebelum dilanjutkan ke tahap berikutnya.
+**Output per-run:** File JSON disimpan di `scraper/result/` dengan nama `{label}_{run_mode}_{video_id}_{timestamp}.json`. Ulangi untuk beberapa video sampai data cukup terkumpul.
+
+**Agregasi hasil:** Setelah cukup data terkumpul dari berbagai video, jalankan:
+
+```bash
+node scraper/filter.js
+```
+
+Script ini membaca semua file di `scraper/result/`, mengelompokkan berdasarkan prefix nama file (`spam_*` → spam, `non_spam_*` → non-spam), menghapus duplikat, lalu menyimpan ke dua file output:
+- `scraper/final_spam.json` — siap dibaca oleh `prepare_dataset.py`
+- `scraper/final_non_spam.json` — data non-spam nyata untuk diintegrasikan ke dataset (lihat Fase 1 TODO)
 
 ---
 
@@ -308,6 +318,8 @@ Itulah yang dilakukan pipeline machine learning dalam proyek ini.
 ### 4.2 Persiapan Dataset (`prepare_dataset.py`)
 
 **Tujuan:** Mengubah file JSON hasil scraping menjadi file CSV bersih yang siap dilatih.
+
+Script ini membaca `scraper/final_spam.json` (output dari `filter.js`).
 
 #### Langkah 1 — Filter spam dengan ambang batas skor 80
 
@@ -719,35 +731,39 @@ Extension menggunakan standar **Manifest Version 3** (terbaru) dengan izin berik
 TAHAP 1: PENGUMPULAN DATA
 ────────────────────────
 1. Jalankan scraper untuk beberapa video YouTube yang penuh spam judol
-2. Hasil tersimpan di scraper/result/*.json
-3. Gabungkan semua file menjadi scraper/final_result.json
+   node scraper/index.js <VIDEO_ID> video spam
+2. (Opsional) Scrape data non-spam untuk dataset lebih berkualitas
+   node scraper/index.js <VIDEO_ID> video non_spam
+3. Hasil tersimpan di scraper/result/*.json
+4. Jalankan filter untuk agregasi: node scraper/filter.js
+   → scraper/final_spam.json + scraper/final_non_spam.json
 
 TAHAP 2: PERSIAPAN DATASET
 ──────────────────────────
-4. Jalankan: python src/prepare_dataset.py
-5. Script membaca final_result.json, filter skor >= 80
-6. Tambah 700 data non-spam sintetik
-7. Simpan ke data/comments.csv
+5. Jalankan: python src/prepare_dataset.py
+6. Script membaca final_spam.json, filter skor >= 80
+7. Tambah 700 data non-spam sintetik (atau baca dari final_non_spam.json jika tersedia)
+8. Simpan ke data/comments.csv
 
 TAHAP 3: PELATIHAN MODEL
 ─────────────────────────
-8. Jalankan: python src/train.py
-9. Baca comments.csv → preprocessing → TF-IDF → SVM
-10. Evaluasi pada 20% data uji
-11. Simpan model ke model/svm_model.joblib
+9. Jalankan: python src/train.py
+10. Baca comments.csv → preprocessing → TF-IDF → SVM
+11. Evaluasi pada 20% data uji
+12. Simpan model ke model/svm_model.joblib
 
 TAHAP 4: MENJALANKAN SERVER
 ─────────────────────────────
-12. Jalankan: python src/server.py
-13. Server memuat model dari disk
-14. API tersedia di http://localhost:8000
+13. Jalankan: python src/server.py
+14. Server memuat model dari disk
+15. API tersedia di http://localhost:8000
 
 TAHAP 5: INSTALASI EXTENSION
 ─────────────────────────────
-15. Buka Chrome → chrome://extensions
-16. Aktifkan "Developer mode"
-17. Klik "Load unpacked" → pilih folder extension/
-18. Extension aktif, siap mendeteksi spam di YouTube
+16. Buka Chrome → chrome://extensions
+17. Aktifkan "Developer mode"
+18. Klik "Load unpacked" → pilih folder extension/
+19. Extension aktif, siap mendeteksi spam di YouTube
 ```
 
 ---
@@ -758,8 +774,10 @@ TAHAP 5: INSTALASI EXTENSION
 svm-judol-spam/
 │
 ├── scraper/
-│   ├── index.js            ← Scraper komentar YouTube
-│   └── final_result.json   ← Hasil scraping gabungan (input untuk prepare_dataset.py)
+│   ├── index.js              ← Scraper komentar YouTube (mode spam & non_spam)
+│   ├── filter.js             ← Agregasi hasil scraping per label
+│   ├── final_spam.json       ← Agregasi komentar spam (input prepare_dataset.py)
+│   └── final_non_spam.json   ← Agregasi komentar non-spam
 │
 ├── src/
 │   ├── prepare_dataset.py  ← Konversi JSON → CSV
@@ -769,8 +787,8 @@ svm-judol-spam/
 │
 ├── extension/
 │   ├── manifest.json       ← Konfigurasi browser extension
-│   ├── content.js          ← Script yang berjalan di halaman YouTube (belum ada)
-│   ├── popup.html          ← UI popup extension (belum ada)
+│   ├── content.js          ← Script yang berjalan di halaman YouTube
+│   ├── popup.html          ← UI popup extension
 │   └── icons/
 │       ├── icon16.png
 │       ├── icon48.png
@@ -815,20 +833,30 @@ npm install
 
 ### Langkah 3 — Konfigurasi API key
 
-Buat file `.env` di root proyek:
+Buat file `.env` di root proyek scraper:
 
 ```
 YOUTUBE_API_KEY=masukkan_api_key_anda_disini
-SPAM_TARGET_COUNT=1500
+TARGET_COUNT=1500
 ```
 
 ### Langkah 4 — Scraping data
 
 ```bash
+# Scrape spam dari video (default)
 node scraper/index.js <VIDEO_ID>
+
+# Scrape non-spam dari video
+node scraper/index.js <VIDEO_ID> video non_spam
 ```
 
-Ulangi untuk beberapa video. Setelah selesai, gabungkan semua file `*.json` di folder `scraper/result/` menjadi satu file `scraper/final_result.json`.
+Ulangi untuk beberapa video. Setelah selesai, jalankan aggregator:
+
+```bash
+node scraper/filter.js
+```
+
+Ini akan menghasilkan `scraper/final_spam.json` dan `scraper/final_non_spam.json`.
 
 ### Langkah 5 — Persiapan dataset
 
@@ -908,22 +936,19 @@ Contoh kasus: Jika TF-IDF dilatih pada seluruh dataset (termasuk data uji) sebel
 
 1. **Data non-spam sintetik** — Data non-spam dihasilkan dari template, bukan dari scraping nyata. Model mungkin kurang akurat menangani variasi komentar non-spam di dunia nyata yang lebih beragam. Prioritaskan penggantian dengan data nyata.
 
-2. **Content script belum ada** — File `content.js` dan `popup.html` untuk extension belum diimplementasikan. Extension saat ini hanya memiliki konfigurasi `manifest.json`.
+2. **Server hanya lokal** — Server berjalan di `localhost` dan hanya bisa diakses dari komputer yang sama. Untuk deployment yang lebih luas, server perlu di-host di infrastruktur cloud.
 
-3. **Server hanya lokal** — Server berjalan di `localhost` dan hanya bisa diakses dari komputer yang sama. Untuk deployment yang lebih luas, server perlu di-host di infrastruktur cloud.
+3. **CORS terbuka** — `allow_origins=["*"]` mengizinkan semua origin. Untuk keamanan, batasi hanya ke ID extension Chrome yang spesifik setelah extension dipublikasikan.
 
-4. **CORS terbuka** — `allow_origins=["*"]` mengizinkan semua origin. Untuk keamanan, batasi hanya ke ID extension Chrome yang spesifik setelah extension dipublikasikan.
-
-5. **Label awal scraper belum diverifikasi** — Komentar yang dikumpulkan scraper diberi label `"spam"` secara otomatis. Verifikasi manual sangat disarankan untuk memastikan kualitas data latihan.
+4. **Label awal scraper belum diverifikasi** — Komentar yang dikumpulkan scraper diberi label `"spam"` atau `"non_spam"` secara otomatis berdasarkan skor heuristik. Verifikasi manual sebagian data sangat disarankan untuk memastikan kualitas data latihan.
 
 ### Rekomendasi Pengembangan Berikutnya
 
 | Prioritas | Item | Dampak |
 |-----------|------|--------|
-| Tinggi | Ganti data non-spam sintetik dengan data scraping nyata | Meningkatkan akurasi signifikan |
-| Tinggi | Implementasi `content.js` dan `popup.html` | Extension bisa berfungsi penuh |
+| Tinggi | Kumpulkan data non-spam nyata via `node scraper/index.js <ID> video non_spam` dan integrasikan ke `prepare_dataset.py` | Meningkatkan akurasi signifikan |
 | Sedang | Tambah endpoint `/feedback` agar pengguna bisa melaporkan prediksi yang salah | Memungkinkan pelatihan ulang dengan data yang lebih baik |
-| Sedang | Verifikasi manual dataset spam yang dikumpulkan scraper | Mengurangi label noise |
+| Sedang | Verifikasi manual sebagian dataset yang dikumpulkan scraper | Mengurangi label noise |
 | Rendah | Integrasi stopword library Sastrawi | Preprocessing bahasa Indonesia lebih komprehensif |
 | Rendah | Tambah logging ke file untuk monitoring produksi | Memudahkan debugging |
 

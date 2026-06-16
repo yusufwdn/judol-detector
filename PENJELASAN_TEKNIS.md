@@ -78,14 +78,21 @@ Scraper (`scraper/index.js`) adalah program Node.js yang:
 1. Menerima sebuah Video ID YouTube sebagai input
 2. Memanggil **YouTube Data API v3** untuk mengambil komentar video tersebut
 3. Mengevaluasi setiap komentar dengan sistem heuristik
-4. Menyimpan komentar yang terdeteksi spam ke `final_result.json`
+4. Menyimpan komentar ke `result/{label}_{mode}_{video_id}_{timestamp}.json`
+5. Setelah semua video selesai di-scrape, jalankan `filter.js` untuk mengagregasi ke `final_spam.json`
 
 ```bash
-# Cara pakai scraper:
+# Scrape komentar spam dari video:
 node scraper/index.js <VIDEO_ID>
+
+# Scrape komentar non-spam dari video:
+node scraper/index.js <VIDEO_ID> video non_spam
 
 # Contoh:
 node scraper/index.js VH-EDzoBEA4
+
+# Agregasi hasil:
+node scraper/filter.js
 ```
 
 ### Apa itu YouTube Data API v3?

@@ -130,7 +130,7 @@ Perintah ini membaca file `requirements.txt` dan menginstal semua library yang d
 python src/prepare_dataset.py
 ```
 
-Skrip ini membaca data scraping dari `scraper/final_result.json`, memfilter komentar spam menggunakan **two-pass filter** (lihat penjelasan di bawah), lalu menggabungkannya dengan contoh komentar non-spam untuk membentuk dataset di `data/comments.csv`.
+Skrip ini membaca data scraping dari `scraper/final_spam.json`, memfilter komentar spam menggunakan **two-pass filter** (lihat penjelasan di bawah), lalu menggabungkannya dengan contoh komentar non-spam untuk membentuk dataset di `data/comments.csv`.
 
 Output yang diharapkan (angka aktual dari dataset proyek ini saat ini):
 ```
@@ -201,7 +201,9 @@ svm-judol-spam/
 │
 ├── scraper/
 │   ├── index.js              ← YouTube Data API v3 scraper (Node.js)
-│   └── final_result.json     ← Hasil scraping komentar spam
+│   ├── filter.js             ← Agregasi hasil scraping per label
+│   ├── final_spam.json       ← Agregasi komentar spam (output filter.js)
+│   └── final_non_spam.json   ← Agregasi komentar non-spam (output filter.js)
 │
 ├── src/
 │   ├── prepare_dataset.py    ← Konversi JSON scraping → comments.csv
@@ -582,7 +584,7 @@ Dua kolom wajib:
 Skrip persiapan dataset. Harus dijalankan **sebelum** `train.py` setiap kali data scraping diperbarui.
 
 Cara kerjanya:
-1. Baca `scraper/final_result.json`
+1. Baca `scraper/final_spam.json`
 2. Filter entri spam dengan **two-pass filter**: ambil yang `spam_score >= 80` (Pass 1), lalu "selamatkan" entri berskor rendah yang terbukti mengandung pola brand judi nyata di `normalized_text` (Pass 2). Lihat [Bagian 2, Langkah 4](#langkah-4--siapkan-dataset) untuk detail & angka aktualnya
 3. Generate ~700 contoh non-spam sintetis dari template beragam
 4. Gabungkan, acak, simpan ke `data/comments.csv`

@@ -12,7 +12,7 @@ node_modules/
 .env
 .env.*
 
-# --- Scraper output (raw run artifacts, not the curated final_result.json) ---
+# --- Scraper output (raw run artifacts, bukan final_spam.json / final_non_spam.json) ---
 scraper/result/
 
 # --- OS / Editor junk ---
