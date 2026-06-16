@@ -1,0 +1,21 @@
+# --- Python ---
+env/
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# --- Node.js (scraper) ---
+node_modules/
+
+# --- Secrets ---
+.env
+.env.*
+
+# --- Scraper output (raw run artifacts, not the curated final_result.json) ---
+scraper/result/
+
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
