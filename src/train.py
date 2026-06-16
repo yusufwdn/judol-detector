@@ -41,8 +41,6 @@ matplotlib.use("Agg")   # non-interactive backend — safe for Windows terminal
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.svm import SVC
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.metrics import (
@@ -182,7 +180,7 @@ def find_best_hyperparams(X_train: list, y_train: list) -> dict:
     Returns:
         dict with 'best_C' and 'best_score'.
     """
-    print("\n[5/7] Hyperparameter tuning via GridSearchCV...")
+    print("\n[5/6] Hyperparameter tuning via GridSearchCV...")
     print("    Searching C in [0.01, 0.1, 1, 10, 100]...")
     print("    (5-fold CV on training set for each value — ini bisa 1-2 menit)")
 
@@ -235,7 +233,7 @@ def build_and_train_pipeline(X_train: list, y_train: list, best_C: float) -> Pip
     inadvertently leak information from the test set — a subtle but critical
     mistake called data leakage.
     """
-    print(f"\n[6/7] Training final SVM model (C={best_C})...")
+    print(f"\n  Training final SVM model (C={best_C})...")
 
     pipeline = Pipeline([
         ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
@@ -290,7 +288,7 @@ def save_confusion_matrix_plot(y_test: list, y_pred: list, output_dir: str) -> s
     return output_path
 
 
-def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> dict:
+def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> None:
     """
     Evaluate model performance, print a detailed report, and save confusion
     matrix plot.
@@ -305,11 +303,8 @@ def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> dict:
     TP = True Positive  : spam correctly identified
     FP = False Positive : non-spam wrongly flagged as spam
     FN = False Negative : spam that slipped through (most dangerous)
-
-    Returns:
-        dict with accuracy, f1_macro for use in baseline comparison table.
     """
-    print("\n[7/7] Evaluating model...")
+    print("\n[6/6] Evaluating model...")
     y_pred = pipeline.predict(X_test)
 
     print("\n" + "=" * 60)
@@ -341,80 +336,6 @@ def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> dict:
     print(f"\n  Confusion matrix plot saved: {plot_path}")
     print("=" * 60)
 
-    return {"accuracy": acc, "f1_macro": f1_macro}
-
-
-def compare_baselines(
-    X_train: list, X_test: list, y_train: list, y_test: list, svm_metrics: dict
-) -> None:
-    """
-    Train Naive Bayes and Logistic Regression on the same split and compare
-    F1-scores against the SVM.
-
-    Why compare?
-    SVM is a deliberate choice — but "we chose SVM" needs justification in the
-    thesis. Showing that SVM outperforms simpler baselines gives empirical
-    evidence for that choice, not just a theoretical argument.
-
-    All three models use the same TF-IDF features so the comparison is fair —
-    only the classifier changes.
-
-    Baselines:
-    - MultinomialNB : Naive Bayes, assumes feature independence, very fast,
-                      often a solid baseline for text classification.
-    - LogisticRegression : linear model, similar to SVM but optimizes log-loss
-                           instead of hinge-loss. Often competitive with SVM
-                           on text data.
-    """
-    print("\n" + "=" * 60)
-    print("BASELINE COMPARISON")
-    print("=" * 60)
-
-    baselines = {
-        "Naive Bayes (MultinomialNB)": Pipeline([
-            ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
-            ("clf", MultinomialNB()),
-        ]),
-        "Logistic Regression": Pipeline([
-            ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
-            ("clf", LogisticRegression(
-                max_iter=1000,
-                class_weight="balanced",
-                random_state=42
-            )),
-        ]),
-    }
-
-    results = [
-        ("SVM (model utama)", svm_metrics["accuracy"], svm_metrics["f1_macro"])
-    ]
-
-    for name, pipeline in baselines.items():
-        pipeline.fit(X_train, y_train)
-        y_pred = pipeline.predict(X_test)
-        acc = accuracy_score(y_test, y_pred)
-        f1 = f1_score(y_test, y_pred, average="macro")
-        results.append((name, acc, f1))
-
-    print(f"\n  {'Model':<35} {'Accuracy':>10} {'F1-macro':>10}")
-    print(f"  {'-'*35} {'-'*10} {'-'*10}")
-    for name, acc, f1 in results:
-        marker = " (*)" if name.startswith("SVM") else ""
-        print(f"  {name:<35} {acc:>10.2%} {f1:>10.4f}{marker}")
-    print(f"\n  (*) = model yang disimpan dan dipakai di production")
-
-    # Also save confusion matrix for baselines
-    for name, pipeline in baselines.items():
-        y_pred = pipeline.predict(X_test)
-        slug = name.lower().replace(" ", "_").replace("(", "").replace(")", "")
-        plot_path = save_confusion_matrix_plot(y_test, y_pred, REPORTS_DIR)
-        # Rename the file to include model name
-        import shutil
-        named_path = os.path.join(REPORTS_DIR, f"confusion_matrix_{slug}.png")
-        shutil.move(plot_path, named_path)
-        print(f"  Confusion matrix saved: {named_path}")
-
-    print("=" * 60)
 
 
 def save_model(pipeline: Pipeline, path: str) -> None:
@@ -445,20 +366,14 @@ def main():
     # 5. Find best C via GridSearchCV (on X_train only — no data leakage)
     best_params = find_best_hyperparams(X_train, y_train)
 
-    # 6. Train final model with best C
+    # 6. Train final model with best C, evaluate, save
     pipeline = build_and_train_pipeline(X_train, y_train, best_params["best_C"])
-
-    # 7. Evaluate: metrics + confusion matrix PNG
-    svm_metrics = evaluate_model(pipeline, X_test, y_test)
-
-    # 8. Compare against baselines
-    compare_baselines(X_train, X_test, y_train, y_test, svm_metrics)
-
-    # 9. Save the final SVM model
+    evaluate_model(pipeline, X_test, y_test)
     save_model(pipeline, MODEL_PATH)
 
-    print("\nTraining complete. Start the API server with:")
-    print("  python src/server.py")
+    print("\nTraining complete.")
+    print("  To compare against baselines: python src/compare_baselines.py")
+    print("  To start the API server     : python src/server.py")
 
 
 if __name__ == "__main__":
