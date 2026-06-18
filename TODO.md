@@ -187,9 +187,14 @@ bereksperimen meningkatkan kualitas model itu sendiri.
 
 - [ ] **Tambah stopwords domain-spesifik** ("kak", "bang", "min", "subscribe",
   "like", "video", "nonton", dll) ke `STOPWORDS_ID`.
-  ⚠️ Dari hasil inspeksi fitur (§17), `bang` dan `dok` justru menjadi sinyal
-  non-spam yang kuat. Menghapusnya sebagai stopword kemungkinan besar akan
-  menurunkan performa. Eksperimen ini bisa dipertimbangkan tapi bukan prioritas.
+  ⚠️ Dari hasil inspeksi fitur ([PENJELASAN_TEKNIS.md §17](PENJELASAN_TEKNIS.md#17-inspeksi-fitur--apa-yang-dipelajari-model)),
+  `bang` dan `dok` justru menjadi sinyal non-spam yang kuat (bobot -1.55 dan
+  -1.39). Ini terjadi karena kata-kata itu sangat umum di komentar percakapan
+  biasa tapi hampir tidak pernah muncul di komentar spam — persis kebalikan
+  dari yang diharapkan stopword. Menghapusnya akan menghilangkan sinyal
+  diskriminatif yang sudah dipelajari model, sehingga performa kemungkinan
+  turun. Eksperimen tetap bisa dilakukan untuk membuktikannya, tapi hasilnya
+  sudah bisa diprediksi dari data inspeksi fitur.
 
 - [✅] **Inspeksi fitur paling berpengaruh (support vectors / koefisien).**
   Diimplementasikan di `src/inspect_features.py`. Jalankan setelah training:
@@ -224,21 +229,21 @@ hanya secara teori.
   bukan target utama, pertimbangkan fokuskan dulu ke YouTube saja dan
   dokumentasikan keterbatasan ini.
 
-- [ ] **Buat threshold confidence bisa diatur dari popup** (saat ini hardcoded
-  `0.75` di `content.js`). Tambahkan slider/input di `popup.html`, simpan ke
-  `chrome.storage`, dan baca nilainya di `content.js`. Ini fitur kecil tapi
-  menunjukkan pemahaman trade-off precision/recall secara praktis.
+- [✅] **Buat threshold confidence bisa diatur dari popup.**
+  Slider ditambahkan di `popup.html` (range 50%–95%, step 5%). Nilai disimpan
+  ke `chrome.storage` dan dibaca oleh `content.js` saat init. Perubahan slider
+  langsung aktif di tab yang sedang buka (tanpa perlu reload) via
+  `chrome.storage.onChanged` listener.
 
-- [ ] **Tambahkan `scannedCount` yang sebenarnya** — popup sudah punya UI
-  untuk `scannedCount` tapi setelah dicek, `content.js` tidak pernah
-  meng-update nilai ini ke `chrome.storage`. Ini bug kecil yang gampang
-  diperbaiki sekaligus quick win untuk demo.
+- [✅] **Tambahkan `scannedCount` yang sebenarnya.**
+  Bug diperbaiki di `content.js`: `scannedCount` sekarang diincrement di
+  `scanComments()` dan disimpan ke `chrome.storage` via `persistStats()`.
+  Popup sekarang menampilkan angka yang akurat.
 
-- [ ] **Tangani kasus server mati di tengah sesi** — saat ini health check
-  hanya dilakukan sekali di `init()`. Kalau server mati setelah extension
-  jalan, `isServerAvailable` tetap `true` dan tiap `predictBatch` akan gagal
-  silent. Pertimbangkan re-check berkala atau fallback yang lebih jelas ke
-  user.
+- [✅] **Tangani kasus server mati di tengah sesi.**
+  `predictBatch()` sekarang memanggil `checkServerHealth()` saat terjadi
+  network error. Ini memperbarui `isServerAvailable = false` sehingga scan
+  berikutnya tidak lagi mencoba hit server yang sudah mati.
 
 ---
 

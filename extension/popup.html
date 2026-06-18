@@ -167,6 +167,46 @@
         margin-top: 8px;
       }
 
+      .threshold-box {
+        background: #1e1e1e;
+        border: 1px solid #2a2a2a;
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 14px;
+      }
+
+      .threshold-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .threshold-header .label {
+        font-size: 12px;
+        color: #aaa;
+      }
+
+      .threshold-header .value {
+        font-size: 13px;
+        font-weight: 700;
+        color: #ff9800;
+      }
+
+      .threshold-hint {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        color: #555;
+        margin-top: 6px;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: #ff9800;
+        cursor: pointer;
+      }
+
       .footer {
         text-align: center;
         font-size: 10px;
@@ -204,6 +244,19 @@
         </div>
       </div>
 
+      <!-- Threshold Slider -->
+      <div class="threshold-box">
+        <div class="threshold-header">
+          <span class="label">Confidence threshold</span>
+          <span class="value" id="thresholdValue">75%</span>
+        </div>
+        <input type="range" id="thresholdSlider" min="50" max="95" step="5" value="75" />
+        <div class="threshold-hint">
+          <span>50% · Lebih sensitif</span>
+          <span>95% · Lebih selektif</span>
+        </div>
+      </div>
+
       <!-- Info -->
       <div class="info-box">
         Pastikan server Python aktif sebelum membuka YouTube/Instagram.<br /><br />
@@ -216,7 +269,7 @@
       <button class="btn btn-reset" id="btnReset">Reset Statistik</button>
     </div>
 
-    <div class="footer">Confidence threshold: 75% · SVM Linear Kernel</div>
+    <div class="footer">SVM Linear Kernel · Bahasa Indonesia</div>
 
     <script src="popup.js"></script>
   </body>

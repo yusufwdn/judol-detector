@@ -5,6 +5,34 @@ Berguna untuk bab metodologi skripsi dan untuk melacak versi mana yang menghasil
 
 ---
 
+## Versi 3 — 2026-06-18
+
+### Perubahan dari versi sebelumnya
+- Ditambahkan **3 hard negative examples** berupa komentar non-spam yang sebelumnya menghasilkan false positive saat pengujian langsung di YouTube
+- Komentar-komentar ini mengandung kata yang berbobot spam (`sambil` +1.28, `berkali` +0.74, `bosen` +0.60) dalam konteks normal
+- Tujuan: membantu model belajar bahwa kata-kata tersebut tidak selalu berarti spam — konteks kalimat berbeda
+
+### Komentar yang ditambahkan (label: non_spam)
+
+| Komentar | Kata Bermasalah | Confidence Sebelumnya |
+|----------|-----------------|----------------------|
+| "Nonton berkali kali gak bosen dan ttep ngakak" | berkali (+0.74), bosen (+0.60) | 92% spam |
+| "Nonton ulang² tetap rata ngakak😂😂😂😂😂" | ulang (+0.57) | 76% spam |
+| "tontonan sambil makan update juga" | sambil (+1.28), update (+0.50) | 80% spam |
+| "Keren sih penyiar2 kayak Kamal ama Sahil pengetahuannya luas banget dari yang serius sampai yg santai😊" | serius (+1.10), keren (+0.80) | 77% spam |
+
+### Statistik dataset (`data/comments.csv`)
+
+| Label    | Jumlah |
+|----------|--------|
+| spam     | 1099   |
+| non_spam | 2513   |
+| **Total**| **3612** |
+
+**Catatan:** Perlu jalankan ulang `python src/train.py` untuk memperbarui model dengan data baru ini.
+
+---
+
 ## Versi 2 — 2026-06-16
 
 ### Perubahan dari versi sebelumnya

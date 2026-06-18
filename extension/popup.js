@@ -1,4 +1,4 @@
-﻿/**
+/**
  * popup.js
  * ========
  * Logic for the extension popup UI.
@@ -8,13 +8,15 @@
 const API_BASE = "http://localhost:8000";
 
 // DOM element references
-const statusDot = document.getElementById("statusDot");
-const statusLabel = document.getElementById("statusLabel");
-const statusSub = document.getElementById("statusSub");
-const hiddenCount = document.getElementById("hiddenCount");
+const statusDot    = document.getElementById("statusDot");
+const statusLabel  = document.getElementById("statusLabel");
+const statusSub    = document.getElementById("statusSub");
+const hiddenCount  = document.getElementById("hiddenCount");
 const scannedCount = document.getElementById("scannedCount");
-const btnCheck = document.getElementById("btnCheck");
-const btnReset = document.getElementById("btnReset");
+const btnCheck     = document.getElementById("btnCheck");
+const btnReset     = document.getElementById("btnReset");
+const thresholdSlider = document.getElementById("thresholdSlider");
+const thresholdValue  = document.getElementById("thresholdValue");
 
 /**
  * Check the health of the Python API server and update the status indicator.
@@ -60,7 +62,7 @@ function setStatus(state, label, sub) {
  */
 function loadStats() {
   chrome.storage.local.get(["hiddenCount", "scannedCount"], (data) => {
-    hiddenCount.textContent = data.hiddenCount || 0;
+    hiddenCount.textContent  = data.hiddenCount  || 0;
     scannedCount.textContent = data.scannedCount || 0;
   });
 }
@@ -70,15 +72,49 @@ function loadStats() {
  */
 function resetStats() {
   chrome.storage.local.set({ hiddenCount: 0, scannedCount: 0 }, () => {
-    hiddenCount.textContent = 0;
+    hiddenCount.textContent  = 0;
     scannedCount.textContent = 0;
   });
 }
 
-// Button event listeners
+// ---------------------------------------------------------------------------
+// THRESHOLD SLIDER
+// ---------------------------------------------------------------------------
+
+/**
+ * Load the saved confidence threshold from chrome.storage and set the slider.
+ * Defaults to 0.75 (75%) if the user hasn't changed it before.
+ */
+function loadThreshold() {
+  chrome.storage.local.get(["confidenceThreshold"], (data) => {
+    const pct = Math.round((data.confidenceThreshold ?? 0.75) * 100);
+    thresholdSlider.value   = pct;
+    thresholdValue.textContent = `${pct}%`;
+  });
+}
+
+/**
+ * Save the threshold to chrome.storage when the user moves the slider.
+ *
+ * Why save as a decimal (0.0–1.0)?
+ * content.js compares threshold against the model's confidence score, which
+ * the API always returns as a decimal. Storing as decimal avoids a conversion
+ * step in content.js and keeps the format consistent with the API response.
+ */
+thresholdSlider.addEventListener("input", () => {
+  const pct = parseInt(thresholdSlider.value, 10);
+  thresholdValue.textContent = `${pct}%`;
+  chrome.storage.local.set({ confidenceThreshold: pct / 100 });
+});
+
+// ---------------------------------------------------------------------------
+// EVENT LISTENERS & STARTUP
+// ---------------------------------------------------------------------------
+
 btnCheck.addEventListener("click", checkServer);
 btnReset.addEventListener("click", resetStats);
 
 // Run on popup open
 checkServer();
 loadStats();
+loadThreshold();

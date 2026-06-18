@@ -27,6 +27,8 @@
 17. [Inspeksi Fitur — "Apa yang Dipelajari Model?"](#17-inspeksi-fitur--apa-yang-dipelajari-model)
 18. [Eksperimen Stemming — Apakah Stemming Membantu?](#18-eksperimen-stemming--apakah-stemming-membantu)
 19. [Eksperimen Konfigurasi TF-IDF — ngram dan max_features](#19-eksperimen-konfigurasi-tf-idf--ngram-dan-max_features)
+20. [Perbaikan Extension — Fase 4](#20-perbaikan-extension--fase-4)
+21. [False Positive — Ketika Model Salah Menilai Komentar Normal](#21-false-positive--ketika-model-salah-menilai-komentar-normal)
 
 ---
 
@@ -1203,6 +1205,126 @@ Semua ini berjalan otomatis saat `python src/train.py`. Output lama (akurasi, cl
 
 ---
 
+## 20. Perbaikan Extension — Fase 4
+
+> Tiga perbaikan di layer extension (JavaScript) yang membuat sistem lebih robust dan jujur. Tidak ada perubahan di model atau preprocessing.
+
+---
+
+### 20.1 Bug: `scannedCount` Selalu 0
+
+**Masalah:** Popup menampilkan dua angka — "komentar spam disembunyikan" dan "komentar telah dipindai". Angka pertama benar karena `hiddenCount` memang ditulis ke `chrome.storage` setiap kali komentar disembunyikan. Tapi angka kedua selalu 0, karena `content.js` tidak pernah menulis `scannedCount` ke storage.
+
+**Penyebab:** `updateBadgeCount()` lama hanya menyimpan `hiddenCount`. Tidak ada kode yang melacak berapa total komentar yang dikirim ke API.
+
+**Perbaikan:** Di `scanComments()`, setelah mengumpulkan komentar baru yang belum diproses:
+```javascript
+// Increment sebelum kirim ke API — semua yang dikirim sudah "dipindai"
+scannedCount += toProcess.length;
+persistStats(); // simpan hiddenCount + scannedCount sekaligus
+```
+
+Fungsi `updateBadgeCount()` diganti dengan `persistStats()` yang menyimpan keduanya:
+```javascript
+function persistStats() {
+  chrome.storage.local.set({ hiddenCount, scannedCount });
+}
+```
+
+---
+
+### 20.2 Fitur Baru: Threshold Slider di Popup
+
+**Konteks:** Sebelumnya, nilai threshold 0.75 (75%) tersimpan hardcoded di baris:
+```javascript
+const CONFIDENCE_THRESHOLD = 0.75;
+```
+
+Ini artinya untuk mengubah threshold, pengguna harus buka kode, edit file, dan reload extension. Tidak praktis — terutama untuk demo sidang.
+
+**Apa itu threshold dan kenapa penting?**
+
+Threshold adalah batas minimum keyakinan model sebelum komentar disembunyikan. Model mengembalikan skor 0.0–1.0 untuk setiap komentar:
+- Skor 0.95 → model 95% yakin ini spam → hampir pasti disembunyikan
+- Skor 0.60 → model 60% yakin → ambigu, keputusan tergantung threshold
+
+```
+Threshold rendah (50%):  banyak komentar disembunyikan, termasuk yang ambigu
+                         → presisi rendah, recall tinggi (banyak false positive)
+
+Threshold tinggi (95%):  hanya komentar yang sangat jelas spam disembunyikan
+                         → presisi tinggi, recall rendah (banyak spam lolos)
+
+Threshold 75% (default): titik tengah yang masuk akal untuk penggunaan umum
+```
+
+**Cara kerja setelah perbaikan:**
+
+1. Popup menampilkan slider range 50%–95%
+2. Saat user geser slider, nilai disimpan ke `chrome.storage.local` sebagai decimal:
+   ```javascript
+   chrome.storage.local.set({ confidenceThreshold: pct / 100 });
+   // contoh: slider di 80% → simpan 0.80
+   ```
+3. `content.js` membaca nilai ini saat init (`loadSettings()`)
+4. Kalau user geser slider saat tab YouTube sudah terbuka, perubahan langsung aktif tanpa reload — karena `content.js` pasang listener:
+   ```javascript
+   chrome.storage.onChanged.addListener((changes) => {
+     if (changes.confidenceThreshold) {
+       confidenceThreshold = changes.confidenceThreshold.newValue;
+     }
+   });
+   ```
+
+**Kenapa disimpan sebagai decimal, bukan persen?**
+
+API selalu mengembalikan confidence sebagai decimal (0.0–1.0). Kalau kita simpan threshold sebagai persen (75), kita harus konversi di `content.js` setiap kali dipakai. Lebih bersih kalau formatnya konsisten: simpan 0.75, bandingkan dengan 0.75. Konversi hanya terjadi satu kali saat slider berubah (`pct / 100`).
+
+---
+
+### 20.3 Perbaikan: Server Mati Setelah Extension Berjalan
+
+**Masalah:** Health check hanya dilakukan sekali saat `init()`. Kalau server mati setelah itu (misalnya karena terminal ditutup), variabel `isServerAvailable` tetap `true`. Setiap kali ada komentar baru, `scanComments()` tetap berjalan dan memanggil `predictBatch()` yang langsung gagal. Kegagalan ini diam-diam diabaikan (`return null`), jadi pengguna tidak tahu ada yang salah.
+
+**Perbaikan:** Di `predictBatch()`, saat catch error (artinya server tidak bisa dihubungi):
+```javascript
+} catch {
+  // Server mungkin mati setelah health check awal.
+  // Re-check supaya isServerAvailable diperbarui dan
+  // scan berikutnya tidak terus mencoba hit server mati.
+  console.warn("[Judol Detector] Batch request failed, re-checking server...");
+  await checkServerHealth();
+  return null;
+}
+```
+
+Setelah `checkServerHealth()` berjalan, `isServerAvailable` diset `false`. Scan berikutnya akan langsung `return` di baris pertama `scanComments()`:
+```javascript
+if (!isServerAvailable) return;
+```
+
+Sehingga tidak ada lagi request yang terus dikirim ke server yang sudah mati.
+
+**Trade-off:** Kalau server restart (mati lalu hidup lagi), extension tidak otomatis aktif kembali — pengguna perlu klik "Cek Status Server" di popup, yang memanggil `checkServerHealth()` lagi dan memperbarui `isServerAvailable = true`. Ini perilaku yang lebih aman daripada polling otomatis yang bisa menyebabkan banyak request tak berguna.
+
+---
+
+### 20.4 Keterbatasan yang Didokumentasikan
+
+**Selector Instagram mungkin sudah tidak valid.** `content.js` menggunakan:
+```javascript
+instagram: {
+  commentContainer: "ul._a9ym li",
+  commentText: "span._aacl",
+}
+```
+
+Instagram menggunakan class names yang di-generate otomatis dan sering berubah saat mereka update UI. Selector ini mungkin sudah tidak valid. Karena fokus penelitian ini adalah YouTube, keterbatasan ini perlu disebutkan di bab keterbatasan skripsi:
+
+> *"Dukungan Instagram bersifat eksperimental dan bergantung pada CSS selector yang dapat berubah sewaktu-waktu seiring pembaruan UI platform. Pengujian utama dilakukan di YouTube."*
+
+---
+
 ## 19. Eksperimen Konfigurasi TF-IDF — ngram dan max_features
 
 > Bagian ini menjelaskan apa itu ngram dan max_features, bagaimana eksperimennya dirancang, dan apa yang bisa kita pelajari dari hasilnya — termasuk satu temuan yang tidak terduga.
@@ -1631,3 +1753,169 @@ python src/inspect_features.py
 Output disimpan di `reports/`:
 - `top_features.png` — bar chart dua panel (spam vs non-spam), siap pakai di skripsi
 - `feature_weights.csv` — seluruh daftar fitur dan bobot, untuk analisis mandiri
+
+---
+
+## 21. False Positive — Ketika Model Salah Menilai Komentar Normal
+
+> Bagian ini menjelaskan fenomena false positive yang ditemukan saat pengujian langsung di YouTube, kenapa ini terjadi secara teknis, dan bagaimana ini harus ditulis di skripsi. Ini adalah salah satu temuan paling berharga dari pengujian nyata.
+
+---
+
+### 21.1 Apa itu False Positive?
+
+Dalam klasifikasi, ada dua jenis kesalahan:
+
+| Istilah | Artinya | Contoh |
+|---------|---------|--------|
+| **False Positive (FP)** | Komentar normal diklasifikasikan sebagai spam | Komentar "Nonton berkali kali, gak bosen" → dianggap spam |
+| **False Negative (FN)** | Komentar spam lolos, tidak terdeteksi | Komentar spam yang memakai kata-kata asing → dianggap normal |
+
+False positive yang ditemukan saat pengujian di YouTube:
+
+```
+"Nonton berkali kali, gak bosen dan ttep ngakak"  → Spam 92%  ← SALAH
+"Nonton ulang² tetap rata ngakak😂😂😂"           → Spam 76%  ← SALAH
+"tontonan sambil makan update juga"               → Spam 80%  ← SALAH
+```
+
+Ketiga komentar di atas jelas merupakan komentar penonton biasa yang menikmati video — bukan iklan judi online. Tapi model menilainya sebagai spam dengan confidence tinggi.
+
+---
+
+### 21.2 Kenapa Ini Terjadi? — Akar Masalah di Bag of Words
+
+Model ini menggunakan pendekatan **Bag of Words** melalui TF-IDF. Cara kerjanya bisa dianalogikan seperti ini:
+
+> Bayangkan kamu diminta menilai apakah sebuah kalimat adalah spam, tapi caranya adalah: ambil semua kata, taruh ke dalam kantong, kocok, lalu lihat kata apa yang ada. Kamu tidak boleh tahu urutan kata, tidak boleh tahu siapa ngomong ke siapa, tidak boleh tahu konteksnya.
+
+Inilah yang dilakukan model — dia menjumlahkan bobot setiap kata secara independen:
+
+```
+skor_akhir = bobot["nonton"] + bobot["berkali"] + bobot["bosen"] + ...
+
+jika skor_akhir > 0  → prediksi SPAM
+jika skor_akhir < 0  → prediksi NON-SPAM
+```
+
+Urutan kata, konteks kalimat, dan makna keseluruhan diabaikan sepenuhnya.
+
+---
+
+### 21.3 Bedah Kasus: Kenapa Confidence-nya Tinggi?
+
+Mari kita bedah komentar pertama kata per kata menggunakan `feature_weights.csv`:
+
+**Komentar: "Nonton berkali kali, gak bosen dan ttep ngakak"**
+
+| Kata | Bobot di Model | Arah | Penjelasan |
+|------|---------------|------|-----------|
+| `nonton` | -0.33 | ✅ Non-spam | Logis — jarang muncul di iklan judi |
+| `berkali` | +0.74 | ❌ Spam | Di data training, sering muncul di: "menang berkali-kali", "withdraw berkali-kali" |
+| `kali` | -0.06 | ≈ Netral | Hampir tidak berpengaruh |
+| `bosen` | +0.60 | ❌ Spam | Sering muncul di: "bosen kalah? coba di sini", "bosen miskin?" |
+| `ngakak` | +0.07 | ≈ Netral | Hampir tidak berpengaruh |
+| **Total** | **≈ +1.02** | **→ SPAM** | Skor positif → model prediksi spam |
+
+Perhatikan: **satu kata non-spam (`nonton`, bobot -0.33) kalah jumlah dari dua kata berbobot spam (`berkali` +0.74 + `bosen` +0.60 = +1.34).**
+
+**Komentar: "tontonan sambil makan update juga"**
+
+| Kata | Bobot | Arah | Penjelasan |
+|------|-------|------|-----------|
+| `sambil` | **+1.28** | ❌ Spam kuat | Sering muncul di: "sambil santai bisa cuan", "sambil rebahan bisa menang" |
+| `update` | +0.50 | ❌ Spam | Sering muncul di: "update link setiap hari", "update terus situs kami" |
+| `makan` | +0.02 | ≈ Netral | Hampir tidak berpengaruh |
+| **Total** | **≈ +1.80** | **→ SPAM** | Skor tinggi → confidence 80% |
+
+`sambil` adalah penyebab utama di komentar ketiga. Ini kata yang sangat umum dalam Bahasa Indonesia, tapi di data training spam, kata ini sangat sering muncul dalam kalimat promosi judi.
+
+---
+
+### 21.4 Kenapa Kata Normal Bisa Punya Bobot Spam?
+
+Ini bukan kesalahan implementasi — ini adalah **keterbatasan fundamental** dari pendekatan berbasis kata (Bag of Words). Proses yang terjadi:
+
+1. Saat training, model melihat ribuan komentar spam yang menggunakan kata-kata seperti `sambil`, `berkali`, `update` dalam konteks iklan judi
+2. Model menghitung: *"kata `sambil` lebih sering muncul di komentar spam daripada non-spam"*
+3. Maka model memberi bobot positif (spam) ke kata `sambil`
+4. Saat inference, kata `sambil` di komentar apapun — termasuk "sambil makan nonton" — akan menambah skor spam
+
+Model tidak bisa membedakan:
+- `"sambil santai, menang di situs kami"` ← spam
+- `"sambil makan nonton video ini"` ← bukan spam
+
+Karena dari perspektif Bag of Words, keduanya sama-sama mengandung kata `sambil`.
+
+---
+
+### 21.5 Solusi Jangka Pendek: Hard Negative Examples
+
+Cara paling langsung untuk mengurangi false positive **tanpa ganti model**: tambahkan komentar-komentar false positive ini ke dataset sebagai label **non_spam**.
+
+Dengan data baru ini, saat training ulang model akan belajar:
+- *"Oke, `berkali` + `nonton` + `ngakak` = non-spam — ini konteks menonton video"*
+- *"Oke, `sambil` + `makan` + `nonton` = non-spam — ini aktivitas sehari-hari"*
+
+Komentar yang sudah ditambahkan ke dataset sebagai hard examples:
+```
+"Nonton berkali kali, gak bosen dan ttep ngakak"  → non_spam
+"Nonton ulang² tetap rata ngakak😂😂😂"           → non_spam  
+"tontonan sambil makan update juga"               → non_spam
+```
+
+Ini disebut **hard negative mining** — secara aktif mencari contoh yang membingungkan model dan menambahkannya ke training data. Semakin banyak contoh seperti ini, semakin model belajar membedakan konteks.
+
+---
+
+### 21.6 Solusi Jangka Panjang: Model yang Paham Konteks (IndoBERT)
+
+Pertanyaan yang wajar muncul: *"Apakah bisa membuat model yang benar-benar paham konteks kalimat, bukan sekadar kata per kata?"*
+
+**Bisa.** Teknologinya sudah ada dan disebut **Transformer**, dengan implementasi paling populer bernama **BERT** (Bidirectional Encoder Representations from Transformers). Untuk Bahasa Indonesia, tersedia **IndoBERT**.
+
+Perbedaan mendasar cara kerjanya:
+
+```
+TF-IDF + SVM (sekarang):
+  Input: "sambil makan nonton"
+  Proses: hitung bobot tiap kata → jumlahkan
+  Model tidak tahu "sambil" ini konteks aktivitas, bukan promosi
+
+IndoBERT:
+  Input: "sambil makan nonton"
+  Proses: baca seluruh kalimat dari kiri dan kanan sekaligus
+  Model membangun representasi "sambil" yang berbeda tergantung kata sekitarnya
+  "sambil" sebelum "makan nonton" ≠ "sambil" sebelum "santai menang"
+```
+
+Namun IndoBERT memiliki konsekuensi teknis yang signifikan:
+
+| Aspek | TF-IDF + SVM | IndoBERT |
+|-------|-------------|---------|
+| Ukuran model | ~2 MB | ~500 MB |
+| Training time | Detik | Jam (butuh GPU) |
+| Kompleksitas implementasi | Sederhana | Sangat kompleks |
+| Data yang dibutuhkan | Ratusan sampel | Ribuan–puluhan ribu |
+| Kemampuan memahami konteks | ❌ | ✅ |
+| Cocok untuk skripsi S1 | ✅ | Bisa, tapi jauh lebih berat |
+
+Untuk scope skripsi S1 ini, **TF-IDF + SVM adalah pilihan yang tepat** — bisa dijelaskan dari nol kepada penguji, memiliki performa yang sudah terukur, dan keterbatasannya bisa diidentifikasi dengan jelas. False positive yang ditemukan justru menjadi bahan diskusi yang kaya.
+
+---
+
+### 21.7 Kenapa Bagian Ini Penting untuk Skripsi
+
+Bab pembahasan yang baik tidak hanya memamerkan angka akurasi yang tinggi — dia juga **jujur tentang kelemahan model** dan mampu menjelaskan *kenapa* kelemahan itu terjadi secara teknis. Menemukan dan menganalisis false positive seperti ini menunjukkan bahwa kamu benar-benar menguji sistem di kondisi nyata, bukan hanya di data uji yang sudah ada.
+
+**Kalimat untuk bab pembahasan/hasil:**
+
+> *"Pengujian langsung pada kolom komentar YouTube menemukan beberapa kasus false positive — komentar non-spam yang diklasifikasikan sebagai spam dengan confidence tinggi. Contohnya: 'Nonton berkali kali, gak bosen dan ttep ngakak' diklasifikasikan sebagai spam dengan confidence 92%. Analisis bobot fitur menunjukkan bahwa kata 'berkali' (+0.74) dan 'bosen' (+0.60) memiliki bobot spam yang signifikan, karena kedua kata tersebut sering muncul dalam konteks spam di data training ('menang berkali-kali', 'bosen kalah?'). Model tidak dapat membedakan konteks penggunaan kata-kata tersebut karena pendekatan TF-IDF hanya mempertimbangkan frekuensi kemunculan kata, bukan makna kalimat secara keseluruhan."*
+
+**Kalimat untuk bab keterbatasan:**
+
+> *"Model SVM berbasis TF-IDF tidak memiliki kemampuan pemahaman konteks semantik (context-aware). Kata-kata yang sering muncul dalam komentar spam akan memiliki bobot spam tinggi, bahkan ketika kata tersebut digunakan dalam kalimat normal yang tidak berkaitan dengan judi online. Penggunaan model berbasis arsitektur transformer seperti IndoBERT berpotensi mengurangi false positive dengan kemampuannya memahami konteks kalimat secara bidireksional, namun memerlukan sumber daya komputasi, waktu pelatihan, dan volume data yang jauh lebih besar — di luar scope penelitian ini."*
+
+**Kalimat untuk bab saran/penelitian selanjutnya:**
+
+> *"Penelitian selanjutnya dapat mengeksplorasi penggunaan model berbasis transformer seperti IndoBERT untuk mengatasi keterbatasan konteks semantik pada pendekatan TF-IDF + SVM. Selain itu, pengumpulan hard negative examples secara sistematis — yaitu komentar non-spam yang mengandung kata-kata berbobot spam — dapat meningkatkan performa model tanpa mengganti arsitektur yang ada."*

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * content.js
  * ==========
  * Injected into YouTube/Instagram pages.
@@ -28,7 +28,10 @@
 
 const API_URL = "http://localhost:8000/predict";
 const BATCH_API_URL = "http://localhost:8000/predict/batch";
-const CONFIDENCE_THRESHOLD = 0.75; // Only hide if model confidence >= 75%
+
+// Default threshold — will be overridden by value from chrome.storage on init.
+// Users can change this via the slider in the popup.
+let confidenceThreshold = 0.75;
 
 // CSS selectors for comment elements on each supported platform.
 // These are the most likely to break when platforms update their UI.
@@ -49,6 +52,7 @@ const SELECTORS = {
 
 let processedComments = new WeakSet(); // Tracks elements already processed
 let hiddenCount = 0;
+let scannedCount = 0;
 let isServerAvailable = false;
 
 // ---------------------------------------------------------------------------
@@ -57,7 +61,8 @@ let isServerAvailable = false;
 
 /**
  * Check whether the Python API server is running and the model is loaded.
- * If unavailable, the extension stays inactive to avoid console errors.
+ * Called once at startup AND automatically when a batch request fails,
+ * so the extension recovers gracefully if the server restarts mid-session.
  *
  * @returns {Promise<boolean>}
  */
@@ -81,6 +86,11 @@ async function checkServerHealth() {
     console.warn(
       "[Judol Detector] Start the server with: python src/server.py",
     );
+  }
+
+  // Sync server status to storage so the popup can reflect it
+  if (typeof chrome !== "undefined" && chrome.storage) {
+    chrome.storage.local.set({ isServerAvailable });
   }
 
   return isServerAvailable;
@@ -108,12 +118,16 @@ async function predictComment(text) {
     if (!response.ok) return null;
     return await response.json();
   } catch {
-    return null; // Fail silently if server is unavailable
+    return null;
   }
 }
 
 /**
  * Send multiple comments in a single batch request (more efficient).
+ *
+ * If the request fails (network error or server down), automatically
+ * re-checks server health so the extension stops trying on the next
+ * scan cycle instead of failing silently every time.
  *
  * @param {string[]} texts - Array of raw comment texts
  * @returns {Promise<Array | null>}
@@ -131,6 +145,11 @@ async function predictBatch(texts) {
     const data = await response.json();
     return data.results;
   } catch {
+    // Batch failed — server may have gone down after the initial health check.
+    // Re-check so isServerAvailable is updated and future scans don't keep
+    // hitting a dead server.
+    console.warn("[Judol Detector] Batch request failed, re-checking server...");
+    await checkServerHealth();
     return null;
   }
 }
@@ -186,15 +205,16 @@ function hideSpamComment(element, confidence) {
   element.appendChild(badge);
 
   hiddenCount++;
-  updateBadgeCount();
+  persistStats();
 }
 
 /**
- * Persist the hidden comment count to chrome.storage so the popup can read it.
+ * Persist the current hiddenCount and scannedCount to chrome.storage
+ * so the popup can read up-to-date numbers whenever it opens.
  */
-function updateBadgeCount() {
+function persistStats() {
   if (typeof chrome !== "undefined" && chrome.storage) {
-    chrome.storage.local.set({ hiddenCount });
+    chrome.storage.local.set({ hiddenCount, scannedCount });
   }
 }
 
@@ -222,15 +242,20 @@ async function scanComments() {
       const textEl = el.querySelector(selector.commentText);
       if (textEl && textEl.textContent.trim().length > 0) {
         toProcess.push({ element: el, text: textEl.textContent.trim() });
-        processedComments.add(el); // Mark as seen
+        processedComments.add(el); // Mark as seen immediately so re-scans skip it
       }
     }
   });
 
   if (toProcess.length === 0) return;
 
+  // Update scannedCount BEFORE sending to API — these comments are "scanned"
+  // regardless of whether they turn out to be spam or not.
+  scannedCount += toProcess.length;
+  persistStats();
+
   console.log(
-    `[Judol Detector] Scanning ${toProcess.length} new comment(s)...`,
+    `[Judol Detector] Scanning ${toProcess.length} new comment(s)... (total scanned: ${scannedCount})`,
   );
 
   // Send in batches matching the API's max batch size
@@ -243,7 +268,7 @@ async function scanComments() {
     if (!results) continue;
 
     results.forEach((result, idx) => {
-      if (result.is_spam && result.confidence >= CONFIDENCE_THRESHOLD) {
+      if (result.is_spam && result.confidence >= confidenceThreshold) {
         hideSpamComment(batch[idx].element, result.confidence);
       }
     });
@@ -263,6 +288,46 @@ function detectPlatform() {
 }
 
 // ---------------------------------------------------------------------------
+// SETTINGS — Load threshold from storage and listen for changes
+// ---------------------------------------------------------------------------
+
+/**
+ * Load the confidence threshold saved by the user via the popup slider.
+ * Falls back to 0.75 (75%) if nothing is stored yet.
+ */
+async function loadSettings() {
+  if (typeof chrome === "undefined" || !chrome.storage) return;
+
+  return new Promise((resolve) => {
+    chrome.storage.local.get(["confidenceThreshold"], (data) => {
+      if (data.confidenceThreshold !== undefined) {
+        confidenceThreshold = data.confidenceThreshold;
+        console.log(
+          `[Judol Detector] Threshold loaded from storage: ${Math.round(confidenceThreshold * 100)}%`,
+        );
+      }
+      resolve();
+    });
+  });
+}
+
+/**
+ * Listen for threshold changes made by the user in the popup while
+ * this content script is already running. Without this listener, a
+ * threshold change only takes effect after a full page reload.
+ */
+if (typeof chrome !== "undefined" && chrome.storage) {
+  chrome.storage.onChanged.addListener((changes) => {
+    if (changes.confidenceThreshold) {
+      confidenceThreshold = changes.confidenceThreshold.newValue;
+      console.log(
+        `[Judol Detector] Threshold updated to: ${Math.round(confidenceThreshold * 100)}%`,
+      );
+    }
+  });
+}
+
+// ---------------------------------------------------------------------------
 // MUTATION OBSERVER — Watch for dynamically loaded comments
 // ---------------------------------------------------------------------------
 
@@ -276,7 +341,7 @@ function detectPlatform() {
  */
 let scanTimeout = null;
 
-const observer = new MutationObserver((mutations) => {
+const observer = new MutationObserver(() => {
   clearTimeout(scanTimeout);
   scanTimeout = setTimeout(scanComments, 1000);
 });
@@ -288,6 +353,9 @@ const observer = new MutationObserver((mutations) => {
 async function init() {
   console.log("[Judol Detector] Extension loaded...");
 
+  // Load user settings before doing anything else
+  await loadSettings();
+
   const serverOk = await checkServerHealth();
   if (!serverOk) {
     console.warn("[Judol Detector] Server unavailable, extension is inactive.");
@@ -297,7 +365,9 @@ async function init() {
     return;
   }
 
-  console.log("[Judol Detector] Server OK, starting comment monitoring...");
+  console.log(
+    `[Judol Detector] Server OK · threshold: ${Math.round(confidenceThreshold * 100)}% · starting comment monitoring...`,
+  );
 
   // Initial scan for comments already present on page load
   await scanComments();
