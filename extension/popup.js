@@ -17,6 +17,7 @@ const btnCheck     = document.getElementById("btnCheck");
 const btnReset     = document.getElementById("btnReset");
 const thresholdSlider = document.getElementById("thresholdSlider");
 const thresholdValue  = document.getElementById("thresholdValue");
+const devModeToggle   = document.getElementById("devModeToggle");
 
 /**
  * Check the health of the Python API server and update the status indicator.
@@ -108,6 +109,28 @@ thresholdSlider.addEventListener("input", () => {
 });
 
 // ---------------------------------------------------------------------------
+// DEV MODE TOGGLE
+// ---------------------------------------------------------------------------
+
+/**
+ * Load the saved dev mode state from chrome.storage and set the toggle.
+ * Defaults to false (off) — dev mode is never on by default.
+ */
+function loadDevMode() {
+  chrome.storage.local.get(["devMode"], (data) => {
+    devModeToggle.checked = data.devMode === true;
+  });
+}
+
+/**
+ * Save dev mode state whenever the toggle changes.
+ * content.js listens via chrome.storage.onChanged and updates immediately.
+ */
+devModeToggle.addEventListener("change", () => {
+  chrome.storage.local.set({ devMode: devModeToggle.checked });
+});
+
+// ---------------------------------------------------------------------------
 // EVENT LISTENERS & STARTUP
 // ---------------------------------------------------------------------------
 
@@ -118,3 +141,4 @@ btnReset.addEventListener("click", resetStats);
 checkServer();
 loadStats();
 loadThreshold();
+loadDevMode();

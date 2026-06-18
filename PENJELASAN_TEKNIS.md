@@ -29,6 +29,7 @@
 19. [Eksperimen Konfigurasi TF-IDF — ngram dan max_features](#19-eksperimen-konfigurasi-tf-idf--ngram-dan-max_features)
 20. [Perbaikan Extension — Fase 4](#20-perbaikan-extension--fase-4)
 21. [False Positive — Ketika Model Salah Menilai Komentar Normal](#21-false-positive--ketika-model-salah-menilai-komentar-normal)
+22. [Hybrid SVM + Rules — Lapisan Kedua untuk Kurangi False Positive](#22-hybrid-svm--rules--lapisan-kedua-untuk-kurangi-false-positive)
 
 ---
 
@@ -1919,3 +1920,131 @@ Bab pembahasan yang baik tidak hanya memamerkan angka akurasi yang tinggi — di
 **Kalimat untuk bab saran/penelitian selanjutnya:**
 
 > *"Penelitian selanjutnya dapat mengeksplorasi penggunaan model berbasis transformer seperti IndoBERT untuk mengatasi keterbatasan konteks semantik pada pendekatan TF-IDF + SVM. Selain itu, pengumpulan hard negative examples secara sistematis — yaitu komentar non-spam yang mengandung kata-kata berbobot spam — dapat meningkatkan performa model tanpa mengganti arsitektur yang ada."*
+
+---
+
+## 22. Hybrid SVM + Rules — Lapisan Kedua untuk Kurangi False Positive
+
+> Bagian ini menjelaskan pendekatan hybrid yang ditambahkan ke server sebagai respons dari temuan false positive selama pengujian nyata. Ini adalah keputusan desain yang penting untuk didokumentasikan karena menunjukkan siklus evaluasi–perbaikan yang ilmiah.
+
+---
+
+### 22.1 Latar Belakang: Mengapa Ditambahkan
+
+Dari pengujian langsung di YouTube (lihat §21), ditemukan bahwa beberapa komentar normal diklasifikasikan sebagai spam dengan confidence tinggi karena mengandung kata-kata ambigu yang berbobot spam tinggi:
+
+| Kata | Bobot | Mengapa bermasalah |
+|------|-------|-------------------|
+| `hoki` | +1.90 | Artinya "beruntung" dalam percakapan biasa, tapi sering dipakai di narasi iklan judi |
+| `serius` | +1.10 | Dipakai penipu untuk meyakinkan: "serius beneran menang" |
+| `keren` | +0.80 | Sering muncul di: "keren banget situs ini" |
+| `sambil` | +1.28 | Sering di: "sambil santai bisa cuan" |
+
+Model tidak bisa membedakan konteks — ini adalah keterbatasan inheren dari Bag of Words yang sudah dijelaskan di §21.
+
+Daripada mengganti model (yang akan mengubah scope skripsi), ditambahkan sebuah **lapisan aturan** sebagai filter kedua setelah prediksi SVM.
+
+---
+
+### 22.2 Cara Kerja Hybrid Rule
+
+Alur prediksi sebelum hybrid:
+
+```
+Komentar → Preprocessing → SVM → Spam/Non-spam
+```
+
+Alur prediksi setelah hybrid:
+
+```
+Komentar → Preprocessing → SVM → Spam?
+                                    ↓ Ya
+                           Ada sinyal keras spam?
+                           ↓ Ya          ↓ Tidak
+                         SPAM          NON-SPAM (override)
+```
+
+**Sinyal keras spam** (*hard spam signals*) adalah kata-kata yang:
+1. Secara pasti berhubungan dengan judi online
+2. Tidak punya makna lain yang wajar dalam konteks komentar YouTube
+
+Contoh: `gacor`, `scatter`, `togel`, `jackpot`, `maxwin`, `rtp`, `situs`, `withdraw`, `deposit` — kata-kata ini hampir tidak mungkin muncul di komentar normal yang tidak berhubungan dengan judi.
+
+---
+
+### 22.3 Implementasi di server.py
+
+```python
+HARD_SPAM_SIGNALS = {
+    # Istilah judi yang tidak punya makna lain
+    "gacor", "scatter", "jackpot", "maxwin", "togel",
+    "toto", "rtp", "slot", "situs", "withdraw", "deposit",
+    # Nama brand yang diketahui (setelah preprocessing hapus angka)
+    "pstoto", "jptogel", "supermoney", "bardi", "bukit", "bambu", ...
+}
+
+def has_hard_spam_signal(cleaned_text: str) -> bool:
+    words = set(cleaned_text.split())
+    return bool(words & HARD_SPAM_SIGNALS)  # set intersection
+```
+
+Di endpoint `/predict` dan `/predict/batch`, setelah SVM memprediksi spam:
+
+```python
+if label == "spam" and not has_hard_spam_signal(cleaned):
+    # Kemungkinan false positive dari kata ambigu — override ke non_spam
+    return PredictResponse(label="non_spam", confidence=0.5, is_spam=False)
+```
+
+**Kenapa `confidence=0.5`?** Karena ketika kita override, kita tidak tahu dengan pasti apakah itu spam atau bukan — kita hanya tahu SVM tidak punya bukti kuat. Mengembalikan 0.5 jujur menyatakan "tidak yakin, default ke aman."
+
+**Kenapa pakai set intersection (`words & HARD_SPAM_SIGNALS`)?** Cara paling efisien untuk cek apakah ada elemen yang sama antara dua set. Jauh lebih cepat dari loop manual, terutama untuk batch besar.
+
+---
+
+### 22.4 Trade-off yang Disadari dan Diterima
+
+Hybrid rule ini bukan solusi sempurna. Ada trade-off yang harus jujur disebutkan di skripsi:
+
+**Yang membaik:**
+- False positive dari kata ambigu (hoki, serius, keren, sambil) berkurang signifikan
+- Komentar normal yang tidak mengandung kata judi eksplisit tidak akan disembunyikan
+
+**Yang memburuk:**
+- **Spam canggih bisa lolos.** Spammer yang menghindari semua kata dalam daftar `HARD_SPAM_SIGNALS` akan lolos sebagai non-spam, meskipun SVM mendeteksinya sebagai spam. Contoh spam yang mungkin lolos:
+  > *"Mau tau rahasia rezeki berlimpah? DM kami sekarang, sudah ribuan yang berhasil"*
+  Tidak ada kata dari daftar → lolos sebagai non-spam.
+
+- **Daftar perlu dijaga manual.** Jika spammer mulai menggunakan istilah baru yang belum ada di `HARD_SPAM_SIGNALS`, sistem tidak akan menangkapnya sampai daftar diperbarui.
+
+- **Recall turun.** Dalam metrik evaluasi, menambahkan rule ini kemungkinan sedikit menurunkan recall (kemampuan menangkap semua spam) sambil meningkatkan precision (komentar yang terdeteksi spam memang benar spam).
+
+---
+
+### 22.5 Mengapa Ini Tetap Pilihan yang Tepat untuk Saat Ini
+
+Dalam pengembangan sistem klasifikasi teks, ada spektrum pendekatan untuk mengatasi false positive:
+
+```
+Pure ML (SVM)  →  Hybrid ML+Rules  →  Contextual Model (IndoBERT)
+Mudah ←————————————————————————————→ Kompleks
+False positive tinggi ←————————→ False positive rendah
+```
+
+Hybrid berada di tengah — tidak sesempurna IndoBERT, tapi jauh lebih mudah diimplementasikan dan dijelaskan. Untuk scope skripsi S1 dengan dataset yang relatif kecil, ini adalah kompromi yang masuk akal.
+
+---
+
+### 22.6 Kalimat untuk Skripsi
+
+**Kalimat untuk bab metodologi (jelaskan desain sistem):**
+
+> *"Untuk mengurangi false positive yang dihasilkan oleh kata-kata ambigu berbobot spam tinggi, diterapkan pendekatan hybrid yang menggabungkan prediksi SVM dengan verifikasi berbasis aturan. Setelah SVM memprediksi kelas spam, sistem memeriksa apakah teks mengandung minimal satu kata yang secara eksklusif berhubungan dengan judi online (hard spam signal). Jika tidak ditemukan sinyal keras, prediksi di-override menjadi non-spam. Pendekatan ini merupakan respons terhadap temuan pengujian nyata yang menunjukkan bahwa kata-kata seperti 'hoki', 'serius', dan 'keren' memiliki bobot spam tinggi namun sering digunakan dalam konteks yang tidak berkaitan dengan judi."*
+
+**Kalimat untuk bab pembahasan (jelaskan hasil):**
+
+> *"Penerapan hybrid rule menunjukkan peningkatan kualitatif dalam pengujian langsung — komentar yang sebelumnya menghasilkan false positive dengan confidence 77–92% tidak lagi disembunyikan setelah verifikasi sinyal keras ditambahkan. Trade-off yang teridentifikasi adalah potensi penurunan recall pada kasus spam yang tidak menggunakan terminologi judi eksplisit, serta kebutuhan pembaruan daftar sinyal secara berkala seiring munculnya istilah baru dalam ekosistem spam."*
+
+**Kalimat untuk bab keterbatasan:**
+
+> *"Daftar hard spam signals bersifat statis dan memerlukan pembaruan manual ketika spammer mengadopsi terminologi baru. Spammer yang secara strategis menghindari kata-kata dalam daftar dapat mengakali sistem hybrid ini, sehingga mengurangi efektivitasnya dalam jangka panjang. Pendekatan berbasis konteks seperti IndoBERT tidak memiliki keterbatasan ini karena pemahamannya bersifat semantik, bukan leksikal."*

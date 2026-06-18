@@ -207,6 +207,91 @@
         cursor: pointer;
       }
 
+      .dev-mode-box {
+        background: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 10px;
+        padding: 10px 14px;
+        margin-bottom: 14px;
+      }
+
+      .dev-mode-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .dev-mode-header .label {
+        font-size: 12px;
+        color: #aaa;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .dev-mode-header .label .badge {
+        font-size: 9px;
+        background: #333;
+        color: #888;
+        padding: 1px 5px;
+        border-radius: 4px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .dev-mode-hint {
+        font-size: 10px;
+        color: #555;
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+
+      /* Toggle switch */
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        inset: 0;
+        background: #333;
+        border-radius: 18px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .toggle-slider::before {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        left: 3px;
+        top: 3px;
+        background: #666;
+        border-radius: 50%;
+        transition: transform 0.2s, background 0.2s;
+      }
+
+      .toggle input:checked + .toggle-slider {
+        background: #1565c0;
+      }
+
+      .toggle input:checked + .toggle-slider::before {
+        transform: translateX(16px);
+        background: white;
+      }
+
       .footer {
         text-align: center;
         font-size: 10px;
@@ -255,6 +340,21 @@
           <span>50% · Lebih sensitif</span>
           <span>95% · Lebih selektif</span>
         </div>
+      </div>
+
+      <!-- Dev Mode Toggle -->
+      <div class="dev-mode-box">
+        <div class="dev-mode-header">
+          <span class="label">
+            Dev Mode
+            <span class="badge">only dev</span>
+          </span>
+          <label class="toggle">
+            <input type="checkbox" id="devModeToggle" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <div class="dev-mode-hint">Aktifkan untuk menampilkan tombol <strong>"Bukan spam?"</strong> pada komentar yang disembunyikan.</div>
       </div>
 
       <!-- Info -->

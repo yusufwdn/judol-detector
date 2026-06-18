@@ -33,6 +33,11 @@ const BATCH_API_URL = "http://localhost:8000/predict/batch";
 // Users can change this via the slider in the popup.
 let confidenceThreshold = 0.75;
 
+// Dev mode — when true, a "Bukan spam?" button appears on every hidden comment.
+// Clicking it sends the comment to POST /report, which appends it to the CSV dataset.
+// Off by default; toggled from the popup. Never enable in production.
+let devMode = false;
+
 // CSS selectors for comment elements on each supported platform.
 // These are the most likely to break when platforms update their UI.
 const SELECTORS = {
@@ -159,16 +164,105 @@ async function predictBatch(texts) {
 // ---------------------------------------------------------------------------
 
 /**
+ * [DEV MODE] Send a comment text to the server to be saved as non_spam in the dataset.
+ * Called when the user clicks "Bukan spam?" on a hidden comment.
+ *
+ * @param {string} text       - Original raw comment text
+ * @param {Element} reportBtn - The button element (updated to show feedback)
+ */
+/**
+ * Attach a "Bukan spam?" report button to an already-hidden comment element.
+ * Checks first that a button doesn't already exist (safe to call multiple times).
+ *
+ * @param {Element} element      - The hidden comment container
+ * @param {string}  originalText - Raw comment text to send to /report
+ */
+function attachReportButton(element, originalText) {
+  if (element.querySelector("[data-judol-report]")) return; // already attached
+
+  const reportBtn = document.createElement("div");
+  reportBtn.dataset.judolReport = "true";
+  reportBtn.style.cssText = `
+    position: absolute;
+    top: 4px;
+    right: 70px;
+    background: #1565c0;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    z-index: 9999;
+    cursor: pointer;
+  `;
+  reportBtn.textContent = "Bukan spam?";
+  reportBtn.title = "[Dev] Laporkan ke dataset sebagai false positive";
+
+  reportBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    reportFalsePositive(originalText, reportBtn);
+  });
+
+  element.appendChild(reportBtn);
+}
+
+/**
+ * When dev mode is toggled ON, add report buttons to comments that were
+ * already hidden before dev mode was activated.
+ */
+function attachReportButtonsToExisting() {
+  document.querySelectorAll("[data-judol-detected='spam']").forEach((element) => {
+    const text = element.dataset.judolText;
+    if (text) attachReportButton(element, text);
+  });
+}
+
+async function reportFalsePositive(text, reportBtn) {
+  reportBtn.textContent = "Mengirim...";
+  reportBtn.style.cursor = "not-allowed";
+  reportBtn.style.pointerEvents = "none";
+
+  try {
+    const res = await fetch("http://localhost:8000/report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, label: "non_spam" }),
+      signal: AbortSignal.timeout(5000),
+    });
+    const data = await res.json();
+
+    if (data.duplicate) {
+      reportBtn.textContent = "Sudah tercatat";
+      reportBtn.style.background = "#607d8b";
+    } else {
+      reportBtn.textContent = "✓ Dilaporkan";
+      reportBtn.style.background = "#388e3c";
+      console.log(`[Judol Detector][DEV] Reported false positive: "${text.slice(0, 60)}..."`);
+    }
+  } catch {
+    reportBtn.textContent = "Gagal";
+    reportBtn.style.background = "#555";
+    console.warn("[Judol Detector][DEV] Failed to send report to server.");
+  }
+}
+
+
+/**
  * Visually hide a spam comment with a semi-transparent overlay and badge.
  * The comment is NOT removed from the DOM — just visually suppressed.
  * Users can click the badge to reveal the comment if they choose.
  *
- * @param {Element} element  - The comment container DOM element
+ * In dev mode, an additional "Bukan spam?" button is shown. Clicking it
+ * sends the comment text to POST /report so it gets saved as non_spam.
+ *
+ * @param {Element} element   - The comment container DOM element
  * @param {number} confidence - Model confidence score (0-1)
+ * @param {string} originalText - Raw comment text (needed for /report)
  */
-function hideSpamComment(element, confidence) {
+function hideSpamComment(element, confidence, originalText) {
   element.dataset.judolDetected = "spam";
   element.dataset.judolConfidence = confidence.toFixed(2);
+  element.dataset.judolText = originalText; // stored so dev mode can add button retroactively
 
   element.style.transition = "opacity 0.3s ease, max-height 0.5s ease";
   element.style.opacity = "0.15";
@@ -203,6 +297,11 @@ function hideSpamComment(element, confidence) {
   });
 
   element.appendChild(badge);
+
+  // Dev mode: show a "Bukan spam?" button to report this comment as a false positive
+  if (devMode) {
+    attachReportButton(element, originalText);
+  }
 
   hiddenCount++;
   persistStats();
@@ -269,7 +368,7 @@ async function scanComments() {
 
     results.forEach((result, idx) => {
       if (result.is_spam && result.confidence >= confidenceThreshold) {
-        hideSpamComment(batch[idx].element, result.confidence);
+        hideSpamComment(batch[idx].element, result.confidence, batch[idx].text);
       }
     });
   }
@@ -299,12 +398,16 @@ async function loadSettings() {
   if (typeof chrome === "undefined" || !chrome.storage) return;
 
   return new Promise((resolve) => {
-    chrome.storage.local.get(["confidenceThreshold"], (data) => {
+    chrome.storage.local.get(["confidenceThreshold", "devMode"], (data) => {
       if (data.confidenceThreshold !== undefined) {
         confidenceThreshold = data.confidenceThreshold;
         console.log(
           `[Judol Detector] Threshold loaded from storage: ${Math.round(confidenceThreshold * 100)}%`,
         );
+      }
+      devMode = data.devMode === true;
+      if (devMode) {
+        console.log("[Judol Detector][DEV] Dev mode is ON — 'Bukan spam?' button enabled.");
       }
       resolve();
     });
@@ -323,6 +426,12 @@ if (typeof chrome !== "undefined" && chrome.storage) {
       console.log(
         `[Judol Detector] Threshold updated to: ${Math.round(confidenceThreshold * 100)}%`,
       );
+    }
+    if (changes.devMode !== undefined) {
+      devMode = changes.devMode.newValue;
+      console.log(`[Judol Detector] Dev mode: ${devMode ? "ON" : "OFF"}`);
+      // Retroactively add buttons to comments hidden before dev mode was turned on
+      if (devMode) attachReportButtonsToExisting();
     }
   });
 }

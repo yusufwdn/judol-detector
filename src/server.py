@@ -25,6 +25,7 @@ unicode and regex are handled compared to Python, which degrades accuracy.
 Keeping everything in the Python server eliminates this risk entirely.
 """
 
+import csv
 import os
 import sys
 import joblib
@@ -71,6 +72,7 @@ app.add_middleware(
 # Loading from disk on every request would make the API extremely slow.
 
 MODEL_PATH = os.path.join(BASE_DIR, "model", "svm_model.joblib")
+DATA_PATH  = os.path.join(BASE_DIR, "data", "comments.csv")
 model = None
 
 
@@ -122,6 +124,90 @@ class BatchPredictRequest(BaseModel):
 
 class BatchPredictResponse(BaseModel):
     results: list[PredictResponse]
+
+
+# ---------------------------------------------------------------------------
+# HYBRID RULE — Hard Spam Signal Check
+# ---------------------------------------------------------------------------
+#
+# MASALAH YANG DISELESAIKAN:
+# SVM (Bag of Words) memberi bobot spam kepada kata-kata yang sering muncul
+# di data training spam, termasuk kata ambigu seperti "hoki", "serius", "keren".
+# Tanpa pemahaman konteks, kata-kata itu bisa sebabkan false positive di komentar
+# yang sama sekali tidak berhubungan dengan judi.
+#
+# SOLUSI:
+# Setelah SVM memprediksi "spam", kita verifikasi apakah teks mengandung minimal
+# satu kata yang secara PASTI berhubungan dengan judi online. Jika tidak ada,
+# prediksi di-override ke "non_spam".
+#
+# TRADE-OFF (disadari dan diterima):
+# Spam yang sengaja menghindari semua kata keras (misal spam memakai kalimat
+# puitis tanpa kata judi eksplisit) akan lolos sebagai non_spam. Ini dianggap
+# lebih baik daripada terus-menerus menyembunyikan komentar normal yang kebetulan
+# mengandung kata berbobot spam.
+#
+# MAINTENANCE:
+# Daftar ini perlu diperbarui jika spammer mulai menggunakan kata/brand baru
+# yang belum terdaftar. Ini adalah keterbatasan utama pendekatan berbasis aturan.
+
+HARD_SPAM_SIGNALS = {
+    # Istilah judi yang tidak punya makna lain dalam percakapan sehari-hari
+    "gacor",      # slang: slot dengan RTP tinggi / sering keluar jackpot
+    "scatter",    # simbol bonus di mesin slot
+    "jackpot",    # kemenangan besar di mesin judi
+    "maxwin",     # kemenangan maksimum di slot
+    "togel",      # lotere ilegal
+    "toto",       # lotere / situs judi
+    "rtp",        # Return to Player — persentase payout slot
+    "slot",       # mesin slot
+    "situs",      # "situs judi" — hampir selalu dipakai dalam konteks spam
+    "withdraw",   # tarik dana kemenangan
+    "deposit",    # setor dana ke akun judi
+    # Nama brand / situs yang diketahui (angka dihapus preprocessing: PSTOTO99 → pstoto)
+    "pstoto", "jptogel", "supermoney", "xuxu", "bardi",
+    "bukit", "bambu", "dora", "pluto", "jalak",
+    "pangeran", "giat", "kyt",
+}
+
+
+def has_hard_spam_signal(cleaned_text: str) -> bool:
+    """
+    Return True jika teks (sudah dipreprocessing) mengandung minimal satu kata
+    dari HARD_SPAM_SIGNALS — kata yang secara pasti berhubungan dengan judi online
+    dan tidak punya interpretasi lain yang masuk akal.
+
+    Menggunakan set intersection untuk efisiensi O(min(n,m)).
+    """
+    words = set(cleaned_text.split())
+    return bool(words & HARD_SPAM_SIGNALS)
+
+
+class ReportRequest(BaseModel):
+    text: str
+    label: str = "non_spam"
+
+    @field_validator("text")
+    @classmethod
+    def text_must_not_be_empty(cls, v):
+        if not v or not v.strip():
+            raise ValueError("Text must not be empty")
+        if len(v) > 5000:
+            raise ValueError("Text too long (maximum 5000 characters)")
+        return v.strip()
+
+    @field_validator("label")
+    @classmethod
+    def label_must_be_valid(cls, v):
+        if v not in ("spam", "non_spam"):
+            raise ValueError("Label must be 'spam' or 'non_spam'")
+        return v
+
+
+class ReportResponse(BaseModel):
+    success: bool
+    message: str
+    duplicate: bool = False
 
 
 # ---------------------------------------------------------------------------
@@ -179,6 +265,13 @@ def predict(request: PredictRequest):
     label_idx = list(classes).index(label)
     confidence = float(proba[label_idx])
 
+    # Hybrid rule: SVM bilang spam tapi tidak ada sinyal keras judi →
+    # kemungkinan false positive dari kata ambigu (hoki, serius, keren, dll).
+    # Override ke non_spam dan kembalikan confidence 0.5 (tidak yakin).
+    if label == "spam" and not has_hard_spam_signal(cleaned):
+        print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
+        return PredictResponse(label="non_spam", confidence=0.5, is_spam=False)
+
     return PredictResponse(
         label=label,
         confidence=round(confidence, 4),
@@ -217,6 +310,12 @@ def predict_batch(request: BatchPredictRequest):
         label_idx = list(classes).index(label)
         confidence = float(proba[label_idx])
 
+        # Hybrid rule — sama seperti di /predict
+        if label == "spam" and not has_hard_spam_signal(cleaned):
+            print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
+            results.append(PredictResponse(label="non_spam", confidence=0.5, is_spam=False))
+            continue
+
         results.append(PredictResponse(
             label=label,
             confidence=round(confidence, 4),
@@ -224,6 +323,45 @@ def predict_batch(request: BatchPredictRequest):
         ))
 
     return BatchPredictResponse(results=results)
+
+
+@app.post("/report", response_model=ReportResponse)
+def report_false_positive(request: ReportRequest):
+    """
+    [DEV MODE] Append a comment directly to the training dataset.
+
+    Called by the extension when a user clicks "Bukan spam?" on a hidden
+    comment. Only intended for use during development — in production this
+    endpoint should sit behind an approval queue so random users cannot
+    inject arbitrary data into the training set.
+
+    Deduplication: if the exact text already exists in the CSV, the request
+    is rejected to prevent duplicate entries from inflating the dataset.
+    """
+    # Deduplicate — scan existing rows for an exact text match
+    if os.path.exists(DATA_PATH):
+        with open(DATA_PATH, "r", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            next(reader, None)  # skip header row
+            for row in reader:
+                if row and row[0].strip() == request.text:
+                    return ReportResponse(
+                        success=False,
+                        message="Komentar ini sudah ada di dataset — tidak ditambahkan lagi.",
+                        duplicate=True,
+                    )
+
+    # Append using csv.writer so commas/quotes inside text are escaped correctly
+    with open(DATA_PATH, "a", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([request.text, request.label])
+
+    print(f"[DEV] Reported as '{request.label}': {request.text[:80]}")
+    return ReportResponse(
+        success=True,
+        message=f"Ditambahkan ke dataset sebagai '{request.label}'.",
+        duplicate=False,
+    )
 
 
 # ---------------------------------------------------------------------------
