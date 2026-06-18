@@ -16,6 +16,7 @@ pydantic>=2.0.0
 
 # Text preprocessing
 emoji>=2.0.0        # emoji demojize (convert emoji to text tokens)
+PySastrawi>=1.2.0   # Indonesian stemmer (used in experiment_stemming.py)
 
 # Development & Exploration
 jupyter>=1.0.0

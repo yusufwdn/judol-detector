@@ -24,6 +24,9 @@
 14. [Alur Lengkap dari Komentar Muncul Sampai Disembunyikan](#14-alur-lengkap-dari-komentar-muncul-sampai-disembunyikan)
 15. [Pertanyaan yang Mungkin Muncul Saat Sidang](#15-pertanyaan-yang-mungkin-muncul-saat-sidang)
 16. [Evaluasi Model yang Lebih Jujur (Fase 2)](#16-evaluasi-model-yang-lebih-jujur-fase-2)
+17. [Inspeksi Fitur — "Apa yang Dipelajari Model?"](#17-inspeksi-fitur--apa-yang-dipelajari-model)
+18. [Eksperimen Stemming — Apakah Stemming Membantu?](#18-eksperimen-stemming--apakah-stemming-membantu)
+19. [Eksperimen Konfigurasi TF-IDF — ngram dan max_features](#19-eksperimen-konfigurasi-tf-idf--ngram-dan-max_features)
 
 ---
 
@@ -1197,3 +1200,434 @@ Semua ini berjalan otomatis saat `python src/train.py`. Output lama (akurasi, cl
 ---
 
 *Dokumen ini adalah komplemen dari README.md. README membahas cara menjalankan; dokumen ini membahas cara memahami.*
+
+---
+
+## 19. Eksperimen Konfigurasi TF-IDF — ngram dan max_features
+
+> Bagian ini menjelaskan apa itu ngram dan max_features, bagaimana eksperimennya dirancang, dan apa yang bisa kita pelajari dari hasilnya — termasuk satu temuan yang tidak terduga.
+
+---
+
+### 19.1 Dua Parameter TF-IDF yang Diuji
+
+Sebelum lanjut ke eksperimen, perlu dipahami dulu apa yang dimaksud dengan dua parameter ini.
+
+---
+
+**Parameter 1: `ngram_range` — Seberapa panjang "potongan kata" yang dijadikan fitur?**
+
+TF-IDF memecah teks jadi potongan-potongan kecil yang disebut *n-gram*, lalu menghitung seberapa penting tiap potongan itu.
+
+- **Unigram (n=1):** setiap kata tunggal adalah satu fitur
+  ```
+  "daftar sekarang bonus besar"
+  → fitur: ["daftar", "sekarang", "bonus", "besar"]
+  ```
+
+- **Bigram (n=2):** kata tunggal + pasangan dua kata berurutan
+  ```
+  "daftar sekarang bonus besar"
+  → fitur: ["daftar", "sekarang", "bonus", "besar",
+            "daftar sekarang", "sekarang bonus", "bonus besar"]
+  ```
+
+- **Trigram (n=3):** tambah tiga kata berurutan
+  ```
+  → fitur: [...semua unigram dan bigram di atas...,
+            "daftar sekarang bonus", "sekarang bonus besar"]
+  ```
+
+Dengan `ngram_range=(1,2)`, kita pakai unigram dan bigram sekaligus. Tujuannya: model bisa belajar pola frasa, bukan hanya kata individual. Harapannya "daftar sekarang" sebagai satu bigram lebih informatif daripada kata "daftar" dan "sekarang" yang muncul secara terpisah.
+
+---
+
+**Parameter 2: `max_features` — Berapa banyak fitur yang dipakai?**
+
+Setelah semua n-gram dihitung dari seluruh corpus, hasilnya bisa puluhan ribu fitur. `max_features` membatasi: *ambil hanya N fitur yang paling informatif* (diukur dari TF-IDF score tertinggi). Sisanya dibuang.
+
+- `max_features=5000` → simpan 5.000 fitur terpenting
+- `max_features=10000` → simpan 10.000 fitur terpenting ← baseline saat ini
+- `max_features=20000` → simpan 20.000 fitur terpenting
+
+Logika di baliknya: fitur yang sangat jarang (muncul hanya 1-2 kali di seluruh dataset) tidak cukup representatif untuk dijadikan sinyal. Membuangnya membuat model lebih efisien dan kadang lebih akurat.
+
+---
+
+### 19.2 Desain Eksperimen
+
+Sama seperti eksperimen sebelumnya — ubah satu hal, jaga semua yang lain:
+
+```
+Model A : ngram=(1,1), feat=10k  ← hanya unigram
+Model B : ngram=(1,2), feat=10k  ← baseline (unigram + bigram)
+Model C : ngram=(1,3), feat=10k  ← unigram + bigram + trigram
+Model D : ngram=(1,2), feat=5k   ← lebih sedikit fitur
+Model E : ngram=(1,2), feat=20k  ← lebih banyak fitur
+```
+
+SVM, data, dan split identik di semua model.
+
+---
+
+### 19.3 Hasil Eksperimen
+
+Dijalankan dengan: `python src/experiment_features.py`
+
+```
+  Konfigurasi       Deskripsi           Accuracy  F1-macro   Vocab  vs Baseline
+  ----------------  ------------------  --------  ---------  -----  -----------
+  Baseline          ngram=(1,2) feat=10k  97.23%   0.9671    4.056  (baseline)
+  Unigram only      ngram=(1,1) feat=10k  97.51%   0.9704    2.542  +0.0034
+  Trigram           ngram=(1,3) feat=10k  97.23%   0.9671    4.716  +0.0000
+  Fewer features    ngram=(1,2) feat=5k   97.23%   0.9671    4.056  +0.0000
+  More features     ngram=(1,2) feat=20k  97.23%   0.9671    4.056  +0.0000
+```
+
+→ Lihat grafik: `reports/experiment_features.png`
+
+---
+
+### 19.4 Temuan 1 — Unigram Sedikit Lebih Baik dari Bigram
+
+**Apa yang terjadi?** Model dengan hanya unigram (`ngram=(1,1)`) menghasilkan F1-macro 0.9704, sedikit di atas baseline bigram 0.9671 (+0.0034).
+
+**Kenapa ini mengejutkan?** Secara intuitif, bigram "seharusnya" lebih baik karena menangkap konteks. "Daftar sekarang" sebagai satu frasa harusnya lebih informatif dari kata "daftar" sendirian.
+
+**Penjelasan mengapa unigram bisa setara atau sedikit lebih baik:**
+
+Sinyal spam di dataset ini didominasi oleh **kata tunggal yang sangat spesifik** — nama brand judi (`bardi`, `pstoto`, `jptogel`) dan kata-kata bermakna khusus (`hoki`, `rezeki`, `situs`). Kata-kata ini sudah sangat kuat sebagai sinyal spam tanpa perlu konteks tetangga kirinya atau kanannya.
+
+Ketika kita tambahkan bigram, kita menambahkan ribuan kombinasi pasangan kata. Sebagian besar kombinasi ini muncul sangat jarang di corpus, sehingga TF-IDF memberi mereka bobot tinggi padahal sebenarnya tidak cukup representatif. Ini bisa menjadi *noise* yang sedikit mengganggu performa.
+
+**Apakah ini berarti kita harus ganti ke unigram?**
+
+Selisih +0.0034 terlalu kecil untuk dianggap signifikan secara praktis. Dalam 722 sampel test, selisih ini setara dengan 2-3 prediksi yang berbeda. Bisa saja dengan split data yang berbeda, hasilnya berbalik. Oleh karena itu, keputusan untuk tetap menggunakan baseline `(1,2)` adalah wajar — dan bisa dijelaskan di skripsi sebagai pilihan konservatif yang terbukti tidak kalah dari unigram.
+
+---
+
+### 19.5 Temuan 2 — max_features Tidak Relevan untuk Dataset Ini
+
+**Apa yang terjadi?** Mengubah `max_features` dari 5.000 ke 10.000 ke 20.000 tidak mengubah apapun — F1-macro tetap 0.9671 dan ukuran vocabulary tetap **4.056** di ketiga konfigurasi.
+
+**Kenapa?**
+
+`max_features` adalah batas atas: "ambil maksimal N fitur terbaik." Tapi kalau corpus kita hanya menghasilkan 4.056 fitur unik, maka tidak ada yang perlu dipotong — batas 5.000, 10.000, atau 20.000 sama-sama tidak tercapai.
+
+Bayangkan sebuah toples yang muat 10.000 kelereng, tapi kita hanya punya 4.056 kelereng — menggunakan toples yang lebih besar tidak mengubah jumlah kelereng.
+
+**Mengapa vocabulary kita hanya 4.056?**
+
+Dataset kita memiliki 3.608 komentar. Setelah preprocessing (hapus stopwords, URL, karakter non-huruf, token pendek, kata yang muncul < 2 kali / `min_df=2`), kata-kata unik yang tersisa memang hanya sekitar 4.000-an. Ini wajar untuk dataset teks pendek (komentar YouTube rata-rata pendek) dengan domain yang terbatas.
+
+**Konsekuensinya:**
+- Tuning `max_features` tidak berguna selama dataset masih sekecil ini
+- Kalau dataset diperluas (misalnya 10x lebih banyak), vocabulary akan bertumbuh dan `max_features` akan mulai relevan
+- Ini juga berarti model kita relatif ringan — hanya 4.056 dimensi, bukan 10.000
+
+---
+
+### 19.6 Kesimpulan dan Rekomendasi untuk Skripsi
+
+**Keputusan teknis:** Konfigurasi baseline `ngram=(1,2), max_features=10000` tetap dipakai. Perubahan apapun tidak memberikan perbedaan yang signifikan secara praktis.
+
+**Kalimat untuk bab metodologi/pembahasan:**
+
+> *"Eksperimen konfigurasi TF-IDF dilakukan untuk mengevaluasi pengaruh parameter ngram_range dan max_features terhadap performa model. Lima konfigurasi diuji dengan SVM, data, dan split yang identik. Hasil menunjukkan bahwa unigram saja (ngram=(1,1)) menghasilkan F1-macro 0.9704 dibandingkan 0.9671 pada baseline bigram, namun perbedaan sebesar 0.0034 tidak cukup signifikan secara praktis untuk membenarkan perubahan. Temuan yang lebih menarik adalah bahwa perubahan max_features (5k/10k/20k) tidak berdampak sama sekali — vocabulary aktual setelah preprocessing hanya sebesar 4.056 fitur unik, jauh di bawah semua nilai max_features yang diuji. Hal ini menunjukkan bahwa constraintnya adalah ukuran dataset, bukan parameter model. Konfigurasi baseline dipertahankan sebagai pilihan yang paling konservatif dengan performa yang terbukti setara atau lebih baik dari alternatif."*
+
+---
+
+### 19.7 Cara Menjalankan
+
+```bash
+python src/experiment_features.py
+```
+
+Output tersimpan di `reports/`:
+- `experiment_features.png` — grafik batang perbandingan F1-macro
+- `experiment_features.csv` — tabel lengkap semua metrik per konfigurasi
+
+---
+
+## 18. Eksperimen Stemming — Apakah Stemming Membantu?
+
+> Bagian ini menjelaskan apa itu stemming, bagaimana eksperimennya dirancang, dan apa artinya hasilnya untuk skripsi.
+
+---
+
+### 18.1 Apa itu Stemming?
+
+Bayangkan kamu sedang membaca dan menemukan kata-kata ini: **"mendaftar"**, **"terdaftar"**, **"pendaftaran"**, **"daftar"**. Sebagai manusia, kamu langsung tahu semua kata itu berkaitan dengan konsep yang sama: *daftar*.
+
+Tapi bagi model machine learning, keempat kata itu adalah empat fitur yang berbeda. Model harus "belajar" sendiri bahwa keempatnya saling berkaitan — dan untuk itu butuh banyak contoh di data training.
+
+**Stemming** adalah teknik yang memotong semua variasi kata itu ke bentuk dasarnya sebelum dimasukkan ke model:
+```
+mendaftar   → daftar
+terdaftar   → daftar
+pendaftaran → daftar
+daftar      → daftar  (sudah dalam bentuk dasar)
+```
+
+Hasilnya: model hanya perlu belajar satu fitur ("daftar") yang muncul lebih sering, daripada empat fitur berbeda yang masing-masing muncul sedikit.
+
+**Sastrawi** adalah library stemming khusus Bahasa Indonesia. Cara kerjanya: untuk setiap kata, Sastrawi mencari bentuk dasar di kamus bahasa Indonesia sambil memperhatikan aturan awalan/akhiran (prefiks/sufiks) Bahasa Indonesia.
+
+---
+
+### 18.2 Kenapa Tidak Langsung Ditambahkan ke Pipeline?
+
+Intuisi bilang: *"stemming pasti membantu, tambahkan saja."* Tapi di machine learning, intuisi sering salah. Sebelum mengubah pipeline produksi, kita harus **membuktikan dengan angka** apakah stemming benar-benar meningkatkan performa.
+
+Kalau kita langsung menambahkan stemming ke `preprocessing.py` tanpa eksperimen:
+- Kalau performa naik → kita tidak tahu seberapa besar pengaruhnya
+- Kalau performa turun → kita tidak tahu stemming yang menyebabkannya
+- Tidak ada angka perbandingan yang bisa dikutip di skripsi
+
+Jadi lebih baik: desain eksperimen yang terkontrol, latih dua model, bandingkan.
+
+---
+
+### 18.3 Desain Eksperimen
+
+**Prinsip:** ubah satu variabel, jaga semua yang lain tetap sama.
+
+```
+Model A (baseline):   preprocessing biasa → TF-IDF → SVM
+Model B (eksperimen): preprocessing + stemming → TF-IDF → SVM
+```
+
+Yang dijaga sama persis antara Model A dan B:
+- Dataset (file CSV yang sama)
+- Split train/test (random_state=42, test_size=0.2)
+- Parameter TF-IDF (max_features=10000, ngram_range=(1,2), dll)
+- Parameter SVM (C=1, kernel=linear, class_weight=balanced)
+
+Yang **satu-satunya berbeda**: setelah `clean_text()`, Model B menambahkan satu langkah `stemmer.stem(text)`.
+
+Kalau dengan pengaturan seperti ini Model B lebih baik dari Model A → perbedaannya murni karena stemming.
+
+---
+
+### 18.4 Cara Stemming Ditambahkan ke Pipeline
+
+Stemming dilakukan **setelah** `clean_text()`, bukan di dalamnya. Alasannya:
+
+1. `clean_text()` sudah membuang noise (emoji, URL, karakter aneh). Stemmer bekerja lebih baik pada teks bersih.
+2. Kita tidak ingin mengubah `preprocessing.py` (yang dipakai di production/server) — eksperimen harus berdiri sendiri.
+
+```python
+def preprocess_with_stemming(texts):
+    cleaned = preprocess_batch(texts)          # langkah 1: 7 step biasa
+    stemmed = [stemmer.stem(t) for t in cleaned]  # langkah 2: stemming
+    return stemmed
+```
+
+**Contoh output aktual:**
+```
+Input (raw)    : "Aku gak tertarik menang 🔥 BARDI4D"
+Tanpa stemming : "aku gak tertarik menang fire bardi"
+Dengan stemming: "aku gak tarik menang fire bardi"
+```
+
+Perhatikan: "tertarik" → "tarik". Stemmer memotong awalan "ter-".
+
+---
+
+### 18.5 Hasil Eksperimen
+
+Dijalankan dengan: `python src/experiment_stemming.py`
+
+```
+  Model                         Accuracy   F1-spam   F1-non    F1-macro
+  ----------------------------  ---------  --------  --------  --------
+  Tanpa Stemming (baseline)      97.23%    0.9539    0.9802    0.9671
+  Dengan Stemming (Sastrawi)     97.23%    0.9543    0.9801    0.9672
+
+  Perbedaan F1-macro: +0.0002
+```
+
+→ Lihat grafik: `reports/experiment_stemming.png`
+
+---
+
+### 18.6 Interpretasi Hasil
+
+**Perbedaan 0.0002 di F1-macro itu artinya apa?**
+
+F1-macro 0.9671 vs 0.9672 — selisihnya cuma 0.0002. Angka ini **jauh di bawah ambang signifikansi praktis**. Dengan kata lain: dalam penggunaan nyata, kedua model ini berperilaku identik. Stemming tidak memberikan manfaat yang berarti.
+
+**Kenapa stemming tidak membantu di sini?**
+
+Ada tiga penjelasan yang masuk akal:
+
+1. **Spam pakai nama brand, bukan kata imbuhan.**
+   Kata-kata paling khas di komentar spam adalah nama brand: ROMA4D, WIFI4D, PSTOTO, dll. Kata-kata ini sudah dalam bentuk "dasar" yang tidak bisa di-stem lagi. Stemming tidak punya apa-apa untuk dikerjakan di sini.
+
+2. **TF-IDF bigram sudah menangani variasi kata.**
+   Dengan `ngram_range=(1,2)`, TF-IDF membuat fitur untuk pasangan kata juga. "daftar sekarang" dan "mendaftar sekarang" menjadi dua fitur bigram yang berbeda — tapi keduanya tetap terdeteksi sebagai pola spam karena konteks kata di sekitarnya sama. Model bisa belajar kedua pola ini tanpa perlu stemming.
+
+3. **Bahasa komentar YouTube bersifat informal dan slang.**
+   Sastrawi dirancang untuk Bahasa Indonesia formal. Kata-kata seperti "gue", "udah", "nggak", "kuy" tidak ada di kamus Sastrawi — stemmer melewatinya begitu saja atau malah salah memprosesnya. Untuk domain komentar media sosial, keterbatasan ini cukup signifikan.
+
+**Apakah ini hasil yang buruk?**
+
+Tidak. Justru sebaliknya — ini hasil yang *jujur* dan *berharga* untuk skripsi.
+
+Banyak paper akademis hanya melaporkan hal-hal yang berhasil. Melaporkan eksperimen yang "tidak berhasil" beserta penjelasan yang solid justru menunjukkan bahwa peneliti memahami domain masalahnya — bukan sekadar mencoba teknik secara acak lalu melaporkan yang kebetulan bagus.
+
+---
+
+### 18.7 Kesimpulan dan Rekomendasi untuk Skripsi
+
+**Keputusan teknis:** Model produksi tetap menggunakan pipeline *tanpa* stemming. Lebih sederhana, lebih cepat, dan hasilnya sama.
+
+**Kalimat untuk bab metodologi/pembahasan:**
+
+> *"Eksperimen stemming menggunakan library PySastrawi dilakukan untuk mengevaluasi apakah normalisasi morfologi dapat meningkatkan performa model. Dua model dilatih dengan kondisi identik (dataset, split, hyperparameter) — satu tanpa stemming sebagai baseline dan satu dengan stemming Sastrawi. Hasil menunjukkan perbedaan F1-macro yang tidak signifikan (0.9671 vs 0.9672, selisih +0.0002). Stemming tidak diintegrasikan ke pipeline produksi karena: (1) fitur diskriminatif utama adalah nama brand judi yang sudah dalam bentuk dasar, (2) TF-IDF bigram sudah mampu menangani variasi morfologi dalam konteks yang relevan, dan (3) Sastrawi kurang optimal untuk teks informal/slang yang mendominasi komentar YouTube."*
+
+---
+
+### 18.8 Cara Menjalankan
+
+```bash
+python src/experiment_stemming.py
+```
+
+Output tersimpan di `reports/`:
+- `experiment_stemming.png` — grafik perbandingan F1 dua model
+
+---
+
+## 17. Inspeksi Fitur — "Apa yang Dipelajari Model?"
+
+> Bagian ini menjelaskan apa itu `inspect_features.py`, kenapa penting untuk skripsi, dan bagaimana menginterpretasikan hasilnya.
+
+---
+
+### 17.1 Latar Belakang: Model sebagai "Black Box"
+
+Salah satu kritik umum terhadap machine learning adalah model dianggap sebagai *black box* — kita tahu input dan output-nya, tapi tidak tahu *kenapa* model membuat keputusan tertentu. Untuk skripsi, ini masalah: dosen penguji mungkin bertanya, *"Apa yang sebenarnya dipelajari model kamu? Apa buktinya model bukan sekadar menghafal?"*
+
+Untungnya, SVM dengan kernel linear adalah pengecualian — model ini *bisa* dijelaskan, karena cara kerjanya bisa dilihat langsung dari koefisiennya.
+
+---
+
+### 17.2 Cara Kerja: Koefisien SVM Linear
+
+Ingat kembali cara kerja TF-IDF + SVM:
+
+1. **TF-IDF** mengubah setiap komentar menjadi vektor angka. Setiap dimensi vektor itu merepresentasikan satu kata atau bigram. Misalnya dimensi ke-237 mungkin mewakili kata "daftar", dimensi ke-1042 mewakili bigram "bonus new".
+
+2. **SVM linear** menemukan hyperplane (garis pemisah) optimal antara kelas spam dan non-spam. Hyperplane ini didefinisikan oleh **vektor bobot** `w` — satu nilai per dimensi fitur.
+
+3. Nilai bobot `w[i]` untuk fitur ke-i menunjukkan:
+   - `w[i] > 0` dan besar → fitur ini **kuat mendorong ke arah SPAM**
+   - `w[i] < 0` dan besar (nilainya sangat negatif) → fitur ini **kuat mendorong ke arah NON-SPAM**
+   - `w[i] ≈ 0` → fitur ini hampir tidak berpengaruh
+
+```
+Contoh keputusan SVM untuk satu komentar:
+skor = w[daftar] × 3.2 + w[sekarang] × 1.1 + w[bonus] × 2.8 + w[bang] × (-1.5) + ...
+jika skor > 0  → prediksi SPAM
+jika skor < 0  → prediksi NON-SPAM
+```
+
+Nilai bobot `w` ini tersimpan di `pipeline.named_steps['svm'].coef_` — itulah yang diekstrak oleh `inspect_features.py`.
+
+---
+
+### 17.3 Catatan Teknis: Sparse Matrix
+
+Saat mengekstrak `coef_`, ada detail penting yang perlu dipahami:
+
+sklearn menyimpan `coef_` sebagai **sparse matrix** dari scipy (bukan numpy array biasa). Sparse matrix adalah format efisien untuk data yang sebagian besar isinya nol — cocok untuk TF-IDF yang memang menghasilkan banyak nilai nol.
+
+Masalahnya: operasi standar numpy seperti `np.asarray(sparse)` tidak otomatis mengkonversi sparse ke dense array — hasilnya adalah *object array* berisi sparse matrix itu sendiri (tidak berguna). Solusinya adalah memanggil `.toarray()` terlebih dahulu:
+
+```python
+# SALAH — menghasilkan object array, bukan angka
+weights = np.asarray(svm.coef_[0]).ravel()
+
+# BENAR — konversi eksplisit sparse → dense → 1D
+weights = svm.coef_.toarray().ravel()
+```
+
+---
+
+### 17.4 Cara Membaca Hasil
+
+Jalankan: `python src/inspect_features.py`
+
+Output mencakup:
+- **Top 25 fitur spam** — kata/bigram dengan bobot tertinggi (paling mendorong prediksi spam)
+- **Top 25 fitur non-spam** — kata/bigram dengan bobot paling negatif (paling mendorong prediksi non-spam)
+- `reports/top_features.png` — visualisasi bar chart dua panel
+- `reports/feature_weights.csv` — seluruh ~4000 fitur beserta bobotnya
+
+**Contoh output aktual dari model v2 (dataset 3608 sampel):**
+
+```
+TOP 25 FITUR → SPAM (bobot tertinggi):
+  berkah (5.35), pstoto (4.55), situs (3.12), xuxu (3.01),
+  bukit (2.83), dora (2.82), bambu (2.81), bermain (2.51),
+  supermoney (2.38), pangeran (2.38), giat (2.35), kyt (2.33),
+  pluto (2.17), jptogel (2.08), jalak (2.07), kuas (2.06),
+  fire (2.03), bbca (1.98), rezeki (1.96), hoki (1.90)
+
+TOP 25 FITUR → NON-SPAM (bobot paling negatif):
+  bang (-1.56), dok (-1.39), tirta (-1.26), desta (-1.19),
+  ibot (-1.15), midori (-1.08), mahal (-0.97), orang (-0.96),
+  jot (-0.93), tidur (-0.91), tepe (-0.91), indah (-0.90),
+  cewek (-0.89), anjir (-0.85), cocok (-0.79), jaman (-0.78)
+```
+
+---
+
+### 17.5 Interpretasi dan Insight untuk Skripsi
+
+**Fitur spam — yang masuk akal:**
+
+| Fitur | Penjelasan |
+|-------|-----------|
+| `pstoto`, `jptogel`, `supermoney`, `xuxu`, `bardi` | Nama brand judi online langsung |
+| `situs` | "Situs judi" — kata kunci umum dalam iklan judi |
+| `hoki`, `rezeki`, `berkah` | Kata-kata berkonotasi keberuntungan/rezeki yang sering dipakai untuk menarik korban |
+| `fire` | Berasal dari emoji 🔥 yang dikonversi preprocessing. Penipu sering memakai emoji ini untuk menarik perhatian |
+| `bbca` | Singkatan BCA (bank) — sering muncul di komentar spam yang menyebut metode transfer/deposit |
+
+**Fitur spam — yang terlihat aneh tapi masuk akal:**
+
+Kata-kata seperti `berkah`, `bukit`, `bambu`, `dora`, `jalak` terlihat tidak berbahaya. Namun kemungkinan besar ini adalah **potongan nama brand judi** yang terpotong saat preprocessing:
+- `BERKAH4D` → angka dihapus oleh preprocessing → tersisa `berkah`
+- `BAMBU4D` → tersisa `bambu`
+- `BUKIT4D` → tersisa `bukit`
+
+Ini adalah insight penting: preprocessing yang menghapus angka di tengah kata membantu normalisasi, tapi bisa "menyembunyikan" asal-usul fitur. Bisa disebutkan sebagai keterbatasan di skripsi.
+
+**Fitur non-spam — yang masuk akal:**
+
+| Fitur | Penjelasan |
+|-------|-----------|
+| `bang`, `dok`, `kak` | Sapaan informal Indonesia yang sangat umum di komentar biasa |
+| `orang`, `tidur`, `mahal`, `cocok` | Kata sehari-hari yang jarang muncul di komentar spam |
+| `desta`, `ibot`, `midori`, `tirta` | Nama-nama orang/karakter yang muncul di video non-spam yang di-scrape |
+| `anjir`, `jaman`, `cewek` | Slang Indonesia yang lazim di komentar biasa, tidak ada di spam |
+| `arsenal`, `london`, `infinix` | Referensi ke olahraga, tempat, dan brand teknologi — konteks jauh dari judi |
+
+**Kalimat untuk bab metodologi skripsi:**
+
+> *"Inspeksi koefisien SVM menunjukkan bahwa model berhasil mempelajari pola yang semantik — bukan sekadar menghafal data training. Fitur dengan bobot tertinggi untuk kelas spam adalah nama brand judi online (pstoto, jptogel, bardi), kata-kata berkonotasi keberuntungan (hoki, rezeki, berkah), dan token 'fire' yang berasal dari konversi emoji 🔥. Sebaliknya, fitur non-spam didominasi sapaan informal Indonesia (bang, dok) dan referensi kontekstual (desta, arsenal) yang tidak berkaitan dengan perjudian."*
+
+---
+
+### 17.6 Cara Menjalankan
+
+```bash
+# Jalankan sekali setelah train.py selesai
+python src/inspect_features.py
+```
+
+Output disimpan di `reports/`:
+- `top_features.png` — bar chart dua panel (spam vs non-spam), siap pakai di skripsi
+- `feature_weights.csv` — seluruh daftar fitur dan bobot, untuk analisis mandiri

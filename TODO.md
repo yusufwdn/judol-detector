@@ -179,22 +179,34 @@ bereksperimen meningkatkan kualitas model itu sendiri.
 > *training-serving skew* (sudah dijelaskan lengkap di
 > [`PENJELASAN_TEKNIS.md`](PENJELASAN_TEKNIS.md) bagian 11).
 
-- [ ] **Coba stemming dengan Sastrawi** (sudah disebutkan di README sebagai
-  saran). Latih model dengan dan tanpa stemming, bandingkan hasilnya — jangan
-  asumsikan otomatis lebih baik, buktikan dengan angka.
+- [✅] **Coba stemming dengan Sastrawi.**
+  Dieksperimen di `src/experiment_stemming.py`. Hasil: perbedaan F1-macro
+  hanya +0.0002 (0.9671 → 0.9672) — tidak signifikan. Model produksi tetap
+  tanpa stemming. Penjelasan + kalimat siap kutip untuk skripsi ada di
+  [PENJELASAN_TEKNIS.md §18](PENJELASAN_TEKNIS.md#18-eksperimen-stemming--apakah-stemming-membantu).
 
 - [ ] **Tambah stopwords domain-spesifik** ("kak", "bang", "min", "subscribe",
   "like", "video", "nonton", dll) ke `STOPWORDS_ID`.
+  ⚠️ Dari hasil inspeksi fitur (§17), `bang` dan `dok` justru menjadi sinyal
+  non-spam yang kuat. Menghapusnya sebagai stopword kemungkinan besar akan
+  menurunkan performa. Eksperimen ini bisa dipertimbangkan tapi bukan prioritas.
 
-- [ ] **Inspeksi fitur paling berpengaruh (support vectors / koefisien).**
-  Untuk kernel linear, kamu bisa ekstrak `pipeline.named_steps['svm'].coef_`
-  dan lihat kata/bigram apa yang paling mendorong prediksi "spam" vs
-  "non_spam". Ini bagus untuk bagian "interpretasi model" di skripsi —
-  menunjukkan model belajar pola yang masuk akal (bukan kebetulan).
+- [✅] **Inspeksi fitur paling berpengaruh (support vectors / koefisien).**
+  Diimplementasikan di `src/inspect_features.py`. Jalankan setelah training:
+  `python src/inspect_features.py`. Output tersimpan di `reports/`:
+  - `top_features.png` — bar chart dua panel siap pakai di skripsi
+  - `feature_weights.csv` — seluruh ~4000 fitur dan bobotnya
+  → Penjelasan lengkap (termasuk kalimat untuk bab metodologi) di
+  [PENJELASAN_TEKNIS.md §17](PENJELASAN_TEKNIS.md#17-inspeksi-fitur--apa-yang-dipelajari-model)
 
-- [ ] **Eksperimen `max_features` dan `ngram_range`.**
-  Coba `ngram_range=(1,3)` (tambah trigram) atau `max_features=5000`/`20000`,
-  catat dampaknya ke F1-score dan ukuran model.
+- [✅] **Eksperimen `max_features` dan `ngram_range`.**
+  Dieksperimen di `src/experiment_features.py`. Hasil utama:
+  - Unigram saja (1,1) sedikit lebih baik (+0.0034) — tidak signifikan secara praktis
+  - Trigram tidak membantu sama sekali
+  - max_features tidak relevan: vocabulary aktual hanya 4.056, jauh di bawah batas
+  - Konfigurasi baseline dipertahankan
+  → Penjelasan + kalimat siap kutip di
+  [PENJELASAN_TEKNIS.md §19](PENJELASAN_TEKNIS.md#19-eksperimen-konfigurasi-tf-idf--ngram-dan-max_features)
 
 ---
 
