@@ -85,11 +85,45 @@ def load_spam_data(json_path: str, threshold: int) -> list:
     Returns:
         List of dicts with keys 'text' and 'label'.
     """
-    # Regex that matches all-caps words containing digits — characteristic of
-    # Indonesian gambling brand names after NFKC normalization.
-    # Examples that MATCH  : WIFI4D, BATRE4D, PELATIH4D, ROMA4D, GACOR88
-    # Examples that DON'T  : kesambet, ribet,abet, sbobet (lowercase)
-    BRAND_RESCUE_PATTERN = re.compile(r'\b[A-Z]{2,}\d+[A-Z0-9]*\b')
+    # ---------------------------------------------------------------------------
+    # BRAND DETECTION PATTERNS untuk Pass 2 (rescue)
+    # ---------------------------------------------------------------------------
+    #
+    # Pola 1 — huruf (case-insensitive) + digit
+    #   Contoh: WIFI4D, freebet88, Koreo138, bbca4d, SlotLions88
+    #
+    #   Kenapa case-insensitive?
+    #   Spammer sering memakai font dekoratif (matematika italic, bold, dll) yang
+    #   setelah NFKC normalization di scraper menghasilkan mixed case atau lowercase,
+    #   bukan ALL-CAPS:
+    #     𝒃𝒃𝒄𝒂4𝒅  →  bbca4d       (math italic → lowercase)
+    #     𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 →  Koreo138     (math bold → Title Case)
+    #   Dengan flag re.IGNORECASE, brand ini sekarang terdeteksi.
+    #
+    #   Kenapa aman? Digit tetap WAJIB ada. Kata umum Indonesia seperti
+    #   "ribet", "kesambet", "diabet" tidak punya digit → tidak kena.
+    BRAND_RESCUE_PATTERN = re.compile(r'\b[A-Z]{2,}\d+[A-Z0-9]*\b', re.IGNORECASE)
+
+    # Pola 2 — Suffix khas brand judi Indonesia TANPA digit
+    #   Format: [4+ huruf kapital][TOTO|BET|WIN|QQ]
+    #
+    #   Kenapa suffix ini aman?
+    #   Hampir semua situs judi Indonesia memakai salah satu dari empat suffix ini:
+    #     *TOTO  → togel online (NAGAMASTOTO, AGUSTOTO, OMETOTO, ASIKTOTO...)
+    #     *BET   → betting/taruhan (MANJURBET, SIAPBET, GONBET...)
+    #     *WIN   → slot/menang (PULAUWIN, PUSATWIN, BUAYAWIN, ARJUNAWIN...)
+    #     *QQ    → poker/domino online (HOBIQQ, BANDARQQ, DOMINOQQ...)
+    #
+    #   Kenapa minimum 3 huruf sebelum suffix (diturunkan dari 4)?
+    #   Brand pendek seperti OMETOTO (O-M-E = 3 huruf + TOTO) sebelumnya tidak
+    #   terdeteksi karena minimum lama adalah 4. Setelah analisis manual 533 entry
+    #   yang di-skip, ditemukan banyak brand pendek yang lolos karena aturan ini.
+    #   Tetap ALL-CAPS (tidak case-insensitive) untuk mencegah FP dari kata
+    #   Indonesia biasa seperti "seribet" atau "ngebet" yang ditulis lowercase.
+    #
+    #   Contoh yang MATCH  : NAGAMASTOTO, OMETOTO, MANJURBET, PULAUWIN, HOBIQQ
+    #   Contoh yang TIDAK  : ngebet (lowercase), seribet (lowercase), MAXWIN (MAX=5? tunggu MAXWIN: M-A-X=3+WIN ✓ sekarang match)
+    BRAND_SUFFIX_PATTERN = re.compile(r'\b[A-Z]{3,}(?:TOTO|BET|WIN|QQ)\b')
 
     if not os.path.exists(json_path):
         raise FileNotFoundError(
@@ -119,22 +153,37 @@ def load_spam_data(json_path: str, threshold: int) -> list:
         if score >= threshold:
             spam_entries.append({"text": text, "label": "spam"})
 
-        # Pass 2: rescue entries that only triggered brand_pattern at low score
-        # but whose normalized text contains a real brand name pattern.
+        # Pass 2: rescue entries below threshold that contain a confirmed real
+        # gambling brand name in normalized_text.
         #
-        # Why only brand_pattern entries?
-        # If score < threshold AND signals != ['brand_pattern'], the entry
-        # triggered only weak secondary signals (emoji spam, high symbol ratio,
-        # excessive caps) without any brand or link — too noisy to trust.
-        elif signals == ["brand_pattern"] and BRAND_RESCUE_PATTERN.search(normalized):
+        # KONDISI LAMA: signals == ["brand_pattern"]  (exact match — hanya 1 sinyal)
+        # KONDISI BARU: "brand_pattern" in signals    (membership check — brand bisa hadir
+        #               bersamaan dengan sinyal lain seperti emoji_spam / high_symbol_ratio)
+        #
+        # Kenapa diubah?
+        # Spammer yang memakai Unicode obfuscation (𝑅𝒪𝑀𝒜𝟦𝒟, Ｓｌｏｔ, ⓢⓛⓞⓣ) sering juga
+        # menggunakan banyak emoji dan simbol sebagai dekorasi. Akibatnya komentar mereka
+        # mendapat 2-3 sinyal (brand_pattern + emoji_spam + high_symbol_ratio) sehingga
+        # score-nya 60-75, tapi kondisi rescue LAMA mengharuskan tepat 1 sinyal.
+        # Mereka ke-skip padahal jelas spam — brand ROMA4D terlihat jelas di normalized_text.
+        #
+        # Kondisi rescue: brand_pattern sudah terpenuhi dari scraper.
+        # Verifikasi tambahan via dua pola brand di normalized_text:
+        #   - BRAND_RESCUE_PATTERN : ALL-CAPS + digit  (WIFI4D, ROMA4D)
+        #   - BRAND_SUFFIX_PATTERN : [4+huruf]TOTO|BET|WIN  (NAGAMASTOTO, MANJURBET, PULAUWIN)
+        elif "brand_pattern" in signals and (
+            BRAND_RESCUE_PATTERN.search(normalized)
+            or BRAND_SUFFIX_PATTERN.search(normalized)
+        ):
             spam_entries.append({"text": text, "label": "spam"})
             rescued += 1
 
         else:
-            # Could be a false positive like "kesambet" (brand_pattern on "bet")
+            # Could be a false positive like "kesambet" (brand_pattern on "bet"),
+            # a soft brand (Miya88 — mixed case, doesn't match ALL-CAPS regex),
             # or genuinely weak signal. Skip either way.
             skipped_low_score += 1
-            if signals == ["brand_pattern"] and score < threshold:
+            if "brand_pattern" in signals and score < threshold:
                 false_positive_dropped += 1
 
     print(f"  Total entries in JSON        : {len(raw_data)}")

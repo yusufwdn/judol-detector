@@ -1,0 +1,4691 @@
+[
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "Main santai, hasil mantap. Cuma di 𝘼𝙧𝙬𝙖𝙣𝙖𝙩𝙤𝙩𝙤! 🏆🏆🏆🏆",
+    "normalized_text": "Main santai, hasil mantap. Cuma di Arwanatoto! 🏆🏆🏆🏆"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "Gak nyangka bakal sebagus ini,🍒🍒 freebet88🌹🌹 juga selalu bikin surprise.🍬🍬🦞🍭🍣",
+    "normalized_text": "Gak nyangka bakal sebagus ini,🍒🍒 freebet88🌹🌹 juga selalu bikin surprise.🍬🍬🦞🍭🍣"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "🤑🤑 Emang gak ada yang se-legit 𝒃𝒃𝒄𝒂4𝒅 sih.🤑🤑",
+    "normalized_text": "🤑🤑 Emang gak ada yang se-legit bbca4d sih.🤑🤑"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "🤑🤑 Heboh bener, di semua platform rame soal 𝒃𝒃𝒄𝒂4𝒅 🤑🤑",
+    "normalized_text": "🤑🤑 Heboh bener, di semua platform rame soal bbca4d 🤑🤑"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "🤑🤑 Penasaran banget deh sama 𝒃𝒃𝒄𝒂4𝒅.🤑🤑",
+    "normalized_text": "🤑🤑 Penasaran banget deh sama bbca4d.🤑🤑"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "🤑🤑 Terbaik ❤️ memang kak , salam 𝒃𝒃𝒄𝒂4𝒅 🤑🤑",
+    "normalized_text": "🤑🤑 Terbaik ❤️ memang kak , salam bbca4d 🤑🤑"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "ˢᶦⁿᵍᵍᵃˢᵃⁿᵃ⁸⁸ !! Top Banget 🔥 💰👍👍",
+    "normalized_text": "sɪnggasana88 !! Top Banget 🔥 💰👍👍"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "Raih jackpot besar di SlotLions88 🎰💸. Dengan peluang menang yang tinggi dan game berkualitas, kesempatan emas untuk jadi pemenang🚀🏆\"",
+    "normalized_text": "Raih jackpot besar di SlotLions88 🎰💸. Dengan peluang menang yang tinggi dan game berkualitas, kesempatan emas untuk jadi pemenang🚀🏆\""
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "Plot twist bgt njir🗿🗿😭😭😭 nagamastoto",
+    "normalized_text": "Plot twist bgt njir🗿🗿😭😭😭 nagamastoto"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=75",
+    "original_text": "Mantep cuan nya  om.. di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 👍🏿👍🏿😁🫆",
+    "normalized_text": "Mantep cuan nya  om.. di Koreo138 👍🏿👍🏿😁🫆"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Bang sekali² cobainGarudaHoki biar tau rasanya maxwin😇",
+    "normalized_text": "Bang sekali2 cobainGarudaHoki biar tau rasanya maxwin😇"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "langkahi dulu gacor nya OMETOTO",
+    "normalized_text": "langkahi dulu gacor nya OMETOTO"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "gak ada obat kalao OMETOTO lagi gacor2 nya",
+    "normalized_text": "gak ada obat kalao OMETOTO lagi gacor2 nya"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝐌𝐚𝐧𝐭𝐚𝐩 𝐛𝐚𝐧𝐠𝐞𝐭 𝐢𝐧𝐢 𝐯𝐢𝐝𝐞𝐨 𝐧𝐲𝐚 🏆 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Mantap banget ini video nya 🏆 Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "konten paling favorit yg buat gw auto sbcrbe❤❤ 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "konten paling favorit yg buat gw auto sbcrbe❤❤ Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝗚𝗼𝗼𝗱 𝗯𝗮𝗻𝗴𝗲𝘁 𝗻𝗶𝗵 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖, 𝗱𝗮𝗿𝗶 𝘀𝗲𝗴𝗶 𝘀𝗲𝗺𝘂𝗮𝗻𝘆𝗮",
+    "normalized_text": "Good banget nih Gac0rwin138, dari segi semuanya"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Keren sih ngk cuma sekedar fanservice, emg seru 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Keren sih ngk cuma sekedar fanservice, emg seru Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Channel kayak gini bikin betah di YouTube!! 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Channel kayak gini bikin betah di YouTube!! Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝙎𝙖𝙣𝙜𝙖𝙩 𝙢𝙚𝙣𝙖𝙧𝙞𝙠 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Sangat menarik Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝗣𝗮𝘀 𝗻𝗼𝗻𝘁𝗼𝗻 𝗸𝗼𝗾 𝘁𝗶𝗯𝗮2 𝗮𝗱𝗮 𝗯𝗮𝗵𝗮𝘀 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖 ???",
+    "normalized_text": "Pas nonton koq tiba2 ada bahas Gac0rwin138 ???"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝗲𝗺𝗮𝗻𝗴 𝘁𝗼𝗽! 𝗘𝗱𝗶𝘁𝗶𝗻𝗴 𝗿𝗮𝗽𝗶, 𝘃𝗶𝗯𝗲𝘀-𝗻𝘆𝗮 𝗮𝘀𝗶𝗸. 𝗦𝘂𝗸𝘀𝗲𝘀 𝘁𝗲𝗿𝘂𝘀 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "emang top! Editing rapi, vibes-nya asik. Sukses terus Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Ｇｉｌａ ！！ ｐｅｎｇｅｎ ｓｈａｒｅ ｋｅ ｔｅｍａｎ ｓｅｔｅｌａｈ ｃｏｂａ ｄｉ 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖, Ｍａｎｔａｐ",
+    "normalized_text": "Gila !! pengen share ke teman setelah coba di Gac0rwin138, Mantap"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝖡𝗎𝗄𝖺𝗇 𝗆𝖺𝗄𝗌𝗎𝖽 𝗁𝖺𝗍𝗂 𝗆𝖾𝗇𝗀𝗀𝖺𝗇𝗀𝗎 𝗍𝖺𝗉𝗂 𝗉𝖾𝗋𝗅𝗎 𝖽𝗂 𝗉𝖾𝗋𝗍𝗂𝗆𝖻𝖺𝗇𝗀𝗄𝖺𝗇 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Bukan maksud hati menggangu tapi perlu di pertimbangkan Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝗵𝗶𝗯𝘂𝗿𝗮𝗻 𝘂𝗻𝘁𝘂𝗸 𝗺𝗲𝗻𝗲𝗺𝗮𝗻𝗶 𝗵𝗮𝗿𝗶 𝗺𝘂, 𝘆𝗮 𝗵𝗮𝗻𝘆𝗮 𝗮𝗱𝗮 𝗱𝗶 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "hiburan untuk menemani hari mu, ya hanya ada di Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝘴𝘦𝘮𝘰𝘨𝘢 𝘺𝘨 𝘨𝘢𝘣𝘶𝘯𝘨 𝘥𝘪 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖 𝘩𝘪𝘥𝘶𝘱𝘯𝘺𝘢 𝘢𝘮𝘢𝘯,𝘭𝘢𝘯𝘤𝘢𝘳,𝘫𝘢𝘺𝘢",
+    "normalized_text": "semoga yg gabung di Gac0rwin138 hidupnya aman,lancar,jaya"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝘁𝗲𝗺𝗽𝗮𝘁 𝗺𝗮𝗶𝗻 𝘆𝗮𝗻𝗴 𝗽𝗲𝗻𝘂𝗵 𝗸𝗲𝗷𝘂𝘁𝗮𝗻 𝗖𝗼𝗯𝗮 𝗛𝗮𝗻𝘆𝗮 𝗱𝗶 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "tempat main yang penuh kejutan Coba Hanya di Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝘒𝘢𝘭𝘢𝘶 𝘬𝘢𝘺𝘢𝘬 𝘨𝘪𝘯𝘪 𝘴𝘦𝘵𝘪𝘢𝘱 𝘩𝘢𝘳𝘪 𝘬𝘶 𝘱𝘢𝘴𝘵𝘪𝘬𝘢𝘯 𝘣𝘦𝘵𝘢𝘩 𝘮𝘢𝘪𝘯 𝘥𝘪 𝘴𝘪𝘯𝘪 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖 m͎a͎n͎t͎a͎p",
+    "normalized_text": "Kalau kayak gini setiap hari ku pastikan betah main di sini Gac0rwin138 m͎a͎n͎t͎a͎p"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝐫𝐞𝐳𝐞𝐤𝐢 𝐧𝐨𝐦𝐩𝐥𝐨𝐤 𝐭𝐢𝐚𝐩 𝐡𝐚𝐫𝐢! 𝐦𝐚𝐢𝐧 𝐝𝐢 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "rezeki nomplok tiap hari! main di Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝘈𝘸𝘢𝘭𝘯𝘺𝘢 𝘤𝘶𝘳𝘪𝘨𝘢 𝘬𝘦𝘯𝘢𝘱𝘢 𝘵𝘦𝘮𝘢𝘯2 𝘢𝘴𝘪𝘬 𝘣𝘢𝘩𝘢𝘴 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖, 𝘛𝘦𝘳𝘯𝘺𝘢𝘵𝘢 𝘮𝘦𝘮𝘢𝘯𝘨 𝘵𝘪𝘥𝘢𝘬 𝘮𝘦𝘯𝘨𝘦𝘤𝘦𝘸𝘢𝘬𝘢𝘯",
+    "normalized_text": "Awalnya curiga kenapa teman2 asik bahas Gac0rwin138, Ternyata memang tidak mengecewakan"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝙶𝚞𝚎 𝚙𝚒𝚔𝚒𝚛 𝚌𝚞𝚖𝚊 𝚑𝚢𝚙𝚎 𝚜𝚎𝚜𝚊𝚊𝚝, 𝚝𝚎𝚛𝚗𝚢𝚊𝚝𝚊 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖 𝚖𝚊𝚔𝚒𝚗 𝚛𝚊𝚖𝚎",
+    "normalized_text": "Gue pikir cuma hype sesaat, ternyata Gac0rwin138 makin rame"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝔅𝔞𝔫𝔤𝔲𝔫 𝔰𝔢𝔪𝔞𝔫𝔤𝔞𝔱𝔪𝔲 𝔟𝔢𝔯𝔰𝔞𝔪𝔞 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Bangun semangatmu bersama Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "maxwin beneran gua diGaruda-hoki😮",
+    "normalized_text": "maxwin beneran gua diGaruda-hoki😮"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "di 𝐩𝐥𝐚𝐳𝐚𝟒𝐃 modal receh di kasih maxwin.emang betul kata orang gacor kali,gak ada obat",
+    "normalized_text": "di plaza4D modal receh di kasih maxwin.emang betul kata orang gacor kali,gak ada obat"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "mukbang sambil nyoba gacor nya OMETOTO",
+    "normalized_text": "mukbang sambil nyoba gacor nya OMETOTO"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "haha kena lagi x1000 nya ,gacor OMETOTO",
+    "normalized_text": "haha kena lagi x1000 nya ,gacor OMETOTO"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Jam gacor??? sirup4D lebih gacor🔥",
+    "normalized_text": "Jam gacor??? sirup4D lebih gacor🔥"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "yang belum rasain maxwin GA RU DA SATU TIGA DELAPAN..Sudah Pasti Jepe💗",
+    "normalized_text": "yang belum rasain maxwin GA RU DA SATU TIGA DELAPAN..Sudah Pasti Jepe💗"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Bapak si Bayu pasti bangga maxwin di ≋𝐃𝙀 𝙒𝘼𝘿𝙊 𝙍𝐀≋",
+    "normalized_text": "Bapak si Bayu pasti bangga maxwin di ≋DE WADO RA≋"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Anita maxwin",
+    "normalized_text": "Anita maxwin"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "mental selalu aman kalo udah di kasih maxwin sama OMETOTO",
+    "normalized_text": "mental selalu aman kalo udah di kasih maxwin sama OMETOTO"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Akhrnya jp pecah juga! ⚡Petarung138⚡ emang gacor! 💥",
+    "normalized_text": "Akhrnya jp pecah juga! ⚡Petarung138⚡ emang gacor! 💥"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝐀𝐝𝐚 𝐧𝐨𝐭𝐢𝐟 𝐥𝐚𝐧𝐠𝐬𝐮𝐧𝐠 𝐧𝐨𝐧𝐭𝐨𝐧 👍 𝐒𝐞𝐭𝐞𝐥𝐚𝐡 𝐣𝐞𝐩𝐞𝐲 𝐝𝐢 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Ada notif langsung nonton 👍 Setelah jepey di Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝙈𝙚𝙢𝙗𝙚𝙧 𝙗𝙖𝙧𝙪 𝙙𝙞 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖 𝙋𝙖𝙨𝙩𝙞 𝙟𝙚𝙥𝙚𝙮",
+    "normalized_text": "Member baru di Gac0rwin138 Pasti jepey"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝙖𝙬𝙖𝙡𝙣𝙮𝙖 𝙧𝙖𝙜𝙪 𝙩𝙖𝙥𝙞 𝙡𝙖𝙣𝙜𝙨𝙪𝙣𝙜 𝙢𝙖𝙭𝙬𝙞𝙣 𝙂𝙖𝙘𝙤𝙧 𝙗𝙖𝙣𝙜𝙚𝙩 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "awalnya ragu tapi langsung maxwin Gacor banget Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "𝗦𝗲𝗻𝗲𝗻𝗴 𝗯𝗮𝗻𝗴𝗲𝘁 𝗵𝗮𝗿𝗶 𝗶𝗻𝗶 𝗱𝗶 𝗸𝗮𝘀𝗶𝗵 𝗺𝗲𝗻𝗮𝗻𝗴 𝘀𝗮𝗺𝗮 𝐆𝐚𝐜𝟎𝐫𝐰𝐢𝐧𝟏𝟑𝟖",
+    "normalized_text": "Seneng banget hari ini di kasih menang sama Gac0rwin138"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "martil4d gacor",
+    "normalized_text": "martil4d gacor"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "gacor abis puIau777",
+    "normalized_text": "gacor abis puIau777"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "emang segacor itu puIau777?",
+    "normalized_text": "emang segacor itu puIau777?"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "puIau777 beneran gacor bro",
+    "normalized_text": "puIau777 beneran gacor bro"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "anjir gacor amat puIau777",
+    "normalized_text": "anjir gacor amat puIau777"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Endingnya mindblowing banget bang bara wkwk  \"Lumayan 50buat depo\" Siapa tau maxwin meleduk x1000 kakek zeus hahaha",
+    "normalized_text": "Endingnya mindblowing banget bang bara wkwk  \"Lumayan 50buat depo\" Siapa tau maxwin meleduk x1000 kakek zeus hahaha"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Makin gacor main di dragon99",
+    "normalized_text": "Makin gacor main di dragon99"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "akhirnya jepe juga di puIau777",
+    "normalized_text": "akhirnya jepe juga di puIau777"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Gak nyangka pagi ini bisa JEPE 3x di𝓟𝓤𝓛𝓐𝓤777 ❤️",
+    "normalized_text": "Gak nyangka pagi ini bisa JEPE 3x diPULAU777 ❤️"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "PUL AU777jadi tempat paling sering bikin aku MAXWIN!",
+    "normalized_text": "PUL AU777jadi tempat paling sering bikin aku MAXWIN!"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Baru aja dapet MAXWIN sore ini, makasih𝙋𝙐𝙇𝘼𝙪777.",
+    "normalized_text": "Baru aja dapet MAXWIN sore ini, makasihPULAu777."
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "Dari semalam udah JEPE 2x, semua dari𝙋𝙐𝙇𝘼𝙪777.",
+    "normalized_text": "Dari semalam udah JEPE 2x, semua dariPULAu777."
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "PU L AU 7 7 7emang tempatnya MAXWIN sejati.",
+    "normalized_text": "PU L AU 7 7 7emang tempatnya MAXWIN sejati."
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "kalau main di 𝗃𝗉𝗍𝗈𝗀𝖾𝗅77 udah gw rasakan mmg lebih gac𝗈r",
+    "normalized_text": "kalau main di jptogel77 udah gw rasakan mmg lebih gacor"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "gokilll mantul kali 𝗃𝗉𝗍𝗈𝗀𝖾𝗅77 makasih info gac𝗈rny kakak",
+    "normalized_text": "gokilll mantul kali jptogel77 makasih info gacorny kakak"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "keren 𝗃𝗉𝗍𝗈𝗀𝖾𝗅77 gampang kasih maxwin",
+    "normalized_text": "keren jptogel77 gampang kasih maxwin"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=70",
+    "original_text": "salam777 gacor x bosku",
+    "normalized_text": "salam777 gacor x bosku"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Jarang banget aku ninggalin komentar,🔴𝔭𝔯𝔢𝔪𝔦𝔢𝔯𝔰𝔩𝔬𝔱88⏮ tapi video ini pantas banget dapet pujian. Keep up the amazing work!",
+    "normalized_text": "Jarang banget aku ninggalin komentar,🔴premierslot88⏮ tapi video ini pantas banget dapet pujian. Keep up the amazing work!"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥PuIauwin🔥 menyala",
+    "normalized_text": "🔥PuIauwin🔥 menyala"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥PuIauwin🔥 top",
+    "normalized_text": "🔥PuIauwin🔥 top"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥 PuIauwin 🔥 makwin x2",
+    "normalized_text": "🔥 PuIauwin 🔥 makwin x2"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥PuIauwin 🔥 100% dibayar",
+    "normalized_text": "🔥PuIauwin 🔥 100% dibayar"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥 PuIauwin 🔥 bonus besar",
+    "normalized_text": "🔥 PuIauwin 🔥 bonus besar"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥 PuIauwin 🔥 wede banyak",
+    "normalized_text": "🔥 PuIauwin 🔥 wede banyak"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥 PuIauwin 🔥 nomero uno",
+    "normalized_text": "🔥 PuIauwin 🔥 nomero uno"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🔥 PuIauwin🔥 Dijamin Wede 100%",
+    "normalized_text": "🔥 PuIauwin🔥 Dijamin Wede 100%"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Bukan ngebet, tapi nyaman di P͟͟U͟͟L͟͟A͟͟U͟͟W͟͟I͟͟N͟͟?",
+    "normalized_text": "Bukan ngebet, tapi nyaman di P͟͟U͟͟L͟͟A͟͟U͟͟W͟͟I͟͟N͟͟?"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "😎 🅿️ⓤⓛⓐⓊ777 bikin harimu makin gokil!",
+    "normalized_text": "😎 🅿️ulaU777 bikin harimu makin gokil!"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Sepuh billiard turun gunung , diBUKIT4D sepuh SCATTER TURUN BERUNTUN",
+    "normalized_text": "Sepuh billiard turun gunung , diBUKIT4D sepuh SCATTER TURUN BERUNTUN"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Main slot itu hiburan... tapi kalau bisa sambil cuan, kenapa enggak di coba aja main di   SlotLions88 😎",
+    "normalized_text": "Main slot itu hiburan... tapi kalau bisa sambil cuan, kenapa enggak di coba aja main di   SlotLions88 😎"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Bingung mau habisin uang kemana setiap hari wd terus Kerjaannya,jangan tanya dari mana sudah pasti dari 𝗗𝗼𝗹𝗮𝟰𝗱",
+    "normalized_text": "Bingung mau habisin uang kemana setiap hari wd terus Kerjaannya,jangan tanya dari mana sudah pasti dari Dola4d"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "pertama kali main di 𝗲𝘀𝗰𝗼𝗯𝗮𝗿𝘁𝗼𝘁𝗼 dan langsung main ehh malah beneran di kasih sama mahjong",
+    "normalized_text": "pertama kali main di escobartoto dan langsung main ehh malah beneran di kasih sama mahjong"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Bneran njirr, depo di 𝐩𝐥𝐚𝐳𝐚𝟒𝐃 cm modal 20rb dah puas main slotnya, epo 2x gak wd juga di 𝐩𝐥𝐚𝐳𝐚𝟒𝐃 , gil... main pake bonus rollingan dikasi wd 1jt lebih",
+    "normalized_text": "Bneran njirr, depo di plaza4D cm modal 20rb dah puas main slotnya, epo 2x gak wd juga di plaza4D , gil... main pake bonus rollingan dikasi wd 1jt lebih"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "high_symbol_ratio"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🌴 Dunia seru yang bikin nagih – 🅿️ⓤⓛⓐⓊ777!",
+    "normalized_text": "🌴 Dunia seru yang bikin nagih – 🅿️ulaU777!"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Langsung WD aja nih dari А𝐆𝑈𝘚𝐓𝘖TO, lumayan buat jajan! 😜 🤪",
+    "normalized_text": "Langsung WD aja nih dari АGUSTOTO, lumayan buat jajan! 😜 🤪"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Mereka udah WD jutaan dari SlotFafa88 💸 Kamu kapan? Jangan cuma lihat orang lain cuan terus!",
+    "normalized_text": "Mereka udah WD jutaan dari SlotFafa88 💸 Kamu kapan? Jangan cuma lihat orang lain cuan terus!"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "𝘽𝙖𝙧𝙪𝙨𝙖𝙣 𝙙𝙚𝙥𝙤 𝙧𝙚𝙘𝙚𝙝 𝙟𝙥 2𝙟𝙩 𝙢𝙖𝙞𝙣 𝙙𝙞✌𝓚𝓪𝓹𝓽𝓮𝓷77✌",
+    "normalized_text": "Barusan depo receh jp 2jt main di✌Kapten77✌"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Gokil parah! WD lagi-lagi di PuIauwin.",
+    "normalized_text": "Gokil parah! WD lagi-lagi di PuIauwin."
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "PuIauwin bikin untung tiap hari, WD jalan terus!",
+    "normalized_text": "PuIauwin bikin untung tiap hari, WD jalan terus!"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "promo depo 20 jadi 30 NAGAMASTOTO裏",
+    "normalized_text": "promo depo 20 jadi 30 NAGAMASTOTO裏"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Dari kecil sampai gede JP, semua berawal dari𝙋𝙐𝙇𝘼𝙪777.",
+    "normalized_text": "Dari kecil sampai gede JP, semua berawal dariPULAu777."
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "pantes tongkrongan pada maen di 𝗃𝗉𝗍𝗈𝗀𝖾𝗅77",
+    "normalized_text": "pantes tongkrongan pada maen di jptogel77"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "𝗃𝗉𝗍𝗈𝗀𝖾𝗅77 ramai nih tmn gw pada maen situ skrg",
+    "normalized_text": "jptogel77 ramai nih tmn gw pada maen situ skrg"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Saya depo barusan 3x dan wdnya sudah 7 kali di Jptogel77",
+    "normalized_text": "Saya depo barusan 3x dan wdnya sudah 7 kali di Jptogel77"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Capek bgt nemuin jptogel77 trs",
+    "normalized_text": "Capek bgt nemuin jptogel77 trs"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "🎰 Main slot makin seru di TotoSlot99! RTP tinggi, menang terus! 💥",
+    "normalized_text": "🎰 Main slot makin seru di TotoSlot99! RTP tinggi, menang terus! 💥"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=60",
+    "original_text": "Di Hoki99 slotnya di jamin ngasi JP ,mantap  bos",
+    "normalized_text": "Di Hoki99 slotnya di jamin ngasi JP ,mantap  bos"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "gue liat lagi dong 𝐑𝐨𝐦𝐚𝟒𝐝 😭😂",
+    "normalized_text": "gue liat lagi dong Roma4d 😭😂"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "🤑🤑 kalo di liat-liat makin ke sini makin tambah ghacor aja nih𝒃𝒃𝒄𝒂4𝒅  🤑🤑",
+    "normalized_text": "🤑🤑 kalo di liat-liat makin ke sini makin tambah ghacor aja nihbbca4d  🤑🤑"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "🤑🤑 Salut sih aku sama tampilan luar biasa dari 𝒃𝒃𝒄𝒂4𝒅 🤑🤑",
+    "normalized_text": "🤑🤑 Salut sih aku sama tampilan luar biasa dari bbca4d 🤑🤑"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Coba yg Yono atau Mustafa brebet yg meluk langsung kena pasal Pel3cehan engga sih 😂😂",
+    "normalized_text": "Coba yg Yono atau Mustafa brebet yg meluk langsung kena pasal Pel3cehan engga sih 😂😂"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Udah coba banyak tempat, 𝗚𝗢𝗡𝗕𝗘𝗧  yang  paling mantep! Gak nyangka bakal sering menang, jadi ketagihan!  Cari di Google 𝗚𝗢𝗡𝗕𝗘𝗧 💰🌈",
+    "normalized_text": "Udah coba banyak tempat, GONBET  yang  paling mantep! Gak nyangka bakal sering menang, jadi ketagihan!  Cari di Google GONBET 💰🌈"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "King aloy GOKILLL abiss sama di 𝐬𝐚𝐣𝐚𝐤𝟒𝐃 ngakak nonton nya 😂😂",
+    "normalized_text": "King aloy GOKILLL abiss sama di sajak4D ngakak nonton nya 😂😂"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Tapi gua liat ini pascol gk pandai memainkan peran sih, harusnya kan bisa di imbangi seperti contoh, pas emosi pura² bikin gestur cabut pedang seolah dia mau menyabet si frimawan kan bisa lebih seru😂😂",
+    "normalized_text": "Tapi gua liat ini pascol gk pandai memainkan peran sih, harusnya kan bisa di imbangi seperti contoh, pas emosi pura2 bikin gestur cabut pedang seolah dia mau menyabet si frimawan kan bisa lebih seru😂😂"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Kunyahannya berirama, plating-nya menggoda… ini konten atau iklan makanan yang dibikin sama tim kuliner 𖤐𝗣𝗦𝗧𝗢𝗧𝗢𝟵𝟵 𖤐 ?? 😩🍱",
+    "normalized_text": "Kunyahannya berirama, plating-nya menggoda... ini konten atau iklan makanan yang dibikin sama tim kuliner 𖤐PSTOTO99 𖤐 ?? 😩🍱"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Santai aja, main di RTPWIN pasti happy! Udah gacir, menangnya bikin senyum lebar! 😆🎊.",
+    "normalized_text": "Santai aja, main di RTPWIN pasti happy! Udah gacir, menangnya bikin senyum lebar! 😆🎊."
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "aku pertamanya ragu sampai coba di 64RUDA138 baru tahu ini yang bagus selama ini 💋💋💋",
+    "normalized_text": "aku pertamanya ragu sampai coba di 64RUDA138 baru tahu ini yang bagus selama ini 💋💋💋"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Undang deswin dong suci 7,yg orang BNN,mau tau expresinya prazzzteguuhhh😅😅😅",
+    "normalized_text": "Undang deswin dong suci 7,yg orang BNN,mau tau expresinya prazzzteguuhhh😅😅😅"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Request dong bang,, 3 minggu yg lalu Dr,Darwin Nunez Udh Dateng 👍 Episode selanjutnya undang Moh,Salah donk 🙏🏻😊😁",
+    "normalized_text": "Request dong bang,, 3 minggu yg lalu Dr,Darwin Nunez Udh Dateng 👍 Episode selanjutnya undang Moh,Salah donk 🙏🏻😊😁"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "𝐄𝐧𝐚𝐤 𝐛𝐚𝐧𝐠𝐞𝐭 𝐧𝐨𝐧𝐭𝐨𝐧 𝐦𝐮𝐤𝐛𝐚𝐧𝐠 𝐛𝐚𝐧𝐠 𝐭𝐚𝐧𝐛𝐨𝐲 𝐬𝐚𝐦𝐛𝐢𝐥 𝐦𝐚𝐢𝐧 𝐝𝐢 𝐒𝐢𝐣𝐢𝟒𝐝 ⚡🔥",
+    "normalized_text": "Enak banget nonton mukbang bang tanboy sambil main di Siji4d ⚡🔥"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "modal 50k jadi 500k makasi puIau777💫💫",
+    "normalized_text": "modal 50k jadi 500k makasi puIau777💫💫"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Makin ramai makin seru! Yuk bareng ke ◉✿ 𝓐𝓻𝔀𝓪𝓷𝓽𝓸𝓽𝓸 👻💞",
+    "normalized_text": "Makin ramai makin seru! Yuk bareng ke ◉✿ Arwantoto 👻💞"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Sumpah tadi nyabet gk mau comen tapi ,,emang gila sih ni  pod hub,,😁😁😁",
+    "normalized_text": "Sumpah tadi nyabet gk mau comen tapi ,,emang gila sih ni  pod hub,,😁😁😁"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "brand_pattern",
+      "emoji_spam"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=55",
+    "original_text": "Bang mie ayam nya bingung+takut...di pikiranya \"ni orang kesambet apa\"🤣🤣",
+    "normalized_text": "Bang mie ayam nya bingung+takut...di pikiranya \"ni orang kesambet apa\"🤣🤣"
+  },
+  {
+    "score": 50,
+    "signals": [
+      "brand_pattern",
+      "excessive_caps"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=50",
+    "original_text": "JANGAN LUPA CARI DI GOOGLE 懶BERKAH99 懶",
+    "normalized_text": "JANGAN LUPA CARI DI GOOGLE 懶BERKAH99 懶"
+  },
+  {
+    "score": 50,
+    "signals": [
+      "brand_pattern",
+      "excessive_caps"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=50",
+    "original_text": "PuIau777 FULL JACKPOOT BRAYY!",
+    "normalized_text": "PuIau777 FULL JACKPOOT BRAYY!"
+  },
+  {
+    "score": 50,
+    "signals": [
+      "brand_pattern",
+      "excessive_caps"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=50",
+    "original_text": "YALLAH SEHA T SEHAT YA MAMA_SHANUM777",
+    "normalized_text": "YALLAH SEHA T SEHAT YA MAMA_SHANUM777"
+  },
+  {
+    "score": 50,
+    "signals": [
+      "brand_pattern",
+      "excessive_caps"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=50",
+    "original_text": "TERIMAKASIH 𝗃𝗉𝗍𝗈𝗀𝖾𝗅77",
+    "normalized_text": "TERIMAKASIH jptogel77"
+  },
+  {
+    "score": 50,
+    "signals": [
+      "brand_pattern",
+      "excessive_caps"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=50",
+    "original_text": "WUEEANAAAKKK  #mango4d",
+    "normalized_text": "WUEEANAAAKKK  #mango4d"
+  },
+  {
+    "score": 50,
+    "signals": [
+      "brand_pattern",
+      "excessive_caps"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=50",
+    "original_text": "GES JANGAN NYOBA SEARCH GOOGLE PuIauwin YA!",
+    "normalized_text": "GES JANGAN NYOBA SEARCH GOOGLE PuIauwin YA!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kemudahan yang ditawarkan M𝒾y𝒶88 benar benar mengubah cara saya berinteraksi dengan teknologi",
+    "normalized_text": "Kemudahan yang ditawarkan Miya88 benar benar mengubah cara saya berinteraksi dengan teknologi"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Arsitektur perangkat lunak M𝒾y𝒶88 dirancang untuk memberikan performa maksimal di segala kondisi",
+    "normalized_text": "Arsitektur perangkat lunak Miya88 dirancang untuk memberikan performa maksimal di segala kondisi"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Saya sering mendapatkan tips dan trik menarik dari sesama pengguna platform M𝒾y𝒶88",
+    "normalized_text": "Saya sering mendapatkan tips dan trik menarik dari sesama pengguna platform Miya88"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Pengalaman berselancar di platform M𝒾y𝒶88 terasa sangat ringan dan hemat kuota data",
+    "normalized_text": "Pengalaman berselancar di platform Miya88 terasa sangat ringan dan hemat kuota data"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Saya mengundang teman teman untuk bergabung dan merasakan manfaat dari sistem M𝒾y𝒶88",
+    "normalized_text": "Saya mengundang teman teman untuk bergabung dan merasakan manfaat dari sistem Miya88"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "FOYA-FOYA juga seru banget gara-gara PuIauwin",
+    "normalized_text": "FOYA-FOYA juga seru banget gara-gara PuIauwin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Rigen dan Jegel itu pinter ngeladenin tamu yg absurd macam Aldi Taher gini. Sabar ngikutin maunya Aldi dulu ....ntar mereka dikit2 mulai masuk ke pertanyaan yg hrs ditanyakan. Menghormati tamu mmg penting. Sehat sukses selalu Rigen Jegel. Untuk Aldi Taher.... sukses untuk usaha Burgernya. Klo untuk tingkahnya yg absurd....ada baiknya dikurangi dikit2. Biar klo diundang podcast/acara lain.....jalannya acara bisa lebih bagus. Bang Aldi gak usah koq jd kelihatan lucu dimata orang. Sehat selalu Bang Aldi sekeluarga. salam dari yuk69",
+    "normalized_text": "Rigen dan Jegel itu pinter ngeladenin tamu yg absurd macam Aldi Taher gini. Sabar ngikutin maunya Aldi dulu ....ntar mereka dikit2 mulai masuk ke pertanyaan yg hrs ditanyakan. Menghormati tamu mmg penting. Sehat sukses selalu Rigen Jegel. Untuk Aldi Taher.... sukses untuk usaha Burgernya. Klo untuk tingkahnya yg absurd....ada baiknya dikurangi dikit2. Biar klo diundang podcast/acara lain.....jalannya acara bisa lebih bagus. Bang Aldi gak usah koq jd kelihatan lucu dimata orang. Sehat selalu Bang Aldi sekeluarga. salam dari yuk69"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🥰Ga r uda hoki..Berbagi Frebet brow!! gass",
+    "normalized_text": "🥰Ga r uda hoki..Berbagi Frebet brow!! gass"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Setiap scroll pasti ada yang ngetik ℝ𝕠𝕞𝕒𝟜𝕕, bikin penasaran maksimal.",
+    "normalized_text": "Setiap scroll pasti ada yang ngetik Roma4d, bikin penasaran maksimal."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gokil, semua orang jadi kepo ke ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Gokil, semua orang jadi kepo ke PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata Pulau𝖶𝗂𝗇 jadi pusat perhatian",
+    "normalized_text": "Kata PulauWin jadi pusat perhatian"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kayak ada rahasia tersembunyi di Pulau𝑾𝒊𝒏",
+    "normalized_text": "Kayak ada rahasia tersembunyi di PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Scroll sebentar langsung liat Pulau𝒲𝒾𝓃",
+    "normalized_text": "Scroll sebentar langsung liat PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata ＰｕｌａｕＷｉｎ bener2 nyantol di kepala",
+    "normalized_text": "Kata PulauWin bener2 nyantol di kepala"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ada aura misteri di kata Pulau𝖶𝗂𝗇",
+    "normalized_text": "Ada aura misteri di kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Jadi tren baru kata Pulau𝒲𝒾𝓃",
+    "normalized_text": "Jadi tren baru kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Aku mikir keras arti dari ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Aku mikir keras arti dari PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kayak ada hype sendiri di kata Pulau𝑾𝒊𝒏",
+    "normalized_text": "Kayak ada hype sendiri di kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Adegan ngeri tapi aku mikirin ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Adegan ngeri tapi aku mikirin PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mata langsung ke ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Mata langsung ke PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata ＰｕｌａｕＷｉｎ muncul kayak easter egg",
+    "normalized_text": "Kata PulauWin muncul kayak easter egg"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Seremnya kalah sama kata Pulau𝖶𝗂𝗇",
+    "normalized_text": "Seremnya kalah sama kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Setiap scroll pasti keliatan kata ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Setiap scroll pasti keliatan kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Jadi penasaran sama asal-usul kata Pulau𝒲𝒾𝓃",
+    "normalized_text": "Jadi penasaran sama asal-usul kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Semua mata ke layar, mataku ke ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Semua mata ke layar, mataku ke PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ada vibe aneh pas baca kata Pulau𝑾𝒊𝒏",
+    "normalized_text": "Ada vibe aneh pas baca kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Horornya kalah sama misteri kata Pulau𝖶𝗂𝗇",
+    "normalized_text": "Horornya kalah sama misteri kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata ＰｕｌａｕＷｉｎ bikin merinding sendiri",
+    "normalized_text": "Kata PulauWin bikin merinding sendiri"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Beneran auto fokus ke ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Beneran auto fokus ke PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Sumpah kata ＰｕｌａｕＷｉｎ bikin kepo sendiri",
+    "normalized_text": "Sumpah kata PulauWin bikin kepo sendiri"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ada magnet tersendiri di kata Pulau𝒲𝒾𝓃",
+    "normalized_text": "Ada magnet tersendiri di kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ada yg sadar kata Pulau𝖶𝗂𝗇 muncul terus di kolom komentar",
+    "normalized_text": "Ada yg sadar kata PulauWin muncul terus di kolom komentar"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata Pulau𝑾𝒊𝒏 ini vibesnya aneh banget",
+    "normalized_text": "Kata PulauWin ini vibesnya aneh banget"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Aku malah fokus ke kata ＰｕｌａｕＷｉｎ daripada adegannya",
+    "normalized_text": "Aku malah fokus ke kata PulauWin daripada adegannya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "wkwk Ｐｕｌａｕｗｉｎ nongol mulu",
+    "normalized_text": "wkwk Pulauwin nongol mulu"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "vibesnya kyk Ｐｕｌａｕｗｉｎ sumpah",
+    "normalized_text": "vibesnya kyk Pulauwin sumpah"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "𝓹𝓾𝓵𝓪𝓾𝔀𝓲𝓷 lagi rame bgt ya",
+    "normalized_text": "pulauwin lagi rame bgt ya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "eh ini bukan Ｐｕｌａｕｗｉｎ ya 😅",
+    "normalized_text": "eh ini bukan Pulauwin ya 😅"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "02:05 𝓹𝓾𝓵𝓪𝓾𝔀𝓲𝓷 muncul terus dah akhir2 ini",
+    "normalized_text": "02:05 pulauwin muncul terus dah akhir2 ini"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "00:50 btw ini bukan dr 𝕡𝕦𝕝𝕒𝕦𝕨𝕚𝕟 kan 😅",
+    "normalized_text": "00:50 btw ini bukan dr pulauwin kan 😅"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "02:45 kayak vibes 𝓹𝓾𝓵𝓪𝓾𝔀𝓲𝓷 banget sih 😅",
+    "normalized_text": "02:45 kayak vibes pulauwin banget sih 😅"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Semua jadi kepo gara2 Pulau𝖶𝗂𝗇",
+    "normalized_text": "Semua jadi kepo gara2 PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata ＰｕｌａｕＷｉｎ bikin vibes mistis",
+    "normalized_text": "Kata PulauWin bikin vibes mistis"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata Pulau𝒲𝒾𝓃 bikin komen auto standout",
+    "normalized_text": "Kata PulauWin bikin komen auto standout"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Semakin banyak yg nyebut Pulau𝑾𝒊𝒏 makin rame",
+    "normalized_text": "Semakin banyak yg nyebut PulauWin makin rame"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Uniknya gara2 ada kata ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Uniknya gara2 ada kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata Pulau𝖶𝗂𝗇 kayak jadi simbol di komen",
+    "normalized_text": "Kata PulauWin kayak jadi simbol di komen"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Filmnya horor, komennya misteri ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Filmnya horor, komennya misteri PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kayak ada hype tersendiri di kata Pulau𝒲𝒾𝓃",
+    "normalized_text": "Kayak ada hype tersendiri di kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Semakin dilihat makin nempel kata ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Semakin dilihat makin nempel kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kayak kode misterius kata Pulau𝒲𝒾𝓃",
+    "normalized_text": "Kayak kode misterius kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Semua jadi penasaran sama Pulau𝖶𝗂𝗇",
+    "normalized_text": "Semua jadi penasaran sama PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ga tau kenapa tapi kata ＰｕｌａｕＷｉｎ nagih",
+    "normalized_text": "Ga tau kenapa tapi kata PulauWin nagih"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Komentar rame gara2 ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Komentar rame gara2 PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gara2 kata Pulau𝑾𝒊𝒏 aku jadi baca komen semua",
+    "normalized_text": "Gara2 kata PulauWin aku jadi baca komen semua"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Setiap komen kok ada aja ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Setiap komen kok ada aja PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mata auto berhenti di kata Pulau𝖶𝗂𝗇",
+    "normalized_text": "Mata auto berhenti di kata PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kata Pulau𝒲𝒾𝓃 udah kayak simbol rahasia",
+    "normalized_text": "Kata PulauWin udah kayak simbol rahasia"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Siapa yang pertama kali nyebut ＰｕｌａｕＷｉｎ",
+    "normalized_text": "Siapa yang pertama kali nyebut PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Komentar jadi unik gara2 ada Pulau𝑾𝒊𝒏",
+    "normalized_text": "Komentar jadi unik gara2 ada PulauWin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "sodara ama temen gw suruh cobain main di𝓟𝓾𝓵𝓪𝓾777 biar bisa rubah ekonominya",
+    "normalized_text": "sodara ama temen gw suruh cobain main diPulau777 biar bisa rubah ekonominya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gak akan pernah langgeng klo beda 4gama . Yakin dah. Krm ini baru pacaran, pas udeh nikah berbeda loh ibot n pacarnya.. Lihat aja jam4l mird4d dn lydia kandou. Agama manapun tdk mengajarkan beda agama",
+    "normalized_text": "Gak akan pernah langgeng klo beda 4gama . Yakin dah. Krm ini baru pacaran, pas udeh nikah berbeda loh ibot n pacarnya.. Lihat aja jam4l mird4d dn lydia kandou. Agama manapun tdk mengajarkan beda agama"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "\"punya hubungan beda agama ga seribet itu\"   Setuju gua bot. Gua masuk tahun ketiga punya hubungan beda agama. Perdebatan banyak banget, tapi kalo ga sama dia gabisa 🥲",
+    "normalized_text": "\"punya hubungan beda agama ga seribet itu\"   Setuju gua bot. Gua masuk tahun ketiga punya hubungan beda agama. Perdebatan banyak banget, tapi kalo ga sama dia gabisa 🥲"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ngehek banget ini berkah99 muncul dimana mana!taeekk.",
+    "normalized_text": "ngehek banget ini berkah99 muncul dimana mana!taeekk."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ gak ada duanya",
+    "normalized_text": "Pulau777 gak ada duanya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ selalu menghadirkan pengalaman unik",
+    "normalized_text": "Pulau777 selalu menghadirkan pengalaman unik"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ tempat hiburan digital terbaik",
+    "normalized_text": "Pulau777 tempat hiburan digital terbaik"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ bikin hari makin berwarna",
+    "normalized_text": "Pulau777 bikin hari makin berwarna"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Saya gak pernah bosen main di Ｐｕｌａｕ７７７",
+    "normalized_text": "Saya gak pernah bosen main di Pulau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Saya yakin P𝘂𝗹𝗮𝘂777 gak akan mengecewakan",
+    "normalized_text": "Saya yakin Pulau777 gak akan mengecewakan"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７: Menang besar, dapatkan bonus!",
+    "normalized_text": "Pulau777: Menang besar, dapatkan bonus!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Jangan lewatkan kesempatan di ＰⓤＬＡＵ777!",
+    "normalized_text": "Jangan lewatkan kesempatan di PuLAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ tampilannya elegan banget",
+    "normalized_text": "Pulau777 tampilannya elegan banget"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Main di ＰⓤＬＡＵ777, raih hadiah fantastis!",
+    "normalized_text": "Main di PuLAU777, raih hadiah fantastis!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "04:20 Rezeki gak ada putusnya, makasi ＰⓤＬＡＵ777.",
+    "normalized_text": "04:20 Rezeki gak ada putusnya, makasi PuLAU777."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bonus menarik hanya di Ｐｕｌａｕ７７７!",
+    "normalized_text": "Bonus menarik hanya di Pulau777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ selalu jadi favorit",
+    "normalized_text": "Pulau777 selalu jadi favorit"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ih klo msh gmau rahasia diri sendiri kebongkar gausah ngebet pgn jd artis/temanan sm artis ya, ganyaman bgt dliat):",
+    "normalized_text": "ih klo msh gmau rahasia diri sendiri kebongkar gausah ngebet pgn jd artis/temanan sm artis ya, ganyaman bgt dliat):"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "WAOW ..Buat kalian yg binggung mending liat video ini aja💙𝐏𝐑𝐎𝐁𝐄𝐓 𝟖𝟓𝟓💙",
+    "normalized_text": "WAOW ..Buat kalian yg binggung mending liat video ini aja💙PROBET 855💙"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Baru kali ini gariiiiin99 bu4ngeeett",
+    "normalized_text": "Baru kali ini gariiiiin99 bu4ngeeett"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Asli pecah banget lu jot, jiwa entertaint lu menyala bgt di konten ini, udah jangan pernah ragu & insecure lagi sama kemampuan diri lu kayak yg selama ini lu resahin, modal percaya diri ternyata lu bisa sekocak ini respect 🎉 salam dari yuk69",
+    "normalized_text": "Asli pecah banget lu jot, jiwa entertaint lu menyala bgt di konten ini, udah jangan pernah ragu & insecure lagi sama kemampuan diri lu kayak yg selama ini lu resahin, modal percaya diri ternyata lu bisa sekocak ini respect 🎉 salam dari yuk69"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Main di Milo4D gak perlu modal besar, cuannya nyata!\"",
+    "normalized_text": "Main di Milo4D gak perlu modal besar, cuannya nyata!\""
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🔥 PuIauwin 🔥 bagi bagi freebet",
+    "normalized_text": "🔥 PuIauwin 🔥 bagi bagi freebet"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🔥 PuIauwin 🔥 ribuan member",
+    "normalized_text": "🔥 PuIauwin 🔥 ribuan member"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🔥 PuIauwin 🔥 no tipu tipu",
+    "normalized_text": "🔥 PuIauwin 🔥 no tipu tipu"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🔥 PuIauwin🔥 Bonus Newmember",
+    "normalized_text": "🔥 PuIauwin🔥 Bonus Newmember"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🔥 PuIauwin 🔥 gampang Menang",
+    "normalized_text": "🔥 PuIauwin 🔥 gampang Menang"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Artis4D Siap melayani 24 jam",
+    "normalized_text": "Artis4D Siap melayani 24 jam"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Yuka bisa bgt bikin gua ngakak ⚡𝑲𝑼𝑨𝑻𝑶𝑻𝑶⚡ selalu memberikan hasil yang memuaskan",
+    "normalized_text": "Yuka bisa bgt bikin gua ngakak ⚡KUATOTO⚡ selalu memberikan hasil yang memuaskan"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ah tydack asyique, tydack ada baginda lord paduka TePe69",
+    "normalized_text": "Ah tydack asyique, tydack ada baginda lord paduka TePe69"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "kalau mau ngebet ngebet ke luar negeri 25 juta aja la perhari  bandar luar liatin gue semua",
+    "normalized_text": "kalau mau ngebet ngebet ke luar negeri 25 juta aja la perhari  bandar luar liatin gue semua"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "arap ngebet bgt jadi china",
+    "normalized_text": "arap ngebet bgt jadi china"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "✨ Keseruan sejati dimulai di 🅿️ⓤⓛⓐⓊ777!",
+    "normalized_text": "✨ Keseruan sejati dimulai di 🅿️ulaU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🌴 Bikin harimu ceria bareng 🅿️ⓤⓛⓐⓊ777!",
+    "normalized_text": "🌴 Bikin harimu ceria bareng 🅿️ulaU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🎯 Pasti seru kalau main di 🅿️ⓤⓛⓐⓊ777",
+    "normalized_text": "🎯 Pasti seru kalau main di 🅿️ulaU777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "aloyyy myman ^^ ngakak abis dan seru . sekalian mampir ke sahara888",
+    "normalized_text": "aloyyy myman ^^ ngakak abis dan seru . sekalian mampir ke sahara888"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Diam-Diam Kaya hanya di sirup4D",
+    "normalized_text": "Diam-Diam Kaya hanya di sirup4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kemenangan yang luar biasa yang di hasilkan dari Latihan dan konsistern bermain selalu 𝓟𝓮𝓵𝓪𝓽𝓲𝓱4𝓓",
+    "normalized_text": "Kemenangan yang luar biasa yang di hasilkan dari Latihan dan konsistern bermain selalu Pelatih4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gak ada yang lebih memuaskan daripada notif 'Withdraw Approved' dari 𝗠𝗼𝗺𝗼𝟵𝟵 💌",
+    "normalized_text": "Gak ada yang lebih memuaskan daripada notif 'Withdraw Approved' dari Momo99 💌"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "bonus new 100% pesat69 50+50 TO x4",
+    "normalized_text": "bonus new 100% pesat69 50+50 TO x4"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "banyak bonus untuk yang main di pesat69",
+    "normalized_text": "banyak bonus untuk yang main di pesat69"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cara Gampang cuan Tanpa Putus Hanya di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 🔥",
+    "normalized_text": "Cara Gampang cuan Tanpa Putus Hanya di Koreo138 🔥"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mantap bang keren kontennya  salam  Strike⭐️𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖",
+    "normalized_text": "Mantap bang keren kontennya  salam  Strike⭐️Koreo138"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Luar biasa cuan nya ... Joss dah ... mantap di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖",
+    "normalized_text": "Luar biasa cuan nya ... Joss dah ... mantap di Koreo138"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "baru tau ada tempat cuan paling enak ya di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖",
+    "normalized_text": "baru tau ada tempat cuan paling enak ya di Koreo138"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cara cuan Dapat Scater Hitam Hanya di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 🔥",
+    "normalized_text": "Cara cuan Dapat Scater Hitam Hanya di Koreo138 🔥"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "06:00 Nikmati promo spesial hanya diＰⓤＬＡＵ777!",
+    "normalized_text": "06:00 Nikmati promo spesial hanya diPuLAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gak sabar share ke temen soal❤OMETOTO🔴! Ceritanya bikin penasaran, kemenangannya bikin happy, dan visualnya top!❤ 3 Sungguh menakjubkan dengan❤OMETOTO🔴! Ceritanya begitu menyentuh, memadukan makna mendalam dengan gameplay yang seru. Visualnya memukau, dan hadiahnya? Benar-benar luar biasa. Wajib coba untuk pengalaman yang tak terlupakan!🌟",
+    "normalized_text": "Gak sabar share ke temen soal❤OMETOTO🔴! Ceritanya bikin penasaran, kemenangannya bikin happy, dan visualnya top!❤ 3 Sungguh menakjubkan dengan❤OMETOTO🔴! Ceritanya begitu menyentuh, memadukan makna mendalam dengan gameplay yang seru. Visualnya memukau, dan hadiahnya? Benar-benar luar biasa. Wajib coba untuk pengalaman yang tak terlupakan!🌟"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "nuy nya cakep banget jirrrr , yg lain mampir sahara888",
+    "normalized_text": "nuy nya cakep banget jirrrr , yg lain mampir sahara888"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Keren abis❤OMETOTO🔴! Ceritanya bikin penasaran, gameplay-nya super smooth, dan hadiahnya bikin happy!❤",
+    "normalized_text": "Keren abis❤OMETOTO🔴! Ceritanya bikin penasaran, gameplay-nya super smooth, dan hadiahnya bikin happy!❤"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "di tantang main OMETOTO, malah bikin nagih",
+    "normalized_text": "di tantang main OMETOTO, malah bikin nagih"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "live sambil main OMETOTO bukan main ,jadi kapan kalian",
+    "normalized_text": "live sambil main OMETOTO bukan main ,jadi kapan kalian"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bukangenius. Orang2 gila yg mau lwkuwin hal gila aja tp volower rtetipu . Padahalkualitasnya biasa",
+    "normalized_text": "Bukangenius. Orang2 gila yg mau lwkuwin hal gila aja tp volower rtetipu . Padahalkualitasnya biasa"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gabung dan rasakan sensasi bermain di lnplay88",
+    "normalized_text": "Gabung dan rasakan sensasi bermain di lnplay88"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mantapppp x main di sini bray , Cari aja 𝗲𝘀𝗰𝗼𝗯𝗮𝗿𝘁𝗼𝘁𝗼 di Google",
+    "normalized_text": "Mantapppp x main di sini bray , Cari aja escobartoto di Google"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Aku kesini karna seselibet video cello make obat demam wkwkw. Mikir keras tuh apa merk nya lah rupanyaaaa wkwkwk",
+    "normalized_text": "Aku kesini karna seselibet video cello make obat demam wkwkw. Mikir keras tuh apa merk nya lah rupanyaaaa wkwkwk"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "𝓹𝓮𝓷𝓼𝓲𝓵𝓽𝓸𝓽𝓸 𝓮𝓶𝓪𝓷𝓰 𝓰𝓲𝓵𝓪",
+    "normalized_text": "pensiltoto emang gila"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Nemenin ngopi sore sambil santai bareng ＰⓤＬＡＵＷＩＮ tuh enak banget.",
+    "normalized_text": "Nemenin ngopi sore sambil santai bareng PuLAUWIN tuh enak banget."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "rachel pikmibet 😊",
+    "normalized_text": "rachel pikmibet 😊"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "claim freebet",
+    "normalized_text": "claim freebet"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Desta lu kesambet apa sih,,, istri sesempurna itu lu sia2 in😢",
+    "normalized_text": "Desta lu kesambet apa sih,,, istri sesempurna itu lu sia2 in😢"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Sekali coba, langsung ngerti kenapa rame nih 𝗽𝘂𝗜𝗮𝘂𝟳𝟳𝟳🤝",
+    "normalized_text": "Sekali coba, langsung ngerti kenapa rame nih puIau777🤝"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Modal tipis, dapet tebal—gimana gak ngiler? langsung ke venue 𝗽𝘂𝗜𝗮𝘂𝟳𝟳𝟳🤝",
+    "normalized_text": "Modal tipis, dapet tebal—gimana gak ngiler? langsung ke venue puIau777🤝"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "memang 𝐎𝐘𝐀𝐓𝐎𝐓𝐎 paling b3tol yang dikasih ke para member setia bukti kalau semua bisa wede .bukan cuma janji",
+    "normalized_text": "memang OYATOTO paling b3tol yang dikasih ke para member setia bukti kalau semua bisa wede .bukan cuma janji"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "King aloy nge-dije'in sound horeg, pake sarung anime pecah x 500 di 𝔸𝕣𝕥𝕚𝕤𝟜𝔻",
+    "normalized_text": "King aloy nge-dije'in sound horeg, pake sarung anime pecah x 500 di Artis4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Sekali putar langsung cuan, thanks Milo4D!",
+    "normalized_text": "Sekali putar langsung cuan, thanks Milo4D!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Kirain klikbet",
+    "normalized_text": "Kirain klikbet"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Entah kenapa tiap main pagi di 𝐩𝐥𝐚𝐳𝐚𝟒𝐃 selalu enteng puterannya main sambil boker wkwkwkwk",
+    "normalized_text": "Entah kenapa tiap main pagi di plaza4D selalu enteng puterannya main sambil boker wkwkwkwk"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Rayahakan natal kamu di bingkai4D bisa mencari penghasilan tambahan dengan muda bestie",
+    "normalized_text": "Rayahakan natal kamu di bingkai4D bisa mencari penghasilan tambahan dengan muda bestie"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Wkwk tengah malem nontonin podcast ini , ketawa\" sendiri dikira orang rumah kesambet😂",
+    "normalized_text": "Wkwk tengah malem nontonin podcast ini , ketawa\" sendiri dikira orang rumah kesambet😂"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mantap bosku lucu bikin orang ketawa seperti @NewJalak4D",
+    "normalized_text": "Mantap bosku lucu bikin orang ketawa seperti @NewJalak4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "kwkwkw biar ga emosi bahagia seneng terus jalak4D bonusnya melimpah",
+    "normalized_text": "kwkwkw biar ga emosi bahagia seneng terus jalak4D bonusnya melimpah"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "req koh delwin",
+    "normalized_text": "req koh delwin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "yang pengen fajar duet bareng𝐉𝐀𝐋𝐀𝐊𝟒𝐃 Vote pasti bakalan gokil banget ❤",
+    "normalized_text": "yang pengen fajar duet barengJALAK4D Vote pasti bakalan gokil banget ❤"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Biasanya dari awal nonton liat tamu pengen ha ha ha ha ha. Ini dari awal sampai akhir liat frimawin uwahahahahahaahahah😂",
+    "normalized_text": "Biasanya dari awal nonton liat tamu pengen ha ha ha ha ha. Ini dari awal sampai akhir liat frimawin uwahahahahahaahahah😂"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Nalar lawak indra kalah cepet. Jadinya lawakannya ga bisa keluar. Kesabet fajar semua. Si indra masih nyari plesetan di otaknya, fajar udah ngomong duluan lucu lgi. Indra jdi cuma kaya nanya2 biasa doang padahal udah berusaha ngelucu.",
+    "normalized_text": "Nalar lawak indra kalah cepet. Jadinya lawakannya ga bisa keluar. Kesabet fajar semua. Si indra masih nyari plesetan di otaknya, fajar udah ngomong duluan lucu lgi. Indra jdi cuma kaya nanya2 biasa doang padahal udah berusaha ngelucu."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Prince of mind blowing vs DARK LORD OF MIND BLOWIN",
+    "normalized_text": "Prince of mind blowing vs DARK LORD OF MIND BLOWIN"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Modal receh auto mendadak jadi Sultan!! gasskan sekarang 𝐯𝐨𝐥𝐢𝟒𝐝",
+    "normalized_text": "Modal receh auto mendadak jadi Sultan!! gasskan sekarang voli4d"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "TAPI INDRA bikin ngakak dia gak pernah ke tinggaln OMETOTO",
+    "normalized_text": "TAPI INDRA bikin ngakak dia gak pernah ke tinggaln OMETOTO"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "spill sumber keuanganku ada di BERKAH99爐 MENYALA",
+    "normalized_text": "spill sumber keuanganku ada di BERKAH99爐 MENYALA"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "02:30ＰⓤＬＡＵ777, tempatnya peluang besar",
+    "normalized_text": "02:30PuLAU777, tempatnya peluang besar"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Di kolom komentar YouTube pun netizen sering mention ⓟⓤⓛⓐⓤⓦⓘⓝ.",
+    "normalized_text": "Di kolom komentar YouTube pun netizen sering mention pulauwin."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "𝑷𝒖𝒍𝒂𝒖𝒘𝒊𝒏 ada di mana-mana, kayak bagian dari budaya pop.",
+    "normalized_text": "Pulauwin ada di mana-mana, kayak bagian dari budaya pop."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Lo tau gak kenapa netizen rame banget ngomongin ⓟⓤⓛⓐⓤⓦⓘⓝ?",
+    "normalized_text": "Lo tau gak kenapa netizen rame banget ngomongin pulauwin?"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Loe pernah googling gak sih 𝓟𝓾𝓵𝓪𝓾𝔀𝓲𝓷? Gue udah nyoba, masih aja bingung.",
+    "normalized_text": "Loe pernah googling gak sih Pulauwin? Gue udah nyoba, masih aja bingung."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Tiap scroll feed explore, selalu ada 𝓟𝓾𝓵𝓪𝓾𝔀𝓲𝓷 muncul.",
+    "normalized_text": "Tiap scroll feed explore, selalu ada Pulauwin muncul."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cuitan tentang 𝕻𝖚𝖑𝖆𝖚𝖜𝖎𝖓 makin hari makin banyak.",
+    "normalized_text": "Cuitan tentang Pulauwin makin hari makin banyak."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gue sampe nulis di Google “𝘗𝘶𝘭𝘢𝘶𝘸𝘪𝘯 itu apaan” tapi hasilnya random semua.",
+    "normalized_text": "Gue sampe nulis di Google “Pulauwin itu apaan” tapi hasilnya random semua."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Semua tongkrongan kekinian pasti udah kenal 𝕻𝖚𝖑𝖆𝖚𝖜𝖎𝖓.",
+    "normalized_text": "Semua tongkrongan kekinian pasti udah kenal Pulauwin."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "makanya lembet banget",
+    "normalized_text": "makanya lembet banget"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "semoga kamu sembuh ya@mama_shanum777",
+    "normalized_text": "semoga kamu sembuh ya@mama_shanum777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gw ngak tahan makan pedass gini busett banyak amat cabe nya ehh sekali gw bukak hp dan tulis di gogel RAMTOTO behh malah gw nagihh sama kepedasan nya karna gw di kasi cuan sama RAMTOTO di wabts mana coba modal receh di kasi berlimpah RAMTOTO tetap di hatii deh",
+    "normalized_text": "gw ngak tahan makan pedass gini busett banyak amat cabe nya ehh sekali gw bukak hp dan tulis di gogel RAMTOTO behh malah gw nagihh sama kepedasan nya karna gw di kasi cuan sama RAMTOTO di wabts mana coba modal receh di kasi berlimpah RAMTOTO tetap di hatii deh"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Enak banget🤤, apalagi kalau Coba bermain di 𝐭𝐚𝐤𝐣𝐮𝐛𝟒𝐝🎉",
+    "normalized_text": "Enak banget🤤, apalagi kalau Coba bermain di takjub4d🎉"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "\"modal akhir 20rebu coba bet kecil di sigmatoto pecah 3jt bang",
+    "normalized_text": "\"modal akhir 20rebu coba bet kecil di sigmatoto pecah 3jt bang"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Dulu nnton di kosan terus nnton makan mie sama temen nya terus makan yg ricis. . Sekrng udah mewah banget bukti tekun dan konsisten memang perlu untuk mencapai sesuatu. . Komen apa sih ga jelas - yuk69",
+    "normalized_text": "Dulu nnton di kosan terus nnton makan mie sama temen nya terus makan yg ricis. . Sekrng udah mewah banget bukti tekun dan konsisten memang perlu untuk mencapai sesuatu. . Komen apa sih ga jelas - yuk69"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Samyang sekalipun pedas masih bisa dinikmati. Klo ghost papper aduh - squad777",
+    "normalized_text": "Samyang sekalipun pedas masih bisa dinikmati. Klo ghost papper aduh - squad777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Wahhh enak banget berasa kaya di awan4d",
+    "normalized_text": "Wahhh enak banget berasa kaya di awan4d"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "masa iya kalah terus, makanya ke Arjunawin aja yuuk",
+    "normalized_text": "masa iya kalah terus, makanya ke Arjunawin aja yuuk"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Hati\" gara konten gini nanti diabet sama kolestrol bang",
+    "normalized_text": "Hati\" gara konten gini nanti diabet sama kolestrol bang"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gak usah pake skill, cukup tekan 20x ,auto turun x1000 nya ,, OMETOTO madepp",
+    "normalized_text": "gak usah pake skill, cukup tekan 20x ,auto turun x1000 nya ,, OMETOTO madepp"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Sekecil itu udah jago palagi main di gelora4D",
+    "normalized_text": "Sekecil itu udah jago palagi main di gelora4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cari Kami Selalu Di Google Totobet69 Promo Bebas tanpa batas Bebas Biaya Admin Cuan 100%",
+    "normalized_text": "Cari Kami Selalu Di Google Totobet69 Promo Bebas tanpa batas Bebas Biaya Admin Cuan 100%"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🚀 Nikmati hiburan tanpa batas di 🅿️ⓤⓛⓐⓊ777!",
+    "normalized_text": "🚀 Nikmati hiburan tanpa batas di 🅿️ulaU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🚀 Nikmati hiburan nonstop di 🅿️ⓤⓛⓐⓤ777",
+    "normalized_text": "🚀 Nikmati hiburan nonstop di 🅿️ulau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "MAELL LEE marah gara2 gak di ajak main OMETOTO",
+    "normalized_text": "MAELL LEE marah gara2 gak di ajak main OMETOTO"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mustofa brebet wajib",
+    "normalized_text": "Mustofa brebet wajib"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Lagi belanja di minimarket, kasirnya nyebut 𝓟𝓾𝓵𝓪𝓾𝔀𝓲𝓷 sambil senyum-senyum",
+    "normalized_text": "Lagi belanja di minimarket, kasirnya nyebut Pulauwin sambil senyum-senyum"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Sebenarnya host yg memperibet semuanya, dia mah cuman crita doang, knp sih nggak paham\" , pantesan bang Ari kek emosi gt, kyk respect nya kurang yg lain mah mentang\" masih kecil tamunya dan itu Fajar ya Allah..",
+    "normalized_text": "Sebenarnya host yg memperibet semuanya, dia mah cuman crita doang, knp sih nggak paham\" , pantesan bang Ari kek emosi gt, kyk respect nya kurang yg lain mah mentang\" masih kecil tamunya dan itu Fajar ya Allah.."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "alus pisan 𝗃𝗉𝗍𝗈𝗀𝖾𝗅77 wkwkwkw",
+    "normalized_text": "alus pisan jptogel77 wkwkwkw"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "miaw4d gila guys",
+    "normalized_text": "miaw4d gila guys"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Modal kecil, untung besar, cuma di АG𝐔𝐒T𝙊𝐓𝑂. Mantap banget! 😘 😗",
+    "normalized_text": "Modal kecil, untung besar, cuma di АGUSTOTO. Mantap banget! 😘 😗"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Alhamdulillah, rezeki lancar jaya berkat АG𝐔S𝐓𝙊TO! 😏 😒",
+    "normalized_text": "Alhamdulillah, rezeki lancar jaya berkat АGUSTOTO! 😏 😒"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mantap pol main di А𝘎𝑈𝘚T𝙊𝙏𝘖, cuan terus setiap hari! 😗 😘",
+    "normalized_text": "Mantap pol main di АGUSTOTO, cuan terus setiap hari! 😗 😘"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Pengen cepat kaya? Langsung coba di АG𝐔𝙎𝙏𝘖𝘛𝘖 dan rasain jakpotnya! 😬 😟",
+    "normalized_text": "Pengen cepat kaya? Langsung coba di АGUSTOTO dan rasain jakpotnya! 😬 😟"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Aq lihat fajar di setiap pscd dia tuh nenius loh apa aja umoan dia vepet nyambet nya dan langsung jadi bahan ,gak oake lama mikir nya langsung jadi allah memberikan fia kelebihan otak yg cerdas dan kepribadian baik,hati yg peka",
+    "normalized_text": "Aq lihat fajar di setiap pscd dia tuh nenius loh apa aja umoan dia vepet nyambet nya dan langsung jadi bahan ,gak oake lama mikir nya langsung jadi allah memberikan fia kelebihan otak yg cerdas dan kepribadian baik,hati yg peka"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "hari yang penuh berkah dan bahagia berkat salam777 rezeki datang mengahampiri tanpa permisi,",
+    "normalized_text": "hari yang penuh berkah dan bahagia berkat salam777 rezeki datang mengahampiri tanpa permisi,"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ya allah ,aku mpe bengek ketawin fajar, 😂",
+    "normalized_text": "ya allah ,aku mpe bengek ketawin fajar, 😂"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gak ada yang tau kalian selama ini MAELL LEE masih setia sama OMETOTO, jadi kalain kapan nih",
+    "normalized_text": "gak ada yang tau kalian selama ini MAELL LEE masih setia sama OMETOTO, jadi kalain kapan nih"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "semangat terus,coba cari rezeki di 𝐍𝐚𝐠𝐚𝐛𝐞𝐭𝟖𝟖",
+    "normalized_text": "semangat terus,coba cari rezeki di Nagabet88"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "setiap main selalu cuan sirup4D link terdebest ✅",
+    "normalized_text": "setiap main selalu cuan sirup4D link terdebest ✅"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Dibilang hoki, tapi ini mah hasil strategi ⚡Petarung138⚡!",
+    "normalized_text": "Dibilang hoki, tapi ini mah hasil strategi ⚡Petarung138⚡!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gamenya seru, cuannya nyata! top markotop ⚡Petarung138⚡",
+    "normalized_text": "Gamenya seru, cuannya nyata! top markotop ⚡Petarung138⚡"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "⚡Petarung138⚡ emang tempatnya para sultan baru!",
+    "normalized_text": "⚡Petarung138⚡ emang tempatnya para sultan baru!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Yg bilang gak bisa menang, berarti belum coba di ⚡Petarung138⚡",
+    "normalized_text": "Yg bilang gak bisa menang, berarti belum coba di ⚡Petarung138⚡"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Lelah seharian langsung hilang begitu menang ⚡Petarung138⚡!",
+    "normalized_text": "Lelah seharian langsung hilang begitu menang ⚡Petarung138⚡!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Baru main bentar, saldo udah meledak! emang the best x ⚡Petarung138⚡ 💰",
+    "normalized_text": "Baru main bentar, saldo udah meledak! emang the best x ⚡Petarung138⚡ 💰"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gas terus sampe saldo muntah! yuk mabar di ⚡Petarung138⚡",
+    "normalized_text": "Gas terus sampe saldo muntah! yuk mabar di ⚡Petarung138⚡"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Hari ini milik gue! Jackpot masuk tanpa ampun! ⚡Petarung138⚡",
+    "normalized_text": "Hari ini milik gue! Jackpot masuk tanpa ampun! ⚡Petarung138⚡"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Skor tertinggi hari ini? Gue dong pastinya! jos emang ⚡Petarung138⚡",
+    "normalized_text": "Skor tertinggi hari ini? Gue dong pastinya! jos emang ⚡Petarung138⚡"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Buktiin sendiri! Gue udah cuan, lu kapan? main di ⚡Petarung138⚡ yo 😏",
+    "normalized_text": "Buktiin sendiri! Gue udah cuan, lu kapan? main di ⚡Petarung138⚡ yo 😏"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "dari modal receh jd cuan! Thx ⚡Petarung138⚡! 💸",
+    "normalized_text": "dari modal receh jd cuan! Thx ⚡Petarung138⚡! 💸"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Modal tipis, hasil tebal! Siapa yang nggak mau? gas yuk ⚡Petarung138⚡",
+    "normalized_text": "Modal tipis, hasil tebal! Siapa yang nggak mau? gas yuk ⚡Petarung138⚡"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cuma di ⚡Petarung138⚡, gue bisa begini!",
+    "normalized_text": "Cuma di ⚡Petarung138⚡, gue bisa begini!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Yang pnting sabar, giliran menang psti ada! emang gk ada obat ⚡Petarung138⚡",
+    "normalized_text": "Yang pnting sabar, giliran menang psti ada! emang gk ada obat ⚡Petarung138⚡"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "asik banget tawatoto-88",
+    "normalized_text": "asik banget tawatoto-88"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Goodwin Shoals",
+    "normalized_text": "Goodwin Shoals"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gimana mau kurang ajar sama bapak saya dok bapak saya aja meninggal di 2020 kena pembulu darahnya gara gara diabet sama darah tinggi waktu saya kelas 3 lagi dok meninggalnya",
+    "normalized_text": "gimana mau kurang ajar sama bapak saya dok bapak saya aja meninggal di 2020 kena pembulu darahnya gara gara diabet sama darah tinggi waktu saya kelas 3 lagi dok meninggalnya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Alhamdulillah sampe skrg gak begitu suka minuman manis Takut banget ke diabet",
+    "normalized_text": "Alhamdulillah sampe skrg gak begitu suka minuman manis Takut banget ke diabet"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Tmn in g ditawarin makanan y cowok kurang perhatian loh tirta ini ma cewek.. ih bilang tawarin makanan enk ya disana bisa  bahagia nombok ak begini tirta saya g senang cowok kurang perhatian..sedangkan beribet itu cowok banyak nebeng g ah.l hobi lalai cewek  in bikin emosi  cew naik.tersumbat mulut  aji g bisa omng apa apa lagian aji kurang  di sayang... ma ayang nya lo tita n tirta kerja sama in hati agar rasa kerja itu gampang  g emosi bisa kita rangkum omngn yg baik g koar teriak teriak..bikin contoh baik buat ank masih kecil.. ap laGi ap ak ya hem.cek cek sensitif..pancar di pacari ke terusan keenkan g mau lepas cewek ..ngmnk gini nika h. Bukan aku tp tmn u   mungkin bunting jgn dicontoh pacaran dirumh kos bareng cewek laporin pak rt kita kan ank berpendidikan jadi pacaran jelas gt...cewek an..ngeri pake make up mirip setan. Putih ngerix...",
+    "normalized_text": "Tmn in g ditawarin makanan y cowok kurang perhatian loh tirta ini ma cewek.. ih bilang tawarin makanan enk ya disana bisa  bahagia nombok ak begini tirta saya g senang cowok kurang perhatian..sedangkan beribet itu cowok banyak nebeng g ah.l hobi lalai cewek  in bikin emosi  cew naik.tersumbat mulut  aji g bisa omng apa apa lagian aji kurang  di sayang... ma ayang nya lo tita n tirta kerja sama in hati agar rasa kerja itu gampang  g emosi bisa kita rangkum omngn yg baik g koar teriak teriak..bikin contoh baik buat ank masih kecil.. ap laGi ap ak ya hem.cek cek sensitif..pancar di pacari ke terusan keenkan g mau lepas cewek ..ngmnk gini nika h. Bukan aku tp tmn u   mungkin bunting jgn dicontoh pacaran dirumh kos bareng cewek laporin pak rt kita kan ank berpendidikan jadi pacaran jelas gt...cewek an..ngeri pake make up mirip setan. Putih ngerix..."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "potong bebek angsa, angsa dikuali. mari berGELORA4D sekali lagi",
+    "normalized_text": "potong bebek angsa, angsa dikuali. mari berGELORA4D sekali lagi"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cari tambahan di siapkaya88 terbaik",
+    "normalized_text": "Cari tambahan di siapkaya88 terbaik"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "kerenn, anw stay healty for your diabet kak Abdi🙏",
+    "normalized_text": "kerenn, anw stay healty for your diabet kak Abdi🙏"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "𝐊𝐚𝐩𝐭𝐞𝐧77 - 𝐰𝐞𝐛 𝐚𝐦𝐚𝐧 𝐝𝐚𝐧 𝐓𝐞𝐫𝐩𝐞𝐫𝐜𝐚𝐲𝐚 𝐝𝐢 𝐈𝐧𝐝𝐨𝐧𝐞𝐬𝐢𝐚",
+    "normalized_text": "Kapten77 - web aman dan Terpercaya di Indonesia"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mukbang mie aceh abue dong bang ditebet enak banget bang rasanya",
+    "normalized_text": "Mukbang mie aceh abue dong bang ditebet enak banget bang rasanya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cuan gak ada abisnya, cuma di PuIauwin.",
+    "normalized_text": "Cuan gak ada abisnya, cuma di PuIauwin."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ selalu bikin nagih",
+    "normalized_text": "Pulau777 selalu bikin nagih"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ tampilan keren, fitur lengkap",
+    "normalized_text": "Pulau777 tampilan keren, fitur lengkap"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "06:00 Main di ＰⓤＬＡＵ777, serunya tak terkalahkan!",
+    "normalized_text": "06:00 Main di PuLAU777, serunya tak terkalahkan!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Keren sih 𝔭𝔲𝔩𝔞𝔲𝟽𝟽𝟽, main bentar auto jepe.",
+    "normalized_text": "Keren sih pulau777, main bentar auto jepe."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７, tempatnya jackpot setiap hari!",
+    "normalized_text": "Pulau777, tempatnya jackpot setiap hari!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ＰⓤＬＡＵ777, seru dan penuh kejutan!",
+    "normalized_text": "PuLAU777, seru dan penuh kejutan!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Mainkan game seru, menangkan hadiahnya di Ｐｕｌａｕ７７７",
+    "normalized_text": "Mainkan game seru, menangkan hadiahnya di Pulau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７, tempat jackpot terbesar!",
+    "normalized_text": "Pulau777, tempat jackpot terbesar!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "02:30 P𝘂𝗹𝗮𝘂777 hiburan digital paling seru",
+    "normalized_text": "02:30 Pulau777 hiburan digital paling seru"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ｐｕｌａｕ７７７ makin menarik tiap harinya",
+    "normalized_text": "Pulau777 makin menarik tiap harinya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "*Mas Praz juga kadang tampil di channel sepakbola Sport77 guys.*",
+    "normalized_text": "*Mas Praz juga kadang tampil di channel sepakbola Sport77 guys.*"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Tinggal nunggu lambung nyah kena,rembet dah ke yang lain Modar lu AMIN",
+    "normalized_text": "Tinggal nunggu lambung nyah kena,rembet dah ke yang lain Modar lu AMIN"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ini orang ga kena diabet apa ya",
+    "normalized_text": "Ini orang ga kena diabet apa ya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "puIau777 edannn royal bgt",
+    "normalized_text": "puIau777 edannn royal bgt"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "dapet freebet dari puIau777 20k eh naik jadi 1,6jt mantap",
+    "normalized_text": "dapet freebet dari puIau777 20k eh naik jadi 1,6jt mantap"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "sukses selalu puIau777",
+    "normalized_text": "sukses selalu puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "puIau777 beneran gak ?",
+    "normalized_text": "puIau777 beneran gak ?"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "modal 50k jadi 500k makasi puIau777",
+    "normalized_text": "modal 50k jadi 500k makasi puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "nyesel banget dah lu kalo gak main di puIau777",
+    "normalized_text": "nyesel banget dah lu kalo gak main di puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "main apa aja di puIau777 pasti wede",
+    "normalized_text": "main apa aja di puIau777 pasti wede"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "kalo bukan gara gara puIau777 gw kagak bisa beli motor",
+    "normalized_text": "kalo bukan gara gara puIau777 gw kagak bisa beli motor"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "semalem abis wede 10jt di puIau777 langsung masuk",
+    "normalized_text": "semalem abis wede 10jt di puIau777 langsung masuk"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gak rugi daftar di puIau777",
+    "normalized_text": "gak rugi daftar di puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gokil amat ini puIau777",
+    "normalized_text": "gokil amat ini puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "menang lagi puIau777",
+    "normalized_text": "menang lagi puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "kalo bukan puIau777 siapa lagi ?",
+    "normalized_text": "kalo bukan puIau777 siapa lagi ?"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "jangan takut gagal takutlah untuk tidak mencoba#gelora4D",
+    "normalized_text": "jangan takut gagal takutlah untuk tidak mencoba#gelora4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Sungguh luar biasa dan bikin nagih! 64RUDA138 membuat ketagihan yang tak  tertahankan, sangat sulit untuk berhenti bermain! 😆 😂",
+    "normalized_text": "Sungguh luar biasa dan bikin nagih! 64RUDA138 membuat ketagihan yang tak  tertahankan, sangat sulit untuk berhenti bermain! 😆 😂"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "semalem menang lagi di puIau777",
+    "normalized_text": "semalem menang lagi di puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "pasti muncul mulu nih pasukan puIau777",
+    "normalized_text": "pasti muncul mulu nih pasukan puIau777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "mantap ga sih ini paling bocor maen dipulau77",
+    "normalized_text": "mantap ga sih ini paling bocor maen dipulau77"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Pertimbangkan untuk menjelajahi АE𝐑𝙊𝟖𝟾 jika Anda menghargai komunitas dan rasa memiliki. 🥴 🤤",
+    "normalized_text": "Pertimbangkan untuk menjelajahi АERO88 jika Anda menghargai komunitas dan rasa memiliki. 🥴 🤤"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "memulai hidup sehat dengan RTP yang tepat di 𝐯𝐨𝐥𝐢𝟒𝐝",
+    "normalized_text": "memulai hidup sehat dengan RTP yang tepat di voli4d"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "MAXWYN lagi-lagi datang dari𝙋𝙐𝙇𝘼𝙪777, luar biasa.",
+    "normalized_text": "MAXWYN lagi-lagi datang dariPULAu777, luar biasa."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Pagi ini senyum lebar banget gara-gara𝙋𝙐𝙇𝘼𝙪777.",
+    "normalized_text": "Pagi ini senyum lebar banget gara-garaPULAu777."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cuan makin deras tiap hari berkatＰＵＬＡ𝙪777.",
+    "normalized_text": "Cuan makin deras tiap hari berkatPULAu777."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Saldo langsung naik gila-gilaan gara-garaＰＵＬＡ𝙪777.",
+    "normalized_text": "Saldo langsung naik gila-gilaan gara-garaPULAu777."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Terimakasih𝙋𝙐𝙇𝘼𝙪777 udah bantu aku nutup bulan dengan cuan ❤️",
+    "normalized_text": "TerimakasihPULAu777 udah bantu aku nutup bulan dengan cuan ❤️"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Berkat𝙋𝙐𝙇𝘼𝙪777 saldo langsung naik gila-gilaan.",
+    "normalized_text": "BerkatPULAu777 saldo langsung naik gila-gilaan."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "\"Gw pikir ini bakal video biasa… eh, ternyata malah ketawa sendiri kaya orang gila. Konten kayak gini wajib masuk trending ˢᴬˢᵀᴿᴬ⁴ᴰ",
+    "normalized_text": "\"Gw pikir ini bakal video biasa... eh, ternyata malah ketawa sendiri kaya orang gila. Konten kayak gini wajib masuk trending sAsTRA4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bagaimanapun berita miring tentang Sule  belakangan ini , beliau  adalah pelawak terlucu yang pernah saya tonton ,mulai dari Ovj,awas ada sule,usman77,ini talkshow dll semua saya tonton ,dan menghibur saya di masa suram sejak smp sampai Umur sekarang 27 thn ... Semoga Kang sule sehat selalu dan tetap menghibur ....",
+    "normalized_text": "Bagaimanapun berita miring tentang Sule  belakangan ini , beliau  adalah pelawak terlucu yang pernah saya tonton ,mulai dari Ovj,awas ada sule,usman77,ini talkshow dll semua saya tonton ,dan menghibur saya di masa suram sejak smp sampai Umur sekarang 27 thn ... Semoga Kang sule sehat selalu dan tetap menghibur ...."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "23:16 J4cI<p0t di lambung gak enak kak hahaha mending di 𝓖𝓲𝓪𝓽777",
+    "normalized_text": "23:16 J4cI<p0t di lambung gak enak kak hahaha mending di Giat777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Praz sama ebel mesti ke kampung nya ebel di kalimantan dah, buat vlog dong.. Pasti seru, napak tilas ebel, Hahaha Yg setuju komen guys.. Up up yuk69",
+    "normalized_text": "Praz sama ebel mesti ke kampung nya ebel di kalimantan dah, buat vlog dong.. Pasti seru, napak tilas ebel, Hahaha Yg setuju komen guys.. Up up yuk69"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "💥 Bikin hari makin berwarna barengＰⓤＬＡＵ777!",
+    "normalized_text": "💥 Bikin hari makin berwarna barengPuLAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "💎 Saatnya chill barengＰＵＬＡＵ777!",
+    "normalized_text": "💎 Saatnya chill barengPULAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🎉 Setiap detik penuh keseruan di🄿🅄🄻🄰🅄777!",
+    "normalized_text": "🎉 Setiap detik penuh keseruan diPULAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🚀 Biar gak ketinggalan, yuk keⓅⓤⓛⓐⓊ777!",
+    "normalized_text": "🚀 Biar gak ketinggalan, yuk kePulaU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "💎 Santai tapi seru? CobaＰＵＬＡＵ777!",
+    "normalized_text": "💎 Santai tapi seru? CobaPULAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🌴 Happy vibes all day diＰＵＬＡＵ777!",
+    "normalized_text": "🌴 Happy vibes all day diPULAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "💥 Gak ada yang seasyik🄿🅄🄻🄰🅄777!",
+    "normalized_text": "💥 Gak ada yang seasyikPULAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "🎉 Tiap hari makin seru diＰＵＬＡＵ777!",
+    "normalized_text": "🎉 Tiap hari makin seru diPULAU777!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "modal 50k jadi 500k makasi PuIauwin",
+    "normalized_text": "modal 50k jadi 500k makasi PuIauwin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "heran dimana mana ada PuIauwin",
+    "normalized_text": "heran dimana mana ada PuIauwin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Vior cntk sih vior khawin sama gua aja",
+    "normalized_text": "Vior cntk sih vior khawin sama gua aja"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ya Alloh..disangka q ini kesambet..bnyak orang NIH...lagi pda serious..PDA liatin q YG ngakak g bisa ditahan smpe nangissss",
+    "normalized_text": "Ya Alloh..disangka q ini kesambet..bnyak orang NIH...lagi pda serious..PDA liatin q YG ngakak g bisa ditahan smpe nangissss"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "bonus terbesar hanya di𝐆𝐀𝐑𝐔𝐃𝐀138🦅 buruan klaim bonus nya",
+    "normalized_text": "bonus terbesar hanya diGARUDA138🦅 buruan klaim bonus nya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "bentar lagi abis nih promonya tera4d, buruan dah",
+    "normalized_text": "bentar lagi abis nih promonya tera4d, buruan dah"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bulat tapi bukan tekad.  Rungkat? cari tempat cuan di𝐁𝐔𝐊𝐈𝐓4𝐃",
+    "normalized_text": "Bulat tapi bukan tekad.  Rungkat? cari tempat cuan diBUKIT4D"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "bres ini kena diabet om ded,,ngadepin 2 orang ini",
+    "normalized_text": "bres ini kena diabet om ded,,ngadepin 2 orang ini"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "makan 12 mangkok baso sambil nyepin OMETOTO, auto bayar qris ,,wede dong",
+    "normalized_text": "makan 12 mangkok baso sambil nyepin OMETOTO, auto bayar qris ,,wede dong"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "jangan sampe kemakan marawin khas kalimantan",
+    "normalized_text": "jangan sampe kemakan marawin khas kalimantan"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ari yang penuh berkah dan bahagia berkat salam777 rezeki datang mengahampiri tanpa permisi,",
+    "normalized_text": "ari yang penuh berkah dan bahagia berkat salam777 rezeki datang mengahampiri tanpa permisi,"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ni orang ga punya diabet atau kolesterol gitu??😮",
+    "normalized_text": "Ni orang ga punya diabet atau kolesterol gitu??😮"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "pecah bet anjjjj wkwkwk, pertama kali gw liat praz ketawa sampe ngik ngik muka merah selain sama darwin",
+    "normalized_text": "pecah bet anjjjj wkwkwk, pertama kali gw liat praz ketawa sampe ngik ngik muka merah selain sama darwin"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ceuk si emang baksona  \"astagfirulloh ieu budak ka sambet nanahaon\" 😁",
+    "normalized_text": "Ceuk si emang baksona  \"astagfirulloh ieu budak ka sambet nanahaon\" 😁"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ikan patin ikan sapu sapu 𝒉𝒐𝒌𝒊777 dijamin paling jitu",
+    "normalized_text": "ikan patin ikan sapu sapu hoki777 dijamin paling jitu"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gak kerasa bentar lagi hari raya , jadi jangan lupa juga untuk coba 𝒉𝒐𝒌𝒊777",
+    "normalized_text": "gak kerasa bentar lagi hari raya , jadi jangan lupa juga untuk coba hoki777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Tunggu apa lagi kemaren gua juga udah cobain 𝒉𝒐𝒌𝒊777 manteb banget",
+    "normalized_text": "Tunggu apa lagi kemaren gua juga udah cobain hoki777 manteb banget"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "sombong bangett untung mancingnya di 𝒉𝒐𝒌𝒊777",
+    "normalized_text": "sombong bangett untung mancingnya di hoki777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ikann hiu ikan sapu sapu , 𝒉𝒐𝒌𝒊777 terjamin jitu !!",
+    "normalized_text": "ikann hiu ikan sapu sapu , hoki777 terjamin jitu !!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "ikan sapu sapu makan kail, 𝒉𝒐𝒌𝒊777 gapernah salah !!",
+    "normalized_text": "ikan sapu sapu makan kail, hoki777 gapernah salah !!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "umpang 20K bisa dapet besar kalau di 𝒉𝒐𝒌𝒊777 bosku",
+    "normalized_text": "umpang 20K bisa dapet besar kalau di hoki777 bosku"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gak nyangka banget 𝒉𝒐𝒌𝒊777 bisa dapet gede banget",
+    "normalized_text": "Gak nyangka banget hoki777 bisa dapet gede banget"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Semangat terus mang ngontennyaa jangan lupa selalu 𝒉𝒐𝒌𝒊777",
+    "normalized_text": "Semangat terus mang ngontennyaa jangan lupa selalu hoki777"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "lebih gedean lagi kalau cobain di 𝒉𝒐𝒌𝒊777 mang bisa dapet besar !!",
+    "normalized_text": "lebih gedean lagi kalau cobain di hoki777 mang bisa dapet besar !!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gak pernah nyesel 𝒉𝒐𝒌𝒊777 langsung jadi banyakk boskuuu",
+    "normalized_text": "gak pernah nyesel hoki777 langsung jadi banyakk boskuuu"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "mantapp om  # YOLO4d",
+    "normalized_text": "mantapp om  # YOLO4d"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Wah, lawan Efren Reyes! Bang Densu makin canggih! Jangan lupa mampir ke Pawpaw4D, pasti asik!",
+    "normalized_text": "Wah, lawan Efren Reyes! Bang Densu makin canggih! Jangan lupa mampir ke Pawpaw4D, pasti asik!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya, keren banget! Bang Densu tetep gokil! Mampir ke Pawpaw4D, jangan sampai ketinggalan!",
+    "normalized_text": "Efren Reyes lawannya, keren banget! Bang Densu tetep gokil! Mampir ke Pawpaw4D, jangan sampai ketinggalan!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gak nyangka, lawan Efren Reyes! Bang Densu makin keren! Jangan lupa mampir ke Pawpaw4D, Bang!",
+    "normalized_text": "Gak nyangka, lawan Efren Reyes! Bang Densu makin keren! Jangan lupa mampir ke Pawpaw4D, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya? Bang Densu luar biasa! Jangan lupa mampir ke Pawpaw4D, seru banget!",
+    "normalized_text": "Efren Reyes lawannya? Bang Densu luar biasa! Jangan lupa mampir ke Pawpaw4D, seru banget!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes, lawan kelas dunia! Bang Densu tetap ngegas! Jangan lupa mampir ke Pawpaw4D, seru banget!",
+    "normalized_text": "Efren Reyes, lawan kelas dunia! Bang Densu tetap ngegas! Jangan lupa mampir ke Pawpaw4D, seru banget!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bang Densu vs Efren Reyes, match-nya luar biasa! Jangan lupa mampir ke Pawpaw4D, pasti seru banget!",
+    "normalized_text": "Bang Densu vs Efren Reyes, match-nya luar biasa! Jangan lupa mampir ke Pawpaw4D, pasti seru banget!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes! Lawannya luar biasa! Bang Densu tetep ngacir! Jangan lupa mampir ke Pawpaw4D, seru banget!",
+    "normalized_text": "Efren Reyes! Lawannya luar biasa! Bang Densu tetep ngacir! Jangan lupa mampir ke Pawpaw4D, seru banget!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bang Densu vs Efren Reyes, master lawan master! Jangan lupa mampir ke Pawpaw4D, pasti seru!",
+    "normalized_text": "Bang Densu vs Efren Reyes, master lawan master! Jangan lupa mampir ke Pawpaw4D, pasti seru!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gila, Efren Reyes lawannya! Bang Densu makin hebat aja! Jangan lupa mampir ke Pawpaw4D ya, seru!",
+    "normalized_text": "Gila, Efren Reyes lawannya! Bang Densu makin hebat aja! Jangan lupa mampir ke Pawpaw4D ya, seru!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes, lawan yang luar biasa! Bang Densu makin keren! Jangan lupa mampir ke Pawpaw4D, Bang!",
+    "normalized_text": "Efren Reyes, lawan yang luar biasa! Bang Densu makin keren! Jangan lupa mampir ke Pawpaw4D, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya? Luar biasa, Bang Densu! Jangan lupa mampir ke Pawpaw4D, pasti hoki!",
+    "normalized_text": "Efren Reyes lawannya? Luar biasa, Bang Densu! Jangan lupa mampir ke Pawpaw4D, pasti hoki!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya, gila! Bang Densu bener-bener keren! Jangan lupa mampir ke Pawpaw4D, Bang!",
+    "normalized_text": "Efren Reyes lawannya, gila! Bang Densu bener-bener keren! Jangan lupa mampir ke Pawpaw4D, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bang Densu vs Efren Reyes, match of the century! Jangan lupa mampir ke Pawpaw4D, Bang!",
+    "normalized_text": "Bang Densu vs Efren Reyes, match of the century! Jangan lupa mampir ke Pawpaw4D, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya, wih gila banget! Bang Densu emang gak ada tandingannya! Jangan lupa mampir ke Pawpaw4D!",
+    "normalized_text": "Efren Reyes lawannya, wih gila banget! Bang Densu emang gak ada tandingannya! Jangan lupa mampir ke Pawpaw4D!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Wah, lawannya Efren Reyes! Bang Densu makin keren aja! Jangan lupa mampir ke Pawpaw4D ya, Bang!",
+    "normalized_text": "Wah, lawannya Efren Reyes! Bang Densu makin keren aja! Jangan lupa mampir ke Pawpaw4D ya, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes, lawan yang luar biasa! Densu gak kalah keren! Jangan lupa mampir ke Pawpaw4D, Bang!",
+    "normalized_text": "Efren Reyes, lawan yang luar biasa! Densu gak kalah keren! Jangan lupa mampir ke Pawpaw4D, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gokil, lawannya Efren Reyes! Bang Densu makin canggih! Jangan lupa mampir ke Pawpaw4D, Bang!",
+    "normalized_text": "Gokil, lawannya Efren Reyes! Bang Densu makin canggih! Jangan lupa mampir ke Pawpaw4D, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya? Luar biasa, Bang Densu! Jangan lupa mampir ke Pawpaw4D juga ya!",
+    "normalized_text": "Efren Reyes lawannya? Luar biasa, Bang Densu! Jangan lupa mampir ke Pawpaw4D juga ya!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Gak nyangka bisa lawan Efren Reyes, Bang Densu! Lanjut terus, jangan lupa mampir ke Pawpaw4D ya, Bang!",
+    "normalized_text": "Gak nyangka bisa lawan Efren Reyes, Bang Densu! Lanjut terus, jangan lupa mampir ke Pawpaw4D ya, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Lagi suntuk? Coba main PawPaw4D, dijamin senyum lagi!",
+    "normalized_text": "Lagi suntuk? Coba main PawPaw4D, dijamin senyum lagi!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Wah, lawannya Efren Reyes! Bang Densu makin keren aja! Jangan lupa mampir ke Pawpaw4D, seru banget!",
+    "normalized_text": "Wah, lawannya Efren Reyes! Bang Densu makin keren aja! Jangan lupa mampir ke Pawpaw4D, seru banget!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya, Bang Densu keren banget! Jangan lupa mampir ke Pawpaw4D ya, pasti seru!",
+    "normalized_text": "Efren Reyes lawannya, Bang Densu keren banget! Jangan lupa mampir ke Pawpaw4D ya, pasti seru!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "PawPaw4D tuh tempat buat nyari hiburan yang nggak ngebosenin!",
+    "normalized_text": "PawPaw4D tuh tempat buat nyari hiburan yang nggak ngebosenin!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Efren Reyes lawannya, wah keren banget! Bang Densu juga keren! Jangan lupa mampir ke Pawpaw4D, Bang!",
+    "normalized_text": "Efren Reyes lawannya, wah keren banget! Bang Densu juga keren! Jangan lupa mampir ke Pawpaw4D, Bang!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "PawPaw4D punya banyak promo buat member baru dan lama!",
+    "normalized_text": "PawPaw4D punya banyak promo buat member baru dan lama!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Baru daftar langsung dapet reward! Main di PawPaw4D emang asik!",
+    "normalized_text": "Baru daftar langsung dapet reward! Main di PawPaw4D emang asik!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Sambil nunggu temen, mending isi waktu di PawPaw4D!",
+    "normalized_text": "Sambil nunggu temen, mending isi waktu di PawPaw4D!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Lagi cari hiburan seru? Coba main di PawPaw4D, bikin nagih!",
+    "normalized_text": "Lagi cari hiburan seru? Coba main di PawPaw4D, bikin nagih!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Banyak banget event di PawPaw4D yang bisa kamu ikuti!",
+    "normalized_text": "Banyak banget event di PawPaw4D yang bisa kamu ikuti!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Setiap login ke PawPaw4D tuh selalu ada kejutan menarik.",
+    "normalized_text": "Setiap login ke PawPaw4D tuh selalu ada kejutan menarik."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Ajak temen makin seru, karena PawPaw4D ada referral bonus juga!",
+    "normalized_text": "Ajak temen makin seru, karena PawPaw4D ada referral bonus juga!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "gak usah ragu lagi bre ! cuma 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 yang kasih gampang menang",
+    "normalized_text": "gak usah ragu lagi bre ! cuma Koreo138 yang kasih gampang menang"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bikin hidup lebih simple  itulah 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖.",
+    "normalized_text": "Bikin hidup lebih simple  itulah Koreo138."
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "mudah banget dapat cuan hanya di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 !!",
+    "normalized_text": "mudah banget dapat cuan hanya di Koreo138 !!"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "mantap mekswin lagi di 5unsur",
+    "normalized_text": "mantap mekswin lagi di 5unsur"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Cara Gampang Perkalian Hanya Di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 🔥",
+    "normalized_text": "Cara Gampang Perkalian Hanya Di Koreo138 🔥"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "saya baru dapat cuan di 𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖 mudah banget",
+    "normalized_text": "saya baru dapat cuan di Koreo138 mudah banget"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Game alphabet 5858",
+    "normalized_text": "Game alphabet 5858"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "Bermuram durja si Boris kerna Jirayut diajak khawin sama cinta hatinya",
+    "normalized_text": "Bermuram durja si Boris kerna Jirayut diajak khawin sama cinta hatinya"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "brand_pattern"
+    ],
+    "reason_skipped": "brand_pattern hadir tapi normalized_text tidak cocok BRAND_RESCUE/SUFFIX. score=40",
+    "original_text": "27:26 itu dari lini pokemon scale world bg, skalanya mengikuti ukuran asli pokemon di pokedex, anime atau filmnya. jadi kalo pokemon asli nya kecil bakalan kecil bgt figure nya. bagus dan cukup mahal itu, harga trio starter kanto charizard, blastoise dan venusaur aja uda tembus jutaan salam dari yuk69",
+    "normalized_text": "27:26 itu dari lini pokemon scale world bg, skalanya mengikuti ukuran asli pokemon di pokedex, anime atau filmnya. jadi kalo pokemon asli nya kecil bakalan kecil bgt figure nya. bagus dan cukup mahal itu, harga trio starter kanto charizard, blastoise dan venusaur aja uda tembus jutaan salam dari yuk69"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "reason_skipped": "score rendah (75), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword', 'emoji_spam']",
+    "original_text": "Sekarang kantong gw tebel berkat cuan dari 5𝐔𝐍𝐒𝐔𝐑. Emang situs ladang cuan terbaik... pantesan aja ini tempat kaya 5𝐔𝐍𝐒𝐔𝐑 bisa VIRAL🔥🔥🔥🔥",
+    "normalized_text": "Sekarang kantong gw tebel berkat cuan dari 5UNSUR. Emang situs ladang cuan terbaik... pantesan aja ini tempat kaya 5UNSUR bisa VIRAL🔥🔥🔥🔥"
+  },
+  {
+    "score": 75,
+    "signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "reason_skipped": "score rendah (75), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword', 'emoji_spam']",
+    "original_text": "Situs nya bantu orang pasti tapi yg mkn keter laluan mkn nya ok Meskipun pecinta mkn y ojo rks rks lah 😂😂😂",
+    "normalized_text": "Situs nya bantu orang pasti tapi yg mkn keter laluan mkn nya ok Meskipun pecinta mkn y ojo rks rks lah 😂😂😂"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "score rendah (70), tidak ada brand_pattern. signals=['contact_link', 'obfuscated_keyword']",
+    "original_text": "gamau banyak bacot gua bang nanti di kira sales wkwk gua cuman mau share situs ⚡ PLAZABOLA ⚡ yang sering gua mainin itu gacor",
+    "normalized_text": "gamau banyak bacot gua bang nanti di kira sales wkwk gua cuman mau share situs ⚡ PLAZABOLA ⚡ yang sering gua mainin itu gacor"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "score rendah (70), tidak ada brand_pattern. signals=['contact_link', 'obfuscated_keyword']",
+    "original_text": "Lelah scroll-scroll cari situs gacor Cukup buka 𝐓𝐊𝐏𝟑𝟎𝟑",
+    "normalized_text": "Lelah scroll-scroll cari situs gacor Cukup buka TKP303"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "contact_link",
+      "plain_keyword",
+      "excessive_caps"
+    ],
+    "reason_skipped": "score rendah (70), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword', 'excessive_caps']",
+    "original_text": "KEREN BET LIKE KOMEN SITUS JUDOL😂",
+    "normalized_text": "KEREN BET LIKE KOMEN SITUS JUDOL😂"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "score rendah (70), tidak ada brand_pattern. signals=['contact_link', 'obfuscated_keyword']",
+    "original_text": "apa bener ya situs cm88bets lagi gacor temen saya main menang 2jt",
+    "normalized_text": "apa bener ya situs cm88bets lagi gacor temen saya main menang 2jt"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "reason_skipped": "score rendah (70), tidak ada brand_pattern. signals=['contact_link', 'obfuscated_keyword']",
+    "original_text": "bonus dan rollingan terbesar saat ini cuma di situs totospin yang merupakan situs gacor terpercaya",
+    "normalized_text": "bonus dan rollingan terbesar saat ini cuma di situs totospin yang merupakan situs gacor terpercaya"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "contact_link",
+      "plain_keyword",
+      "excessive_caps"
+    ],
+    "reason_skipped": "score rendah (70), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword', 'excessive_caps']",
+    "original_text": "𝟐𝟓𝐊𝐁𝐄𝐓 SITUS PEMERSATU BANGSA",
+    "normalized_text": "25KBET SITUS PEMERSATU BANGSA"
+  },
+  {
+    "score": 70,
+    "signals": [
+      "contact_link",
+      "plain_keyword",
+      "excessive_caps"
+    ],
+    "reason_skipped": "score rendah (70), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword', 'excessive_caps']",
+    "original_text": "𝟐𝟓𝐊𝐁𝐄𝐓 SITUS RESMI KOMDIGI",
+    "normalized_text": "25KBET SITUS RESMI KOMDIGI"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "bang hati hati ada kata BERKAH99itu situs judil",
+    "normalized_text": "bang hati hati ada kata BERKAH99itu situs judil"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Udah main di banyak situs, cuma MAMAJITU yang bener-bener terbukti aman &amp; bayar.",
+    "normalized_text": "Udah main di banyak situs, cuma MAMAJITU yang bener-bener terbukti aman &amp; bayar."
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "gila ya judol, ada aja ide nya buat promosi dengan cara menggunakan nama situs nya di user name youtube",
+    "normalized_text": "gila ya judol, ada aja ide nya buat promosi dengan cara menggunakan nama situs nya di user name youtube"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "yg komen bnyk akun situs judol",
+    "normalized_text": "yg komen bnyk akun situs judol"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Situs mana yg bisa kasih rtp bagus ? rtp tertinggi hanya di *J4V4L4ND 88*",
+    "normalized_text": "Situs mana yg bisa kasih rtp bagus ? rtp tertinggi hanya di *J4V4L4ND 88*"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Situs paling enak banget dan mudah menang hanya 🟢 ... 🟢",
+    "normalized_text": "Situs paling enak banget dan mudah menang hanya 🟢 ... 🟢"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Situs pemberi cuan setiap hari 2026 hanya ⚡ ... ⚡",
+    "normalized_text": "Situs pemberi cuan setiap hari 2026 hanya ⚡ ... ⚡"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Bingung Cari Situs Poker & Domino Online Yang Memberikan Kemenangan Besar ? Daftar Sekarang Juga di VIPBANDARQ Minimal Deposit Hanya Rp 20.000",
+    "normalized_text": "Bingung Cari Situs Poker & Domino Online Yang Memberikan Kemenangan Besar ? Daftar Sekarang Juga di VIPBANDARQ Minimal Deposit Hanya Rp 20.000"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Disini malah lebih bagus klarifikasinya dibanding di media lain... tiap buka sosmed atau situs berita suka kesel statement pejabatnya.  Mas Wapres ketika bahas Mbg nyontohin jga disini cara bkin statement dan klarifikasi yg bner,, ini mah pejabat lain malah nyalahin siswa yg upload mbg yg nasinya basi.",
+    "normalized_text": "Disini malah lebih bagus klarifikasinya dibanding di media lain... tiap buka sosmed atau situs berita suka kesel statement pejabatnya.  Mas Wapres ketika bahas Mbg nyontohin jga disini cara bkin statement dan klarifikasi yg bner,, ini mah pejabat lain malah nyalahin siswa yg upload mbg yg nasinya basi."
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "lagi seru seru nya liat iklan situs 𝐏 𝐒 𝐓 𝐎 𝐓 𝐎 𝟗 𝟗",
+    "normalized_text": "lagi seru seru nya liat iklan situs P S T O T O 9 9"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "kapan kolaborasi sama situs 𝐏 𝐒 𝐓 𝐎 𝐓 𝐎 𝟗 𝟗",
+    "normalized_text": "kapan kolaborasi sama situs P S T O T O 9 9"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "gw baru nemuin situs 𝐏 𝐒 𝐓 𝐎 𝐓 𝐎 𝟗 𝟗 berkat pajar sadboy",
+    "normalized_text": "gw baru nemuin situs P S T O T O 9 9 berkat pajar sadboy"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "pajar tadi malem keciduk main di situs 𝐏 𝐒 𝐓 𝐎 𝐓 𝐎 𝟗 𝟗",
+    "normalized_text": "pajar tadi malem keciduk main di situs P S T O T O 9 9"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "bosen miskin sini merapat ke situs 𝐏 𝐒 𝐓 𝐎 𝐓 𝐎 𝟗 𝟗",
+    "normalized_text": "bosen miskin sini merapat ke situs P S T O T O 9 9"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Rakossss polllllll situs jembot",
+    "normalized_text": "Rakossss polllllll situs jembot"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "pantang kalah silahkan dicoba dan buktikan auto cuan dan mudah menang hanya di situs totospin",
+    "normalized_text": "pantang kalah silahkan dicoba dan buktikan auto cuan dan mudah menang hanya di situs totospin"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Menurut gue frimawan ini sangat logic dalam  berkarakter, dia memainkan makna sebuah kata2 tanpa melibatkan kalimatnya !! pokoknya mind blowing asli 🗯🗯 cek link di google *DOYOKJP*",
+    "normalized_text": "Menurut gue frimawan ini sangat logic dalam  berkarakter, dia memainkan makna sebuah kata2 tanpa melibatkan kalimatnya !! pokoknya mind blowing asli 🗯🗯 cek link di google *DOYOKJP*"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "gilak banyak yg promo situs judol d sini om ded",
+    "normalized_text": "gilak banyak yg promo situs judol d sini om ded"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "om ded klo bisa itu di laporkan situs² judol",
+    "normalized_text": "om ded klo bisa itu di laporkan situs2 judol"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "█DEWADORA█ solusi situs tergokil",
+    "normalized_text": "█DEWADORA█ solusi situs tergokil"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Bebek enakk makan sambil main di Situs Jowoslot",
+    "normalized_text": "Bebek enakk makan sambil main di Situs Jowoslot"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Situs Bagi Bagi Rezeki $ INTER303",
+    "normalized_text": "Situs Bagi Bagi Rezeki $ INTER303"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "main di situs cm88bets sudah pasti banyak untung dan bonus yang melimpah",
+    "normalized_text": "main di situs cm88bets sudah pasti banyak untung dan bonus yang melimpah"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "nih guys situs cm88bets situs resmi tanpa seting seting admin gila",
+    "normalized_text": "nih guys situs cm88bets situs resmi tanpa seting seting admin gila"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "“Satu-satunya situs yang bikin betah. *DOYOKJP* selalu di hati!”",
+    "normalized_text": "“Satu-satunya situs yang bikin betah. *DOYOKJP* selalu di hati!”"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Situs kebanggaan emang beda🔥 N A G A M A S T O T O 🔥, bonus nya jga mantap",
+    "normalized_text": "Situs kebanggaan emang beda🔥 N A G A M A S T O T O 🔥, bonus nya jga mantap"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "gokil ini situs cm88bets baru daftar deposit petama langsung dikasih JP",
+    "normalized_text": "gokil ini situs cm88bets baru daftar deposit petama langsung dikasih JP"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "buset situsPU L AU 7 7 7 Pusing Gegara gw absi menang gedeee",
+    "normalized_text": "buset situsPU L AU 7 7 7 Pusing Gegara gw absi menang gedeee"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "ini garuda hoki beneran situs resmi thailand kah broo? pantesan gachor",
+    "normalized_text": "ini garuda hoki beneran situs resmi thailand kah broo? pantesan gachor"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Pod hub curi logo situs bokep",
+    "normalized_text": "Pod hub curi logo situs bokep"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "“MINI1221 tuh bukan sekadar situs, ini tempat cari cuan asli.”",
+    "normalized_text": "“MINI1221 tuh bukan sekadar situs, ini tempat cari cuan asli.”"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Udah coba banyak tempat tapi MINI1221 paling mantul! Ga nyangka bakal sering menang jadi ketagihan! Gk nyesel main disitus ini❤",
+    "normalized_text": "Udah coba banyak tempat tapi MINI1221 paling mantul! Ga nyangka bakal sering menang jadi ketagihan! Gk nyesel main disitus ini❤"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Di kasih profit bang main di ♥ 𝐉𝐞𝐭𝟖𝟖𝐛𝐞𝐭  ♥baru nyobain juga main di situs nya",
+    "normalized_text": "Di kasih profit bang main di ♥ Jet88bet  ♥baru nyobain juga main di situs nya"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "01:11 𝐒𝐋𝐎𝐓𝟐𝟖𝟖 adalah situs yang selalu memberikan kejutan.",
+    "normalized_text": "01:11 SLOT288 adalah situs yang selalu memberikan kejutan."
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "di indonesia jangan kan fetish ketek,fetish katak pun ada....,tapi yg melakukan nya cewe...,he3x,cari aja tuh di situs2 'fun taste tease' alias situs?????,kata nya dasha suka cowo manis..,berarti dia harus ngerasain dulu dong rasa nya manis apa ga cowo tersebut?,beginilah jadi nya kata2 manis di gunakan ke hal yg lain,padahal kata manis itu hanya di gunakan pada indra perasa saja,tapi begitulah,tidak di indonesia saja tapi juga di luar negeri....,DASHA....,KAMU ITU 'BEE YOU TEA FULL'....",
+    "normalized_text": "di indonesia jangan kan fetish ketek,fetish katak pun ada....,tapi yg melakukan nya cewe...,he3x,cari aja tuh di situs2 'fun taste tease' alias situs?????,kata nya dasha suka cowo manis..,berarti dia harus ngerasain dulu dong rasa nya manis apa ga cowo tersebut?,beginilah jadi nya kata2 manis di gunakan ke hal yg lain,padahal kata manis itu hanya di gunakan pada indra perasa saja,tapi begitulah,tidak di indonesia saja tapi juga di luar negeri....,DASHA....,KAMU ITU 'BEE YOU TEA FULL'...."
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "main di situs cm88bets mudah menang dan jaminan jackpot yang menggiurkan",
+    "normalized_text": "main di situs cm88bets mudah menang dan jaminan jackpot yang menggiurkan"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "yuk gabung di situs totospin situs yang mudah scaternya dan mudah profit",
+    "normalized_text": "yuk gabung di situs totospin situs yang mudah scaternya dan mudah profit"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "depo 10.000 menang 500.000++ hanya di situs totospin",
+    "normalized_text": "depo 10.000 menang 500.000++ hanya di situs totospin"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "kenapa ga dari dulu tau situs cm88bets modal kecil bisa wd jutaan",
+    "normalized_text": "kenapa ga dari dulu tau situs cm88bets modal kecil bisa wd jutaan"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "silahkan dicoba situs cm88bets anti rungkad, rtp akurat dan mudah JP",
+    "normalized_text": "silahkan dicoba situs cm88bets anti rungkad, rtp akurat dan mudah JP"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "agen situs totospin terpercaya modal kecil bisa jadi jutawan cuma 5 menit buktikan sendiri",
+    "normalized_text": "agen situs totospin terpercaya modal kecil bisa jadi jutawan cuma 5 menit buktikan sendiri"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "gak cuman omongan doang di situs 𝐙𝐎𝐎𝐌𝟓𝟓𝟓 sudah banyak memberikan bukti kalo main di situs ini selalu bikin aku happy",
+    "normalized_text": "gak cuman omongan doang di situs ZOOM555 sudah banyak memberikan bukti kalo main di situs ini selalu bikin aku happy"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Gue udah coba banyak situs, tapi 퐌퐀퐗퐖퐈퐍퐁퐎퐒 beneran the best sih!  baru kali ni betah sama 1 web asleeeeeeeeee",
+    "normalized_text": "Gue udah coba banyak situs, tapi 퐌퐀퐗퐖퐈퐍퐁퐎퐒 beneran the best sih!  baru kali ni betah sama 1 web asleeeeeeeeee"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "depo 10.000 menang 500.000 ++ hanya di situs totospin",
+    "normalized_text": "depo 10.000 menang 500.000 ++ hanya di situs totospin"
+  },
+  {
+    "score": 60,
+    "signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "reason_skipped": "score rendah (60), tidak ada brand_pattern. signals=['contact_link', 'plain_keyword']",
+    "original_text": "Bang coba beli mainan atau apalah di situs darkweb",
+    "normalized_text": "Bang coba beli mainan atau apalah di situs darkweb"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "contact_link",
+      "emoji_spam"
+    ],
+    "reason_skipped": "score rendah (55), tidak ada brand_pattern. signals=['contact_link', 'emoji_spam']",
+    "original_text": "Da, kebetulan pas banget saya lagi mkn juga nnton vlog ini dan menu nya jg kebetulan sama rendang ayam pas bgt kyk yg uda makan, saya tiap hari beli lauk ayam rendang dan ayam bumbu khas org bukittinggi yang jual nya. Gk ada obat sih da ayam rendang nya, lokasi di Tanjung Pinang yg prnh uda kunjungi dulu tepatnya uda vlog di Akau👍 Mantap uda sehat2 sllu, salut ama porsi makan nya da😂👍",
+    "normalized_text": "Da, kebetulan pas banget saya lagi mkn juga nnton vlog ini dan menu nya jg kebetulan sama rendang ayam pas bgt kyk yg uda makan, saya tiap hari beli lauk ayam rendang dan ayam bumbu khas org bukittinggi yang jual nya. Gk ada obat sih da ayam rendang nya, lokasi di Tanjung Pinang yg prnh uda kunjungi dulu tepatnya uda vlog di Akau👍 Mantap uda sehat2 sllu, salut ama porsi makan nya da😂👍"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "plain_keyword",
+      "soft_brand_testimonial"
+    ],
+    "reason_skipped": "score rendah (55), tidak ada brand_pattern. signals=['plain_keyword', 'soft_brand_testimonial']",
+    "original_text": "04:15 𝐒𝐋𝐎𝐓𝟐𝟖𝟖 memberikan pengalaman bermain yang aman dan terpercaya.",
+    "normalized_text": "04:15 SLOT288 memberikan pengalaman bermain yang aman dan terpercaya."
+  },
+  {
+    "score": 55,
+    "signals": [
+      "contact_link",
+      "emoji_spam"
+    ],
+    "reason_skipped": "score rendah (55), tidak ada brand_pattern. signals=['contact_link', 'emoji_spam']",
+    "original_text": "Semoga dagangan mpokk laris setelah di kunjungi tanboy kun 😊😊🎉",
+    "normalized_text": "Semoga dagangan mpokk laris setelah di kunjungi tanboy kun 😊😊🎉"
+  },
+  {
+    "score": 55,
+    "signals": [
+      "contact_link",
+      "emoji_spam"
+    ],
+    "reason_skipped": "score rendah (55), tidak ada brand_pattern. signals=['contact_link', 'emoji_spam']",
+    "original_text": "Kuliner pedagang kecil wajib di kunjungi juga bang tanboykun👍🏻",
+    "normalized_text": "Kuliner pedagang kecil wajib di kunjungi juga bang tanboykun👍🏻"
+  },
+  {
+    "score": 45,
+    "signals": [
+      "excessive_caps",
+      "soft_brand_testimonial"
+    ],
+    "reason_skipped": "score rendah (45), tidak ada brand_pattern. signals=['excessive_caps', 'soft_brand_testimonial']",
+    "original_text": "𝗛𝗢𝗞𝗜𝗕𝗢𝗦𝟴𝟵𝟴 PARTNER GAME ONLINE AMAN DAN TERPERCAYA",
+    "normalized_text": "HOKIBOS898 PARTNER GAME ONLINE AMAN DAN TERPERCAYA"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "contact_link"
+    ],
+    "reason_skipped": "score rendah (40), tidak ada brand_pattern. signals=['contact_link']",
+    "original_text": "Restoran yang dikunjungin bang bara: 💀mati gwe💀",
+    "normalized_text": "Restoran yang dikunjungin bang bara: 💀mati gwe💀"
+  },
+  {
+    "score": 40,
+    "signals": [
+      "contact_link"
+    ],
+    "reason_skipped": "score rendah (40), tidak ada brand_pattern. signals=['contact_link']",
+    "original_text": "Daftar tempat yang di kunjungi Tan boy di padang https://youtu.be/kuyIYyXGPTo",
+    "normalized_text": "Daftar tempat yang di kunjungi Tan boy di padang https://youtu.be/kuyIYyXGPTo"
+  },
+  {
+    "score": 35,
+    "signals": [
+      "soft_brand_testimonial"
+    ],
+    "reason_skipped": "score rendah (35), tidak ada brand_pattern. signals=['soft_brand_testimonial']",
+    "original_text": "Nggak salah langkah, 𝘼𝙇𝙀𝙓𝙄𝙎17 sukses bantu banyak orang.",
+    "normalized_text": "Nggak salah langkah, ALEXIS17 sukses bantu banyak orang."
+  },
+  {
+    "score": 35,
+    "signals": [
+      "soft_brand_testimonial"
+    ],
+    "reason_skipped": "score rendah (35), tidak ada brand_pattern. signals=['soft_brand_testimonial']",
+    "original_text": "Begitu pakai, baru ngerti kenapa 🚩𝘼𝙇𝙀𝙓𝙄𝙎17🚩 dipuji banyak orang.",
+    "normalized_text": "Begitu pakai, baru ngerti kenapa 🚩ALEXIS17🚩 dipuji banyak orang."
+  }
+]

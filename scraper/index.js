@@ -147,9 +147,10 @@ function analyzeSpamScore(rawText) {
   // --- SINYAL PRIMER ---
 
   // [+40] Pola brand judol: kombinasi nama + angka khas (88, 99, 777, dll)
-  // Contoh: "MAXWIN88", "SLOT777", "BET138"
+  // Contoh: "MAXWIN88", "SLOT777", "BET138", "HOBIQQ", "BANDARQQ"
+  // Ditambahkan: suffix "qq" untuk keluarga poker/domino online (HobiQQ, BandarQQ, DominoQQ)
   const brandPattern =
-    /[a-z]{3,}(88|99|77|69|138|388|777|888|4d|toto|bet|win)\b/i;
+    /[a-z]{3,}(88|99|77|69|138|388|777|888|4d|toto|bet|win|qq)\b/i;
   if (brandPattern.test(lowerText)) {
     score += 40;
     activeSignals.push("brand_pattern");

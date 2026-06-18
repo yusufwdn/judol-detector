@@ -166,8 +166,21 @@ HARD_SPAM_SIGNALS = {
     "deposit",    # setor dana ke akun judi
     # Nama brand / situs yang diketahui (angka dihapus preprocessing: PSTOTO99 → pstoto)
     "pstoto", "jptogel", "supermoney", "xuxu", "bardi",
-    "bukit", "bambu", "dora", "pluto", "jalak",
-    "pangeran", "giat", "kyt",
+    "bukit", "dora", "pluto", "jalak",
+    "pangeran", "kyt",
+    # CATATAN: "bambu" dan "giat" dihapus karena terlalu generik — keduanya adalah
+    # kata Indonesia biasa (tanaman bambu, kata sifat rajin) yang muncul di komentar
+    # normal non-judi. Brand yang pakai nama ini + suffix angka (bambu88, giat777)
+    # sudah tertangkap via Step 5b → judolbrand.
+    # Brand yang pakai kata umum + suffix → compound spesifik yang tidak ambigu
+    # "pulau" sendiri terlalu umum (Pulau Bali, Pulau Jawa), tapi "pulauwin"
+    # adalah compound khusus situs judi yang tidak akan muncul di konteks lain.
+    "pulauwin",
+    # Token universal hasil kanonikalisasi brand (Step 5b di preprocessing.py).
+    # Semua brand judol yang cocok dengan JUDOL_BRAND_PATTERN (keju4d, betawi77,
+    # hobiqq, slot777, dll) dikonversi ke token ini sebelum masuk ke model.
+    # Satu entri ini menggantikan perlunya mendaftarkan tiap nama brand secara manual.
+    "judolbrand",
 }
 
 
@@ -265,12 +278,24 @@ def predict(request: PredictRequest):
     label_idx = list(classes).index(label)
     confidence = float(proba[label_idx])
 
-    # Hybrid rule: SVM bilang spam tapi tidak ada sinyal keras judi →
-    # kemungkinan false positive dari kata ambigu (hoki, serius, keren, dll).
-    # Override ke non_spam dan kembalikan confidence 0.5 (tidak yakin).
-    if label == "spam" and not has_hard_spam_signal(cleaned):
+    # Hybrid rule — dua arah:
+    #
+    # (A) FP prevention: SVM bilang spam tapi tidak ada sinyal keras judol →
+    #     kemungkinan false positive dari kata ambigu (hoki, serius, keren, dll).
+    #     Override ke non_spam.
+    #
+    # (B) FN prevention: SVM bilang non_spam padahal ada sinyal keras judol →
+    #     terjadi ketika komentar punya banyak kata normal yang bobotnya mengalahkan
+    #     token judolbrand di model linear. Sinyal keras harus menang — override ke spam.
+    has_signal = has_hard_spam_signal(cleaned)
+
+    if label == "spam" and not has_signal:
         print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
         return PredictResponse(label="non_spam", confidence=0.5, is_spam=False)
+
+    if label == "non_spam" and has_signal:
+        print(f"[HYBRID] Override non_spam→spam (hard signal present): {cleaned[:60]}")
+        return PredictResponse(label="spam", confidence=0.9, is_spam=True)
 
     return PredictResponse(
         label=label,
@@ -310,10 +335,17 @@ def predict_batch(request: BatchPredictRequest):
         label_idx = list(classes).index(label)
         confidence = float(proba[label_idx])
 
-        # Hybrid rule — sama seperti di /predict
-        if label == "spam" and not has_hard_spam_signal(cleaned):
+        # Hybrid rule — dua arah, sama seperti di /predict
+        has_signal = has_hard_spam_signal(cleaned)
+
+        if label == "spam" and not has_signal:
             print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
             results.append(PredictResponse(label="non_spam", confidence=0.5, is_spam=False))
+            continue
+
+        if label == "non_spam" and has_signal:
+            print(f"[HYBRID] Override non_spam→spam (hard signal present): {cleaned[:60]}")
+            results.append(PredictResponse(label="spam", confidence=0.9, is_spam=True))
             continue
 
         results.append(PredictResponse(

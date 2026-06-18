@@ -28,20 +28,85 @@ the model to receive inputs that look slightly different from what it was
 trained on — a problem known as training-serving skew — degrading accuracy
 in production. Keeping the full pipeline in Python eliminates this risk.
 
-PIPELINE ORDER (7 STEPS)
---------------------------
-Step 1: Strip zero-width characters  — invisible chars that break tokenization
-Step 2: NFKC Unicode normalization   — collapse decorative Unicode to ASCII
-Step 3: Cyrillic/Greek homoglyph fix — NFKC cannot cross script boundaries
-Step 4: Emoji demojize               — convert emoji to descriptive text tokens
-Step 5: Lowercase
-Step 6: Remove URLs and non-alpha characters
-Step 7: Remove stopwords
+PIPELINE ORDER (7 STEPS + 3 SUB-STEPS)
+-----------------------------------------
+Step 1 : Strip zero-width characters  — invisible chars that break tokenization
+Step 2 : NFKC Unicode normalization   — collapse decorative Unicode to ASCII
+Step 2b: Strip combining diacriticals — spammer trick: P͟U͟L͟A͟U͟ → PULAU
+Step 2c: Unwrap bracketed chars       — spammer trick: [P][U][L][A][U] → PULAU
+Step 3 : Cyrillic/Greek/Thai homoglyph — NFKC cannot cross script boundaries
+Step 4 : Emoji demojize               — convert emoji to descriptive text tokens
+Step 5 : Lowercase
+Step 5b: Brand canonicalization       — keju4d/hobiqq → judolbrand (before digits stripped)
+Step 6 : Remove URLs and non-alpha characters
+Step 7 : Remove stopwords
 """
 
 import re
 import unicodedata
 import emoji
+
+# ---------------------------------------------------------------------------
+# JUDOL BRAND CANONICALIZATION PATTERN (Step 5b)
+# ---------------------------------------------------------------------------
+# Hampir semua nama situs judi online Indonesia mengikuti pola:
+#   [nama bebas] + [suffix numerik atau khas judol]
+#
+# Contoh suffix numerik: 4D/3D/2D (togel), 88/99/77/69 (slot), 777/888/303
+# Contoh suffix kata   : QQ (poker/domino online: BandarQQ, HobiQQ, DominoQQ)
+#
+# MASALAH TANPA STEP INI:
+#   Step 6 menghapus semua digit → suffix numerik brand ikut terhapus:
+#     keju4d   → keju   (keju = makanan, bukan judol)
+#     betawi77 → betawi (suku Betawi, bukan judol)
+#     slot888  → slot   (kata slot ada di HARD_SPAM_SIGNALS, jadi masih ok —
+#                        tapi tidak lagi menjadi fitur brand spesifik)
+#
+#   Akibatnya model dilatih dengan fitur "keju" yang salah label, lama-lama
+#   meningkatkan risiko false positive di komentar kuliner atau non-judi.
+#
+# SOLUSI:
+#   Sebelum digit dihapus (Step 6), deteksi pola brand lalu GANTI dengan token
+#   universal "judolbrand". Token ini:
+#     1. Tidak dibuang oleh Step 6 (huruf semua, bukan digit/simbol)
+#     2. Tersimpan sebagai fitur TF-IDF yang kuat — model belajar bahwa
+#        "judolbrand" = sinyal spam tanpa perlu menghafal tiap nama brand
+#     3. Generalisasi otomatis — brand baru yang belum pernah dilihat tapi
+#        mengikuti pola yang sama langsung tertangkap
+#
+# KENAPA SETELAH LOWERCASE (STEP 5)?
+#   Agar regex cukup ditulis lowercase saja (tidak perlu flag IGNORECASE
+#   yang memperlambat, atau menduplikasi pattern untuk huruf kapital).
+#
+# TRADE-OFF (diterima):
+#   Brand yang pakai karakter non-ASCII (𝓇𝐀๓𝓐 ４𝓓) melewati Step 2 NFKC
+#   tapi kegagalan charset campur (Thai ๓) membuat patternnya tidak terbentuk
+#   sempurna. Kasus ini sudah dicatat sebagai "keterbatasan" skripsi.
+#
+# CONTOH:
+#   Input (setelah lowercase)  →  Output (setelah Step 5b)
+#   keju4d                     →  judolbrand
+#   betawi77                   →  judolbrand
+#   slot777                    →  judolbrand
+#   hobiqq                     →  judolbrand
+#   bandarqq                   →  judolbrand
+#   hana303                    →  judolbrand
+#   gacor                      →  gacor  (tidak cocok, tetap apa adanya)
+#   kecoa99                    →  judolbrand (jika suatu saat dipakai spammer)
+
+# Kata-kata yang TIDAK boleh dikanonikalisasi meski cocok secara pola.
+# Contoh: "level99" cocok pola tapi ini konteks gaming, bukan judol.
+# Diimplementasikan sebagai negative lookbehind di regex agar tidak perlu
+# post-filter terpisah.
+_JUDOL_EXCLUDE_PREFIXES = (
+    "level", "rank", "stage", "episode", "part", "seri", "versi",
+    "chapter", "season", "round", "wave", "fase", "lv",
+)
+_EXCL = "|".join(_JUDOL_EXCLUDE_PREFIXES)
+
+JUDOL_BRAND_PATTERN = re.compile(
+    rf'\b(?!(?:{_EXCL})\d)[a-z]{{2,}}(?:4d|3d|2d|88|99|77|69|138|388|303|777|888|qq)\b'
+)
 
 
 # ---------------------------------------------------------------------------
@@ -103,6 +168,10 @@ HOMOGLYPH_MAP = str.maketrans({
     "\u03BF": "o",  # ο → o
     "\u03B1": "a",  # α → a
     "\u03C1": "p",  # ρ → p
+    # Thai / lain-lain → Latin (huruf script lain yang BENTUKNYA mirip Latin)
+    # Spammer memilih huruf dari script lain yang mirip huruf Latin untuk
+    # memecah deteksi kata kunci, contoh "ro๓a" (Thai ๓ mirip huruf m).
+    "\u0E53": "m",  # ๓ (angka Thai 3) → m  (bentuknya mirip huruf m)
 })
 
 
@@ -154,6 +223,31 @@ def clean_text(text: str) -> str:
     #   🅓🅐🅕🅣🅐🅡  →  DAFTAR  (Enclosed Alphanumeric Supplement)
     text = unicodedata.normalize("NFKC", text)
 
+    # Step 2b: Strip combining diacritical marks (Unicode category "Mn")
+    # NFKC normalization does NOT remove combining marks — it only collapses
+    # decorative font variants. Spammers exploit this by inserting combining
+    # characters (e.g. U+0332 COMBINING LOW LINE) between or after letters
+    # to break keyword detection:
+    #   P͟U͟L͟A͟U͟W͟I͟N  →  tanpa step ini, tiap ͟ diganti spasi oleh Step 6
+    #                      → tiap huruf jadi token sendiri → semua dihapus len<=1
+    #                      → string kosong → false non_spam
+    #
+    # unicodedata.category(c) == "Mn" menangkap semua "Mark, Nonspacing" —
+    # termasuk combining underline, combining accent, dan trik serupa.
+    text = "".join(c for c in text if unicodedata.category(c) != "Mn")
+
+    # Step 2c: Unwrap karakter tunggal yang dibungkus kurung / tanda baca.
+    # Spammer memecah brand jadi per-huruf dengan membungkus tiap karakter:
+    #   [P][U][L][A][U][7][7][7]  →  tanpa step ini, Step 6 mengubah tiap
+    #     kurung jadi spasi → tiap huruf jadi token tunggal → semua dibuang
+    #     (len<=1) → string kosong → false non_spam.
+    #
+    # Regex hanya membuka kurung yang membungkus TEPAT satu karakter word
+    # (huruf/angka), jadi kalimat normal dalam kurung — misal "(lihat di sini)"
+    # — tidak ikut terpengaruh karena isinya lebih dari satu karakter.
+    #   [P] → P   (X) → X   {7} → 7
+    text = re.sub(r"[\[(\{]\s*(\w)\s*[\])\}]", r"\1", text)
+
     # Step 3: Apply homoglyph substitution for Cyrillic/Greek lookalikes
     # NFKC only normalizes within the same Unicode block. It cannot map
     # Cyrillic 'а' to Latin 'a' because they are considered different scripts.
@@ -173,6 +267,11 @@ def clean_text(text: str) -> str:
 
     # Step 5: Lowercase
     text = text.lower()
+
+    # Step 5b: Brand canonicalization — ganti pola brand judol dengan token universal
+    # Harus dilakukan SETELAH lowercase (Step 5) dan SEBELUM hapus digit (Step 6).
+    # Lihat komentar JUDOL_BRAND_PATTERN di atas untuk penjelasan lengkap.
+    text = JUDOL_BRAND_PATTERN.sub("judolbrand", text)
 
     # Step 6: Remove URLs and all non-alphabetic characters
     # URLs are removed first as a named pattern; then everything that isn't
@@ -214,14 +313,24 @@ if __name__ == "__main__":
         "𝑅𝒪𝑀𝒜𝟦𝒟 daftar sekarang bonus gede!",
         # Cyrillic homoglyphs mixed into Latin text
         "dаftаr sekаrаng dаpаt bоnus 100%",
-        # Full-width characters
-        "Ｄａｆｔａｒ　ｓｅｋａｒａｎｇ　ｂｏｎｕｓ　ｂｅｓａｒ",
+        # Full-width + circled characters (PULAU777 brand obfuscation)
+        "ＰⓤＬＡＵ777, tempatnya peluang besar",
+        # Combining underline trick (PULAUWIN brand) — Step 2b fix
+        # Tanpa Step 2b: tiap huruf jadi token sendiri, semua terhapus (len<=1) → empty string
+        # Dengan Step 2b: U+0332 dihapus → PULAUWIN bertahan sebagai satu token
+        "Bukan ngebet, tapi nyaman di P̲̲U̲̲L̲̲A̲̲U̲̲W̲̲I̲̲N̲̲?",
         # Emoji-heavy spam
         "🎰💰 slot gacor hari ini, WD cepat, daftar gratis 🎁🔥",
         # Normal non-spam comment
         "Video ini sangat membantu buat gua yang lagi belajar. Terimakasih kak!",
         # Zero-width spaces between letters
         "d\u200ba\u200bf\u200bt\u200ba\u200br sekarang bonus member baru",
+        # Brand canonicalization (Step 5b) \u2014 digit suffix
+        "kalau udah masakan nusantara pasti buat ngiler, salam Jp KEJU4D",
+        # Brand canonicalization (Step 5b) \u2014 angka 2-digit
+        "memang bikin selera naik, seperti di BETAWI77 bikin naik terus",
+        # Brand canonicalization (Step 5b) \u2014 suffix QQ (poker/domino)
+        "bikin mood gw balik lagi, salam sukses dari HOBIQQ",
     ]
 
     print("=" * 65)

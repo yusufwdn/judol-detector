@@ -30,6 +30,11 @@
 20. [Perbaikan Extension — Fase 4](#20-perbaikan-extension--fase-4)
 21. [False Positive — Ketika Model Salah Menilai Komentar Normal](#21-false-positive--ketika-model-salah-menilai-komentar-normal)
 22. [Hybrid SVM + Rules — Lapisan Kedua untuk Kurangi False Positive](#22-hybrid-svm--rules--lapisan-kedua-untuk-kurangi-false-positive)
+23. [Brand Canonicalization — Token Universal untuk Nama Brand Judol](#23-brand-canonicalization--token-universal-untuk-nama-brand-judol)
+24. [Perbaikan Two-Pass Filter — Rescue Condition dan Suffix QQ](#24-perbaikan-two-pass-filter--rescue-condition-dan-suffix-qq)
+25. [Keterbatasan: Obfuscation yang Belum Bisa Ditangani](#25-keterbatasan-obfuscation-yang-belum-bisa-ditangani)
+26. [Hybrid Rule Dua Arah — Mencegah False Negative dari Kata Normal](#26-hybrid-rule-dua-arah--mencegah-false-negative-dari-kata-normal)
+27. [Kurasi Manual Dataset + Perbaikan Rescue Pattern](#27-kurasi-manual-dataset--perbaikan-rescue-pattern)
 
 ---
 
@@ -352,7 +357,20 @@ Kalau kita tidak preprocessing:
 - `"𝑹𝑶𝑴𝑨𝟒𝑫"` tidak akan dikenali sebagai `"ROMA4D"` sama sekali
 - `"🎰"` akan menjadi karakter yang tidak berarti untuk model
 
-Pipeline di `src/preprocessing.py` menangani semua ini dalam 7 langkah berurutan. Urutan penting — setiap langkah mengasumsikan langkah sebelumnya sudah dijalankan.
+Pipeline di `src/preprocessing.py` menangani semua ini dalam **7 langkah + 3 sub-langkah** berurutan. Urutan penting — setiap langkah mengasumsikan langkah sebelumnya sudah dijalankan.
+
+| Langkah | Fungsi |
+|---------|--------|
+| Step 1 | Strip karakter zero-width |
+| Step 2 | NFKC Unicode normalization |
+| **Step 2b** | **Strip combining diacritical marks** (baru) |
+| **Step 2c** | **Unwrap kurung per-huruf** (baru) |
+| Step 3 | Cyrillic/Greek/Thai homoglyph fix |
+| Step 4 | Emoji demojize |
+| Step 5 | Lowercase |
+| **Step 5b** | **Brand canonicalization** → `judolbrand` (baru) |
+| Step 6 | Hapus URL dan karakter non-alfabet |
+| Step 7 | Hapus stopwords dan token pendek |
 
 ---
 
@@ -403,7 +421,60 @@ Setelah layer ini:
 
 ---
 
-### Layer 3 — Homoglyph Cyrillic/Greek
+### Layer 2b — Strip Combining Diacritical Marks *(baru)*
+
+```python
+text = "".join(c for c in text if unicodedata.category(c) != "Mn")
+```
+
+**Masalah yang diselesaikan:** Spammer menyisipkan karakter **combining** (karakter yang "menempel" ke huruf sebelumnya) di antara huruf-huruf brand untuk memecah deteksi. Contoh: U+0332 COMBINING LOW LINE yang terlihat seperti garis bawah di tiap huruf.
+
+NFKC normalization (Layer 2) **tidak** menghapus combining marks — ia hanya menormalkan karakter dekoratif ke ASCII. Jadi combining marks ini tetap ada setelah Layer 2.
+
+**Yang terjadi tanpa Layer 2b:**
+
+1. Layer 6 (`[^a-z\s]`) mengganti setiap combining mark dengan spasi
+2. Hasilnya: `P U L A U W I N` — setiap huruf menjadi token terpisah
+3. Layer 7 membuang token dengan `len ≤ 1` (satu huruf)
+4. Seluruh brand hilang → string kosong → model memprediksi non_spam
+
+**Solusi:** `unicodedata.category(c) == "Mn"` mendeteksi semua karakter "Mark, Nonspacing" — termasuk combining underline, combining accent, dan trik serupa. Semua karakter kategori ini dihapus sekaligus.
+
+**Contoh:**
+```
+P[combining]U[combining]L[combining]A[combining]U[combining]W[combining]I[combining]N
+  → PULAUWIN  → (Step 5b)  → judolbrand
+```
+
+---
+
+### Layer 2c — Unwrap Kurung Per-Huruf *(baru)*
+
+```python
+text = re.sub(r"[\[({]\s*(\w)\s*[\])}]", r"\1", text)
+```
+
+**Masalah yang diselesaikan:** Spammer membungkus tiap huruf brand dalam kurung/tanda baca:
+
+```
+[P][U][L][A][U][7][7][7]
+```
+
+Tanpa layer ini: Step 6 mengubah kurung jadi spasi → `P U L A U 7 7 7` → tiap huruf/angka adalah token tunggal → dibuang Layer 7 → string kosong.
+
+**Cara kerja regex:** `[\[({]` cocok dengan kurung pembuka, lalu `\s*(\w)\s*` cocok dengan **tepat satu karakter word** (huruf/angka) dengan spasi opsional, lalu `[\])}]` cocok dengan kurung penutup. Hasilnya: karakter di dalam kurung dipertahankan, kurungnya dihapus.
+
+**False positive protection:** Kurung yang berisi lebih dari satu karakter — seperti `(penjelasan di sini)` atau `[edisi revisi]` — tidak terpengaruh karena isinya tidak cocok pola `\w` tunggal.
+
+**Contoh:**
+```
+[P][U][L][A][U][7][7][7]  →  PULAU777  →  (Step 2c selesai)
+(penjelasan di sini)  →  (penjelasan di sini)  [tidak berubah]
+```
+
+---
+
+### Layer 3 — Homoglyph Cyrillic/Greek/Thai
 
 ```python
 HOMOGLYPH_MAP = str.maketrans({
@@ -419,16 +490,19 @@ text = text.translate(HOMOGLYPH_MAP)
 
 **Masalah yang diselesaikan:** Karakter lintas script yang terlihat identik tapi NFKC tidak bisa tangani.
 
-Spammer yang lebih canggih menggunakan huruf Cyrillic yang bentuknya identik dengan huruf Latin:
+Spammer yang lebih canggih menggunakan huruf dari script lain yang bentuknya identik dengan huruf Latin:
 
-| Karakter | Asal | Terlihat seperti |
-|----------|------|-----------------|
-| `а` U+0430 | Cyrillic | `a` Latin |
-| `е` U+0435 | Cyrillic | `e` Latin |
-| `о` U+043E | Cyrillic | `o` Latin |
-| `р` U+0440 | Cyrillic | `p` Latin (hati-hati, bukan 'r'!) |
+| Karakter | Asal Script | Terlihat seperti | Contoh penyalahgunaan |
+|----------|-------------|------------------|-----------------------|
+| `а` U+0430 | Cyrillic | `a` Latin | "dаftаr" dengan 'а' Cyrillic |
+| `е` U+0435 | Cyrillic | `e` Latin | "sеkarang" dengan 'е' Cyrillic |
+| `о` U+043E | Cyrillic | `o` Latin | "bоnus" dengan 'о' Cyrillic |
+| `р` U+0440 | Cyrillic | `p` Latin (hati-hati, bukan 'r'!) | — |
+| `๓` U+0E53 | Thai | `m` Latin | "ro๓a" → "roma" (ditambahkan versi terbaru) |
 
-Setelah layer ini, kata "dаftаr" (dengan Cyrillic 'а') menjadi "daftar" (Latin 'a') — dan bisa dikenali sebagai satu token yang sama.
+Karakter Thai ๓ (angka tiga dalam sistem angka Thailand) dipilih spammer karena bentuknya mirip huruf 'm'. Ini ditambahkan ke `HOMOGLYPH_MAP` setelah ditemukan pada komentar obfuscated di YouTube.
+
+Setelah layer ini, kata "dаftаr" (dengan Cyrillic 'а') menjadi "daftar" (Latin 'a'), dan "ro๓a" menjadi "roma" — keduanya bisa dikenali sebagai token yang tepat.
 
 ---
 
@@ -468,6 +542,77 @@ text = text.lower()
 `"DAFTAR"`, `"Daftar"`, `"daftar"` adalah kata yang sama, tapi kalau tidak di-lowercase, TF-IDF akan menganggapnya sebagai tiga token berbeda dan belajar dari ketiganya secara terpisah. Ini membuang informasi dan membuat model kurang efisien.
 
 Kenapa lowercase **setelah** NFKC dan homoglyph fix? Karena kita perlu deteksi nama brand (`WIFI4D`, huruf kapital semua) di layer sebelumnya — terutama di Pass 2 filter yang menggunakan `normalized_text`. Kalau lowercase dulu, pattern `[A-Z]{2,}\d+` tidak akan cocok.
+
+---
+
+### Layer 5b — Brand Canonicalization *(baru)*
+
+```python
+JUDOL_BRAND_PATTERN = re.compile(
+    r'\b(?!(?:level|rank|stage|episode|...)\d)[a-z]{2,}'
+    r'(?:4d|3d|2d|88|99|77|69|138|388|303|777|888|qq)\b'
+)
+text = JUDOL_BRAND_PATTERN.sub("judolbrand", text)
+```
+
+**Masalah yang diselesaikan:** Layer 6 menghapus semua digit. Ini artinya suffix numerik brand judol ikut terhapus:
+
+```
+KEJU4D   → (Layer 5: lowercase)  → keju4d
+keju4d   → (Layer 6: hapus digit) → keju    ← makanan, bukan judol!
+BETAWI77 → betawi77 → betawi                ← suku, bukan judol!
+```
+
+Akibatnya, model dilatih dengan fitur `keju` dan `betawi` yang salah label sebagai spam, meningkatkan risiko false positive di komentar kuliner dan budaya.
+
+**Solusi: Token Universal `judolbrand`**
+
+Sebelum Layer 6 menghapus digit, Step 5b mendeteksi pola brand dan menggantinya dengan token `judolbrand`:
+
+```
+keju4d   → judolbrand   ✓ sinyal diselamatkan
+betawi77 → judolbrand   ✓ sinyal diselamatkan
+hobiqq   → judolbrand   ✓ suffix QQ juga ditangkap
+slot777  → judolbrand   ✓ angka 777 khas slot
+```
+
+**Suffix yang ditangkap:**
+
+| Kategori | Suffix | Contoh brand |
+|----------|--------|--------------|
+| Togel online | `4d`, `3d`, `2d` | WIFI4D, ROMA4D, BATRE3D |
+| Slot klasik | `88`, `99`, `77`, `69` | MAXWIN88, GACOR99 |
+| Slot besar | `777`, `888`, `303` | SLOT777, HANA303 |
+| Togel premium | `138`, `388` | BET138, SLOT388 |
+| Poker/Domino | `qq` | HOBIQQ, BANDARQQ, DOMINOQQ |
+
+**Kenapa `judolbrand` lebih baik dari hafalan nama:**
+
+Sebelumnya, model harus menghafal ratusan nama brand: `keju`, `betawi`, `roma`, `wifi`, `batre`, `gacor`... Setiap brand baru yang belum di training data tidak akan dikenali. Dengan `judolbrand`:
+
+1. Model belajar **satu token** yang sangat kuat sebagai sinyal spam
+2. Brand baru yang mengikuti pola yang sama → langsung terdeteksi tanpa retrain
+3. Token `judolbrand` ditambahkan ke `HARD_SPAM_SIGNALS` di server.py — menjadi sinyal keras yang tidak bisa di-override model
+
+**False positive protection:**
+
+Prefix gaming umum dikecualikan via negative lookbehind:
+- `level99` → tidak berubah (level + 99, bukan brand judol)
+- `rank88` → tidak berubah (konteks gaming)
+- `episode77` → tidak berubah (episode TV/YouTube)
+
+Kata gaming ini diketahui dari analisis komentar YouTube — prefix yang umum muncul sebelum angka dalam konteks non-judol.
+
+**Contoh lengkap:**
+```
+Input  : "kalau udah masakan nusantara pasti ngiler, salam KEJU4D"
+Step 5 : "kalau udah masakan nusantara pasti ngiler, salam keju4d"
+Step 5b: "kalau udah masakan nusantara pasti ngiler, salam judolbrand"
+Step 6 : "kalau udah masakan nusantara pasti ngiler  salam judolbrand"
+Step 7 : "masakan nusantara ngiler salam judolbrand"
+                                           ↑
+                             Token kuat → model prediksi SPAM ✓
+```
 
 ---
 
@@ -1981,12 +2126,20 @@ HARD_SPAM_SIGNALS = {
     "toto", "rtp", "slot", "situs", "withdraw", "deposit",
     # Nama brand yang diketahui (setelah preprocessing hapus angka)
     "pstoto", "jptogel", "supermoney", "bardi", "bukit", "bambu", ...
+    # Token universal hasil brand canonicalization (Step 5b)
+    "judolbrand",  # ← ditambahkan versi terbaru — lihat penjelasan di bawah
 }
 
 def has_hard_spam_signal(cleaned_text: str) -> bool:
     words = set(cleaned_text.split())
     return bool(words & HARD_SPAM_SIGNALS)  # set intersection
 ```
+
+**Mengapa `judolbrand` ditambahkan ke sini?**
+
+Dengan Step 5b (brand canonicalization), semua nama brand judol yang cocok pola `[kata][suffix]` diubah menjadi token `judolbrand`. Token ini tidak mungkin muncul secara alami di komentar normal. Dengan memasukkannya ke `HARD_SPAM_SIGNALS`, **satu entri ini menggantikan perlunya mendaftarkan ratusan nama brand secara manual**.
+
+Sebelumnya, daftar manual berisi entri seperti `"bukit"`, `"bambu"`, `"dora"` yang sebenarnya adalah sisa brand tanpa digit (BUKIT4D → bukit). Kehadiran `judolbrand` mengambil alih peran ini lebih akurat karena tidak bergantung hafalan nama — berlaku otomatis untuk semua brand yang mengikuti pola suffix judol.
 
 Di endpoint `/predict` dan `/predict/batch`, setelah SVM memprediksi spam:
 
@@ -2048,3 +2201,423 @@ Hybrid berada di tengah — tidak sesempurna IndoBERT, tapi jauh lebih mudah dii
 **Kalimat untuk bab keterbatasan:**
 
 > *"Daftar hard spam signals bersifat statis dan memerlukan pembaruan manual ketika spammer mengadopsi terminologi baru. Spammer yang secara strategis menghindari kata-kata dalam daftar dapat mengakali sistem hybrid ini, sehingga mengurangi efektivitasnya dalam jangka panjang. Pendekatan berbasis konteks seperti IndoBERT tidak memiliki keterbatasan ini karena pemahamannya bersifat semantik, bukan leksikal."*
+
+
+---
+
+## 23. Brand Canonicalization — Token Universal untuk Nama Brand Judol
+
+> Bagian ini menjelaskan konsep di balik Step 5b (JUDOL_BRAND_PATTERN) yang ditambahkan di versi terbaru preprocessing, kenapa ini berbeda dari pendekatan sebelumnya, dan dampaknya terhadap performa model.
+
+---
+
+### 23.1 Masalah Sebelumnya: Arms Race dengan Spammer
+
+Sebelum Step 5b, pendekatan untuk mendeteksi brand judol adalah:
+1. Model menghafal nama-nama brand dari data training: `pstoto`, `jptogel`, `bardi`, dst.
+2. Setiap ada brand baru → retrain model dengan data baru
+
+Ini menciptakan **arms race** yang tidak ada ujungnya. Spammer mengganti brand setiap minggu. Setiap nama brand baru di luar vocabulary training langsung lolos.
+
+Selain itu, ada masalah yang lebih serius: digit dihapus di Layer 6, sehingga `KEJU4D` → `keju` dan `BETAWI77` → `betawi`. Model dilatih dengan fitur `keju` dan `betawi` yang berlabel spam — padahal kata-kata itu muncul juga di komentar normal (kuliner, budaya). Ini meningkatkan risiko false positive secara sistematis.
+
+---
+
+### 23.2 Solusi: Generalisasi Pola, Bukan Hafalan Nama
+
+Pengamatan kunci: hampir semua brand judi online Indonesia mengikuti **pola yang sama**:
+
+```
+[nama bebas] + [suffix khas judol]
+```
+
+Suffix-nya relatif tetap:
+- **Togel:** `4D`, `3D`, `2D` (angka dimensi)
+- **Slot angka besar:** `777`, `888`, `303`
+- **Slot generik:** `88`, `99`, `77`, `69`, `138`, `388`
+- **Poker/Domino:** `QQ` (BandarQQ, HobiQQ, DominoQQ)
+
+Alih-alih hafal ratusan nama, kita deteksi **pola suffix-nya** dan ganti seluruh kata dengan token universal `judolbrand`.
+
+---
+
+### 23.3 Cara Kerja JUDOL_BRAND_PATTERN
+
+```python
+JUDOL_BRAND_PATTERN = re.compile(
+    r'(?!(?:level|rank|stage|episode|part|seri|versi|chapter|season|round|wave|fase|lv)\d)'
+    r'[a-z]{2,}(?:4d|3d|2d|88|99|77|69|138|388|303|777|888|qq)'
+)
+```
+
+Dibaca dari kiri ke kanan:
+- `` — harus di batas kata (tidak di tengah kata lain)
+- `(?!...)` — **negative lookbehind**: jangan cocokkan kalau diawali oleh prefix gaming umum diikuti digit
+- `[a-z]{2,}` — dua atau lebih huruf lowercase (teks sudah disomalkan di Step 5)
+- `(?:4d|3d|...)` — salah satu suffix khas judol
+- `` — batas kata di akhir
+
+**False positive protection** via prefix exclusion:
+
+| Prefix dikecualikan | Alasan |
+|--------------------|--------|
+| `level`, `rank`, `lv` | Konteks gaming ("level99", "rank88") |
+| `episode`, `part`, `chapter` | Konten serial YouTube ("episode77") |
+| `season`, `wave`, `round` | Game season/wave |
+| `seri`, `versi`, `fase` | Pembuatan konten Indonesia |
+
+Kata-kata gaming ini dikecualikan karena sering muncul sebelum angka di komentar YouTube yang legitimate.
+
+---
+
+### 23.4 Dampak ke Performa Model
+
+Dengan token `judolbrand` yang konsisten, TF-IDF memiliki satu fitur yang sangat diskriminatif alih-alih ratusan fitur lemah yang tersebar:
+
+| | Sebelum Step 5b | Setelah Step 5b |
+|--|---|---|
+| Fitur brand | `keju`, `betawi`, `roma`, `wifi`, `batre`... (ratusan) | `judolbrand` (satu) |
+| Bobot fitur | Sedang, tersebar | Sangat tinggi, terfokus |
+| Brand baru | Tidak dikenali | Langsung terdeteksi |
+| FP dari nama umum | Tinggi (keju, betawi...) | Nol (judolbrand tidak ambigu) |
+
+**Hasil evaluasi model setelah Step 5b:**
+
+| Metrik | Sebelum | Sesudah |
+|--------|---------|---------|
+| Accuracy | 96.74% | **99.53%** |
+| F1-macro | 0.9664 | **0.9952** |
+| False Positive | 11 | **1** |
+| False Negative | 17 | **3** |
+
+---
+
+### 23.5 Kalimat untuk Skripsi
+
+**Kalimat untuk bab metodologi:**
+
+> *"Untuk meningkatkan kemampuan generalisasi model dalam mendeteksi nama brand judi online yang terus berubah, diterapkan teknik canonicalization brand pada tahap preprocessing. Sebelum karakter digit dihapus, pola nama brand yang mengikuti format [kata][suffix khas judol] — di mana suffix mencakup penanda togel (4D, 3D), slot (88, 777), dan poker (QQ) — diganti dengan token universal 'judolbrand'. Pendekatan ini memungkinkan model mengenali brand baru yang belum pernah dilihat selama training, selama brand tersebut mengikuti pola suffix yang sama."*
+
+**Kalimat untuk bab hasil:**
+
+> *"Penambahan canonicalization brand menghasilkan peningkatan signifikan pada semua metrik evaluasi — akurasi naik dari 96.74% menjadi 99.53% dan F1-macro dari 0.9664 menjadi 0.9952. Peningkatan ini terjadi karena token 'judolbrand' memberikan sinyal yang jauh lebih konsisten dan kuat dibandingkan ratusan fitur brand parsial (keju, betawi, roma) yang sebelumnya berpotensi menimbulkan false positive di komentar kuliner dan budaya."*
+
+---
+
+## 24. Perbaikan Two-Pass Filter — Rescue Condition dan Suffix QQ
+
+> Bagian ini menjelaskan dua perbaikan di `prepare_dataset.py` yang meningkatkan cakupan spam dari 1099 menjadi 1785 entri (dataset Versi 4).
+
+---
+
+### 24.1 Perbaikan 1: Rescue Condition dari `==` ke `in`
+
+**Kondisi lama** di Pass 2 filter:
+
+```python
+elif signals == ["brand_pattern"]:   # exact match — hanya 1 sinyal
+```
+
+**Kondisi baru:**
+
+```python
+elif "brand_pattern" in signals:     # membership check — brand bisa hadir bersama sinyal lain
+```
+
+**Kenapa perlu diubah?**
+
+Spammer yang memakai Unicode obfuscation sering juga menggunakan banyak emoji dan simbol sebagai dekorasi visual. Akibatnya, satu komentar bisa punya 2–3 sinyal aktif sekaligus:
+
+```
+Komentar  : "𝑹𝑶𝑴𝑨𝟒𝑫 🎰💰🎁 join sekarang!!"
+active_signals: ["brand_pattern", "emoji_spam", "high_symbol_ratio"]
+spam_score: 75   (di bawah threshold 80)
+```
+
+Dengan kondisi lama (`== ["brand_pattern"]`): di-skip karena punya 3 sinyal.
+Dengan kondisi baru (`"brand_pattern" in signals`): diselamatkan karena `brand_pattern` ada.
+
+Verifikasi tetap dilakukan via regex pola brand di `normalized_text` — jadi false positive tetap terkontrol.
+
+---
+
+### 24.2 Perbaikan 2: BRAND_SUFFIX_PATTERN untuk Brand Tanpa Digit
+
+Sebelumnya, Pass 2 hanya menggunakan satu regex:
+
+```python
+BRAND_RESCUE_PATTERN = re.compile(r'[A-Z]{2,}\d+[A-Z0-9]*')
+# Menangkap: WIFI4D, ROMA4D, SBOBET88
+# Tidak menangkap: PULAUWIN, NAGAMASTOTO (tidak ada digit)
+```
+
+Ditambahkan pola kedua:
+
+```python
+BRAND_SUFFIX_PATTERN = re.compile(r'[A-Z]{4,}(?:TOTO|BET|WIN|QQ)')
+# Menangkap: PULAUWIN, NAGAMASTOTO, MANJURBET, HOBIQQ
+```
+
+**Kenapa minimum 4 huruf sebelum suffix?** Kata biasa yang berakhiran "bet" seperti `ribet` hanya punya 2 huruf sebelum suffix dan biasanya lowercase. Syarat 4+ huruf ALL-CAPS sekaligus mencegah false positive dari kata-kata Indonesia biasa.
+
+**Kenapa QQ ditambahkan?** Keluarga brand poker/domino (HOBIQQ, BANDARQQ) sebelumnya tidak tertangkap oleh pattern manapun. Penambahan `QQ` memperluas jangkauan ke ekosistem brand ini.
+
+---
+
+### 24.3 Hasil Numerik
+
+```
+                    Versi 3   Versi 4
+Total spam        :  1099      1785    (+686, +62%)
+Rescued via regex :   962      1648    (+686, +71%)
+```
+
+686 entri tambahan ini adalah spam obfuscated yang sebelumnya di-skip karena:
+- Punya lebih dari 1 sinyal aktif (rescue condition terlalu ketat)
+- Brand tanpa digit seperti PULAUWIN tidak cocok `BRAND_RESCUE_PATTERN`
+
+---
+
+## 25. Keterbatasan: Obfuscation yang Belum Bisa Ditangani
+
+> Bagian ini mendokumentasikan dua pola obfuscation yang secara sadar **tidak** diimplementasikan solusinya, beserta alasan teknisnya. Dokumentasi ini penting untuk bab Keterbatasan skripsi.
+
+---
+
+### 25.1 Kasus 1: Mixed Script dengan Spasi (roma 4d)
+
+**Contoh komentar nyata:**
+```
+Nongkrong anti bosen ♜💗 𝓇𝐨๓𝐀 ４𝐃 ඏ🏆
+```
+
+Setelah preprocessing: `nongkrong anti bosen ro` — brand "roma 4d" tidak terdeteksi.
+
+**Mengapa tidak terdeteksi?**
+
+Ada dua masalah terpisah:
+1. **Script campur**: karakter Thai (๓) sudah ditangani oleh homoglyph fix (`๓→m`), tapi karakter Sinhala (ඏ) dan varian lain masih bisa mengganggu
+2. **Spasi antara nama dan suffix**: "roma 4d" tertulis sebagai dua token terpisah. `JUDOL_BRAND_PATTERN` hanya mencocokkan brand yang **ditulis menyambung** (roma4d, bukan roma 4d)
+
+**Mengapa tidak diimplementasikan solusinya?**
+
+Untuk menangkap "4d" yang terpisah dari "roma", kita perlu pola seperti:
+```python
+r'\w+\s+(?:4d|3d|slot|togel)'
+```
+
+Tapi ini akan menandai **semua** komentar yang menyebut `film 3d`, `kacamata 4d`, `bioskop 4d` — frasa yang sangat umum dan jelas bukan judol. False positive-nya tidak bisa diterima.
+
+**Untuk skripsi:**
+
+> *"Sistem tidak dapat mendeteksi brand judol yang ditulis dengan spasi antara nama dan suffix (misalnya 'roma 4d' alih-alih 'roma4d'), karena pola spasi tersebut juga digunakan secara umum dalam konteks non-judol seperti 'film 3d' atau 'bioskop 4d'. Implementasi deteksi pola ini berpotensi menimbulkan false positive yang signifikan dan karenanya tidak dimasukkan dalam pipeline akhir."*
+
+---
+
+### 25.2 Kasus 2: Brand Angka Dipisah Emoji (ALEXIS🌺1.7)
+
+**Contoh komentar nyata:**
+```
+🌺ALEXIS🌺1.7🌺 bikin hati meleleh, gemes banget!
+```
+
+Setelah preprocessing: `hibiscus alexis hibiscus hibiscus hati meleleh gemes` — terdeteksi sebagai non_spam.
+
+**Mengapa tidak terdeteksi?**
+
+Brand aslinya adalah `Alexis17` atau `Alexistogel`. Spammer memisahkan nama dari angka dengan emoji, sehingga:
+- `ALEXIS` berdiri sendiri sebagai token polos
+- `1.7` dipisahkan oleh emoji, kemudian dibuang Layer 6 (bukan alfabet)
+- `JUDOL_BRAND_PATTERN` tidak cocok karena tidak ada suffix judol
+
+**Masalah fundamental:** `alexis` adalah **nama orang biasa**. Mem-flag semua kemunculan kata "alexis" akan menyembunyikan komentar dari penonton yang bernama Alexis, membahas tokoh bernama Alexis, atau menyebut Alexis dalam konteks apapun.
+
+**Mengapa tidak diimplementasikan solusinya?**
+
+Tidak ada cara untuk membedakan `alexis` sebagai nama brand judi dari `alexis` sebagai nama orang tanpa pemahaman konteks yang jauh lebih dalam — sesuatu yang di luar kemampuan model Bag of Words.
+
+**Untuk skripsi:**
+
+> *"Komentar spam yang menyisipkan brand dengan memisahkan nama dari suffix numerik menggunakan emoji atau tanda baca (misalnya 'ALEXIS🌺1.7') tidak dapat dideteksi secara andal. Nama-nama seperti 'ALEXIS' juga merupakan nama orang umum, sehingga penandaan berbasis nama saja akan menghasilkan false positive yang tidak dapat diterima. Penanganan kasus ini memerlukan pemahaman konteks semantik yang lebih dalam, seperti yang disediakan oleh model transformer (IndoBERT), dan merupakan arah pengembangan yang direkomendasikan untuk penelitian selanjutnya."*
+
+---
+
+### 25.3 Ringkasan Keterbatasan Obfuscation
+
+| Pola obfuscation | Status | Alasan tidak diimplementasikan |
+|---|---|---|
+| Combining diacriticals (P͟U͟L͟A͟U͟W͟I͟N͟) | ✅ Terdeteksi | Step 2b: strip Mn category |
+| Per-huruf dalam kurung ([P][U][L][A][U]) | ✅ Terdeteksi | Step 2c: unwrap bracket |
+| NFKC font mewah (𝑹𝑶𝑴𝑨) | ✅ Terdeteksi | Step 2: NFKC normalization |
+| Cyrillic homoglyph (dаftаr) | ✅ Terdeteksi | Step 3: HOMOGLYPH_MAP |
+| Thai homoglyph (ro๓a) | ✅ Terdeteksi | Step 3: ๓→m ditambahkan |
+| Brand+suffix menyambung (KEJU4D) | ✅ Terdeteksi | Step 5b: JUDOL_BRAND_PATTERN |
+| Brand tanpa digit (PULAUWIN) | ✅ Terdeteksi | BRAND_SUFFIX_PATTERN di prepare_dataset.py |
+| Brand+spasi+suffix (roma 4d) | ⚠️ Tidak terdeteksi | False positive tinggi (film 3d, kacamata 4d) |
+| Brand dipisah emoji (ALEXIS🌺1.7) | ⚠️ Tidak terdeteksi | Nama brand = nama orang umum |
+| Mixed script tak dikenal | ⚠️ Sebagian | Hanya skrip yang sudah dipetakan |
+
+**Kalimat untuk bab kesimpulan/saran:**
+
+> *"Pengujian langsung mengidentifikasi dua pola obfuscation yang belum dapat ditangani: pemisahan brand dari suffix numerik menggunakan spasi atau emoji, dan penggunaan nama brand yang identik dengan nama orang umum. Kedua kasus ini memerlukan pemahaman konteks semantik yang melampaui kemampuan pendekatan TF-IDF + SVM berbasis Bag of Words. Penelitian selanjutnya disarankan untuk mengeksplorasi model berbasis transformer seperti IndoBERT yang secara bawaan memahami konteks kalimat secara bidireksional."*
+
+---
+
+## 26. Hybrid Rule Dua Arah — Mencegah False Negative dari Kata Normal
+
+### Masalah: SVM Bisa Kalah dari Kata-Kata Normal
+
+Hybrid rule awal di `server.py` hanya bekerja **satu arah**: mencegah false positive dengan mengoverride `spam → non_spam` ketika SVM mendeteksi spam tapi tidak ada sinyal keras judol.
+
+Masalah baru ditemukan dari pengujian langsung: dua komentar dengan isi hampir identik — keduanya mengandung `𝑯𝑶𝑩𝑰𝑸𝑸` (setelah preprocessing → `judolbrand`) — tapi salah satu lolos sebagai non_spam.
+
+```
+Komentar A: "Terbaik siiih Nonton konten lu sambil Main di ❤!!!✅ 𝑯𝑶𝑩𝑰𝑸𝑸 ❤!!!✅ Balikin Mood banget"
+→ SVM: spam → Hybrid: ada judolbrand → tetap spam ✓
+
+Komentar B: "Gw bakal ikutin konten lu terus bang bikin mood gw balik lagi liat lu makan salam sukses dari ❤!!!✅ 𝑯𝑶𝑩𝑰𝑸𝑸 ❤!!!✅"
+→ SVM: non_spam → Hybrid (lama): tidak dicek → lolos sebagai non_spam ✗
+```
+
+### Kenapa SVM Bisa Bilang Non_spam Padahal Ada judolbrand?
+
+SVM (Support Vector Machine) dengan kernel linear bekerja dengan **penjumlahan bobot semua token**. Setiap token punya bobot positif (cenderung spam) atau negatif (cenderung non_spam).
+
+Komentar B mengandung banyak kata netral-ke-non_spam: `ikutin`, `konten`, `mood`, `balik`, `makan`, `salam`, `sukses`. Bobot gabungan kata-kata ini bisa mengalahkan bobot `judolbrand` dalam satu prediksi — terutama jika panjang kalimat jauh lebih dominan dari token brand.
+
+Ini adalah **kelemahan inheren Bag of Words**: setiap token dievaluasi secara independen tanpa mempertimbangkan bahwa satu token saja sudah cukup untuk menentukan label.
+
+### Solusi: Tambah Arah Sebaliknya
+
+```python
+# Sebelum (hanya satu arah — cegah FP):
+if label == "spam" and not has_hard_spam_signal(cleaned):
+    return PredictResponse(label="non_spam", ...)
+
+# Sesudah (dua arah — cegah FP dan FN):
+has_signal = has_hard_spam_signal(cleaned)
+
+if label == "spam" and not has_signal:        # (A) cegah FP
+    return PredictResponse(label="non_spam", confidence=0.5, ...)
+
+if label == "non_spam" and has_signal:        # (B) cegah FN
+    return PredictResponse(label="spam", confidence=0.9, ...)
+```
+
+Arah (B) menyatakan: **jika ada sinyal keras judol di teks, selalu spam — tidak peduli SVM bilang apa**. Confidence dikembalikan `0.9` (bukan dari probabilitas model) karena ini adalah keputusan deterministik berbasis aturan.
+
+### HARD_SPAM_SIGNALS yang Terlalu Generik — Efek Samping Rule (B)
+
+Penambahan arah (B) memperlihatkan risiko baru: kata-kata yang terlalu generik di `HARD_SPAM_SIGNALS` menjadi lebih berbahaya. Sebelumnya, jika SVM sudah benar bilang `non_spam`, kata generik tidak masalah. Sekarang, kata generik di `HARD_SPAM_SIGNALS` akan memaksa override ke `spam`.
+
+Ditemukan false positive: komentar tentang **"rebusan rebung bambu untuk kanker"** diklasifikasikan sebagai spam karena `"bambu"` ada di `HARD_SPAM_SIGNALS`.
+
+Audit menyeluruh dilakukan. Dua kata dihapus:
+
+| Kata | Makna biasa | Konteks FP yang ditemukan |
+|------|-------------|--------------------------|
+| `bambu` | Tanaman bambu | Pengobatan herbal, kuliner, alam |
+| `giat` | Rajin, aktif | Kalimat motivasi, belajar |
+
+**Prinsip yang disimpulkan:** Kata masuk `HARD_SPAM_SIGNALS` hanya jika:
+1. Istilah teknis judol tanpa makna lain (`gacor`, `scatter`, `togel`, `rtp`), atau
+2. Compound brand spesifik yang tidak muncul di konteks normal (`pulauwin`, `pstoto`), atau
+3. Token canonical hasil rule-based preprocessing (`judolbrand`)
+
+Kata yang hanya nama benda/sifat umum — walaupun kebetulan dipakai brand judol — **tidak cukup kuat** sebagai sinyal keras karena Rule (B) akan membuat false positive yang tidak bisa dioverride.
+
+### Untuk Sidang
+
+> *"Hybrid rule diperbarui menjadi dua arah: selain mencegah false positive dengan mengoverride prediksi spam tanpa sinyal keras, ditambahkan arah sebaliknya untuk mencegah false negative — ketika model memprediksi non-spam padahal teks mengandung token yang secara deterministic berhubungan dengan judi online. Perubahan ini sekaligus mengungkap risiko baru dari sinyal keras yang terlalu generik, yang kemudian diatasi dengan menghapus kata-kata ambigu dari daftar sinyal."*
+
+---
+
+## 27. Kurasi Manual Dataset + Perbaikan Rescue Pattern
+
+### Latar Belakang: Selisih 533 Entry
+
+Dataset Versi 5 menggunakan 1785 spam dari total 2318 entry di `final_spam.json` — selisih 533 entry. Entry yang di-skip adalah yang gagal melewati Pass 1 (score < 80) **dan** Pass 2 (tidak cocok rescue pattern).
+
+Pertanyaan yang valid: apakah 533 entry yang di-skip ini memang bukan spam, atau ada spam nyata yang salah dibuang?
+
+### Proses Inspeksi dengan `inspect_skipped.py`
+
+Script `inspect_skipped.py` dibuat untuk mendump semua 533 entry ke `data/skipped_entries.json` dengan informasi lengkap: score, sinyal aktif, teks asli, teks ternormalisasi, dan alasan skip. Entry diurutkan: yang punya `brand_pattern` signal duluan karena paling mungkin mengandung spam nyata.
+
+### Hasil Review Manual
+
+Dari 533 entry:
+- **33 entry dihapus** (terkonfirmasi bukan spam) — berisi:
+  - Nama orang mengandung "win": darwin, deswin, delwin, goodwin, marawin
+  - Kata Indonesia umum mengandung "bet": ribet, kesambet, diabet, ngebet, lembet, seribet, tebet
+  - Konteks situs non-judol: situs darkweb, situs bokep, situs jembot
+  - Komentar normal tentang kunjungi tempat makan, warung, dll
+- **500 entry dipertahankan** (spam nyata) — semuanya diimport ke `comments.csv`
+
+### Mengapa 500 Spam Ini Lolos Filter?
+
+Root cause: rescue patterns di `prepare_dataset.py` mengasumsikan brand judol selalu ALL-CAPS di `normalized_text`. Asumsi ini salah untuk dua kasus:
+
+**Kasus 1 — Font dekoratif menghasilkan lowercase:**
+
+Spammer memakai font matematika italic/bold, yang setelah NFKC normalization oleh scraper menghasilkan huruf kecil, bukan huruf besar seperti yang diasumsikan:
+
+```
+𝒃𝒃𝒄𝒂4𝒅   →  normalized: "bbca4d"   (math italic → lowercase)
+𝐊𝐨𝐫𝐞𝐨𝟏𝟑𝟖  →  normalized: "Koreo138" (math bold → Title Case)
+ˢⁱⁿᵍᵍᵃˢᵃⁿᵃ⁸⁸ → normalized: "sɪnggasana88" (superscript → lowercase IPA)
+```
+
+`BRAND_RESCUE_PATTERN = re.compile(r'\b[A-Z]{2,}\d+[A-Z0-9]*\b')` tidak cocok karena semua huruf harus kapital.
+
+**Kasus 2 — Brand ALL-CAPS terlalu pendek untuk BRAND_SUFFIX_PATTERN:**
+
+```
+OMETOTO  →  O-M-E = 3 huruf sebelum TOTO
+           BRAND_SUFFIX_PATTERN butuh [A-Z]{4,} (minimum 4) → tidak cocok
+```
+
+### Perbaikan yang Diimplementasikan
+
+**Perbaikan 1 — BRAND_RESCUE_PATTERN: tambah `re.IGNORECASE`**
+
+```python
+# Sebelum:
+BRAND_RESCUE_PATTERN = re.compile(r'\b[A-Z]{2,}\d+[A-Z0-9]*\b')
+
+# Sesudah:
+BRAND_RESCUE_PATTERN = re.compile(r'\b[A-Z]{2,}\d+[A-Z0-9]*\b', re.IGNORECASE)
+```
+
+Sekarang mencocokkan brand dengan huruf apapun selama ada digit. Digit sebagai syarat wajib mencegah false positive dari kata umum (yang tidak mengandung angka).
+
+**Perbaikan 2 — BRAND_SUFFIX_PATTERN: turunkan minimum ke 3 huruf**
+
+```python
+# Sebelum:
+BRAND_SUFFIX_PATTERN = re.compile(r'\b[A-Z]{4,}(?:TOTO|BET|WIN|QQ)\b')
+
+# Sesudah:
+BRAND_SUFFIX_PATTERN = re.compile(r'\b[A-Z]{3,}(?:TOTO|BET|WIN|QQ)\b')
+```
+
+Pola tetap ALL-CAPS (tidak `re.IGNORECASE`) untuk mencegah false positive dari kata Indonesia lowercase seperti "ngebet" atau "seribet" yang juga berakhiran "bet".
+
+### Dampak ke Dataset dan Model
+
+| Metrik | Versi 5 | Versi 6 | Keterangan |
+|--------|---------|---------|------------|
+| Spam di dataset | 1785 | **2285** | +500 spam terverifikasi manual |
+| Total dataset | 4298 | **4798** | |
+| Accuracy | 99.53% | **98.44%** | Turun karena data lebih sulit |
+| F1-macro | 0.9952 | **0.9843** | Masih sangat tinggi |
+| FP | 1 | **0** | Presisi sempurna |
+| FN | 3 | **15** | Naik karena kelas baru lebih sulit |
+
+**Mengapa accuracy turun tapi ini bukan kemunduran?**
+
+500 entry baru adalah spam paling sulit — mereka lolos filter awal justru karena pola obfuscation-nya tidak konvensional. Model sekarang dihadapkan pada data yang lebih representatif dan lebih menantang. FP=0 menunjukkan tidak ada komentar normal yang salah ditandai. FN=15 berarti 15 spam dari 457 lolos — trade-off yang wajar untuk presisi sempurna.
+
+### Untuk Sidang
+
+> *"Inspeksi terhadap 533 entry yang tidak lolos filter otomatis mengungkap bahwa rescue patterns terlalu ketat — mengasumsikan nama brand selalu ditulis ALL-CAPS, padahal spammer menggunakan font dekoratif yang menghasilkan huruf kecil setelah normalisasi NFKC. Setelah verifikasi manual, 500 entry terkonfirmasi sebagai spam nyata dan diimport ke dataset. Dua perbaikan rescue pattern kemudian diimplementasikan: BRAND_RESCUE_PATTERN dibuat case-insensitive (dengan digit sebagai penjaga false positive), dan BRAND_SUFFIX_PATTERN diturunkan minimum prefixnya dari empat ke tiga huruf. Dataset bertumbuh dari 4.298 menjadi 4.798 sampel, dengan rasio spam yang lebih seimbang."*

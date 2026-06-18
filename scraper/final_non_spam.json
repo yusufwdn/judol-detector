@@ -22579,5 +22579,41 @@
     "spam_score": 0,
     "active_signals": [],
     "label": "non_spam"
+  },
+  {
+    "video_id": "manual_hard_negative",
+    "timestamp": "2026-06-18T00:00:00.000Z",
+    "original_text": "Nonton berkali kali gak bosen dan ttep ngakak",
+    "normalized_text": "Nonton berkali kali gak bosen dan ttep ngakak",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "manual_hard_negative",
+    "timestamp": "2026-06-18T00:00:00.000Z",
+    "original_text": "Nonton ulang² tetap rata ngakak😂😂😂😂😂",
+    "normalized_text": "Nonton ulang² tetap rata ngakak😂😂😂😂😂",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "manual_hard_negative",
+    "timestamp": "2026-06-18T00:00:00.000Z",
+    "original_text": "tontonan sambil makan update juga",
+    "normalized_text": "tontonan sambil makan update juga",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "manual_hard_negative",
+    "timestamp": "2026-06-18T00:00:00.000Z",
+    "original_text": "Keren sih penyiar2 kayak Kamal ama Sahil pengetahuannya luas banget dari yang serius sampai yg santai😊",
+    "normalized_text": "Keren sih penyiar2 kayak Kamal ama Sahil pengetahuannya luas banget dari yang serius sampai yg santai😊",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
   }
 ]
