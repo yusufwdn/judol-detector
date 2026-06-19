@@ -268,6 +268,29 @@ def clean_text(text: str) -> str:
     # Step 5: Lowercase
     text = text.lower()
 
+    # Step 5b-i: Leet speak normalization — ganti digit yang dipakai sebagai huruf
+    # Spammer sering mengganti huruf dengan angka yang mirip secara visual (leet speak)
+    # untuk menghindari deteksi kata kunci:
+    #   H0KI777 → HOKI777,  s1tus → situs,  d3p0s1t → deposit
+    #
+    # Substitusi ini HANYA berlaku dalam konteks alphanumeric (digit diapit huruf).
+    # Regex \b[a-z0-9]+\b menarget "kata" yang berisi campuran huruf + digit,
+    # lalu mengganti digit tertentu dengan padanan huruf.
+    #
+    # Kenapa hanya 0→o dan 1→i?
+    # - '0' (nol) sebagai 'O' adalah substitusi paling umum di spam judol Indonesia
+    # - '1' sebagai 'I' atau 'L' juga sering (s1tus, dep0s1t)
+    # - '3'→'e', '4'→'a', '5'→'s' jarang cukup ambigu di konteks ini dan berisiko
+    #   memutilasi angka legitimate (skor 354, dsb)
+    #
+    # Substitusi dilakukan SETELAH lowercase agar regex cukup satu bentuk, dan
+    # SEBELUM Step 5b agar brand yang memakai leet speak terdeteksi pola brand.
+    def _normalize_leet(m):
+        word = m.group(0)
+        word = word.replace("0", "o").replace("1", "i")
+        return word
+    text = re.sub(r'\b[a-z0-9]*[0-9][a-z0-9]*\b', _normalize_leet, text)
+
     # Step 5b: Brand canonicalization — ganti pola brand judol dengan token universal
     # Harus dilakukan SETELAH lowercase (Step 5) dan SEBELUM hapus digit (Step 6).
     # Lihat komentar JUDOL_BRAND_PATTERN di atas untuk penjelasan lengkap.

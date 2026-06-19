@@ -5,6 +5,39 @@ Berguna untuk bab metodologi skripsi dan untuk melacak versi mana yang menghasil
 
 ---
 
+## Hard Test Set — 2026-06-19
+
+### Sumber
+Video YouTube `kM99uBssHvQ` (konten bertema judi online: berita, kritik, edukasi).
+Scraper menandai 74 komentar sebagai spam. Setelah review manual: 70 dikonfirmasi non_spam (kritik/cerita rugi/permintaan blokir), 4 tetap spam.
+
+File: `data/hard_test_set.csv` (70 entry, semua label non_spam)
+Script: `src/evaluate_hard_set.py`
+Laporan: `reports/hard_set_evaluation.txt`
+
+### Hasil Evaluasi (model Versi 7)
+
+```
+                  Prediksi non_spam  Prediksi spam
+Aktual non_spam          53 (TN)         17 (FP)
+
+Accuracy : 75.71%
+FP rate  : 24.29%  (17 dari 70 non_spam salah ditandai spam)
+```
+
+Keputusan via:
+- Hybrid A (SVM=spam, tidak ada sinyal keras -> non_spam): **35** komentar diselamatkan
+- SVM langsung: **34** komentar (16 FP di sini)
+- Hybrid B (SVM=non_spam, ada sinyal keras -> spam): **1** komentar (1 FP di sini)
+
+### Interpretasi
+
+17 FP terbagi dalam pola: menyebut brand untuk dikritik/dilaporkan (7), cerita rugi (5), diskusi mekanisme judi (3), 1 Hybrid B false trigger karena kata `maxwin`.
+
+Ini bukan kemunduran — keterbatasan Bag of Words yang tidak memahami konteks kalimat (menyebut brand untuk dikritik vs promosi). Hybrid A efektif mencegah 35 FP tambahan.
+
+---
+
 ## Versi 6 — 2026-06-18
 
 ### Ringkasan

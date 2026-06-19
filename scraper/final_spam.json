@@ -26497,5 +26497,75 @@
       "brand_pattern"
     ],
     "label": "spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.051Z",
+    "original_text": "Disini jadi tempat pertama aku percaya, setelah cinta pertama gagal 𝗦𝗰𝗯𝗱𝟴𝟴 𝗕𝗼𝗻𝘂𝘀 yasuvusi",
+    "normalized_text": "Disini jadi tempat pertama aku percaya, setelah cinta pertama gagal Scbd88 Bonus yasuvusi",
+    "spam_score": 40,
+    "active_signals": [
+      "brand_pattern"
+    ],
+    "label": "spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.744Z",
+    "original_text": "Awas bo cantiktoto bo penipu tolong share link di bawah",
+    "normalized_text": "Awas bo cantiktoto bo penipu tolong share link di bawah",
+    "spam_score": 80,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link"
+    ],
+    "label": "spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.772Z",
+    "original_text": "Mohon info untuk situs Raja9",
+    "normalized_text": "Mohon info untuk situs Raja9",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.772Z",
+    "original_text": "Mohon info untuk situs Raja9.?",
+    "normalized_text": "Mohon info untuk situs Raja9.?",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:30.163Z",
+    "original_text": "Hanya di pangeran88 dijamin gacor",
+    "normalized_text": "Hanya di pangeran88 dijamin gacor",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:30.811Z",
+    "original_text": "cuma disini yang pasti di HOKI777",
+    "normalized_text": "cuma disini yang pasti di HOKI777",
+    "spam_score": 40,
+    "active_signals": [
+      "brand_pattern"
+    ],
+    "label": "spam"
   }
 ]

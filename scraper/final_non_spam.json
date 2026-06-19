@@ -22581,39 +22581,2882 @@
     "label": "non_spam"
   },
   {
-    "video_id": "manual_hard_negative",
-    "timestamp": "2026-06-18T00:00:00.000Z",
-    "original_text": "Nonton berkali kali gak bosen dan ttep ngakak",
-    "normalized_text": "Nonton berkali kali gak bosen dan ttep ngakak",
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:03.383Z",
+    "original_text": "link hondatoto penipu bisa mengubah no rek dana kita secepatny hati2",
+    "normalized_text": "link hondatoto penipu bisa mengubah no rek dana kita secepatny hati2",
+    "spam_score": 40,
+    "active_signals": [
+      "brand_pattern"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.049Z",
+    "original_text": "Probet88 judol..",
+    "normalized_text": "Probet88 judol..",
+    "spam_score": 40,
+    "active_signals": [
+      "brand_pattern"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.744Z",
+    "original_text": "Percuma larang², ngintetin judol kl masih ada situsnya.. bulsit",
+    "normalized_text": "Percuma larang2, ngintetin judol kl masih ada situsnya.. bulsit",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.744Z",
+    "original_text": "Kalau mau berantas, situsnya semua disikat habis bukan pemain yg dikejar, siber nya hanya bisa mengejar yang lemah.",
+    "normalized_text": "Kalau mau berantas, situsnya semua disikat habis bukan pemain yg dikejar, siber nya hanya bisa mengejar yang lemah.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.744Z",
+    "original_text": "Situs nya apa tidak bisa di hapus",
+    "normalized_text": "Situs nya apa tidak bisa di hapus",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.744Z",
+    "original_text": "emang situs resmi itu apa nama nya",
+    "normalized_text": "emang situs resmi itu apa nama nya",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.745Z",
+    "original_text": "Sampai hari ini situs judi masih tersebar di media sosial. Pemerintah masih kurang tegas.",
+    "normalized_text": "Sampai hari ini situs judi masih tersebar di media sosial. Pemerintah masih kurang tegas.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.745Z",
+    "original_text": "Lbih baik berhenti, krna judi online itu setingan.. Mhon kepada yg berwajib agar segera mmberantas judol karna sangat meresakan masyrakat, trutama generasi muda. Dan situs yg masi aktif skrg, TRUTAMA D Situs @MDG99. ni situs yg msi aktif.",
+    "normalized_text": "Lbih baik berhenti, krna judi online itu setingan.. Mhon kepada yg berwajib agar segera mmberantas judol karna sangat meresakan masyrakat, trutama generasi muda. Dan situs yg masi aktif skrg, TRUTAMA D Situs @MDG99. ni situs yg msi aktif.",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.745Z",
+    "original_text": "Situs ini wajib di blokir Krn masih bisa di akses SITUS seng Toto",
+    "normalized_text": "Situs ini wajib di blokir Krn masih bisa di akses SITUS seng Toto",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:04.745Z",
+    "original_text": "Gara\" situs celeng ini mau gerokok aja susah . Bangst grup bbi klaparn nih",
+    "normalized_text": "Gara\" situs celeng ini mau gerokok aja susah . Bangst grup bbi klaparn nih",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Blokir aja situs web Kenzo Toto, biru toto, mawar Toto ovo188 sgcwin88, jp368, naga138,dewi138 Kudus Toto,",
+    "normalized_text": "Blokir aja situs web Kenzo Toto, biru toto, mawar Toto ovo188 sgcwin88, jp368, naga138,dewi138 Kudus Toto,",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Di blok situs ny",
+    "normalized_text": "Di blok situs ny",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "baru nemu video ini..saran saya menkominfo harus berani menghapus google di indonesia itu baru bisa ilang semua situs judi online",
+    "normalized_text": "baru nemu video ini..saran saya menkominfo harus berani menghapus google di indonesia itu baru bisa ilang semua situs judi online",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "7naga Toto jngan main di situs ini gk bkal menang seting",
+    "normalized_text": "7naga Toto jngan main di situs ini gk bkal menang seting",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Bagai mana dengan situs nagahuter88 saldo saya ngk bisa di main kan situs apa tu bos deposi udah berapa kali ngk bisa di main kan",
+    "normalized_text": "Bagai mana dengan situs nagahuter88 saldo saya ngk bisa di main kan situs apa tu bos deposi udah berapa kali ngk bisa di main kan",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Blok semua untuk situs judi apapun itu",
+    "normalized_text": "Blok semua untuk situs judi apapun itu",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Situs",
+    "normalized_text": "Situs",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Klu situs2 msh ada ttp lah pada main.. Sy saranin pd bapak polisi yg terhormat.. Tolong musnahkan semua situs apa pun jg",
+    "normalized_text": "Klu situs2 msh ada ttp lah pada main.. Sy saranin pd bapak polisi yg terhormat.. Tolong musnahkan semua situs apa pun jg",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Situs doyantoto paling kuat.. Tolong musnahkan smp akar nya",
+    "normalized_text": "Situs doyantoto paling kuat.. Tolong musnahkan smp akar nya",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Brantas pak, ini situs Judi online yg saya tahu... Udintogel, Zara4d, Playbook88 dll",
+    "normalized_text": "Brantas pak, ini situs Judi online yg saya tahu... Udintogel, Zara4d, Playbook88 dll",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Situs dancuk",
+    "normalized_text": "Situs dancuk",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Pokoknya namanya judi melalui situs harus diberangus,apapun namanya,tangkap semua jebloskan ke penjara",
+    "normalized_text": "Pokoknya namanya judi melalui situs harus diberangus,apapun namanya,tangkap semua jebloskan ke penjara",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Aslm mualaikum kodenis saya main slot di situs dalang Toto saya maxwin di Zeus 100 saya buisepin 40.000 maxwin 6jt pasdi witdraw berhasil TPI g masuk kerekening saya terus pas saya coba hubungi Cs via levcet akun saya langsung di blok kejadian tgl6 Agustus jam 14 apakah saldo kemenangan saya bisa masuk kerek saya itu pertanyaan saya kodenis mohon diberi jwbn maksih",
+    "normalized_text": "Aslm mualaikum kodenis saya main slot di situs dalang Toto saya maxwin di Zeus 100 saya buisepin 40.000 maxwin 6jt pasdi witdraw berhasil TPI g masuk kerekening saya terus pas saya coba hubungi Cs via levcet akun saya langsung di blok kejadian tgl6 Agustus jam 14 apakah saldo kemenangan saya bisa masuk kerek saya itu pertanyaan saya kodenis mohon diberi jwbn maksih",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Ngawur ... 😅😅  Kalau memang bisa di setting, anggap saja saya pekerja/admin nya , auto kerja sama teman , kel/saudara atau siapapun asal cuan😅😅  Yg setting permainan itu ya pembuat game (provider ) nya,  bukan agen/situs 🤣🤣🤣",
+    "normalized_text": "Ngawur ... 😅😅  Kalau memang bisa di setting, anggap saja saya pekerja/admin nya , auto kerja sama teman , kel/saudara atau siapapun asal cuan😅😅  Yg setting permainan itu ya pembuat game (provider ) nya,  bukan agen/situs 🤣🤣🤣",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "100% situs NAGAPOKER situs penguras..100% super licik...",
+    "normalized_text": "100% situs NAGAPOKER situs penguras..100% super licik...",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Ah... blokir situs judi online. Diem aja.. pemerintah gak peduli ke masyarakat.molor",
+    "normalized_text": "Ah... blokir situs judi online. Diem aja.. pemerintah gak peduli ke masyarakat.molor",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Kok Aneh bg ? kalau memang pekerja slot / admin slot bisa setting , itu keluarga mreka udh pada kaya karena di setting buat mereka dulu , bukannya apa , dari pengalaman saya sendiri main di situs kaget77 , depo 5 juta mledak jadi 73 jt , saya langsung stop dan berhenti bermain karena saya tau jika saya main dan depo pasti di sedot , alhasil duit kemenangan itu saya belikan motor baru dan sisanya saya tabung , intinya tergantung orgnya , klo emg serakah , mau judi atau engga pun bakal habis duitnya.   kalau memang sperti kata narasumber ini betul , awal main pasti di kasih menang ,100 jt jadi 200 jt , tinggal buat aja akun baru banyak2 atau pakai data diri teman / kerabat , alhasili smua org jadi kaya ? ga logika kan ? member baru di kasih menang dulu ? bisa di curangi /akalin dong dengan cara yg saya sebutkan diatas ? IP jg bisa diganti pakai VPN tapi di luar itu alhamdulilah saya jg ga main lgi , bkn maksud sombong atau apa , tapi mau sy tekankan mau judi atau apa pun tidak usah rakus / tamak",
+    "normalized_text": "Kok Aneh bg ? kalau memang pekerja slot / admin slot bisa setting , itu keluarga mreka udh pada kaya karena di setting buat mereka dulu , bukannya apa , dari pengalaman saya sendiri main di situs kaget77 , depo 5 juta mledak jadi 73 jt , saya langsung stop dan berhenti bermain karena saya tau jika saya main dan depo pasti di sedot , alhasil duit kemenangan itu saya belikan motor baru dan sisanya saya tabung , intinya tergantung orgnya , klo emg serakah , mau judi atau engga pun bakal habis duitnya.   kalau memang sperti kata narasumber ini betul , awal main pasti di kasih menang ,100 jt jadi 200 jt , tinggal buat aja akun baru banyak2 atau pakai data diri teman / kerabat , alhasili smua org jadi kaya ? ga logika kan ? member baru di kasih menang dulu ? bisa di curangi /akalin dong dengan cara yg saya sebutkan diatas ? IP jg bisa diganti pakai VPN tapi di luar itu alhamdulilah saya jg ga main lgi , bkn maksud sombong atau apa , tapi mau sy tekankan mau judi atau apa pun tidak usah rakus / tamak",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:05.427Z",
+    "original_text": "Tutup semua situsnya beres",
+    "normalized_text": "Tutup semua situsnya beres",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.122Z",
+    "original_text": "Apa itu bonus saldo IPO ,jadi kita di kasih saldo awal 1juta sama situs slot,tapi dengan syarat harus depo dulu 100 ribu.keterangan nya,si saldo 1 juta itu bisa di witdraw tanpa syarat apapun,kecuali depo 100 ribu itu.gmn,? Apa ini penipuan stelah depo 100k akun kita di block,atw emang real situs mau kasih saldo cuma2.? Tolong yang tau bisa kasih penjelasan",
+    "normalized_text": "Apa itu bonus saldo IPO ,jadi kita di kasih saldo awal 1juta sama situs slot,tapi dengan syarat harus depo dulu 100 ribu.keterangan nya,si saldo 1 juta itu bisa di witdraw tanpa syarat apapun,kecuali depo 100 ribu itu.gmn,? Apa ini penipuan stelah depo 100k akun kita di block,atw emang real situs mau kasih saldo cuma2.? Tolong yang tau bisa kasih penjelasan",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.122Z",
+    "original_text": "Blokir semua situsnya dan bongkar kantornya",
+    "normalized_text": "Blokir semua situsnya dan bongkar kantornya",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.122Z",
+    "original_text": "Harusnya pemerintah kalau sayang dan cinta kpd rakyat,, Tolong blokir situs judi online dari semua web,, Meskipun menggunakan pvn atau apa situs itu tidak dapat di akses.. Sekarang pemerintah +62 harus memperhatikan semaraknya judi online",
+    "normalized_text": "Harusnya pemerintah kalau sayang dan cinta kpd rakyat,, Tolong blokir situs judi online dari semua web,, Meskipun menggunakan pvn atau apa situs itu tidak dapat di akses.. Sekarang pemerintah +62 harus memperhatikan semaraknya judi online",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.122Z",
+    "original_text": "tolong pr hacker bantu pemerintah, bobol situs judi online, supaya bandar bangkrut",
+    "normalized_text": "tolong pr hacker bantu pemerintah, bobol situs judi online, supaya bandar bangkrut",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.122Z",
+    "original_text": "Kalau bisa secepatnya situs judi online dibelokirsaja.",
+    "normalized_text": "Kalau bisa secepatnya situs judi online dibelokirsaja.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.123Z",
+    "original_text": "Judi itu haram tp klo maxwin huu harumm",
+    "normalized_text": "Judi itu haram tp klo maxwin huu harumm",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.123Z",
+    "original_text": "Pemerintah harus blokir situs judi online. Jika tidak bakal ada yg main terus",
+    "normalized_text": "Pemerintah harus blokir situs judi online. Jika tidak bakal ada yg main terus",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.123Z",
+    "original_text": "Alexis togel pihak pemerintah blokir situs ini",
+    "normalized_text": "Alexis togel pihak pemerintah blokir situs ini",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.123Z",
+    "original_text": "Tersebar bnyak situs berbagai jenis namanya juga sbenernya agen nya itu itu juga ,jadi masih tetep kelacak 😢😢😢olimpus  Ustad apakah ini di namakan  yjuj/mjuj yg lolos dr blasteran asia  yg keduany merusak kehidupan umat manusia apa ada hubungannya ?ustad 😢",
+    "normalized_text": "Tersebar bnyak situs berbagai jenis namanya juga sbenernya agen nya itu itu juga ,jadi masih tetep kelacak 😢😢😢olimpus  Ustad apakah ini di namakan  yjuj/mjuj yg lolos dr blasteran asia  yg keduany merusak kehidupan umat manusia apa ada hubungannya ?ustad 😢",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.772Z",
+    "original_text": "Bukan, bukan, kalian salah terkait penyebab orang terus main judi.... Dulu sebelum ada judi online, orang-orang emang udah pada main judi, dan ketika sekarang pada ada online di mana kalian bisa liat grafik perputaran uang kalau online, yang kalian lihat sekarang bukanlah orang yang baru-baru kecanduan, melainkan angka yang dionlinekan sehingga datanya bisa dilihat. Karena kalau mereka semua selama ini main di belakang rumah atau warung kecil maka gak akan keliatan datanya berapa aja perputaran uangnya..... Dan ditambah lagi, situs judi online ini malah menambah akses mereka untuk mempermudah mereka mengakses hobi judi mereka yang membuat mereka spend dana lebih banyak di dalam perjudian.",
+    "normalized_text": "Bukan, bukan, kalian salah terkait penyebab orang terus main judi.... Dulu sebelum ada judi online, orang-orang emang udah pada main judi, dan ketika sekarang pada ada online di mana kalian bisa liat grafik perputaran uang kalau online, yang kalian lihat sekarang bukanlah orang yang baru-baru kecanduan, melainkan angka yang dionlinekan sehingga datanya bisa dilihat. Karena kalau mereka semua selama ini main di belakang rumah atau warung kecil maka gak akan keliatan datanya berapa aja perputaran uangnya..... Dan ditambah lagi, situs judi online ini malah menambah akses mereka untuk mempermudah mereka mengakses hobi judi mereka yang membuat mereka spend dana lebih banyak di dalam perjudian.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.772Z",
+    "original_text": "Intinya blokir semua situs Judi online..",
+    "normalized_text": "Intinya blokir semua situs Judi online..",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.772Z",
+    "original_text": "Jdi kalau beda beda situs berlaku gak ko?",
+    "normalized_text": "Jdi kalau beda beda situs berlaku gak ko?",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.772Z",
+    "original_text": "Yang lebih ngeri satu agen atau satu bandar gk terhitung situsnya namanya macam2 padahal bandarnya itu itu juga ,walaupun kita pinda kesitus baru",
+    "normalized_text": "Yang lebih ngeri satu agen atau satu bandar gk terhitung situsnya namanya macam2 padahal bandarnya itu itu juga ,walaupun kita pinda kesitus baru",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:06.772Z",
+    "original_text": "semua iklan atau cheat masuk di medsos selalu gua minta linknya, setelah itu saya isi formulir di web KOMINFO lgsung saya laporkan situs nya auto blokir 🤣🤣🤣",
+    "normalized_text": "semua iklan atau cheat masuk di medsos selalu gua minta linknya, setelah itu saya isi formulir di web KOMINFO lgsung saya laporkan situs nya auto blokir 🤣🤣🤣",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:07.403Z",
+    "original_text": "KALU BISA TUTUP AKSES NY KAYA SITUS SITUS BOKEP",
+    "normalized_text": "KALU BISA TUTUP AKSES NY KAYA SITUS SITUS BOKEP",
+    "spam_score": 70,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "excessive_caps"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:07.403Z",
+    "original_text": "Blokir aja situsnya",
+    "normalized_text": "Blokir aja situsnya",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:07.403Z",
+    "original_text": "Percuma n negara mau memberantas perjudian..klo dinegeri artis2 yt mempromosikan qtaw membuat situs jadi GK juga ditangkap...kalo hanya dipanggil aja abis tuh dibebaskan sama aja bohong... satu lagi PR bagi aparat di n negeri .. aparat sendiri bnyk yg kena sogok untuk pihak keamanannya",
+    "normalized_text": "Percuma n negara mau memberantas perjudian..klo dinegeri artis2 yt mempromosikan qtaw membuat situs jadi GK juga ditangkap...kalo hanya dipanggil aja abis tuh dibebaskan sama aja bohong... satu lagi PR bagi aparat di n negeri .. aparat sendiri bnyk yg kena sogok untuk pihak keamanannya",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:07.403Z",
+    "original_text": "Sialan judi online nya bikin gua rugi jutaan. Tolong pihak pemerintah blokir situsnya",
+    "normalized_text": "Sialan judi online nya bikin gua rugi jutaan. Tolong pihak pemerintah blokir situsnya",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:07.403Z",
+    "original_text": "Gw penasaran tmnku depo 50k maxwin 2jt..gw pun depo pertama x maen slot depo 50k maen 3jam lose abis duit trs off ogah mae lagi😅",
+    "normalized_text": "Gw penasaran tmnku depo 50k maxwin 2jt..gw pun depo pertama x maen slot depo 50k maen 3jam lose abis duit trs off ogah mae lagi😅",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:07.403Z",
+    "original_text": "Klau tobat hrus nya bombardir situs  dan temen2 yang blum tobat suruh berhenti.tobat tpi stus2 judi online masih pada ada.percuma tobat gk bantu brantas",
+    "normalized_text": "Klau tobat hrus nya bombardir situs  dan temen2 yang blum tobat suruh berhenti.tobat tpi stus2 judi online masih pada ada.percuma tobat gk bantu brantas",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "Kalau saya sekali buka di kasih menang, lalu saya berhenti 1/2 minggu, lalu saya buka situs baru lagi lalu menang lagi🤭biar mumet bandarnya.",
+    "normalized_text": "Kalau saya sekali buka di kasih menang, lalu saya berhenti 1/2 minggu, lalu saya buka situs baru lagi lalu menang lagi🤭biar mumet bandarnya.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "Pak ustadz tolong jngn cuma kasih tau cara kerja nya judol aja , coba kasih tau ke pemerintah cara blok situs\" porno dan judi nya .... Koruptor pencandu narkoba dan judol mau di kasih nasehat gmna pun tetep kolot ... Sekali pun anak istri kena azab juga tetep bgtu mereka",
+    "normalized_text": "Pak ustadz tolong jngn cuma kasih tau cara kerja nya judol aja , coba kasih tau ke pemerintah cara blok situs\" porno dan judi nya .... Koruptor pencandu narkoba dan judol mau di kasih nasehat gmna pun tetep kolot ... Sekali pun anak istri kena azab juga tetep bgtu mereka",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "tau main sampai kecanduan bagi saya itu kesalahan hidup yg paling fatal kawan stop main judi kalian hanya dikuras apalagi akhir akhir ni banyak situs bdong",
+    "normalized_text": "tau main sampai kecanduan bagi saya itu kesalahan hidup yg paling fatal kawan stop main judi kalian hanya dikuras apalagi akhir akhir ni banyak situs bdong",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "saya tanggal 1 bulan ini dapat maxwin 2 juta tanggal 2 saya depo habis 1.2jt dan sampai sekarang kalah sekali depo 300k",
+    "normalized_text": "saya tanggal 1 bulan ini dapat maxwin 2 juta tanggal 2 saya depo habis 1.2jt dan sampai sekarang kalah sekali depo 300k",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "satu satu cara cuma 1 pemerintah harus tegas utk mnindak situs2 yg msuk ke indonesia. please ini bukan lg tntang materi tp jg kehancuran msa dpn.. jika pmrintah saja acuh maka pd siapa lg korban judol akan brserah,,, bnyk yg rmh tangga hancur, hutang dmn mn,, tlong kpd  menteri telekomunikasi, tlong ini dfkirkn srius,, sudah bnyk korban,",
+    "normalized_text": "satu satu cara cuma 1 pemerintah harus tegas utk mnindak situs2 yg msuk ke indonesia. please ini bukan lg tntang materi tp jg kehancuran msa dpn.. jika pmrintah saja acuh maka pd siapa lg korban judol akan brserah,,, bnyk yg rmh tangga hancur, hutang dmn mn,, tlong kpd  menteri telekomunikasi, tlong ini dfkirkn srius,, sudah bnyk korban,",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "menutup situs judi online hanyalah perbuatan sia2 ,apakah pemerintah tidak bisa memblokir fasilitas rekening atau ewallet deposit ,dan juga uang nya bisa di sita oleh negara ,apa susah nya.",
+    "normalized_text": "menutup situs judi online hanyalah perbuatan sia2 ,apakah pemerintah tidak bisa memblokir fasilitas rekening atau ewallet deposit ,dan juga uang nya bisa di sita oleh negara ,apa susah nya.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "Di era globalisasi media internet lebih mudah di akses, pertahanan nasional harus ketat jika tidak merusak anak bangsa, harus banyak kerja sama Kominfo, polisi cyber crime, kementerian pertahanan untuk memblokir situs judi online dan wanita bugil live streaming melalui aplikasi hot 51 dll,.",
+    "normalized_text": "Di era globalisasi media internet lebih mudah di akses, pertahanan nasional harus ketat jika tidak merusak anak bangsa, harus banyak kerja sama Kominfo, polisi cyber crime, kementerian pertahanan untuk memblokir situs judi online dan wanita bugil live streaming melalui aplikasi hot 51 dll,.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.040Z",
+    "original_text": "Tugas Kominfo apa, kok gk di blokir situs judol? Apa emang di pelihara?",
+    "normalized_text": "Tugas Kominfo apa, kok gk di blokir situs judol? Apa emang di pelihara?",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.685Z",
+    "original_text": "👾 Asal kalian tau pekerja slot skrg juga banyak cwe yg main diBigo .. ada cwe2 seksi modusnya yg mau vcs wajib depo disitus slot mreka .  Mreka ditipu duit yg mreka depo ilang dislot",
+    "normalized_text": "👾 Asal kalian tau pekerja slot skrg juga banyak cwe yg main diBigo .. ada cwe2 seksi modusnya yg mau vcs wajib depo disitus slot mreka .  Mreka ditipu duit yg mreka depo ilang dislot",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.685Z",
+    "original_text": "Selama cuma hanya memblokir situs judi gak bakal berguna kalo gak di putus server providernya dr negara penyedia",
+    "normalized_text": "Selama cuma hanya memblokir situs judi gak bakal berguna kalo gak di putus server providernya dr negara penyedia",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.685Z",
+    "original_text": "Yang bayar upeti situsnya aman😅",
+    "normalized_text": "Yang bayar upeti situsnya aman😅",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:08.686Z",
+    "original_text": "Gue kasih trik bos,kalau mau menang besar, kalau baru main di situs baru,usahakan depo banyak dan bet tinggi,maka main kan beberapa menit,kalau udah keluar scater nya,atau sensasional di pertama main,maka berhentilah main,wd,lalu tinggalkan situs itu,cari lagi yg baru,tapi jangan sampai bandar itu juga yg punya,terbukti menghasilkan.",
+    "normalized_text": "Gue kasih trik bos,kalau mau menang besar, kalau baru main di situs baru,usahakan depo banyak dan bet tinggi,maka main kan beberapa menit,kalau udah keluar scater nya,atau sensasional di pertama main,maka berhentilah main,wd,lalu tinggalkan situs itu,cari lagi yg baru,tapi jangan sampai bandar itu juga yg punya,terbukti menghasilkan.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Kenapa polri OJK dan Kominfo GK bekerja sama dengan para pemilik bandar judol yg sudah tobat,, menurut mereka hanya sehari bisa membuat semua situs judol bangkrut",
+    "normalized_text": "Kenapa polri OJK dan Kominfo GK bekerja sama dengan para pemilik bandar judol yg sudah tobat,, menurut mereka hanya sehari bisa membuat semua situs judol bangkrut",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Kok ga ada yg mengheck situs judi online 😅",
+    "normalized_text": "Kok ga ada yg mengheck situs judi online 😅",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Pertama kali liat situs judi online sempet mikir emang ada yh orang yg sebodoh itu kejebak judol ternyata banyak 😂😂",
+    "normalized_text": "Pertama kali liat situs judi online sempet mikir emang ada yh orang yg sebodoh itu kejebak judol ternyata banyak 😂😂",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Maxwin boskuh😂😂😂😂😂😂lumayan rokok kopi aman selama setahun",
+    "normalized_text": "Maxwin boskuh😂😂😂😂😂😂lumayan rokok kopi aman selama setahun",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword",
+      "high_symbol_ratio",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Yang sering nyebarin konten di youtube four yt gaming,mahyar poker ,quenzi poker ,dengan link QQALIENPOKER tapi saya cari cari kontennya kok hilang semua.semoga yang nyebarin situs itu bisa mendekam di penjara sdh banyak yang menjadi korban",
+    "normalized_text": "Yang sering nyebarin konten di youtube four yt gaming,mahyar poker ,quenzi poker ,dengan link QQALIENPOKER tapi saya cari cari kontennya kok hilang semua.semoga yang nyebarin situs itu bisa mendekam di penjara sdh banyak yang menjadi korban",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Gw juga bingung kemaren dapat whatup dari nomor aneh. Ngasih link situs judi isinya. Itu nomor anehnya kayak nomor luar negeri. Dapat nomor hp ku dari siapa ya? Pedahal gw ngga pernah main judi. Hp paling buat nonton youtube doang sama main game.",
+    "normalized_text": "Gw juga bingung kemaren dapat whatup dari nomor aneh. Ngasih link situs judi isinya. Itu nomor anehnya kayak nomor luar negeri. Dapat nomor hp ku dari siapa ya? Pedahal gw ngga pernah main judi. Hp paling buat nonton youtube doang sama main game.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Saya pernah daftar situs judol, lalu ada sekitar 3 bulan saya tidak main lagi krn sering lose, tidak lama kemudian datang pesan ke wa saya yg mengirim video syur saya dengan nada memeras, Saya berpikir seharian, dari mana orang itu bisa dapat semua itu, Dan sampai saat ini saya mmg kepikiran yg melakukan itu adlh tim IT situs saya bermain tersebut,",
+    "normalized_text": "Saya pernah daftar situs judol, lalu ada sekitar 3 bulan saya tidak main lagi krn sering lose, tidak lama kemudian datang pesan ke wa saya yg mengirim video syur saya dengan nada memeras, Saya berpikir seharian, dari mana orang itu bisa dapat semua itu, Dan sampai saat ini saya mmg kepikiran yg melakukan itu adlh tim IT situs saya bermain tersebut,",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Peran pemerintah sangat dibutuhkan.. Bahaya judi online sama dngn narkoba..  Ubah undang undang, bandar hukum mati.  Kalo cuma blokir situs, sampe kiamat jg ga da penyelesaian..  Mana kominfo baru, knp diem.. Katanya mau brantas judol, mana buktinya????",
+    "normalized_text": "Peran pemerintah sangat dibutuhkan.. Bahaya judi online sama dngn narkoba..  Ubah undang undang, bandar hukum mati.  Kalo cuma blokir situs, sampe kiamat jg ga da penyelesaian..  Mana kominfo baru, knp diem.. Katanya mau brantas judol, mana buktinya????",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.338Z",
+    "original_text": "Kordinasi BIGBOS BANDAR JUDOL dengan pejabat2 POLRI & KOMINFO INDONESIA sangat luar biasa, setiap aksi PENGGREBEKAN pasti udah dikondisikan, step by step, kalo ga ya udah kordinasi dr awal mau penggrebekan markas judol, biar seolah kerja nyata POLRI Indonesia😢😂😢😂yg ujungya udah kordinasi dengan my BIGBOS BANDAR JUDOL, selagi para oknum/pejabat jendral POLRI serta pejabat KOMINFO masih mau dan masih TERIMA SUAP CUAN 86 DARI BANDAR JUDOL, Khususnya di Indonesia gakan bisa dibrabtas habis tuh namanya JUDOL,, GAUSAH POLISI ATAU PEJABAT MANA, kita semua manusia tempatnya salah khilaf,, org mana yg ga tergiur hasil ATENSi CUK 86 dari para bandar judol yg ber MILYAR2 RUPIAH UNTUK KASIH CUK ATENSI KE PARA OKNUM ATAU PEJABAT tsb tanpa kerja keras tiap bulan tiap 1th sekali perBANDAR, perSitus/ per Web kasih uang HARAM MILYARAN PULUHAN milyar.. Tanpa harus kerja kerass kuli atau buruh harian lepaass😂😂😮😅",
+    "normalized_text": "Kordinasi BIGBOS BANDAR JUDOL dengan pejabat2 POLRI & KOMINFO INDONESIA sangat luar biasa, setiap aksi PENGGREBEKAN pasti udah dikondisikan, step by step, kalo ga ya udah kordinasi dr awal mau penggrebekan markas judol, biar seolah kerja nyata POLRI Indonesia😢😂😢😂yg ujungya udah kordinasi dengan my BIGBOS BANDAR JUDOL, selagi para oknum/pejabat jendral POLRI serta pejabat KOMINFO masih mau dan masih TERIMA SUAP CUAN 86 DARI BANDAR JUDOL, Khususnya di Indonesia gakan bisa dibrabtas habis tuh namanya JUDOL,, GAUSAH POLISI ATAU PEJABAT MANA, kita semua manusia tempatnya salah khilaf,, org mana yg ga tergiur hasil ATENSi CUK 86 dari para bandar judol yg ber MILYAR2 RUPIAH UNTUK KASIH CUK ATENSI KE PARA OKNUM ATAU PEJABAT tsb tanpa kerja keras tiap bulan tiap 1th sekali perBANDAR, perSitus/ per Web kasih uang HARAM MILYARAN PULUHAN milyar.. Tanpa harus kerja kerass kuli atau buruh harian lepaass😂😂😮😅",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:09.996Z",
+    "original_text": "Judi online, Susa di untuk di berantas oleh pemerintah. Kenapa aku sebut Susa.. Pemerintah kita bisa berantas beberapa situs.. Tapi nanti akan tumbuh lagi situs situs nya bahkan jau lebih banyak.. Menurut aku hal yang perlu di lakukan pemerintah kita... Yaitu cuman 1 Dengan adanya edukasi se macam ini.. Agar masyarakat Indonesia bisa sadar akan bahayanya judi online...   Indonesia darurat judi online",
+    "normalized_text": "Judi online, Susa di untuk di berantas oleh pemerintah. Kenapa aku sebut Susa.. Pemerintah kita bisa berantas beberapa situs.. Tapi nanti akan tumbuh lagi situs situs nya bahkan jau lebih banyak.. Menurut aku hal yang perlu di lakukan pemerintah kita... Yaitu cuman 1 Dengan adanya edukasi se macam ini.. Agar masyarakat Indonesia bisa sadar akan bahayanya judi online...   Indonesia darurat judi online",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.483Z",
+    "original_text": "AQ kalah 10 juta...ngk usah di wawancara...AQ dendam Ama admin",
+    "normalized_text": "AQ kalah 10 juta...ngk usah di wawancara...AQ dendam Ama admin",
     "spam_score": 0,
     "active_signals": [],
     "label": "non_spam"
   },
   {
-    "video_id": "manual_hard_negative",
-    "timestamp": "2026-06-18T00:00:00.000Z",
-    "original_text": "Nonton ulang² tetap rata ngakak😂😂😂😂😂",
-    "normalized_text": "Nonton ulang² tetap rata ngakak😂😂😂😂😂",
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "karna bandar juga GK mau kalah maka kita di kasih menang dulu arti.kita slalu di bodohkan",
+    "normalized_text": "karna bandar juga GK mau kalah maka kita di kasih menang dulu arti.kita slalu di bodohkan",
     "spam_score": 0,
     "active_signals": [],
     "label": "non_spam"
   },
   {
-    "video_id": "manual_hard_negative",
-    "timestamp": "2026-06-18T00:00:00.000Z",
-    "original_text": "tontonan sambil makan update juga",
-    "normalized_text": "tontonan sambil makan update juga",
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Bisa ga pemerintah berantas judol",
+    "normalized_text": "Bisa ga pemerintah berantas judol",
     "spam_score": 0,
     "active_signals": [],
     "label": "non_spam"
   },
   {
-    "video_id": "manual_hard_negative",
-    "timestamp": "2026-06-18T00:00:00.000Z",
-    "original_text": "Keren sih penyiar2 kayak Kamal ama Sahil pengetahuannya luas banget dari yang serius sampai yg santai😊",
-    "normalized_text": "Keren sih penyiar2 kayak Kamal ama Sahil pengetahuannya luas banget dari yang serius sampai yg santai😊",
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Yang namanya admin judol penipu semunya",
+    "normalized_text": "Yang namanya admin judol penipu semunya",
     "spam_score": 0,
     "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Dari pada maen judol mendingan beli duren montong..",
+    "normalized_text": "Dari pada maen judol mendingan beli duren montong..",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Well explained",
+    "normalized_text": "Well explained",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "pemerintah ngomong buta",
+    "normalized_text": "pemerintah ngomong buta",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Pemain tidak akan bisa menang bisanya uang il as lang dimakan admin",
+    "normalized_text": "Pemain tidak akan bisa menang bisanya uang il as lang dimakan admin",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Kalah saya bnyak bos",
+    "normalized_text": "Kalah saya bnyak bos",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Gimana bos, bisa menang,,",
+    "normalized_text": "Gimana bos, bisa menang,,",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Kalau memang pintar kau, terangkang bagaimana membrabtasnya.. Bukan cuma nembahas ini itu.",
+    "normalized_text": "Kalau memang pintar kau, terangkang bagaimana membrabtasnya.. Bukan cuma nembahas ini itu.",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "trnyata komplotan, baru aku sadar",
+    "normalized_text": "trnyata komplotan, baru aku sadar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Knp GK bisa berantas",
+    "normalized_text": "Knp GK bisa berantas",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Taekkkk cokkkkk",
+    "normalized_text": "Taekkkk cokkkkk",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Inilah dadu sengkuni di era digital",
+    "normalized_text": "Inilah dadu sengkuni di era digital",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Ga benar ini,yg ada kalah selalu,",
+    "normalized_text": "Ga benar ini,yg ada kalah selalu,",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Negara Konoha, iklan judol di mana mana setiap platform ada ,  Kominfo meneng wae,",
+    "normalized_text": "Negara Konoha, iklan judol di mana mana setiap platform ada ,  Kominfo meneng wae,",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Gua kla 50 juta . Sial. Di 777w",
+    "normalized_text": "Gua kla 50 juta . Sial. Di 777w",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Suara tidak langsung mgasih tau ke orang2 buat jadi agen atau bandar 😢",
+    "normalized_text": "Suara tidak langsung mgasih tau ke orang2 buat jadi agen atau bandar 😢",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Indonesia darurat judol,gara2 nyari kerja dimana2 susah,.....!!!pemerintah GK ad pergerakan Brantas bandar",
+    "normalized_text": "Indonesia darurat judol,gara2 nyari kerja dimana2 susah,.....!!!pemerintah GK ad pergerakan Brantas bandar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Masyarakat sebagai korban promo judol yg beredar di media,tp heran knp jg ya masyarakat yg di tangkap trs di peras uang nya,jngn jngn ini permainan para penguasa negri yg bermain",
+    "normalized_text": "Masyarakat sebagai korban promo judol yg beredar di media,tp heran knp jg ya masyarakat yg di tangkap trs di peras uang nya,jngn jngn ini permainan para penguasa negri yg bermain",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "HGI atau higs game island aplikasi judol berkedok game santai masih legal di 2026 skrg... ada apa dengan para pemberantas judol di negeri ini...dulu udah ke ban eh ganti nama malah masuk lagi di playstore indo...ngakak",
+    "normalized_text": "HGI atau higs game island aplikasi judol berkedok game santai masih legal di 2026 skrg... ada apa dengan para pemberantas judol di negeri ini...dulu udah ke ban eh ganti nama malah masuk lagi di playstore indo...ngakak",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Tlong bantuany admin",
+    "normalized_text": "Tlong bantuany admin",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.484Z",
+    "original_text": "Sy ampir kla trus bang",
+    "normalized_text": "Sy ampir kla trus bang",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.485Z",
+    "original_text": "Terimaksih ko....sudah menyadarkan manusia seleuruh dunia",
+    "normalized_text": "Terimaksih ko....sudah menyadarkan manusia seleuruh dunia",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.485Z",
+    "original_text": "ya itu semua anak buah iblis",
+    "normalized_text": "ya itu semua anak buah iblis",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.485Z",
+    "original_text": "Kok kalin gak di tangkap",
+    "normalized_text": "Kok kalin gak di tangkap",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.485Z",
+    "original_text": "2,5 jt sudah saya habis",
+    "normalized_text": "2,5 jt sudah saya habis",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.485Z",
+    "original_text": "Joki itu aman kah",
+    "normalized_text": "Joki itu aman kah",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:16.485Z",
+    "original_text": "Kasih tau cara boka akun yg d ganti paspor ya  Tulung bantu buka in",
+    "normalized_text": "Kasih tau cara boka akun yg d ganti paspor ya  Tulung bantu buka in",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Bongkar caranya biar menang banyak lah bos",
+    "normalized_text": "Bongkar caranya biar menang banyak lah bos",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Makanya Indonesia tetep enggak bisa maju kalok judol aja masih merajalela",
+    "normalized_text": "Makanya Indonesia tetep enggak bisa maju kalok judol aja masih merajalela",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Mustahil judol bisa di berantas .Terlalu banyak oknum pejabat dan aparat di konoha.",
+    "normalized_text": "Mustahil judol bisa di berantas .Terlalu banyak oknum pejabat dan aparat di konoha.",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Itu bonusnya mana ini bonusnya mana ini bonusnya bos bonus",
+    "normalized_text": "Itu bonusnya mana ini bonusnya mana ini bonusnya bos bonus",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Bandar di lindungi pihak polisi hrus nya bandar yg di tangkap bkan pemain  Kasian pemain sdah klah steres ada jg bunuh diri😢",
+    "normalized_text": "Bandar di lindungi pihak polisi hrus nya bandar yg di tangkap bkan pemain  Kasian pemain sdah klah steres ada jg bunuh diri😢",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Anjay barusan saya juga berarti kena tipu mau wede 1,900rb tiba-tiba akun keluar sendiri ga bisa login lagi 🆔pengguna salah",
+    "normalized_text": "Anjay barusan saya juga berarti kena tipu mau wede 1,900rb tiba-tiba akun keluar sendiri ga bisa login lagi 🆔pengguna salah",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Kenapa GK ditangkap cok",
+    "normalized_text": "Kenapa GK ditangkap cok",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Jadi bagaimana koh yg biasa live streaming di fb di youtube dan menang2 tetus sampai ratusan juta",
+    "normalized_text": "Jadi bagaimana koh yg biasa live streaming di fb di youtube dan menang2 tetus sampai ratusan juta",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Tolonglah dicari Pak presiden saya korban satu minggu ini 60 juta Pak presiden 60 juta asli Pak Kapolri tolong dicari ya Pak Kapolri ya kami masyarakat kecil ini dihabisin ini berarti ini tidak resmi Pak presiden Pak Prabowo Pak Kapolri Sigit tolong korban Indonesia dibikin ini tidak resmi ini jelas-jelas tidak resmi tolonglah dicari ini 0",
+    "normalized_text": "Tolonglah dicari Pak presiden saya korban satu minggu ini 60 juta Pak presiden 60 juta asli Pak Kapolri tolong dicari ya Pak Kapolri ya kami masyarakat kecil ini dihabisin ini berarti ini tidak resmi Pak presiden Pak Prabowo Pak Kapolri Sigit tolong korban Indonesia dibikin ini tidak resmi ini jelas-jelas tidak resmi tolonglah dicari ini 0",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Tetap aja kamu akan mendapat siksa kubur. Pernah makan uang hasil nipu",
+    "normalized_text": "Tetap aja kamu akan mendapat siksa kubur. Pernah makan uang hasil nipu",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Koh sawer dana dog😢",
+    "normalized_text": "Koh sawer dana dog😢",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "kdang bnyak lpa anak istri,motor dan hp trgadai",
+    "normalized_text": "kdang bnyak lpa anak istri,motor dan hp trgadai",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Ponakan Q klah bukan lagi ratusan jt.. Tapi blom pernah menang. Pernah sekali 7 jt menang.. Kasian istri ny.. Hasil bisnis minyak abis trus",
+    "normalized_text": "Ponakan Q klah bukan lagi ratusan jt.. Tapi blom pernah menang. Pernah sekali 7 jt menang.. Kasian istri ny.. Hasil bisnis minyak abis trus",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "bgmn dg bandarnya   bs brhnti klo mrekan sll mnang",
+    "normalized_text": "bgmn dg bandarnya   bs brhnti klo mrekan sll mnang",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Hanya kesenangan belaka yg penting happy 😂❤❤",
+    "normalized_text": "Hanya kesenangan belaka yg penting happy 😂❤❤",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Bandar bajigan",
+    "normalized_text": "Bandar bajigan",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Menurut saya hanya ada satu cara biar langsung tuntas masalah judol ini caranya blokir geogle dan Crome dari indonesia dan buat aplikasi sendiri penganti geogle dan Crome seperti China yg mandiri dan bisa di awasi ketat 100% oleh negara",
+    "normalized_text": "Menurut saya hanya ada satu cara biar langsung tuntas masalah judol ini caranya blokir geogle dan Crome dari indonesia dan buat aplikasi sendiri penganti geogle dan Crome seperti China yg mandiri dan bisa di awasi ketat 100% oleh negara",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Tutup harus",
+    "normalized_text": "Tutup harus",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "mana ada aku klh yg bayak coba tengok akun aku berapa yg aku klh gak ada naik kok",
+    "normalized_text": "mana ada aku klh yg bayak coba tengok akun aku berapa yg aku klh gak ada naik kok",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Lebih baik tankap aja bandar nya walaupun artis Indonesia",
+    "normalized_text": "Lebih baik tankap aja bandar nya walaupun artis Indonesia",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Knpa g di kutuk aj mntan penjhad",
+    "normalized_text": "Knpa g di kutuk aj mntan penjhad",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Assalamu'alaikum koh bantu saya dong",
+    "normalized_text": "Assalamu'alaikum koh bantu saya dong",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Kenapa orang itu bisa tau",
+    "normalized_text": "Kenapa orang itu bisa tau",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.084Z",
+    "original_text": "Kenapa dia bisa bebas,GX di tahan?dia tau semuanya mengapa hanya di lindungi,",
+    "normalized_text": "Kenapa dia bisa bebas,GX di tahan?dia tau semuanya mengapa hanya di lindungi,",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Kawan2 ku hampir 100% pemain judol, mereka bahkan menang belasan juta tapi tdk tertarik sedikitpun.",
+    "normalized_text": "Kawan2 ku hampir 100% pemain judol, mereka bahkan menang belasan juta tapi tdk tertarik sedikitpun.",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "MasyaAllah koh, selalu menjaga pandangan karena tau lawan bicaranya adalah perempuan.",
+    "normalized_text": "MasyaAllah koh, selalu menjaga pandangan karena tau lawan bicaranya adalah perempuan.",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Kebanyakan rugi nya bang😁",
+    "normalized_text": "Kebanyakan rugi nya bang😁",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Ko ini gak d tangkap ya",
+    "normalized_text": "Ko ini gak d tangkap ya",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "berlarut larut..  tidak kalau cuma nasihatkn orang.  yg jelas judol d indonesia punya benteng2 kuat. pemerintah bisa saja menghapusnya, tpi kehilangan kue yg besar..  mulai dari transaksi antar bank. qris.dana.gopay.kalau dihilangkan mati itu semua.sumber pendapatn yg besar.. yg sudah tertangkap itu cuma kroco kroconya agen judol.indonesia jadi. sasaran empuk karna banyk manusianya..",
+    "normalized_text": "berlarut larut..  tidak kalau cuma nasihatkn orang.  yg jelas judol d indonesia punya benteng2 kuat. pemerintah bisa saja menghapusnya, tpi kehilangan kue yg besar..  mulai dari transaksi antar bank. qris.dana.gopay.kalau dihilangkan mati itu semua.sumber pendapatn yg besar.. yg sudah tertangkap itu cuma kroco kroconya agen judol.indonesia jadi. sasaran empuk karna banyk manusianya..",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Tuhan allah SWT lebih pintar lagi dari para bandar dan hacker",
+    "normalized_text": "Tuhan allah SWT lebih pintar lagi dari para bandar dan hacker",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "terkadang lucu aja kalau dngar atau viral nya berita\" judol 😁,  simpel dan singkat kalau memang judol ini mau hilang, penindakan yg benar serius jujur dan adil dari pihak\" berwenang atau pihak hukum itu sendiri ... tapi kalau judol jg di jadikan aset oleh para pelaksana hukum maka yah , mereka itu atau judol ga bakalan pernah hilang dari bumi indonesia, jadi jangan salah kan para pengelola judol itu, mereka bisa berani dan merasa aman untuk usaha ini itu kerna ada yg membekingi dangn kata lain di lindungi 😀",
+    "normalized_text": "terkadang lucu aja kalau dngar atau viral nya berita\" judol 😁,  simpel dan singkat kalau memang judol ini mau hilang, penindakan yg benar serius jujur dan adil dari pihak\" berwenang atau pihak hukum itu sendiri ... tapi kalau judol jg di jadikan aset oleh para pelaksana hukum maka yah , mereka itu atau judol ga bakalan pernah hilang dari bumi indonesia, jadi jangan salah kan para pengelola judol itu, mereka bisa berani dan merasa aman untuk usaha ini itu kerna ada yg membekingi dangn kata lain di lindungi 😀",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Bukan penasaran Tapi dihelvetia ada tukang isap sedot dana nya",
+    "normalized_text": "Bukan penasaran Tapi dihelvetia ada tukang isap sedot dana nya",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Mslah nya bukan kalah tw menang.. mslsh nya ini org kalau udh kecanduan gmn??? Pemerintah juga harus\" bner\" turun percuman podcas\" kalau ke dnger sma yg udh nyandu mah",
+    "normalized_text": "Mslah nya bukan kalah tw menang.. mslsh nya ini org kalau udh kecanduan gmn??? Pemerintah juga harus\" bner\" turun percuman podcas\" kalau ke dnger sma yg udh nyandu mah",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "tmn saya dlu punya segala punya dia d rmah nya .mobil nya pun 4 LG...smnjak dia suka maen judol,abis lah dlm sekejap GK nyampe setaun..perlahan dia jualin .nyampe k rmah yg dia tempati dia jual,akhir nya dia pisah sama istri nya..saking pusing juga istri nya,tiap plg k rmah nya sedikit demi sedikit barang nya pda ilang d jualin..skrg tmn sya hidup nya sebatang kara,ayah ibu nya meninggal smnjak kejadian itu...buat mkn pun dia skrg nunggu yg ngasih .astagfirloh",
+    "normalized_text": "tmn saya dlu punya segala punya dia d rmah nya .mobil nya pun 4 LG...smnjak dia suka maen judol,abis lah dlm sekejap GK nyampe setaun..perlahan dia jualin .nyampe k rmah yg dia tempati dia jual,akhir nya dia pisah sama istri nya..saking pusing juga istri nya,tiap plg k rmah nya sedikit demi sedikit barang nya pda ilang d jualin..skrg tmn sya hidup nya sebatang kara,ayah ibu nya meninggal smnjak kejadian itu...buat mkn pun dia skrg nunggu yg ngasih .astagfirloh",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "pencuri saja kalian para bandar",
+    "normalized_text": "pencuri saja kalian para bandar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Sadar wooooiiii....gak ingat kalian lagi roma irama???? Gak sadar juga...mampos ajalah.. Biar gaji sedikit setidaknya bisa tidur nyenyak, AKU BERSYUKUR YA..ALLAH..DENGAN GAJIKU SEGINI MASIH BISA MAKAN TANPA HARUS MENYUMBANG UANG KE JUDOL BUAT MEMPERKAYA BANDAR.😅",
+    "normalized_text": "Sadar wooooiiii....gak ingat kalian lagi roma irama???? Gak sadar juga...mampos ajalah.. Biar gaji sedikit setidaknya bisa tidur nyenyak, AKU BERSYUKUR YA..ALLAH..DENGAN GAJIKU SEGINI MASIH BISA MAKAN TANPA HARUS MENYUMBANG UANG KE JUDOL BUAT MEMPERKAYA BANDAR.😅",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Sangat susah untuk menghilang kan candu judol",
+    "normalized_text": "Sangat susah untuk menghilang kan candu judol",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Uda tau nipu.pain jelaskan.dasar",
+    "normalized_text": "Uda tau nipu.pain jelaskan.dasar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Seteliti itu dia mengatur sistem nya emang bandar ini sekolah di mana ya",
+    "normalized_text": "Seteliti itu dia mengatur sistem nya emang bandar ini sekolah di mana ya",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Bandar memang bener bener pintar",
+    "normalized_text": "Bandar memang bener bener pintar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Susah di kasih tau, uda tau penipuan yg sngatt kejam masih disetorin duit.a tuch nama.a ultra dablak",
+    "normalized_text": "Susah di kasih tau, uda tau penipuan yg sngatt kejam masih disetorin duit.a tuch nama.a ultra dablak",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Sudah ga aneh lagi",
+    "normalized_text": "Sudah ga aneh lagi",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Semuanya ternyata SETTING AN ... Gua AMPE jual sana sini ternyat SETTING AN ... Percuma TOBAT ... Gua AMPE kapan pun gakan pernah MAAFIN BANDAR WALAU UDAH JADI MANTAN BANDAR ...GEGARA SETTINGAN NYA HARTA GUA HABIS UTANG DI MANA2",
+    "normalized_text": "Semuanya ternyata SETTING AN ... Gua AMPE jual sana sini ternyat SETTING AN ... Percuma TOBAT ... Gua AMPE kapan pun gakan pernah MAAFIN BANDAR WALAU UDAH JADI MANTAN BANDAR ...GEGARA SETTINGAN NYA HARTA GUA HABIS UTANG DI MANA2",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Sponsor masih judol",
+    "normalized_text": "Sponsor masih judol",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Bagi link dong",
+    "normalized_text": "Bagi link dong",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Batasi internet ,termasuk permaina mobil lejen, dan ff",
+    "normalized_text": "Batasi internet ,termasuk permaina mobil lejen, dan ff",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Bandar bisa bayar aparat..",
+    "normalized_text": "Bandar bisa bayar aparat..",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Kadang lihat org bermain judol mereka menang puluhan juta mereka sangat bangga padahal kekalahan mereka sdh lbh dari puluhan juta",
+    "normalized_text": "Kadang lihat org bermain judol mereka menang puluhan juta mereka sangat bangga padahal kekalahan mereka sdh lbh dari puluhan juta",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Tangkap.juga itu bandar bandar SPBU toto itu mereka lagi beroperasi itu tangkap aja mereka bandar bandar.itu",
+    "normalized_text": "Tangkap.juga itu bandar bandar SPBU toto itu mereka lagi beroperasi itu tangkap aja mereka bandar bandar.itu",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Gila baru berhenti judol....",
+    "normalized_text": "Gila baru berhenti judol....",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Baru kemarin aku kalah 2,5 juta,nyesek banget",
+    "normalized_text": "Baru kemarin aku kalah 2,5 juta,nyesek banget",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Sama seperti high domino island bs baca data kita",
+    "normalized_text": "Sama seperti high domino island bs baca data kita",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "kurang ajar juga ini",
+    "normalized_text": "kurang ajar juga ini",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Ada ya yang gak mau berhenti judol sampai rela tinggalin anak istrinya. Hancurkan saja harta bendanya sekalian agar tidak ada korban lain lagi seperti saya",
+    "normalized_text": "Ada ya yang gak mau berhenti judol sampai rela tinggalin anak istrinya. Hancurkan saja harta bendanya sekalian agar tidak ada korban lain lagi seperti saya",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.085Z",
+    "original_text": "Cara lacak kek gimana ya",
+    "normalized_text": "Cara lacak kek gimana ya",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Ketika ada orang-orang perna menjadi bos atau agen judol lalu dia tobat apakah harta yg dia dapatkan itu halal..?  Yg pasti tetap haram dan harus di bersihkan.",
+    "normalized_text": "Ketika ada orang-orang perna menjadi bos atau agen judol lalu dia tobat apakah harta yg dia dapatkan itu halal..?  Yg pasti tetap haram dan harus di bersihkan.",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Tangkap orang ini, dialah penyebab penyakit ke masyarakat",
+    "normalized_text": "Tangkap orang ini, dialah penyebab penyakit ke masyarakat",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Mana keadilan bandar nya ngga di tangkap bahkan speak up bebas gak di tangkap",
+    "normalized_text": "Mana keadilan bandar nya ngga di tangkap bahkan speak up bebas gak di tangkap",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "menang berhenti kalah terus jalan 😂 haduhh",
+    "normalized_text": "menang berhenti kalah terus jalan 😂 haduhh",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Ba pantas po",
+    "normalized_text": "Ba pantas po",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Pengalaman pribadi saya dikasih menang kurang  Di kasih kalah penasaran  . Dan pada akhirnya saya kalah dan ingin berhenti",
+    "normalized_text": "Pengalaman pribadi saya dikasih menang kurang  Di kasih kalah penasaran  . Dan pada akhirnya saya kalah dan ingin berhenti",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Mantan penjerumus orang. Semoga hidup nya sengsara penyakitan",
+    "normalized_text": "Mantan penjerumus orang. Semoga hidup nya sengsara penyakitan",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Koh dah dpt brrapa tanungn dri judol",
+    "normalized_text": "Koh dah dpt brrapa tanungn dri judol",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "gw juga udah berhenti untung sih 600rbu doang nyoba",
+    "normalized_text": "gw juga udah berhenti untung sih 600rbu doang nyoba",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Kenapa gak nangkap nih orang",
+    "normalized_text": "Kenapa gak nangkap nih orang",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.672Z",
+    "original_text": "Penyakit masyarakat yg tdk terorganisir",
+    "normalized_text": "Penyakit masyarakat yg tdk terorganisir",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Yaiyalah daftar pakai no rek bank tertentu ada nama lengkap disitu😂",
+    "normalized_text": "Yaiyalah daftar pakai no rek bank tertentu ada nama lengkap disitu😂",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Semua pemain itu sadar di tipu ,tetapi klu udh kecanduan biar uang habis yg penting candu tersalur itu yg kebayakan benak pemain",
+    "normalized_text": "Semua pemain itu sadar di tipu ,tetapi klu udh kecanduan biar uang habis yg penting candu tersalur itu yg kebayakan benak pemain",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Iklan selot di mana2",
+    "normalized_text": "Iklan selot di mana2",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Info spya bisa jdi agen",
+    "normalized_text": "Info spya bisa jdi agen",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Smoga pemerintah bisa mmbratas yg nma nya judol",
+    "normalized_text": "Smoga pemerintah bisa mmbratas yg nma nya judol",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Halah denis² lu sok suci walaupun lu dah taubat tapi dah banyak yg jadi korban Lo banyak taek lo",
+    "normalized_text": "Halah denis2 lu sok suci walaupun lu dah taubat tapi dah banyak yg jadi korban Lo banyak taek lo",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Santapan judol/ orang yg malas kerja,serakah,minim ilmu,& wawasan sempit",
+    "normalized_text": "Santapan judol/ orang yg malas kerja,serakah,minim ilmu,& wawasan sempit",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Mereka  kumpul  di  pasar   muara  karang   jia  xiang   atau   perkumpulan  siantar",
+    "normalized_text": "Mereka  kumpul  di  pasar   muara  karang   jia  xiang   atau   perkumpulan  siantar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Sebagai orang medan ga malu adanya kampung medan di kamboja itu? . Kenapa orang2 medan mau kerja jadi penipu(judol) , malah makin banyak , apa nggk mikir nama jelek karena suka jadi penipu? Jadi kelihatan kyk jati diri ????,, klo mau ubah image jelek kyk gitu suruh pulang keluarga keluarga kalian itu !!! ,",
+    "normalized_text": "Sebagai orang medan ga malu adanya kampung medan di kamboja itu? . Kenapa orang2 medan mau kerja jadi penipu(judol) , malah makin banyak , apa nggk mikir nama jelek karena suka jadi penipu? Jadi kelihatan kyk jati diri ????,, klo mau ubah image jelek kyk gitu suruh pulang keluarga keluarga kalian itu !!! ,",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Ni dia rupanya tukang nga bisin uang saya,,,,aku kgk iklas,,,,meski dia suda tobat,,,, sebelum di kembalikan karna dia hidup ku hancur",
+    "normalized_text": "Ni dia rupanya tukang nga bisin uang saya,,,,aku kgk iklas,,,,meski dia suda tobat,,,, sebelum di kembalikan karna dia hidup ku hancur",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Saya sudh kalah banyak belum pernah menang",
+    "normalized_text": "Saya sudh kalah banyak belum pernah menang",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Udah bener rejeki di atur sama tuhan. Eh malah pengen di atur sama bandar",
+    "normalized_text": "Udah bener rejeki di atur sama tuhan. Eh malah pengen di atur sama bandar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Allahummashollialasayyidinamuhammad❤❤❤❤",
+    "normalized_text": "Allahummashollialasayyidinamuhammad❤❤❤❤",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Jika BANGSA & NEGARA INI MAU MAJU HARUS TINDAK TEGAS JUDOL, MAFIA HUKUM, KORUPTOR, sindikat narkoba, HARUS SIKAT HABIS SAMPAI KE-AKAR²NYA TANPA TEBANG PILIH !!! Kalo gak gitu tambah merajalela & akan rusak bangsa n generasi mendatang",
+    "normalized_text": "Jika BANGSA & NEGARA INI MAU MAJU HARUS TINDAK TEGAS JUDOL, MAFIA HUKUM, KORUPTOR, sindikat narkoba, HARUS SIKAT HABIS SAMPAI KE-AKAR2NYA TANPA TEBANG PILIH !!! Kalo gak gitu tambah merajalela & akan rusak bangsa n generasi mendatang",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Coba di dengerin para pemain ojol...",
+    "normalized_text": "Coba di dengerin para pemain ojol...",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Dasar menjijikan kominpo RI dasar jahanam uang rakyat dikerok dimiskinkan hanya untuk keluarga sendiri",
+    "normalized_text": "Dasar menjijikan kominpo RI dasar jahanam uang rakyat dikerok dimiskinkan hanya untuk keluarga sendiri",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Kaya di film2",
+    "normalized_text": "Kaya di film2",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "liat video tntang judol, iklan yg muncul pun iklan judol",
+    "normalized_text": "liat video tntang judol, iklan yg muncul pun iklan judol",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Hancurkan orang-orang yang menggunakan INSTITUSI untuk merusak KONSTITUSI..!!!",
+    "normalized_text": "Hancurkan orang-orang yang menggunakan INSTITUSI untuk merusak KONSTITUSI..!!!",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Pertama doang di kasih menag terus kesini kesini kelamaan ludes udh di seting",
+    "normalized_text": "Pertama doang di kasih menag terus kesini kesini kelamaan ludes udh di seting",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Ya logika nya klo gak ada modal bnyak gk bisa buka usaha... klo mau menang hrus modal klah bnyak dulu",
+    "normalized_text": "Ya logika nya klo gak ada modal bnyak gk bisa buka usaha... klo mau menang hrus modal klah bnyak dulu",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Mudahan bandar ringkas,Amin",
+    "normalized_text": "Mudahan bandar ringkas,Amin",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "tp klo menang di blok itu cmna",
+    "normalized_text": "tp klo menang di blok itu cmna",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "sebyanyk itu operator tugas ya ngecek data2 ap  gmn y",
+    "normalized_text": "sebyanyk itu operator tugas ya ngecek data2 ap  gmn y",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Semoga bisa berhenti😢",
+    "normalized_text": "Semoga bisa berhenti😢",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Anda klw mau tobat minimal anda selamatkan orang2 yang sudah jadi korban karna dosa anda masih mengalir...sebelum jadi ustadz anda harus ada pengorbanan dlu",
+    "normalized_text": "Anda klw mau tobat minimal anda selamatkan orang2 yang sudah jadi korban karna dosa anda masih mengalir...sebelum jadi ustadz anda harus ada pengorbanan dlu",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Gua baru kalah 1juta malam ini nonton YouTube lihat video ini jadi mau tobat main judol mana susah nyari uang agak nyesel sih cuma emang saya main tadi adunasib kalah menang saya ikhlas , ini saya rasa berhenti dulu main judol sebelum saya kecanduan 😢",
+    "normalized_text": "Gua baru kalah 1juta malam ini nonton YouTube lihat video ini jadi mau tobat main judol mana susah nyari uang agak nyesel sih cuma emang saya main tadi adunasib kalah menang saya ikhlas , ini saya rasa berhenti dulu main judol sebelum saya kecanduan 😢",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Tetangga gw menang 600jt setelah rumah tanah dan alat berat di tambang batu habis terjual",
+    "normalized_text": "Tetangga gw menang 600jt setelah rumah tanah dan alat berat di tambang batu habis terjual",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Sy sudah kala bnyk, di atas seratus juta, alhamdulillah sy gak nyampe bangkrut, sukur juga sy suda kapok dan berhenti total",
+    "normalized_text": "Sy sudah kala bnyk, di atas seratus juta, alhamdulillah sy gak nyampe bangkrut, sukur juga sy suda kapok dan berhenti total",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Lagi proses mau berhenti..... Harus bisa",
+    "normalized_text": "Lagi proses mau berhenti..... Harus bisa",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Saya jual rumah sama motor bankei",
+    "normalized_text": "Saya jual rumah sama motor bankei",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Ku 80 juta tinggal 10 juta. ...",
+    "normalized_text": "Ku 80 juta tinggal 10 juta. ...",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "kM99uBssHvQ",
+    "timestamp": "2026-06-19T00:09:17.673Z",
+    "original_text": "Harusnya yang di tangkap oknumnya bukan malah pemainya seperti narkoba yg di tangkap bukan pengedarnya malah pengunanya.katanya negri kita negri hukum tapi di mana letak hukum kita yang di jalankan???? Tanda tanya besar",
+    "normalized_text": "Harusnya yang di tangkap oknumnya bukan malah pemainya seperti narkoba yg di tangkap bukan pengedarnya malah pengunanya.katanya negri kita negri hukum tapi di mana letak hukum kita yang di jalankan???? Tanda tanya besar",
+    "spam_score": 0,
+    "active_signals": [],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:27.441Z",
+    "original_text": "Blokir situs judi online",
+    "normalized_text": "Blokir situs judi online",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:27.443Z",
+    "original_text": "kalau konten kreator bahas judol kok gak ada komen situs judol ya wkwkwk",
+    "normalized_text": "kalau konten kreator bahas judol kok gak ada komen situs judol ya wkwkwk",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:27.443Z",
+    "original_text": "Saya heran sekarang judol sdh sangat berani promosi entah di comment atau iklan yt dll padahal saya gapernah main judol tapi iklan terus menerus ini pemerintah gamau blokir atau emang gabisa sangat muak karena sdh banyak contoh dan berita tidak baik yang main judol ini kadang sampai chat pribadi akal akalan kerja sama ini lah itu lah saya kata katain selalu karena sangat muak tolong pemerintah Indonesia blokir situs judi di Indonesia",
+    "normalized_text": "Saya heran sekarang judol sdh sangat berani promosi entah di comment atau iklan yt dll padahal saya gapernah main judol tapi iklan terus menerus ini pemerintah gamau blokir atau emang gabisa sangat muak karena sdh banyak contoh dan berita tidak baik yang main judol ini kadang sampai chat pribadi akal akalan kerja sama ini lah itu lah saya kata katain selalu karena sangat muak tolong pemerintah Indonesia blokir situs judi di Indonesia",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:27.443Z",
+    "original_text": "Bener Kata Kau Itu Bang, TPI Aku Klo Nda Main Jodul Itu Nda Punya Duit Bang Buat Belanja Ongkos Sklh, Sedangkan Ak Orang Yg Tidak Berkecukupan, Ya Terpaksa Main Judi Itu, Modal 50 Naik 300 Gw Tarik Langsung Gw Belanjain Buat Ongkos Sehari Hari, Kalahnya Sih Ada Emang, Main D Situs Ini Dapet 300 Cari Lagi Situs Lain, modal Lagi Naik Lagi Tarik Lagi",
+    "normalized_text": "Bener Kata Kau Itu Bang, TPI Aku Klo Nda Main Jodul Itu Nda Punya Duit Bang Buat Belanja Ongkos Sklh, Sedangkan Ak Orang Yg Tidak Berkecukupan, Ya Terpaksa Main Judi Itu, Modal 50 Naik 300 Gw Tarik Langsung Gw Belanjain Buat Ongkos Sehari Hari, Kalahnya Sih Ada Emang, Main D Situs Ini Dapet 300 Cari Lagi Situs Lain, modal Lagi Naik Lagi Tarik Lagi",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.109Z",
+    "original_text": "Gua punya Temen mantan admin Dia udah tobat karna pas itu ketangkep tapi untungnya bapaknya kaya dan ngeringinain hukumanya...  Jadi Admin di Judi slot itu ada 3  Admin Costumer service Admin IT ( Ngurusin web kalo keblokir) Admin Player ( Nah ini bahaya )   Dalam 1 minggu Admin player itu Kerjanya 3 hari doang   dan itu Harinya RANDOM pokonya 1 minggu mereka kerja 3x   Ada admin player total 5  Tugas Admin player Itu mantau Setiap member Inget Mantau....  Sistem admin player beda ama admin lain dia punya web khusus yang di mana semua data player nomor hp,bettingan yang di gunakan, game yang di mainkan kekalahan/kemenangan bank. itu mereka tau    Nah ini lah kerjaan mereka ngasih kemenangan....  bukan ngasih kekalahan karna kekalahan itu emng udah pasti 100% kalo gak ada admin player  ya ngga menang  paham kan kenapa gua ngomong 7 hari dan 3 hari kerja dan 5 orang   betull dari 7 hari cuma 3 hari kesempatan lu bisa menang dan cuma 5 orang yang bisa menang berstti dalam 7 hari cuma 15 orang yang di kasih menang dan dari ratusan pemain.....  dan ini tuh licik bngt sistemnya Jadi di web itu dia tau kita lagi main apa dan di situ tuh udah kecatet mau kita betting berapapun menanganya udah kecatet 10x per beting jadi mau dpt scatter mau pecahan di luar dari bettingan yang kita lakuin kemenanganya hanya 10x perbettingan  kecualiii Admin player mengubah itu menjadi 500x perbettingan atau bisa di tulis jumlah nominal yang mau di dapetin misal admin player mau ngasih menang A 3.5juta   nah pas lagi main Pragmagtic dia akan nyeting kemenangan elu di 3.5  maxwin zeus maxwin inces semuanya itu settingan scatter turun  itu juga settingan pun kalo misal scatter itu turun di luar kehendak admin maka kembali ke tadi hanya maksimal 10x bettingan jadi sistem slot ini tuh emang udah di setting buat bikin duit lu habis",
+    "normalized_text": "Gua punya Temen mantan admin Dia udah tobat karna pas itu ketangkep tapi untungnya bapaknya kaya dan ngeringinain hukumanya...  Jadi Admin di Judi slot itu ada 3  Admin Costumer service Admin IT ( Ngurusin web kalo keblokir) Admin Player ( Nah ini bahaya )   Dalam 1 minggu Admin player itu Kerjanya 3 hari doang   dan itu Harinya RANDOM pokonya 1 minggu mereka kerja 3x   Ada admin player total 5  Tugas Admin player Itu mantau Setiap member Inget Mantau....  Sistem admin player beda ama admin lain dia punya web khusus yang di mana semua data player nomor hp,bettingan yang di gunakan, game yang di mainkan kekalahan/kemenangan bank. itu mereka tau    Nah ini lah kerjaan mereka ngasih kemenangan....  bukan ngasih kekalahan karna kekalahan itu emng udah pasti 100% kalo gak ada admin player  ya ngga menang  paham kan kenapa gua ngomong 7 hari dan 3 hari kerja dan 5 orang   betull dari 7 hari cuma 3 hari kesempatan lu bisa menang dan cuma 5 orang yang bisa menang berstti dalam 7 hari cuma 15 orang yang di kasih menang dan dari ratusan pemain.....  dan ini tuh licik bngt sistemnya Jadi di web itu dia tau kita lagi main apa dan di situ tuh udah kecatet mau kita betting berapapun menanganya udah kecatet 10x per beting jadi mau dpt scatter mau pecahan di luar dari bettingan yang kita lakuin kemenanganya hanya 10x perbettingan  kecualiii Admin player mengubah itu menjadi 500x perbettingan atau bisa di tulis jumlah nominal yang mau di dapetin misal admin player mau ngasih menang A 3.5juta   nah pas lagi main Pragmagtic dia akan nyeting kemenangan elu di 3.5  maxwin zeus maxwin inces semuanya itu settingan scatter turun  itu juga settingan pun kalo misal scatter itu turun di luar kehendak admin maka kembali ke tadi hanya maksimal 10x bettingan jadi sistem slot ini tuh emang udah di setting buat bikin duit lu habis",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.109Z",
+    "original_text": "Temen gw maxwin (entah apa lah istilah menang itu) smpe 20 JT. Woa 50 JT, ohh si anu 100jt. Di sisipi kalimat terakhir, abis itu mereka berhenti.. BLA BLA BLA BLA... Jawaban yg saya sering denger dari pelaku slot 😂",
+    "normalized_text": "Temen gw maxwin (entah apa lah istilah menang itu) smpe 20 JT. Woa 50 JT, ohh si anu 100jt. Di sisipi kalimat terakhir, abis itu mereka berhenti.. BLA BLA BLA BLA... Jawaban yg saya sering denger dari pelaku slot 😂",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.109Z",
+    "original_text": "Kecurigaan koh raymond tepat sekali sama kominfo/komdigi yang seharusnya memblokir situs judol malah melindungi ribuan situs judol. 🗿",
+    "normalized_text": "Kecurigaan koh raymond tepat sekali sama kominfo/komdigi yang seharusnya memblokir situs judol malah melindungi ribuan situs judol. 🗿",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.109Z",
+    "original_text": "12. November 2024 , 4 bulan setelah pembuatan video ini dan pernyataan\" kominfo yang paling bertanggung jawab \". Hari ini terbukti staff kominfo melindungi situs judi online dan bahkan menteri kominfo (budi arie) mendapat dugaan tersangka melindungi situs judi online .",
+    "normalized_text": "12. November 2024 , 4 bulan setelah pembuatan video ini dan pernyataan\" kominfo yang paling bertanggung jawab \". Hari ini terbukti staff kominfo melindungi situs judi online dan bahkan menteri kominfo (budi arie) mendapat dugaan tersangka melindungi situs judi online .",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.109Z",
+    "original_text": "membandingkan 2 hal buruk memang ngga membuat salah satunya lebih baik, tapi kalau boleh jujur situs sports betting macem judi bola, pacuan kuda, dan sejenisnya jauh lebih fair daripada judi slot gacor gacor itu",
+    "normalized_text": "membandingkan 2 hal buruk memang ngga membuat salah satunya lebih baik, tapi kalau boleh jujur situs sports betting macem judi bola, pacuan kuda, dan sejenisnya jauh lebih fair daripada judi slot gacor gacor itu",
+    "spam_score": 70,
+    "active_signals": [
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.110Z",
+    "original_text": "sekarang pewai komdigi yg menjaga situs...miris hidup di indonesia",
+    "normalized_text": "sekarang pewai komdigi yg menjaga situs...miris hidup di indonesia",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.110Z",
+    "original_text": "12:17 skrg sdh tau knp situs judi online masih byk.  Pegawai2 Kominfo (Skrg jdi Komdigi) ternyata pelihara mereka. 😒",
+    "normalized_text": "12:17 skrg sdh tau knp situs judi online masih byk.  Pegawai2 Kominfo (Skrg jdi Komdigi) ternyata pelihara mereka. 😒",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.110Z",
+    "original_text": "Banyak orang terdekat saya yang hancur rumah tangganya dan karirnya berantakan karena kecanduan judi online,semoga pergantiannya mentri komdigi bisa memberantas situs-situs judol karena diberi peringatan dirasa tidak cukup untuk menyadarkan warga indonesia ini😢😢",
+    "normalized_text": "Banyak orang terdekat saya yang hancur rumah tangganya dan karirnya berantakan karena kecanduan judi online,semoga pergantiannya mentri komdigi bisa memberantas situs-situs judol karena diberi peringatan dirasa tidak cukup untuk menyadarkan warga indonesia ini😢😢",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.816Z",
+    "original_text": "gw nonton ini setelah baca berita staff kominfo ditangkap karena lindungi situs judol wkwk😅",
+    "normalized_text": "gw nonton ini setelah baca berita staff kominfo ditangkap karena lindungi situs judol wkwk😅",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.816Z",
+    "original_text": "Bukan itu dodol permasalahan nya banyak banget video video orang di comot lalu dibikin link situs judi online woy",
+    "normalized_text": "Bukan itu dodol permasalahan nya banyak banget video video orang di comot lalu dibikin link situs judi online woy",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.816Z",
+    "original_text": "baru aja beritanya naik di awal november 2024 kalo beberapa karyawan komdigi sendiri yang jagain situs judol, akhirnya masuk akal sama poin masalah yang disampein video 4 bulan lalu ini.",
+    "normalized_text": "baru aja beritanya naik di awal november 2024 kalo beberapa karyawan komdigi sendiri yang jagain situs judol, akhirnya masuk akal sama poin masalah yang disampein video 4 bulan lalu ini.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:28.816Z",
+    "original_text": "Pemerintah amat sangat lambat perangin judol. Bentuk satgas 1000 orang. 1 orang kerja tiap hari bekuin 10-50 situs judol. Pasti gak akan bisa keakses tuh. Pasti kena suap sih menurut gw",
+    "normalized_text": "Pemerintah amat sangat lambat perangin judol. Bentuk satgas 1000 orang. 1 orang kerja tiap hari bekuin 10-50 situs judol. Pasti gak akan bisa keakses tuh. Pasti kena suap sih menurut gw",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:29.467Z",
+    "original_text": "Contoh judol yang legal di eropa adalah Superbet, itu perusahaan jelas ada kantornya dan pemiliknya bisa digoogling, kalau judol yang nyerang indo tidak jelas pemiliknya, websitenya copy paste template semua, yang kaya gini mau di legalkan????",
+    "normalized_text": "Contoh judol yang legal di eropa adalah Superbet, itu perusahaan jelas ada kantornya dan pemiliknya bisa digoogling, kalau judol yang nyerang indo tidak jelas pemiliknya, websitenya copy paste template semua, yang kaya gini mau di legalkan????",
+    "spam_score": 40,
+    "active_signals": [
+      "brand_pattern"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:29.468Z",
+    "original_text": "Hati hati dengan Situs ANDARA99 Dan Situs RAJA787. Yang Telah Banyak Menipuh Orang. Dan Buat Kominfo Agar Cepat blokir situs itu.. biar korban nya tidak bertambah..",
+    "normalized_text": "Hati hati dengan Situs ANDARA99 Dan Situs RAJA787. Yang Telah Banyak Menipuh Orang. Dan Buat Kominfo Agar Cepat blokir situs itu.. biar korban nya tidak bertambah..",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:29.468Z",
+    "original_text": "Gw pernah coba tapi gara\" Dipengaruhi temen,  Jadi awalnya gua memang berpegang kuat ama pemikiran gua kalo judol itu nggk bakal bikin untung tapi logic gua, gua akan percaya dan penasaran kalo memang ada Bukit,  akhirnya pas ketemu teman gua di kasih bukti kalau dia Bisa jackpot yaa akhirnya gua percaya dengan bukti dari temen baik sendiri apa yg harus gua ragukan,,  selasai itu gua coba depo 100k coba main, tapi mainnya sama temen gua itu yg udah expert disitu, main sampe stengah jam hangus 100k truss lngsung berhenti lah kita, kata temen gw lanjut besok saja,  Esoknya kita depo lagi 35k karna gw tau bakal hangus gua nggk mau depo banyak lagi, main\" uangya naik smpe 100k sampe maxwin 1,2 juta yah kita langsung tarik truss kabur wkkwkw, jadi menurut gwa judol hokinya lebih besar kalo lu player baru tapi kalo udah lama beh Amit\" dah jadi kek situsnya udah atur kemenangan buat player baru biar bisa addict gitu wkkw",
+    "normalized_text": "Gw pernah coba tapi gara\" Dipengaruhi temen,  Jadi awalnya gua memang berpegang kuat ama pemikiran gua kalo judol itu nggk bakal bikin untung tapi logic gua, gua akan percaya dan penasaran kalo memang ada Bukit,  akhirnya pas ketemu teman gua di kasih bukti kalau dia Bisa jackpot yaa akhirnya gua percaya dengan bukti dari temen baik sendiri apa yg harus gua ragukan,,  selasai itu gua coba depo 100k coba main, tapi mainnya sama temen gua itu yg udah expert disitu, main sampe stengah jam hangus 100k truss lngsung berhenti lah kita, kata temen gw lanjut besok saja,  Esoknya kita depo lagi 35k karna gw tau bakal hangus gua nggk mau depo banyak lagi, main\" uangya naik smpe 100k sampe maxwin 1,2 juta yah kita langsung tarik truss kabur wkkwkw, jadi menurut gwa judol hokinya lebih besar kalo lu player baru tapi kalo udah lama beh Amit\" dah jadi kek situsnya udah atur kemenangan buat player baru biar bisa addict gitu wkkw",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:29.468Z",
+    "original_text": "Youtuber bahas judol iklan display nya muncul iklan situs gacor... Adsanse adsanse adsanse 🤣🤣🤣",
+    "normalized_text": "Youtuber bahas judol iklan display nya muncul iklan situs gacor... Adsanse adsanse adsanse 🤣🤣🤣",
+    "spam_score": 85,
+    "active_signals": [
+      "contact_link",
+      "obfuscated_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:30.163Z",
+    "original_text": "Apalah daya ,pejabat sudah makan suap dari situs judol..apalagi yg berbentuk aplikasi contoh game2 slot domino..itu saja mereka gak sanggup berantas,apalagi yg berbentuk situs..karna uang masuk nya besar",
+    "normalized_text": "Apalah daya ,pejabat sudah makan suap dari situs judol..apalagi yg berbentuk aplikasi contoh game2 slot domino..itu saja mereka gak sanggup berantas,apalagi yg berbentuk situs..karna uang masuk nya besar",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:30.163Z",
+    "original_text": "Opini gue si, ada suap menyuap antar oknum pemerintah yg membiarkan akses itu masuk dan oknum pertahanan juga, ini juga si yg harus di sidak lebih lanjut, apalagi sekarang banyak programer muda atau hacker indo yg bisa aja buat ngeretas semua situs yg udah beredar",
+    "normalized_text": "Opini gue si, ada suap menyuap antar oknum pemerintah yg membiarkan akses itu masuk dan oknum pertahanan juga, ini juga si yg harus di sidak lebih lanjut, apalagi sekarang banyak programer muda atau hacker indo yg bisa aja buat ngeretas semua situs yg udah beredar",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:30.164Z",
+    "original_text": "Teman teman kakak kakak semuanya mohon solusinya 😢 saya baru   5-8 bulan aktif main judi online ini dan saya ga tau uda brapa banyak uang kluar/masuk ke situs2 judi soalnya saya punya banyak akun/situs judi, di lingkungan kerja sya hampir 80% main slot jujur dulu saya sering bilang mreka tolol dan goblok main judol, dan smakin jauh sya liat Yuforia kawan2 yg menang sya makin tertarik lalu coba2 deposit 100K dikasi menang ga smpe 500an dari situlah awal mula semuanya jadi penasaran deposit lagi dikasi menang malam ga tidur jdi penasaran deposit lagi dikasi menang lagi deposit 500k kalah deposit lagi kalah lagi, ulang2 saya terus penasaran dgn kemenangan, dulunya saya ga smpe pinjol skrng uda smpe 3-4 akun pinjol yang harus saya cicil gara2 judi ini, saya coba cari2 konten beginian sesering mungkin biar sya sadar lebih dalam soal tololnya orang yang main judi termasuk saya, saya takutnya saya jatuh lebih dalam, skarang pinjol saya kira2 6 jtan dan ini uda yang paling besar saya punya hutang di pinjol, bingung mau stop judi tapi rasa penasaran soalnya sering liat di YouTube yg fideo2 maxwin kemenangan yang harus sya kejar sampai sekarang saya g pernah dapat yang katanya maxwin, sampai2 saya chat adminnya dan cuma kata admin suatu saat pasti dapat maxwin intinya bermain sabar, menurut teman2 benar ga soal maxwin2 itu?  Dan ada yang pernah dapat maxwin dari slot?  *edit  + sekarang saya coba cicil hutang saya yang 6 jutaan pelan2 mau coba Stop secara perlahan judi online. Pelan2 saya mulai iklhas dengan kekalahan yang lalu2, semoga edukasi2 ginian lebih sering muncul di beranda ytb saya",
+    "normalized_text": "Teman teman kakak kakak semuanya mohon solusinya 😢 saya baru   5-8 bulan aktif main judi online ini dan saya ga tau uda brapa banyak uang kluar/masuk ke situs2 judi soalnya saya punya banyak akun/situs judi, di lingkungan kerja sya hampir 80% main slot jujur dulu saya sering bilang mreka tolol dan goblok main judol, dan smakin jauh sya liat Yuforia kawan2 yg menang sya makin tertarik lalu coba2 deposit 100K dikasi menang ga smpe 500an dari situlah awal mula semuanya jadi penasaran deposit lagi dikasi menang malam ga tidur jdi penasaran deposit lagi dikasi menang lagi deposit 500k kalah deposit lagi kalah lagi, ulang2 saya terus penasaran dgn kemenangan, dulunya saya ga smpe pinjol skrng uda smpe 3-4 akun pinjol yang harus saya cicil gara2 judi ini, saya coba cari2 konten beginian sesering mungkin biar sya sadar lebih dalam soal tololnya orang yang main judi termasuk saya, saya takutnya saya jatuh lebih dalam, skarang pinjol saya kira2 6 jtan dan ini uda yang paling besar saya punya hutang di pinjol, bingung mau stop judi tapi rasa penasaran soalnya sering liat di YouTube yg fideo2 maxwin kemenangan yang harus sya kejar sampai sekarang saya g pernah dapat yang katanya maxwin, sampai2 saya chat adminnya dan cuma kata admin suatu saat pasti dapat maxwin intinya bermain sabar, menurut teman2 benar ga soal maxwin2 itu?  Dan ada yang pernah dapat maxwin dari slot?  *edit  + sekarang saya coba cicil hutang saya yang 6 jutaan pelan2 mau coba Stop secara perlahan judi online. Pelan2 saya mulai iklhas dengan kekalahan yang lalu2, semoga edukasi2 ginian lebih sering muncul di beranda ytb saya",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:30.164Z",
+    "original_text": "Tapi ada vpn. Gmn dong. Sebener nya pihak bank yg harus terjun dalam. Begitu survei situs2 judol lansung incer rekening yg di pake dan langsung blok rekening nya",
+    "normalized_text": "Tapi ada vpn. Gmn dong. Sebener nya pihak bank yg harus terjun dalam. Begitu survei situs2 judol lansung incer rekening yg di pake dan langsung blok rekening nya",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:31.659Z",
+    "original_text": "Andalin kominfo?? Lah mereka juga main kok😂... Padahal temen saya yg putus sekolah juga bisa buat sistem auto block untuk hal seperti situs judi dan porno",
+    "normalized_text": "Andalin kominfo?? Lah mereka juga main kok😂... Padahal temen saya yg putus sekolah juga bisa buat sistem auto block untuk hal seperti situs judi dan porno",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:31.659Z",
+    "original_text": "Gw pernah nyoba maen,dengan modal yg lumayan besar untuk ku,awal nya ya emg terlihat meyakinkan,kek kerasa pasti menang,dan yaa memang menang,tapi sampai di situ aku berpikir \"Kalo gw gass makin menang banyak ni\",lalu berakhir kalah,rungkad,disitu gw langsung paham cara kerja judol,dan saia memutuskan untuk berhenti,kebanyakan bahkan semua situs/aplikasi judol memakai cara yg sama untuk menarik pemain,yaa,percayalah,judol sangat buruk,sadar lah kalian yg pemaen,bahkan sampe jual² barang berharga,kalian adalah org paling tolol,mau aja di bodohi sistem,sistem itu gk mungkin membuat mereka sendiri rugi",
+    "normalized_text": "Gw pernah nyoba maen,dengan modal yg lumayan besar untuk ku,awal nya ya emg terlihat meyakinkan,kek kerasa pasti menang,dan yaa memang menang,tapi sampai di situ aku berpikir \"Kalo gw gass makin menang banyak ni\",lalu berakhir kalah,rungkad,disitu gw langsung paham cara kerja judol,dan saia memutuskan untuk berhenti,kebanyakan bahkan semua situs/aplikasi judol memakai cara yg sama untuk menarik pemain,yaa,percayalah,judol sangat buruk,sadar lah kalian yg pemaen,bahkan sampe jual2 barang berharga,kalian adalah org paling tolol,mau aja di bodohi sistem,sistem itu gk mungkin membuat mereka sendiri rugi",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:31.659Z",
+    "original_text": "Gua pernah jadi pemain sejak dari jaman binary option indra kenz sampe slot sekarang.. Gua udah bertahun\" main dan bisa sesimple itu buat berenti.. Sekarang gua ngga main lagi.. Karna emng gua pikir\" agak unik gitu pemain\" ini.. Tapi gua ngga benci apa gimana.. Anggap masalah ato gimana gitu engga karna gua sendiri bisa gampang banget buat berenti.. Gua agak seneng juga karna adanya iklan judi di situs\" anime.. Situs itu jadi lebih rajin upload.. Mungkin karna dapet duit lebih gitu kali yak.. Tapi gua sendiri emng ngga ngedukung buat main tapi ngga ngedukung juga buat nutup.. Goblok\"nya aja yg main masih nongkrong disitu 😂",
+    "normalized_text": "Gua pernah jadi pemain sejak dari jaman binary option indra kenz sampe slot sekarang.. Gua udah bertahun\" main dan bisa sesimple itu buat berenti.. Sekarang gua ngga main lagi.. Karna emng gua pikir\" agak unik gitu pemain\" ini.. Tapi gua ngga benci apa gimana.. Anggap masalah ato gimana gitu engga karna gua sendiri bisa gampang banget buat berenti.. Gua agak seneng juga karna adanya iklan judi di situs\" anime.. Situs itu jadi lebih rajin upload.. Mungkin karna dapet duit lebih gitu kali yak.. Tapi gua sendiri emng ngga ngedukung buat main tapi ngga ngedukung juga buat nutup.. Goblok\"nya aja yg main masih nongkrong disitu 😂",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:31.659Z",
+    "original_text": "Untuk soal rekening bank ada beberapa situs yg akun rekening nya gk ganti2 dan situs2 ini sudah terbilang situs senior judol. Mungkin ya mereka setor nya gede jd gk kena block. Bohong banget lah pemerintahan gk dapet setoran dr mereka.   Gmn kalo Pemerintah harusnya melegalkan judi dan Pemerintah membuat aplikasi or situs judi tandingan untuk ngelawan situs judol dari luar sana yang pasti resmi kayak ada SNI nya gitu. Gw rasa player2 pada bakal main di situs pemerintah. Lumayan kan uang nya balik lagi ke negara dan ke rakyat lagi muter2 aja di negara sendiri 😅.",
+    "normalized_text": "Untuk soal rekening bank ada beberapa situs yg akun rekening nya gk ganti2 dan situs2 ini sudah terbilang situs senior judol. Mungkin ya mereka setor nya gede jd gk kena block. Bohong banget lah pemerintahan gk dapet setoran dr mereka.   Gmn kalo Pemerintah harusnya melegalkan judi dan Pemerintah membuat aplikasi or situs judi tandingan untuk ngelawan situs judol dari luar sana yang pasti resmi kayak ada SNI nya gitu. Gw rasa player2 pada bakal main di situs pemerintah. Lumayan kan uang nya balik lagi ke negara dan ke rakyat lagi muter2 aja di negara sendiri 😅.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:31.659Z",
+    "original_text": "bang coba buat langkah nyata  misalnya menghimpun dana publik untuk membuat situs judi online dengan win rate terbesar, misalnya 50% win rate.  dengan demikian tidak akan ada pemain yang kehilangan uangnya, dan bandar judi yang win rate nya di bawah 50% akan hilang dengan sendirinya.  website judi ini tidak akan memperoleh keuntungan dari kekalahan player, melainkan dari iklan yang dipasang.",
+    "normalized_text": "bang coba buat langkah nyata  misalnya menghimpun dana publik untuk membuat situs judi online dengan win rate terbesar, misalnya 50% win rate.  dengan demikian tidak akan ada pemain yang kehilangan uangnya, dan bandar judi yang win rate nya di bawah 50% akan hilang dengan sendirinya.  website judi ini tidak akan memperoleh keuntungan dari kekalahan player, melainkan dari iklan yang dipasang.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:31.660Z",
+    "original_text": "Itulah mengapa sdm indo dan tingkat kecerdasan/IQ nya 78, Kalo Judi bola chancenya 50% Menang 50% kalah  Kalo slot 100% kalah karna udah di program ama IT situs",
+    "normalized_text": "Itulah mengapa sdm indo dan tingkat kecerdasan/IQ nya 78, Kalo Judi bola chancenya 50% Menang 50% kalah  Kalo slot 100% kalah karna udah di program ama IT situs",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:31.660Z",
+    "original_text": "Yang ampuh hilangkan judi..terutama iklan judol diblokir..dari iklan orang pada main judi.iklanjudi itu semakin menjamur..apalahi penjudi online itu kalau kalah disitus yg ini..dia cari situs baru ya dari iklan..itu aja",
+    "normalized_text": "Yang ampuh hilangkan judi..terutama iklan judol diblokir..dari iklan orang pada main judi.iklanjudi itu semakin menjamur..apalahi penjudi online itu kalau kalah disitus yg ini..dia cari situs baru ya dari iklan..itu aja",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.294Z",
+    "original_text": "Simple buat ngabisin judol. Buat wa center untuk menerima aduan nama situs yg ada. Lansng banned linknya. Kerja 7x24 jam. Beres",
+    "normalized_text": "Simple buat ngabisin judol. Buat wa center untuk menerima aduan nama situs yg ada. Lansng banned linknya. Kerja 7x24 jam. Beres",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.295Z",
+    "original_text": "Judol yg di tangkap pemain, padahal yg meresahkan influeser/bandar/sponsor/situs, gmana mau perangin, kominfo kena hack oja plonga plongo gak bisa balikin data, 😂😂😂",
+    "normalized_text": "Judol yg di tangkap pemain, padahal yg meresahkan influeser/bandar/sponsor/situs, gmana mau perangin, kominfo kena hack oja plonga plongo gak bisa balikin data, 😂😂😂",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.295Z",
+    "original_text": "Salahin aja pemerintah yg gak becus hapus situs-situs judol. Yg ada tiap hari cuman wacana aja",
+    "normalized_text": "Salahin aja pemerintah yg gak becus hapus situs-situs judol. Yg ada tiap hari cuman wacana aja",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.295Z",
+    "original_text": "Mencoba laporkan M88, Dafabet dan Sbobet ke layanan kominfo. Hasilnya apa? Bertahun2 mereka tetap subur di Indonesia bahkan channel depositnya semakin lengkap, coba lapor ke bank malah dipersulit, dari sini yakin Judol ini subur krn ada oknum bank dan aparat yg bekerjasama mereka.",
+    "normalized_text": "Mencoba laporkan M88, Dafabet dan Sbobet ke layanan kominfo. Hasilnya apa? Bertahun2 mereka tetap subur di Indonesia bahkan channel depositnya semakin lengkap, coba lapor ke bank malah dipersulit, dari sini yakin Judol ini subur krn ada oknum bank dan aparat yg bekerjasama mereka.",
+    "spam_score": 60,
+    "active_signals": [
+      "brand_pattern",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.295Z",
+    "original_text": "Meregulasi sesuatu yg online tp sifatnya dipegang oleh beberapa bos bandar kyknya agak sulit, apalagi sifat ego manusia yg udah terjun ke dunia bisnis gelap kyk gini bs dipastikan pemilik bisnis 'ogah' untuk ikut regulasi. Disisi lain, apa bisa memonitoring pembuatan situs baru yg sifatnya mirror dr situs utama nya? Diblokir 1 bikin lagi 3,4,5 situs..  Ini memang udah jd racun, yg perlu dibenahin kyknya emang mindsetnya. Tp disisi lain, lingkungan pengaruh besar.. Udah berhenti judol, eeehh temen ada main & jackpot.. Penasaran deh.. Bingung jg sih utk ngobatinnya..",
+    "normalized_text": "Meregulasi sesuatu yg online tp sifatnya dipegang oleh beberapa bos bandar kyknya agak sulit, apalagi sifat ego manusia yg udah terjun ke dunia bisnis gelap kyk gini bs dipastikan pemilik bisnis 'ogah' untuk ikut regulasi. Disisi lain, apa bisa memonitoring pembuatan situs baru yg sifatnya mirror dr situs utama nya? Diblokir 1 bikin lagi 3,4,5 situs..  Ini memang udah jd racun, yg perlu dibenahin kyknya emang mindsetnya. Tp disisi lain, lingkungan pengaruh besar.. Udah berhenti judol, eeehh temen ada main & jackpot.. Penasaran deh.. Bingung jg sih utk ngobatinnya..",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.958Z",
+    "original_text": "Kalo aku sih buat aja situs resmi punya negara",
+    "normalized_text": "Kalo aku sih buat aja situs resmi punya negara",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.958Z",
+    "original_text": "BANG GUA PEN JELASIN NIH. BEKAS ADMIN SLOT. . DI INDONESIA KEBANYAKAN TUH . YANG HYPE NYA ADA DI SELES SITUSNYA. BUAT NAIKIN RETING SAMA CARI PEMAIN DI SITUSNYA AGAR ADA PEMASUKAN  . KARNA YANG PUNYA SITUS JUGA BAYAR LAGI BUAT BAYAR GAME NYA. YANG MAHAL . . LU MASUK KE GRUP TELE NAMANYA BARTER DATABASE. BANYAK DISITU YANG UDAH NYEDIAIN SITUS . TARIF HARGA TERGANTUNG GAMENYA BISA DI MAININ ATAU NGGA. Lengkap atau ngga. DAN SEKARANG HYPENYA SELES JUDI ONLINE . ADALAH SITUS SCAM.. SCAME DALAM ARTIAN GAME NYA GA BISA DI MAININ. DAN DEPOSIT MASUK KE REKENING PRIBADI.. ITU SEBAGIAN LITERASI DARI GUA . GUA AJA MASIH DI TAWARIN KE KAMBOJA. BUAT JADI CS JUDI ONLINE",
+    "normalized_text": "BANG GUA PEN JELASIN NIH. BEKAS ADMIN SLOT. . DI INDONESIA KEBANYAKAN TUH . YANG HYPE NYA ADA DI SELES SITUSNYA. BUAT NAIKIN RETING SAMA CARI PEMAIN DI SITUSNYA AGAR ADA PEMASUKAN  . KARNA YANG PUNYA SITUS JUGA BAYAR LAGI BUAT BAYAR GAME NYA. YANG MAHAL . . LU MASUK KE GRUP TELE NAMANYA BARTER DATABASE. BANYAK DISITU YANG UDAH NYEDIAIN SITUS . TARIF HARGA TERGANTUNG GAMENYA BISA DI MAININ ATAU NGGA. Lengkap atau ngga. DAN SEKARANG HYPENYA SELES JUDI ONLINE . ADALAH SITUS SCAM.. SCAME DALAM ARTIAN GAME NYA GA BISA DI MAININ. DAN DEPOSIT MASUK KE REKENING PRIBADI.. ITU SEBAGIAN LITERASI DARI GUA . GUA AJA MASIH DI TAWARIN KE KAMBOJA. BUAT JADI CS JUDI ONLINE",
+    "spam_score": 70,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "excessive_caps"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.958Z",
+    "original_text": "Orang mana yg beneran bisa kaya dari MAIN JUDI dari yg main judi murni ya, bukan yg punya situs 😂",
+    "normalized_text": "Orang mana yg beneran bisa kaya dari MAIN JUDI dari yg main judi murni ya, bukan yg punya situs 😂",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:32.958Z",
+    "original_text": "Pin bang 📌 Bang coba itu perhatiin drag indo. yg jadi boss bossannya Tekno Tuner si Dior dulunya promosiin slot di situs idola69 sampe skrng jadi boss bossan di dunia balap drag masih bawa idola69 buat promoin situs ke anak anak balap,, lu cek aja jejak digitalnya masih banyak kook! gua ngerasa dirugikan meskipun gua ga main tapi banyak temen temen gua yg skrng hidupnya susah jadi gembel gara gara judi, skrng main motor kaga malah jadi gembel semua temen gua!",
+    "normalized_text": "Pin bang 📌 Bang coba itu perhatiin drag indo. yg jadi boss bossannya Tekno Tuner si Dior dulunya promosiin slot di situs idola69 sampe skrng jadi boss bossan di dunia balap drag masih bawa idola69 buat promoin situs ke anak anak balap,, lu cek aja jejak digitalnya masih banyak kook! gua ngerasa dirugikan meskipun gua ga main tapi banyak temen temen gua yg skrng hidupnya susah jadi gembel gara gara judi, skrng main motor kaga malah jadi gembel semua temen gua!",
+    "spam_score": 100,
+    "active_signals": [
+      "brand_pattern",
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:33.610Z",
+    "original_text": "Indonesia menang negara Konoha. Semua situs masih bisa dipakai buat judi, negara ini menjadi aneh semenjak mukidi jadi presiden...",
+    "normalized_text": "Indonesia menang negara Konoha. Semua situs masih bisa dipakai buat judi, negara ini menjadi aneh semenjak mukidi jadi presiden...",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:33.611Z",
+    "original_text": "Coba terbitkan uu/atau perpu bagi yg mengiklankan judol kasih hukuman 10 tahun  Lacak para operator dan pemilik situs Saran bagi pengguna internet pakai selalu adblock  Karena judol selalu pasang iklannya di internet khususnya di situs porno, situs nonton film ilegal dan medsos terkadang mereka pakai jasa selebgram  😊😊😊😊",
+    "normalized_text": "Coba terbitkan uu/atau perpu bagi yg mengiklankan judol kasih hukuman 10 tahun  Lacak para operator dan pemilik situs Saran bagi pengguna internet pakai selalu adblock  Karena judol selalu pasang iklannya di internet khususnya di situs porno, situs nonton film ilegal dan medsos terkadang mereka pakai jasa selebgram  😊😊😊😊",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:33.611Z",
+    "original_text": "Di negara ini . terlalu lamban dalam segala hal...MASAK NANTI SUDAH MENJAMUR SUDAH MERAMBAT BARU DI TANGANI.. kenapa pas masuknya. Situs JUDOL tidak di blokir oleh tim syiber di kominfo .??   Pantas aja mau bentuk uu banson untuk korban judol..nyata pelaku judol para dewan.dan polosi.piliso,poluce🤣ini sama aja menangani penyakit gula yang sudah menguasai sebagian besar tubuh...yang sudah di fonis lumpuh ..baru saja bilang para ahli memberi saran jangan minum gula..🤣",
+    "normalized_text": "Di negara ini . terlalu lamban dalam segala hal...MASAK NANTI SUDAH MENJAMUR SUDAH MERAMBAT BARU DI TANGANI.. kenapa pas masuknya. Situs JUDOL tidak di blokir oleh tim syiber di kominfo .??   Pantas aja mau bentuk uu banson untuk korban judol..nyata pelaku judol para dewan.dan polosi.piliso,poluce🤣ini sama aja menangani penyakit gula yang sudah menguasai sebagian besar tubuh...yang sudah di fonis lumpuh ..baru saja bilang para ahli memberi saran jangan minum gula..🤣",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:34.303Z",
+    "original_text": "Mending di legalkan saja kaya diluar negri, karna diblokir juga situsnya percuma bakal ada lagi ada lagi kecuali internetnya di tiadakan kaya jaman dulu 😂",
+    "normalized_text": "Mending di legalkan saja kaya diluar negri, karna diblokir juga situsnya percuma bakal ada lagi ada lagi kecuali internetnya di tiadakan kaya jaman dulu 😂",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:34.303Z",
+    "original_text": "Sedikit sharing untuk lebih membahas mengenai judi online di permainan slot. Bagi teman-teman disini yang bukan pelaku judol atau memang pernah judol menurut aku konten ini sudah cukup merangkum dan mengedukasi kita semua dampak bahaya bermain judol guys, jadi buat yang bertanya\" kenapa banyak sekali pelaku judol di indonesia kalian bisa ambil pov dari saya yang punya pengalaman bermain judol.  Nah disini karena aku salah satu pelaku judol meskipun belum lama mainnya bisa dibilang masih sekitar 3-4 bulan memang pengeluaran dan pendapatan yang di dapat dari judol ini tidak bisa dijelaskan spesifik secara nominal jika pemain tersebut tidak pernah mengkalkulasi outcome/income agau bahkan mencatat di note khusus. Beberapa motif alasan saya mencoba memainkan judi online bisa coba uraikan satu persatu dari segi POV saya:  1. Rasa penasaran, ada rasa penasaran bagaimana cara mendapatkan uang dari bermain slot online.  2. Proses deposit mudah, proses untuk mentransfer sejumlah uang ke website judol tergolong mudah dan terjangkau yang saya tau ada situs yang menawarkan untuk game slot mulai deposito sejumlah 10.000 - tak terhingga. Jadi untuk kalangan bawah/pemula sangat memungkinkan memainkan karena nominal minimum deposit terjangkau.  3. Promosi besar\"an dan iklan yang menarik, di iming\" i kemenangan besar dan slogan \"gacor\" setelah mencoba dan menang memang ada sensasi yang berbeda.  4. Kemenangan dan kekalahan, kemenangan membuat kita ketagihan dan kekalahan membuat kita penasaran.  5. Proses withdraw/tarik tunai langsung cair, ketika menang saldo kemenangan dapat di uangkan atau ditarik tunai dalam kurun waktu 2-30 menit uang akan langsung masuk rekening.  Alasan tetap bertahan bermain game slot (judol):  1. Ada modal dan bisa mengatur modal, dalam game kita dapat mengatur yang namanya BET atau kalo versi saya mudahnya memutar game sesuai modal kita deposito jadi tidak harus takut jika kalah. Tapi kesalahan saya atau pemain jika kita tidak bisa mengontrol pengeluaran untuk main slot alhasil adanya kita yang rungkad.  2. Merasa tidak merugikan orang lain, jika kita melihat di medsos/tv seringkali pasti kita menyalahkan tersangka judol yang rela sampai menggadaikan barang\" berharga itu hanya segincir orang bahkan penjudi online yang melihat akan beranggapan itu \"kelakuan bodoh dan gak masuk akal\" tapi dibalik itu ada yang tidak banyak kalian tau alasan mereka tetap bermain yaitu dari kalangan bawah sampai yang pintarpun memainkan slot ini guys mereka benar\" tau taktik bermain sampai bisa mengatur putaran slot yang dirasa ini jelek ataupun bagus meskipun teori yang mereka anggap tidak semua benar karena setiap pemain punya cara bermain yang berbeda\".  3. Bermain secara efektif versi penjudi online, menurutnya selama mereka bekerja dan menghasilkan uang dari pekerjaan halal slot adalah hiburan mereka akan terus memainkan tapi diwaktu yang ditentukan sesuai mood mereka artinya tidak setiap waktu mereka memainkannya dan tidak dijadikan ladang penghasilan utama mereka. Dilain sisi meskipun kalah mereka atau saya pribadi tidak akan kecewa karena tujuannya hanya mengisi waktu dan modal yang kita keluarkan juga minim berbeda lagi kalo pemain bar\" jelas mereka bertujuan mendapatkan kemenangan besar yang nantinya hasil tersebut untuk menyambung hidup.  Mungkin kurang lebih itulah pengalaman saya bermain online. Tidak dianjurkan karena pemerintah serentak melawan judol dan banyak influence yang menolak adanya judol saya rasa itu benar dan kita jangan pernah mencoba, meskipun dari diri saya sendiri belum bisa dikatakan berhenti total tapi paling tidak saat ini saya mencoba mengurangi sampai benar\" berhenti total. Semoga sharing saya ini dan disebarkan jika dirasa sharing saya ini bermanfaat buat teman yang jadi pelaku judol atau yang penasaran. Thank You",
+    "normalized_text": "Sedikit sharing untuk lebih membahas mengenai judi online di permainan slot. Bagi teman-teman disini yang bukan pelaku judol atau memang pernah judol menurut aku konten ini sudah cukup merangkum dan mengedukasi kita semua dampak bahaya bermain judol guys, jadi buat yang bertanya\" kenapa banyak sekali pelaku judol di indonesia kalian bisa ambil pov dari saya yang punya pengalaman bermain judol.  Nah disini karena aku salah satu pelaku judol meskipun belum lama mainnya bisa dibilang masih sekitar 3-4 bulan memang pengeluaran dan pendapatan yang di dapat dari judol ini tidak bisa dijelaskan spesifik secara nominal jika pemain tersebut tidak pernah mengkalkulasi outcome/income agau bahkan mencatat di note khusus. Beberapa motif alasan saya mencoba memainkan judi online bisa coba uraikan satu persatu dari segi POV saya:  1. Rasa penasaran, ada rasa penasaran bagaimana cara mendapatkan uang dari bermain slot online.  2. Proses deposit mudah, proses untuk mentransfer sejumlah uang ke website judol tergolong mudah dan terjangkau yang saya tau ada situs yang menawarkan untuk game slot mulai deposito sejumlah 10.000 - tak terhingga. Jadi untuk kalangan bawah/pemula sangat memungkinkan memainkan karena nominal minimum deposit terjangkau.  3. Promosi besar\"an dan iklan yang menarik, di iming\" i kemenangan besar dan slogan \"gacor\" setelah mencoba dan menang memang ada sensasi yang berbeda.  4. Kemenangan dan kekalahan, kemenangan membuat kita ketagihan dan kekalahan membuat kita penasaran.  5. Proses withdraw/tarik tunai langsung cair, ketika menang saldo kemenangan dapat di uangkan atau ditarik tunai dalam kurun waktu 2-30 menit uang akan langsung masuk rekening.  Alasan tetap bertahan bermain game slot (judol):  1. Ada modal dan bisa mengatur modal, dalam game kita dapat mengatur yang namanya BET atau kalo versi saya mudahnya memutar game sesuai modal kita deposito jadi tidak harus takut jika kalah. Tapi kesalahan saya atau pemain jika kita tidak bisa mengontrol pengeluaran untuk main slot alhasil adanya kita yang rungkad.  2. Merasa tidak merugikan orang lain, jika kita melihat di medsos/tv seringkali pasti kita menyalahkan tersangka judol yang rela sampai menggadaikan barang\" berharga itu hanya segincir orang bahkan penjudi online yang melihat akan beranggapan itu \"kelakuan bodoh dan gak masuk akal\" tapi dibalik itu ada yang tidak banyak kalian tau alasan mereka tetap bermain yaitu dari kalangan bawah sampai yang pintarpun memainkan slot ini guys mereka benar\" tau taktik bermain sampai bisa mengatur putaran slot yang dirasa ini jelek ataupun bagus meskipun teori yang mereka anggap tidak semua benar karena setiap pemain punya cara bermain yang berbeda\".  3. Bermain secara efektif versi penjudi online, menurutnya selama mereka bekerja dan menghasilkan uang dari pekerjaan halal slot adalah hiburan mereka akan terus memainkan tapi diwaktu yang ditentukan sesuai mood mereka artinya tidak setiap waktu mereka memainkannya dan tidak dijadikan ladang penghasilan utama mereka. Dilain sisi meskipun kalah mereka atau saya pribadi tidak akan kecewa karena tujuannya hanya mengisi waktu dan modal yang kita keluarkan juga minim berbeda lagi kalo pemain bar\" jelas mereka bertujuan mendapatkan kemenangan besar yang nantinya hasil tersebut untuk menyambung hidup.  Mungkin kurang lebih itulah pengalaman saya bermain online. Tidak dianjurkan karena pemerintah serentak melawan judol dan banyak influence yang menolak adanya judol saya rasa itu benar dan kita jangan pernah mencoba, meskipun dari diri saya sendiri belum bisa dikatakan berhenti total tapi paling tidak saat ini saya mencoba mengurangi sampai benar\" berhenti total. Semoga sharing saya ini dan disebarkan jika dirasa sharing saya ini bermanfaat buat teman yang jadi pelaku judol atau yang penasaran. Thank You",
+    "spam_score": 70,
+    "active_signals": [
+      "contact_link",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:34.979Z",
+    "original_text": "Lucunya banyak dari mereka yg masih menganggap bandar judi itu bodoh, mereka bilang tiap ada situs baru pasti kita dikasih menang dan setelah menang kabur, klo ada situs baru lagi masuk lagi gitu terus siklusnya. Pdhal ya ga menang juga 🤣",
+    "normalized_text": "Lucunya banyak dari mereka yg masih menganggap bandar judi itu bodoh, mereka bilang tiap ada situs baru pasti kita dikasih menang dan setelah menang kabur, klo ada situs baru lagi masuk lagi gitu terus siklusnya. Pdhal ya ga menang juga 🤣",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:34.979Z",
+    "original_text": "Mainan akhir zaman now. Blokir aj situs nya. Gtu aja kok repot.",
+    "normalized_text": "Mainan akhir zaman now. Blokir aj situs nya. Gtu aja kok repot.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:34.980Z",
+    "original_text": "kayaknya jundol udah bayar pajak tinggi , deh nyatanta situs yang diblokir udah pada balik lagi",
+    "normalized_text": "kayaknya jundol udah bayar pajak tinggi , deh nyatanta situs yang diblokir udah pada balik lagi",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:34.980Z",
+    "original_text": "Gimana sih gw pgn jdi orang yang bisa blokir semua akses ke kek gituu anjrrr😢 tolong yang ngerti kek gituu bisa dibantuuu blokir situs slot slot gituan",
+    "normalized_text": "Gimana sih gw pgn jdi orang yang bisa blokir semua akses ke kek gituu anjrrr😢 tolong yang ngerti kek gituu bisa dibantuuu blokir situs slot slot gituan",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:34.980Z",
+    "original_text": "ini ga akan bisa di solve - blokir website itu mustahil, situs bokep aja sudah puluhan tahun blokir, juga masih banyak yang bisa kebuka tanpa VPN - cuma dengan website judol aja bisa meraup ribuan Triliun, tentu mereka akan buat sebanyak2nya (beda ama case Bokep) - aliran dana sudah 600-1000T, oknum2 pemerintah / polisi pasti ada yang kecipratan, 10% aja itu udah 100T dan itu besar - hukuman koruptor2 gini tuh rendah, penjara singkat, bebas kaya raya, dan susah ketahuan. RISK vs REWARDnya besaran REWARDnya - bandar nya spt dijelakan kanan kiri itu server luar semua, dimana di negara luar itu legal, ga mngkin bisa  - kita akan OTW ke 4.000T OR sampe tahap kaum bawah dah ga ada uang lagi, no more buying power, ngefek kemana2, sampe kriminal naik drastis ...  - hasil duid RUPIAH yang kesedot keluar ini akan di dump, dituker ke mata uang lain :) - so enjoy the shows, and dont forget buat prepare for the worst nya ...   ... gw sih cuma bisa lakuin \"jual rupiah\", dah jual dari 4 taun lalu, pegang SGD / USD / bitcoin 🤣karena emang melihat indo dah ga ada masa depan aja",
+    "normalized_text": "ini ga akan bisa di solve - blokir website itu mustahil, situs bokep aja sudah puluhan tahun blokir, juga masih banyak yang bisa kebuka tanpa VPN - cuma dengan website judol aja bisa meraup ribuan Triliun, tentu mereka akan buat sebanyak2nya (beda ama case Bokep) - aliran dana sudah 600-1000T, oknum2 pemerintah / polisi pasti ada yang kecipratan, 10% aja itu udah 100T dan itu besar - hukuman koruptor2 gini tuh rendah, penjara singkat, bebas kaya raya, dan susah ketahuan. RISK vs REWARDnya besaran REWARDnya - bandar nya spt dijelakan kanan kiri itu server luar semua, dimana di negara luar itu legal, ga mngkin bisa  - kita akan OTW ke 4.000T OR sampe tahap kaum bawah dah ga ada uang lagi, no more buying power, ngefek kemana2, sampe kriminal naik drastis ...  - hasil duid RUPIAH yang kesedot keluar ini akan di dump, dituker ke mata uang lain :) - so enjoy the shows, and dont forget buat prepare for the worst nya ...   ... gw sih cuma bisa lakuin \"jual rupiah\", dah jual dari 4 taun lalu, pegang SGD / USD / bitcoin 🤣karena emang melihat indo dah ga ada masa depan aja",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:35.625Z",
+    "original_text": "Ayo kita lakukan tindakan kecil semampu kita, seperti melaporkan ads di platform media sosial yg mengiklankan situs / apk judi online",
+    "normalized_text": "Ayo kita lakukan tindakan kecil semampu kita, seperti melaporkan ads di platform media sosial yg mengiklankan situs / apk judi online",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:35.625Z",
+    "original_text": "ini antara si digdaya cari omset dn membasmi yg player2 doank ibaratt perusahaan si bos yg bikin situs yg karyawan di tangkep dn karyawan abis cri lg",
+    "normalized_text": "ini antara si digdaya cari omset dn membasmi yg player2 doank ibaratt perusahaan si bos yg bikin situs yg karyawan di tangkep dn karyawan abis cri lg",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:35.625Z",
+    "original_text": "Y sudah klo memang negara dan rakyatnya ingin memberantas judol saya rasa bisa saja kan banyak tuh di NKRI org2 ahli dan pinter IT bahkan ad yg jd hacker nah knp gak para ahli IT dan hacker hancurka program2 situs judol...jgn cm bisa ngomong2,cerita2, tau ini tau itu,bisa ini bisa itu tp NihiL",
+    "normalized_text": "Y sudah klo memang negara dan rakyatnya ingin memberantas judol saya rasa bisa saja kan banyak tuh di NKRI org2 ahli dan pinter IT bahkan ad yg jd hacker nah knp gak para ahli IT dan hacker hancurka program2 situs judol...jgn cm bisa ngomong2,cerita2, tau ini tau itu,bisa ini bisa itu tp NihiL",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:35.625Z",
+    "original_text": "Pihak provider harusnya dihimbau oleh pemerintah agar memblokir akses yang akan terhubung ke situs judi online, karna itulah pintu masuknya, koneksi internet",
+    "normalized_text": "Pihak provider harusnya dihimbau oleh pemerintah agar memblokir akses yang akan terhubung ke situs judi online, karna itulah pintu masuknya, koneksi internet",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:35.625Z",
+    "original_text": "SY SIH BARU2 INI AJA MAIN SLOT  KARENA PENASARAN KAYA APA CM  GAK MAU LAGI   KALAH TERUS  BUKANNYA INSYAF  MALAH MAKIN KALAP  HARAPANNYA KEKALAHAN BISA KEMBALI  TERNYATA SITUS NYA MAKIN  GACOR  SEDOT DUIT PEMAIN  KARENA SITUS NYA TAU  PEMAIN KALAH TRS  MALAH MAKIN PENASARAN   PANTAS BANYAK YG KERE SAMPAI BUNUH DIRI   APA LAGI SEKARANG MIN BET 800RUPIAH  MAKIN GACOR NYEDOT DUIT PEMAIN   BET 200 RUPIAH AJA MENANG NYA  SUSAH  APALAGI 800 RPH   ITUNGAN BULAN BISA JD GEMBEL   MAKANYA SAYA BERHENTI  APA LAGI BET NYA SEKALI PASANG 800 RPH  KADANG BISA 30 KALI PUTARAN GAK KENA2  30 *800PERAK UDAH MAU 24 RB  GILIRAN KITA KENA  GAK SAMPE 1RB PERAK  SUEEEE😂😂😂",
+    "normalized_text": "SY SIH BARU2 INI AJA MAIN SLOT  KARENA PENASARAN KAYA APA CM  GAK MAU LAGI   KALAH TERUS  BUKANNYA INSYAF  MALAH MAKIN KALAP  HARAPANNYA KEKALAHAN BISA KEMBALI  TERNYATA SITUS NYA MAKIN  GACOR  SEDOT DUIT PEMAIN  KARENA SITUS NYA TAU  PEMAIN KALAH TRS  MALAH MAKIN PENASARAN   PANTAS BANYAK YG KERE SAMPAI BUNUH DIRI   APA LAGI SEKARANG MIN BET 800RUPIAH  MAKIN GACOR NYEDOT DUIT PEMAIN   BET 200 RUPIAH AJA MENANG NYA  SUSAH  APALAGI 800 RPH   ITUNGAN BULAN BISA JD GEMBEL   MAKANYA SAYA BERHENTI  APA LAGI BET NYA SEKALI PASANG 800 RPH  KADANG BISA 30 KALI PUTARAN GAK KENA2  30 *800PERAK UDAH MAU 24 RB  GILIRAN KITA KENA  GAK SAMPE 1RB PERAK  SUEEEE😂😂😂",
+    "spam_score": 95,
+    "active_signals": [
+      "contact_link",
+      "obfuscated_keyword",
+      "emoji_spam",
+      "excessive_caps"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:36.288Z",
+    "original_text": "Kalau mmg tidak bisa menutup judi online di indonesia Biarkan!!!  Nanti kalau sudah tidak punya apa akan berhenti dengan sendirinya😢 Katanya udah me blokir berapa ribu situs bahkan berapa juta situs  Yg di tutup situs apa😢😢😢 Situs L**et**e* udah puluhan tahun masih on on aja",
+    "normalized_text": "Kalau mmg tidak bisa menutup judi online di indonesia Biarkan!!!  Nanti kalau sudah tidak punya apa akan berhenti dengan sendirinya😢 Katanya udah me blokir berapa ribu situs bahkan berapa juta situs  Yg di tutup situs apa😢😢😢 Situs L**et**e* udah puluhan tahun masih on on aja",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:36.288Z",
+    "original_text": "Apaa lagi sponsor motor drag terang terangan ngriklanin situs masing masing 😢",
+    "normalized_text": "Apaa lagi sponsor motor drag terang terangan ngriklanin situs masing masing 😢",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:36.288Z",
+    "original_text": "Sebenarnya nya bos  rakyat itu ga bakalan main judol,kalau situs situs nya susah di buka ,dan ga ada,,kalau situs yg sering saya mainin susah di buka,,terus saya cari situs selot lagi dan susah di buka,,pasti saya berhenti,begitupun yg lain saya rasa sama begitu,,,tapi kenyataannya mudah membuka situs judi dan daptar nya mudah tuk main,,jadi yg lalai itu Kominfo, sekarang sudah banyak yg main ,terpapar rakyat,dan pemerintah sendiri yg mau memerangin judi seolah olah super Hero memerangi kejahatan judi😂😂padahal bukan dari awal serius memerangi,mencegah bukan dari dulu,negara memberi penyakit pada rakyatnya,,membiarkan situs situs judi begituuuu banyak tidak tersaring😢",
+    "normalized_text": "Sebenarnya nya bos  rakyat itu ga bakalan main judol,kalau situs situs nya susah di buka ,dan ga ada,,kalau situs yg sering saya mainin susah di buka,,terus saya cari situs selot lagi dan susah di buka,,pasti saya berhenti,begitupun yg lain saya rasa sama begitu,,,tapi kenyataannya mudah membuka situs judi dan daptar nya mudah tuk main,,jadi yg lalai itu Kominfo, sekarang sudah banyak yg main ,terpapar rakyat,dan pemerintah sendiri yg mau memerangin judi seolah olah super Hero memerangi kejahatan judi😂😂padahal bukan dari awal serius memerangi,mencegah bukan dari dulu,negara memberi penyakit pada rakyatnya,,membiarkan situs situs judi begituuuu banyak tidak tersaring😢",
+    "spam_score": 75,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "emoji_spam"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:36.288Z",
+    "original_text": "Bang, walaupun video ini disebar ke grup jud*l. Tetap percuma karena para pemain ga akan mau nonton ini. Mereka lebih minat nyari + nonton tutorial maxwin dan tururannya. Percaya deh, gua dah pernah share soalnya. Bebalnya bukan maen.",
+    "normalized_text": "Bang, walaupun video ini disebar ke grup jud*l. Tetap percuma karena para pemain ga akan mau nonton ini. Mereka lebih minat nyari + nonton tutorial maxwin dan tururannya. Percaya deh, gua dah pernah share soalnya. Bebalnya bukan maen.",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:36.933Z",
+    "original_text": "Disisi lain juga ada beberapa aparat juga ngebeking situs judol inii",
+    "normalized_text": "Disisi lain juga ada beberapa aparat juga ngebeking situs judol inii",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:36.933Z",
+    "original_text": "Solusinya gampang, pemerintah buat situs legal milik pemerintah buat nampung duit orang orang bego main judol😂. Trus duitnya dijadikan pembangunan negara, daripada masuk kantong bandar mending dipake masyarakat❤❤",
+    "normalized_text": "Solusinya gampang, pemerintah buat situs legal milik pemerintah buat nampung duit orang orang bego main judol😂. Trus duitnya dijadikan pembangunan negara, daripada masuk kantong bandar mending dipake masyarakat❤❤",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:36.933Z",
+    "original_text": "Masalah JUDI ONLINE ini MAsalah Mindset Masyarakat yg pengen cepet Kaya dengan INSTAN,Mau Situsnya diblokir pun namanya orang pngn maen JUDI bakal punya seribu cara,sama seperti BOKEP,BOKEP udah diblokir eh org nnton BOKEP ngjebol make VPN,bgtu JUDOL bakal bisa dtembus make VPN",
+    "normalized_text": "Masalah JUDI ONLINE ini MAsalah Mindset Masyarakat yg pengen cepet Kaya dengan INSTAN,Mau Situsnya diblokir pun namanya orang pngn maen JUDI bakal punya seribu cara,sama seperti BOKEP,BOKEP udah diblokir eh org nnton BOKEP ngjebol make VPN,bgtu JUDOL bakal bisa dtembus make VPN",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:37.782Z",
+    "original_text": "Gue pernah maen judol sampai 3 kali, karna penasaran. Modal habis +- 80.000 .  Di permainan ke 3 dapat maxwin menang 2 juta. Tapi malah takut. Lalu aku bilang ke istri, walau menang tapi dimaki abis abisan sampai dilaporin ibu gue. Sama ibu dimarahin juga. Emg sengaja gue lakuin itu biar ga ketagihan dan berhenti. Kapok akhirnya karna istri jga gag mau trima uangnya",
+    "normalized_text": "Gue pernah maen judol sampai 3 kali, karna penasaran. Modal habis +- 80.000 .  Di permainan ke 3 dapat maxwin menang 2 juta. Tapi malah takut. Lalu aku bilang ke istri, walau menang tapi dimaki abis abisan sampai dilaporin ibu gue. Sama ibu dimarahin juga. Emg sengaja gue lakuin itu biar ga ketagihan dan berhenti. Kapok akhirnya karna istri jga gag mau trima uangnya",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:38.479Z",
+    "original_text": "dari awal melihat situs slot ini gw udah mikir ini tu bahkan ga bisa disebut judi. setau gw judi tu harus ada lawannya dan kedua pihak seharusnya ga ada yg tau gimana hasil dari pilihan yg dijadikan objek judi mereka. lah ini yg jadi lawan judi aiapa, masa yg dilawan orang yg punya dan yg bikin permainannya,  ya jelas ga mungkin orang yg punya sistem itu kalah. yg berarti lo yg main ga bakal menang",
+    "normalized_text": "dari awal melihat situs slot ini gw udah mikir ini tu bahkan ga bisa disebut judi. setau gw judi tu harus ada lawannya dan kedua pihak seharusnya ga ada yg tau gimana hasil dari pilihan yg dijadikan objek judi mereka. lah ini yg jadi lawan judi aiapa, masa yg dilawan orang yg punya dan yg bikin permainannya,  ya jelas ga mungkin orang yg punya sistem itu kalah. yg berarti lo yg main ga bakal menang",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:38.479Z",
+    "original_text": "Kejam nya judi online sekali menang besar saldo di bekukan/block,lebih parah nya lagi pemainnya tidak kapok malah cari situs yang baru😂",
+    "normalized_text": "Kejam nya judi online sekali menang besar saldo di bekukan/block,lebih parah nya lagi pemainnya tidak kapok malah cari situs yang baru😂",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:38.479Z",
+    "original_text": "bedakan dulu judi offline(darat) dan online Legalkan Judi Online di Indonesia? paling elu dan rekan2 yutubermu pada buka situs sendiri lalu promo disemua media sosialmu, kalo sampe legal judol paket lengkap untuk ancurin Indonesia",
+    "normalized_text": "bedakan dulu judi offline(darat) dan online Legalkan Judi Online di Indonesia? paling elu dan rekan2 yutubermu pada buka situs sendiri lalu promo disemua media sosialmu, kalo sampe legal judol paket lengkap untuk ancurin Indonesia",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:38.479Z",
+    "original_text": "Sabung marmut aja dri pda GACOR88",
+    "normalized_text": "Sabung marmut aja dri pda GACOR88",
+    "spam_score": 70,
+    "active_signals": [
+      "brand_pattern",
+      "obfuscated_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:39.134Z",
+    "original_text": "*KENAPA PEMERINTAH TIDAK BISA NON AKTIFKAN SITUS JUDI ONLINE KALAU MEMANG MERUGIKAN RAKYAT INDONESIA, KARENA 90% PASTI KALAH KARENA BANDAR MENSETTING JUDI ONLINE AGAR BANDAR TETAP MENANG,INI SALAH PEMERINTAH LEWAT KEMENINFO & PEMAIN ITU SENDIRI YANG DIGODA SETAN'.(YANG SETUJU' LIKE).*",
+    "normalized_text": "*KENAPA PEMERINTAH TIDAK BISA NON AKTIFKAN SITUS JUDI ONLINE KALAU MEMANG MERUGIKAN RAKYAT INDONESIA, KARENA 90% PASTI KALAH KARENA BANDAR MENSETTING JUDI ONLINE AGAR BANDAR TETAP MENANG,INI SALAH PEMERINTAH LEWAT KEMENINFO & PEMAIN ITU SENDIRI YANG DIGODA SETAN'.(YANG SETUJU' LIKE).*",
+    "spam_score": 70,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword",
+      "excessive_caps"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:39.971Z",
+    "original_text": "Pertanggung jawaban utama tetap dipeluk oleh pemerintah indonesia. Sudah dari awal penyebab masyarakat Indonesia memiliki ketertarikan untuk berjudi juga karena kesulitan ekonomi dan edukasi yang kurang terhadap finansial dan teknologi. Disisilain pemerintah juga kurang dalam menjaga stabilitas dan keamanan teknologi sampai-sampai situs ilegal semacam judi online masih bisa masuk dengan mudah.   Banyak juga tindakan promosi yang dilakukan influencer tidak ditindak lanjuti secara hukum yang dimana kondisi ini bentuk presepsi masyarakat indonesia semakin kacau tentang judi online.   Kondisi ekonomi, edukasi, dan pengawasan yang kurang bikin kondisi miris yang buat masyarakat indonesia ga punya pilihan lain selain mencari uang secara \"instan\" lewat judi online meski ga mengerti transparansi dari sistem perjudian yang mereka ikuti itu. Miris dan ikut sedih ngelihat mayoritas masyarakat Indonesia yang seakan-akan ga punya pilihan lain untuk mencari uang dan kehidupan yang pantas sampai-sampai mayoritas mengharapkan kehidupan di situs online kaya gini.  Semuga pemerintah Indonesia bisa ningkatin kondisi ekonomi masyarakat, edukasi finansial, dan yang pasti meningkatkan kewaspadaan dan penjagaan Indonesia dari situs-situs digital kaya gini.",
+    "normalized_text": "Pertanggung jawaban utama tetap dipeluk oleh pemerintah indonesia. Sudah dari awal penyebab masyarakat Indonesia memiliki ketertarikan untuk berjudi juga karena kesulitan ekonomi dan edukasi yang kurang terhadap finansial dan teknologi. Disisilain pemerintah juga kurang dalam menjaga stabilitas dan keamanan teknologi sampai-sampai situs ilegal semacam judi online masih bisa masuk dengan mudah.   Banyak juga tindakan promosi yang dilakukan influencer tidak ditindak lanjuti secara hukum yang dimana kondisi ini bentuk presepsi masyarakat indonesia semakin kacau tentang judi online.   Kondisi ekonomi, edukasi, dan pengawasan yang kurang bikin kondisi miris yang buat masyarakat indonesia ga punya pilihan lain selain mencari uang secara \"instan\" lewat judi online meski ga mengerti transparansi dari sistem perjudian yang mereka ikuti itu. Miris dan ikut sedih ngelihat mayoritas masyarakat Indonesia yang seakan-akan ga punya pilihan lain untuk mencari uang dan kehidupan yang pantas sampai-sampai mayoritas mengharapkan kehidupan di situs online kaya gini.  Semuga pemerintah Indonesia bisa ningkatin kondisi ekonomi masyarakat, edukasi finansial, dan yang pasti meningkatkan kewaspadaan dan penjagaan Indonesia dari situs-situs digital kaya gini.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:39.971Z",
+    "original_text": "Gppa klo di Legal kan sih,asal ada batasan setiap transaksi nya,dan negara juga harus dapat pajak dari para situs judol tersebut kaya di Ameriki..",
+    "normalized_text": "Gppa klo di Legal kan sih,asal ada batasan setiap transaksi nya,dan negara juga harus dapat pajak dari para situs judol tersebut kaya di Ameriki..",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
+    "label": "non_spam"
+  },
+  {
+    "video_id": "pzE8S6N0vwo",
+    "timestamp": "2026-06-19T01:13:39.971Z",
+    "original_text": "Tanpa ada judol, situs gelap tidak akan bekerja bang. Gausah disebutkan nama webnya, we never talk about piracy.",
+    "normalized_text": "Tanpa ada judol, situs gelap tidak akan bekerja bang. Gausah disebutkan nama webnya, we never talk about piracy.",
+    "spam_score": 60,
+    "active_signals": [
+      "contact_link",
+      "plain_keyword"
+    ],
     "label": "non_spam"
   }
 ]

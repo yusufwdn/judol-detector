@@ -112,17 +112,11 @@ akan terlihat langsung di hasil evaluasi.
   pada beberapa video populer Indonesia dari kategori berbeda. Setelah selesai,
   jalankan `node scraper/filter.js` untuk mengagregasi ke `scraper/final_spam.json`.
 
-- [ ] **Kumpulkan "hard examples" / kasus ambigu secara manual.**
-  Cari dan catat manual contoh komentar yang **secara tekstual mirip spam
-  tapi sebenarnya bukan**, contoh:
-  - Komentar yang membahas/mengkritik judi online ("hati-hati banyak yang
-    kena tipu situs slot")
-  - Berita atau diskusi tentang kasus judi online
-  - Komentar yang kebetulan memakai kata "daftar", "bonus", "menang" dalam
-    konteks normal
-
-  Ini akan menjadi **test set khusus** (lihat Fase 2) untuk mengukur seberapa
-  baik model menangani kasus abu-abu — bukan hanya kasus mudah.
+- [✅] **Kumpulkan "hard examples" / kasus ambigu secara manual.**
+  70 komentar dari video YouTube `kM99uBssHvQ` (video bertema judi online).
+  Komentar berisi kritik, cerita rugi, permintaan blokir — secara leksikal
+  mirip spam tapi bukan promosi. Review manual mengkonfirmasi 70 sebagai non_spam.
+  → File: `data/hard_test_set.csv`
 
 - [✅] **Dokumentasikan jumlah data setiap kali dataset diperbarui.**
   Catat di README atau di file log sederhana: tanggal, jumlah spam, jumlah
@@ -138,13 +132,12 @@ akan terlihat langsung di hasil evaluasi.
 → Lihat penjelasan lengkap di [PENJELASAN_TEKNIS.md §16](PENJELASAN_TEKNIS.md#16-evaluasi-model-yang-lebih-jujur-fase-2)
 → Hasil tercatat di [DATASET_LOG.md](DATASET_LOG.md)
 
-- [ ] **Buat "hard test set" terpisah** dari hasil Fase 1 (kasus ambigu).
-  Jangan campur ke dataset training. Setelah model dilatih dengan
-  `data/comments.csv`, jalankan prediksi terhadap hard test set ini secara
-  terpisah dan laporkan hasilnya apa adanya — termasuk kalau hasilnya jelek.
-  **Ini justru bagus untuk skripsi**: menunjukkan kamu memahami batasan model,
-  bukan menyembunyikannya.
-  ⚠️ **Blocked** — butuh hard examples dari Fase 1 dulu.
+- [✅] **Buat "hard test set" terpisah** dari hasil Fase 1 (kasus ambigu).
+  Selesai. Hasil evaluasi: accuracy 75.71%, 17 FP dari 70 non_spam hard examples.
+  Hybrid Rule A menyelamatkan 35 komentar yang tanpanya akan jadi FP.
+  → Script: `src/evaluate_hard_set.py`
+  → Laporan: `reports/hard_set_evaluation.txt`
+  → Penjelasan: `PENJELASAN_TEKNIS.md §29`
 
 - [✅] **Tambahkan k-fold cross-validation** sebagai pelengkap train-test split.
   Sudah diimplementasikan di `src/train.py`. Dijalankan otomatis setiap

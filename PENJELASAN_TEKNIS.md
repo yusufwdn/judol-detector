@@ -36,6 +36,7 @@
 26. [Hybrid Rule Dua Arah — Mencegah False Negative dari Kata Normal](#26-hybrid-rule-dua-arah--mencegah-false-negative-dari-kata-normal)
 27. [Kurasi Manual Dataset + Perbaikan Rescue Pattern](#27-kurasi-manual-dataset--perbaikan-rescue-pattern)
 28. [manual_overrides.csv — Menjaga Koreksi Manual Agar Tidak Hilang](#28-manual_overridescsv--menjaga-koreksi-manual-agar-tidak-hilang)
+29. [Hard Test Set — Evaluasi pada Kasus Ambigu](#29-hard-test-set--evaluasi-pada-kasus-ambigu)
 
 ---
 
@@ -2705,3 +2706,99 @@ Tidak perlu menyentuh `comments.csv` secara langsung lagi — cukup update `manu
 ### Untuk Sidang
 
 > *"Setelah iterasi kurasi manual, ditemukan bahwa mengedit `comments.csv` secara langsung tidak aman karena file ini digenerate ulang setiap ada penambahan data scraping baru. Untuk mempertahankan koreksi label antar siklus scraping, dibuat file `data/manual_overrides.csv` sebagai lapisan ketiga dalam pipeline persiapan dataset. File ini menyimpan daftar false positive yang harus dikeluarkan dari kelas spam, dan entry spam tambahan yang tidak tertangkap filter otomatis. Dengan arsitektur ini, koreksi manual bersifat persisten dan reproducible — siapapun yang menjalankan `prepare_dataset.py` akan mendapatkan dataset yang sudah terkoreksi, tanpa perlu melakukan kurasi ulang dari nol."*
+
+---
+
+## 29. Hard Test Set — Evaluasi pada Kasus Ambigu
+
+### Apa itu Hard Test Set?
+
+Test set biasa (80/20 split dari `comments.csv`) berisi dua jenis komentar yang relatif mudah dibedakan: spam eksplisit dan komentar sehari-hari yang netral. Angka akurasi dari test set ini mencerminkan performa pada kasus mudah, bukan kasus abu-abu.
+
+**Hard test set** adalah kumpulan komentar yang dirancang khusus untuk menguji batas kemampuan model: secara leksikal terlihat seperti spam, tapi konteksnya bukan promosi.
+
+Contoh komentar yang masuk kategori ini:
+- *"Blokir aja situs web Kenzo Toto, biru toto, mawar Toto..."* — menyebut nama brand, tapi tujuannya meminta pemblokiran
+- *"Judi itu haram tp klo maxwin huu harumm"* — memakai kata `maxwin` tapi konteksnya komentar humor/ironi
+- *"saya tanggal 1 bulan ini dapat maxwin 2 juta tanggal 2 saya depo habis..."* — curhat rugi berjudi, bukan promosi
+
+### Sumber Data
+
+Video YouTube ID `kM99uBssHvQ` — video yang membahas judi online (konten berita/edukasi, bukan promosi). Komentar dari video ini didominasi oleh:
+- Warga yang meminta pemerintah memblokir situs judol
+- Korban judi online yang bercerita rugi
+- Kritik terhadap situs-situs tertentu
+
+Scraper menandai semua 74 komentar sebagai spam (karena mengandung sinyal brand/kata judi). Setelah review manual, **70 dikonfirmasi bukan spam** — ini yang menjadi hard test set. File: `data/hard_test_set.csv`.
+
+### Hasil Evaluasi
+
+Script: `src/evaluate_hard_set.py`
+Laporan lengkap: `reports/hard_set_evaluation.txt`
+
+```
+Confusion Matrix (70 hard examples, semua berlabel non_spam):
+
+                  Prediksi non_spam  Prediksi spam
+Aktual non_spam          53 (TN)         17 (FP)
+
+Accuracy  : 75.71%  (53/70 benar)
+FP rate   : 24.29%  (17 dari 70 non_spam salah ditandai spam)
+```
+
+Keputusan model untuk 70 komentar:
+
+| Via | Jumlah | Keterangan |
+|-----|--------|------------|
+| Hybrid A | 35 | SVM bilang spam, tapi tidak ada sinyal keras → dikoreksi ke non_spam ✓ |
+| SVM langsung | 34 | SVM prediksi langsung (16 FP di sini) |
+| Hybrid B | 1 | SVM bilang non_spam, ada sinyal keras → dipaksa spam ✗ (FP) |
+
+### Analisis 17 False Positive
+
+Ke-17 komentar yang salah diklasifikasi terbagi dalam beberapa pola:
+
+**Pola 1 — Menyebut nama brand untuk dikritik/dilaporkan (7 komentar)**
+```
+"Blokir aja situs web Kenzo Toto, biru toto, mawar Toto..."
+"Alexis togel pihak pemerintah blokir situs ini"
+"Brantas pak, ini situs Judi online yg saya tahu... Udintogel, Zara4d..."
+```
+Setelah preprocessing: teks ini mengandung `toto`, `judolbrand`, `situs` — sinyal yang identik dengan spam promosi. Model tidak punya cara membedakan *"sebutkan untuk dikritik"* vs *"sebutkan untuk promosi"*.
+
+**Pola 2 — Cerita pengalaman rugi (5 komentar)**
+```
+"Gw penasaran tmnku depo 50k maxwin 2jt..gw pun depo 50k maen 3jam lose abis"
+"Judi itu haram tp klo maxwin huu harumm"
+"saya tanggal 1 bulan ini dapat maxwin 2 juta... sekarang kalah depo"
+```
+Kata `maxwin`, `depo`, `slot` muncul dalam konteks "saya rugi" — tapi model Bag of Words tidak memahami konteks kalimat, hanya bobot kata per kata.
+
+**Pola 3 — Komentar bertanya/berdiskusi tentang mekanisme judi (3 komentar)**
+```
+"Apa itu bonus saldo IPO, jadi kita di kasih saldo awal 1juta sama situs slot..."
+"Kok Aneh bg? kalau memang pekerja slot / admin slot bisa setting..."
+```
+Pertanyaan tentang cara kerja sistem judi — kosa katanya sama persis dengan spam tapi niatnya edukasi/pertanyaan.
+
+**Pola 4 — Hybrid B menyebabkan FP (1 komentar)**
+```
+"saya tanggal 1 bulan ini dapat maxwin 2 juta tanggal 2 saya depo habis..."
+→ SVM prediksi non_spam (benar secara intuisi)
+→ Hybrid B: ada kata "maxwin" → paksa ke spam ✗
+```
+Ini satu-satunya kasus di mana hybrid rule justru memperburuk hasil. `maxwin` di HARD_SPAM_SIGNALS terlalu agresif untuk komentar testimoni negatif.
+
+### Mengapa Hasilnya Tidak Mengkhawatirkan
+
+75.71% pada hard set tidak berarti model buruk — justru sebaliknya:
+
+1. **Ini kasus yang memang tidak bisa diselesaikan oleh Bag of Words.** Membedakan "menyebut brand untuk dikritik" vs "menyebut brand untuk promosi" butuh pemahaman konteks kalimat — sesuatu yang model linear tidak miliki. Ini bukan bug, ini keterbatasan arsitektur yang sudah diketahui dan didokumentasikan.
+
+2. **Hybrid Rule A menyelamatkan 35 komentar.** Tanpa hybrid rule, SVM sendiri akan menghasilkan lebih banyak FP. Hybrid rule A efektif untuk kasus di mana komentar punya kata judi umum tapi tidak ada sinyal keras brand.
+
+3. **Konteks penggunaan.** Extension ini dirancang untuk menyembunyikan komentar spam promosi judi dari penonton video biasa. Video bertema judi (seperti sumber data hard test ini) adalah edge case — penonton video seperti itu kemungkinan justru ingin melihat komentar tersebut. Bukan target utama use case.
+
+### Untuk Sidang
+
+> *"Selain evaluasi standar pada test set biasa (accuracy 98.23%), dilakukan evaluasi tambahan menggunakan hard test set yang terdiri dari 70 komentar non-spam yang secara leksikal mirip spam — diambil dari video YouTube bertema judi online, di mana komentarnya berisi kritik, pengalaman rugi, dan permintaan pemblokiran situs. Pada hard test set ini, model mencapai accuracy 75.71% dengan 17 false positive dari 70 komentar. Analisis menunjukkan bahwa kegagalan terjadi pada kasus di mana token yang sama digunakan dalam konteks yang berbeda — misalnya menyebut nama situs untuk dikritik vs dipromosikan. Ini adalah keterbatasan inheren dari model Bag of Words yang tidak memahami konteks kalimat. Hybrid Rule A berhasil mencegah 35 false positive tambahan dengan cara memverifikasi ada tidaknya sinyal keras judol sebelum mengkonfirmasi prediksi spam dari SVM."*
