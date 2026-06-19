@@ -161,7 +161,9 @@ HARD_SPAM_SIGNALS = {
     "toto",       # lotere / situs judi
     "rtp",        # Return to Player — persentase payout slot
     "slot",       # mesin slot
-    "situs",      # "situs judi" — hampir selalu dipakai dalam konteks spam
+    # "situs" dihapus — terlalu generik: "situs darkweb", "situs jembot",
+    # "tempat yang dikunjungi" adalah kata wajar tanpa konotasi judi.
+    # Brand yang memakai "situs" + nama judol tetap tertangkap via judolbrand.
     "withdraw",   # tarik dana kemenangan
     "deposit",    # setor dana ke akun judi
     # Nama brand / situs yang diketahui (angka dihapus preprocessing: PSTOTO99 → pstoto)

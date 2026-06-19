@@ -130,6 +130,108 @@ Aktual spam             15 (FN)        442 (TP)
 
 ---
 
+## Versi 7 — 2026-06-19
+
+### Ringkasan
+Kurasi manual dataset: 20 entri dilabeli ulang dari spam ke non_spam (kata umum Indonesia yang salah ditangkap: nyabet, kesambet, brebet, lembet, ngebet, deswin, darwin, situs jembot, situs darkweb, kunjungi), 1 entri spam baru ditambahkan. Satu kata generik ("situs") dihapus dari HARD_SPAM_SIGNALS.
+
+### Perubahan dari Versi 6
+
+#### 1. Relabeling 20 False Positive di `data/comments.csv`
+
+Ditemukan false positive yang lolos ke dataset saat kurasi manual sebelumnya. Semua diubah label dari `spam` ke `non_spam`:
+
+| Kategori | Contoh | Alasan |
+|----------|--------|--------|
+| Kata kerja biasa ber-suffix "bet"/"abet" | nyabet, kesambet, brebet, menyabet | Kata Indonesia umum, bukan brand |
+| Kata sifat ber-suffix "bet" | lembet, ribet, ngebet | Kata sehari-hari, bukan taruhan |
+| Nama orang dengan "win" | deswin (nama), darwin (nama pemain bola Darwin Nunez) | Nama bukan brand judol |
+| "situs" di konteks non-judol | situs jembot, situs darkweb | Kata "situs" terlalu generik |
+| "kunjungi" di konteks makanan/travel | "tempat yang dikunjungi Tan Boy", "dagangan mpok laris setelah dikunjungi" | Kalimat normal ulasan kuliner |
+
+#### 2. Tambah 1 Entry Spam Baru
+
+`🌺ALEXIS🌺1.7🌺 bikin hati meleleh, gemes banget!` — brand ALEXIS17 dengan obfuscasi emoji sebagai pemisah angka.
+
+#### 3. Hapus "situs" dari `HARD_SPAM_SIGNALS` (`server.py`)
+
+Kata "situs" dihapus karena terlalu generik — menyebabkan hybrid Rule (B) memaksa non_spam → spam di komentar yang hanya kebetulan mengandung kata "situs" tanpa konteks judi.
+
+```python
+# Sebelum:
+"slot", "situs", "withdraw",
+
+# Sesudah:
+"slot",
+# "situs" dihapus — terlalu generik
+"withdraw",
+```
+
+Brand yang memakai kata "situs" + nama judol tetap tertangkap via token `judolbrand` dari Step 5b preprocessing.
+
+#### 4. Buat `data/manual_overrides.csv` (file baru)
+
+**Masalah:** Mengedit `comments.csv` langsung tidak aman — file ini ditimpa setiap `prepare_dataset.py` dijalankan. Semua koreksi manual akan hilang saat ada scraping baru.
+
+**Solusi:** File `data/manual_overrides.csv` sebagai tempat permanen menyimpan koreksi label. Berisi 213 entry:
+- 20 entry `non_spam` (false positive yang dikoreksi)
+- 193 entry `spam` (1 baru + 192 dari manual import yang tidak terjangkau rescue pattern otomatis)
+
+#### 5. Modifikasi `src/prepare_dataset.py` — tambah Step 3 `apply_manual_overrides()`
+
+Pipeline persiapan dataset sekarang 4 langkah (sebelumnya 3):
+
+```
+[1/4] load_spam_data()          ← final_spam.json → Pass 1 + Pass 2
+[2/4] load_non_spam_data()      ← final_non_spam.json
+[3/4] apply_manual_overrides()  ← manual_overrides.csv  ← BARU
+[4/4] build_and_save_dataset()  ← shuffle + save
+```
+
+Fungsi ini menghapus false positive dari daftar spam dan menambahkan spam yang tidak tertangkap filter otomatis. Koreksi persisten — berlaku di setiap run `prepare_dataset.py` di masa depan.
+
+### Statistik dataset (`data/comments.csv`)
+
+| Label    | Versi 6 | Versi 7 |
+|----------|---------|---------|
+| spam     | 2285    | **2266** (−20 relabel, +1 baru) |
+| non_spam | 2513    | **2533** (+20 relabel) |
+| **Total**| **4798**| **4799** |
+
+### Hasil evaluasi model
+
+**K-Fold Cross-Validation (cv=5, full dataset):**
+- Fold scores (F1-macro): 0.9895, 0.9885, 0.9875, 0.9885, 0.9183
+- **Mean F1-macro: 97.45% ± 2.81%**
+
+**GridSearchCV (hyperparameter tuning):**
+- C terpilih: **1** (F1-macro CV = 0.9791)
+
+**Train-test split (80/20, test set = 960 sampel):**
+
+| Metrik | Versi 6 | Versi 7 | Delta |
+|--------|---------|---------|-------|
+| Accuracy | 98.44% | **98.23%** | −0.21% |
+| F1-macro | 0.9843 | **0.9822** | −0.0021 |
+| FP | 0 | **0** | 0 |
+| FN | 15 | **17** | +2 |
+| Best C | 1 | 1 | — |
+
+**Mengapa FN naik sedikit?**
+
+20 entry diambil dari kelas spam ke non_spam — ini sedikit mengurangi contoh training untuk kelas spam. FP tetap 0 (tidak ada komentar normal yang salah dianggap spam). Penurunan 0.21% accuracy adalah wajar dan bisa diterima karena lebih baik daripada mempertahankan label yang salah.
+
+Confusion matrix:
+```
+                  Prediksi non_spam  Prediksi spam
+Aktual non_spam        507 (TN)          0 (FP)
+Aktual spam             17 (FN)        436 (TP)
+```
+
+→ Lihat gambar: `reports/confusion_matrix_svm.png`
+
+---
+
 ## Versi 5 — 2026-06-18
 
 ### Ringkasan

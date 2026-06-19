@@ -30,6 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INPUT_SPAM_JSON = os.path.join(BASE_DIR, "scraper", "final_spam.json")
 INPUT_NON_SPAM_JSON = os.path.join(BASE_DIR, "scraper", "final_non_spam.json")
 OUTPUT_CSV = os.path.join(BASE_DIR, "data", "comments.csv")
+MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
 
 # ---------------------------------------------------------------------------
 # CONFIGURATION
@@ -233,6 +234,76 @@ def load_non_spam_data(json_path: str) -> list:
 
 
 
+def apply_manual_overrides(spam: list, non_spam: list, overrides_path: str):
+    """
+    Apply manual label corrections from data/manual_overrides.csv.
+
+    KENAPA FUNGSI INI ADA:
+    prepare_dataset.py di-generate ulang setiap kali ada scraping baru — artinya
+    comments.csv akan ditimpa dan semua koreksi manual (relabeling false positive,
+    tambah entry baru) akan hilang. Solusinya: simpan koreksi di file terpisah
+    (manual_overrides.csv) yang dibaca setiap kali prepare_dataset.py dijalankan.
+
+    Dua jenis override yang didukung:
+    - label=non_spam : hapus entry ini dari daftar spam (false positive)
+                       tambahkan sebagai non_spam (jika belum ada)
+    - label=spam     : tambahkan entry ini ke daftar spam (jika belum ada)
+
+    Args:
+        spam:           List spam dicts dari load_spam_data()
+        non_spam:       List non_spam dicts dari load_non_spam_data()
+        overrides_path: Path ke data/manual_overrides.csv
+
+    Returns:
+        Tuple (spam, non_spam) setelah koreksi diterapkan.
+    """
+    import csv as csv_module
+
+    if not os.path.exists(overrides_path):
+        print("  (tidak ada manual_overrides.csv — dilewati)")
+        return spam, non_spam
+
+    with open(overrides_path, "r", encoding="utf-8") as f:
+        reader = csv_module.DictReader(f)
+        overrides = [(row["text"].strip(), row["label"].strip()) for row in reader]
+
+    fp_texts = {text for text, label in overrides if label == "non_spam"}
+    spam_additions = [text for text, label in overrides if label == "spam"]
+
+    # Hapus false positive dari daftar spam
+    original_spam_count = len(spam)
+    spam = [e for e in spam if e["text"] not in fp_texts]
+    removed = original_spam_count - len(spam)
+
+    # Tambahkan false positive sebagai non_spam (hindari duplikat)
+    existing_non_spam = {e["text"] for e in non_spam}
+    added_non_spam = 0
+    for text in fp_texts:
+        if text not in existing_non_spam:
+            non_spam.append({"text": text, "label": "non_spam"})
+            existing_non_spam.add(text)
+            added_non_spam += 1
+
+    # Tambahkan spam baru (hindari duplikat)
+    existing_spam = {e["text"] for e in spam}
+    added_spam = 0
+    for text in spam_additions:
+        if text not in existing_spam:
+            spam.append({"text": text, "label": "spam"})
+            existing_spam.add(text)
+            added_spam += 1
+
+    print(f"  Loaded {len(overrides)} manual overrides:")
+    print(f"    FP dihapus dari spam      : {removed}")
+    print(f"    Entry ditambah ke non_spam: {added_non_spam}")
+    print(f"    Entry ditambah ke spam    : {added_spam}")
+    if removed < len(fp_texts):
+        not_found = len(fp_texts) - removed
+        print(f"    (FP tidak ditemukan di auto-set: {not_found} — sudah di-skip sebelumnya)")
+
+    return spam, non_spam
+
+
 def build_and_save_dataset(spam: list, non_spam: list, output_path: str) -> None:
     """
     Merge spam and non-spam lists, shuffle, and save as CSV.
@@ -263,13 +334,16 @@ def main():
     print("DATASET PREPARATION")
     print("=" * 60)
 
-    print(f"\n[1/3] Loading spam data (threshold >= {SPAM_SCORE_THRESHOLD})...")
+    print(f"\n[1/4] Loading spam data (threshold >= {SPAM_SCORE_THRESHOLD})...")
     spam_data = load_spam_data(INPUT_SPAM_JSON, SPAM_SCORE_THRESHOLD)
 
-    print(f"\n[2/3] Loading non-spam data...")
+    print(f"\n[2/4] Loading non-spam data...")
     non_spam_data = load_non_spam_data(INPUT_NON_SPAM_JSON)
 
-    print("\n[3/3] Merging, shuffling, and saving dataset...")
+    print(f"\n[3/4] Applying manual overrides ({MANUAL_OVERRIDES_CSV})...")
+    spam_data, non_spam_data = apply_manual_overrides(spam_data, non_spam_data, MANUAL_OVERRIDES_CSV)
+
+    print("\n[4/4] Merging, shuffling, and saving dataset...")
     build_and_save_dataset(spam_data, non_spam_data, OUTPUT_CSV)
 
     print("\nDone. Run training next:")

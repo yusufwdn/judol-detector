@@ -35,6 +35,7 @@
 25. [Keterbatasan: Obfuscation yang Belum Bisa Ditangani](#25-keterbatasan-obfuscation-yang-belum-bisa-ditangani)
 26. [Hybrid Rule Dua Arah — Mencegah False Negative dari Kata Normal](#26-hybrid-rule-dua-arah--mencegah-false-negative-dari-kata-normal)
 27. [Kurasi Manual Dataset + Perbaikan Rescue Pattern](#27-kurasi-manual-dataset--perbaikan-rescue-pattern)
+28. [manual_overrides.csv — Menjaga Koreksi Manual Agar Tidak Hilang](#28-manual_overridescsv--menjaga-koreksi-manual-agar-tidak-hilang)
 
 ---
 
@@ -2621,3 +2622,86 @@ Pola tetap ALL-CAPS (tidak `re.IGNORECASE`) untuk mencegah false positive dari k
 ### Untuk Sidang
 
 > *"Inspeksi terhadap 533 entry yang tidak lolos filter otomatis mengungkap bahwa rescue patterns terlalu ketat — mengasumsikan nama brand selalu ditulis ALL-CAPS, padahal spammer menggunakan font dekoratif yang menghasilkan huruf kecil setelah normalisasi NFKC. Setelah verifikasi manual, 500 entry terkonfirmasi sebagai spam nyata dan diimport ke dataset. Dua perbaikan rescue pattern kemudian diimplementasikan: BRAND_RESCUE_PATTERN dibuat case-insensitive (dengan digit sebagai penjaga false positive), dan BRAND_SUFFIX_PATTERN diturunkan minimum prefixnya dari empat ke tiga huruf. Dataset bertumbuh dari 4.298 menjadi 4.798 sampel, dengan rasio spam yang lebih seimbang."*
+
+---
+
+## 28. manual_overrides.csv — Menjaga Koreksi Manual Agar Tidak Hilang
+
+### Masalah
+
+`prepare_dataset.py` adalah script pembuat dataset — setiap kali dijalankan, ia **menimpa** `data/comments.csv` dari awal menggunakan `scraper/final_spam.json` sebagai sumber. Ini berarti semua koreksi manual yang sudah dilakukan langsung di `comments.csv` (relabeling false positive, penambahan entry baru) akan **hilang** begitu ada scraping data baru dan `prepare_dataset.py` dijalankan ulang.
+
+Skenario masalah:
+1. Kamu menemukan 20 komentar non-spam yang salah dilabeli spam di dataset
+2. Kamu betulkan labelnya langsung di `comments.csv`
+3. Bulan depan kamu scrape data baru → jalankan `prepare_dataset.py`
+4. `comments.csv` ditimpa → 20 koreksi tadi hilang, komentar itu kembali jadi spam
+
+### Solusi: File Overrides Terpisah
+
+Dibuat file `data/manual_overrides.csv` — file CSV permanen yang menyimpan semua koreksi label manual. File ini tidak pernah digenerate ulang oleh skrip apapun; satu-satunya yang memodifikasinya adalah peneliti secara sadar.
+
+Format:
+```csv
+text,label
+"Coba yg Yono atau Mustafa brebet yg meluk...",non_spam
+"Sumpah tadi nyabet gk mau comen...",non_spam
+"🌺ALEXIS🌺1.7🌺 bikin hati meleleh...",spam
+```
+
+Dua jenis entry yang didukung:
+- `label=non_spam` — entry ini adalah **false positive**: hapus dari daftar spam, tambahkan sebagai non_spam
+- `label=spam` — entry ini adalah spam yang tidak tertangkap filter otomatis: tambahkan ke spam
+
+### Cara Kerjanya: `apply_manual_overrides()`
+
+Fungsi baru di `prepare_dataset.py` yang dijalankan setelah auto-generation selesai:
+
+```python
+def apply_manual_overrides(spam, non_spam, overrides_path):
+    # 1. Baca manual_overrides.csv
+    fp_texts    = {text for text, label in overrides if label == "non_spam"}
+    spam_adds   = [text for text, label in overrides if label == "spam"]
+
+    # 2. Hapus false positive dari daftar spam
+    spam = [e for e in spam if e["text"] not in fp_texts]
+
+    # 3. Tambah false positive ke non_spam (hindari duplikat)
+    non_spam += [{"text": t, "label": "non_spam"} for t in fp_texts
+                 if t not in existing_non_spam]
+
+    # 4. Tambah spam baru (hindari duplikat)
+    spam += [{"text": t, "label": "spam"} for t in spam_adds
+             if t not in existing_spam]
+
+    return spam, non_spam
+```
+
+### Alur Dataset Sekarang (4 Step)
+
+```
+[1/4] load_spam_data()          ← final_spam.json → Pass 1 + Pass 2 rescue
+[2/4] load_non_spam_data()      ← final_non_spam.json
+[3/4] apply_manual_overrides()  ← data/manual_overrides.csv (hapus FP, tambah koreksi)
+[4/4] build_and_save_dataset()  ← shuffle + save ke comments.csv
+```
+
+Sebelumnya alurnya hanya 3 step (tanpa Step 3). Penambahan Step 3 memastikan koreksi manual selalu teraplikasikan, berapapun kali `prepare_dataset.py` dijalankan ulang.
+
+### Isi `manual_overrides.csv` Saat Ini (213 entry)
+
+| Tipe | Jumlah | Keterangan |
+|------|--------|------------|
+| `non_spam` (false positive) | 20 | Kata Indonesia umum yang salah ditangkap: nyabet, kesambet, ngebet, lembet, deswin, darwin, situs jembot, situs darkweb, kunjungi |
+| `spam` (tambahan) | 193 | 1 entry baru (ALEXIS17) + 192 entry spam yang tidak terjangkau rescue pattern otomatis |
+
+### Kapan Perlu Ditambah Entry Baru ke `manual_overrides.csv`?
+
+- Ditemukan false positive di hasil prediksi → tambah sebagai `non_spam`
+- Ada spam yang selalu lolos deteksi dan tidak punya pola brand standar → tambah sebagai `spam`
+
+Tidak perlu menyentuh `comments.csv` secara langsung lagi — cukup update `manual_overrides.csv`, lalu jalankan `prepare_dataset.py` dan `train.py`.
+
+### Untuk Sidang
+
+> *"Setelah iterasi kurasi manual, ditemukan bahwa mengedit `comments.csv` secara langsung tidak aman karena file ini digenerate ulang setiap ada penambahan data scraping baru. Untuk mempertahankan koreksi label antar siklus scraping, dibuat file `data/manual_overrides.csv` sebagai lapisan ketiga dalam pipeline persiapan dataset. File ini menyimpan daftar false positive yang harus dikeluarkan dari kelas spam, dan entry spam tambahan yang tidak tertangkap filter otomatis. Dengan arsitektur ini, koreksi manual bersifat persisten dan reproducible — siapapun yang menjalankan `prepare_dataset.py` akan mendapatkan dataset yang sudah terkoreksi, tanpa perlu melakukan kurasi ulang dari nol."*
