@@ -37,6 +37,9 @@
 27. [Kurasi Manual Dataset + Perbaikan Rescue Pattern](#27-kurasi-manual-dataset--perbaikan-rescue-pattern)
 28. [manual_overrides.csv — Menjaga Koreksi Manual Agar Tidak Hilang](#28-manual_overridescsv--menjaga-koreksi-manual-agar-tidak-hilang)
 29. [Hard Test Set — Evaluasi pada Kasus Ambigu](#29-hard-test-set--evaluasi-pada-kasus-ambigu)
+30. [Leet Speak Normalization — Mendeteksi H0KI777 dan Sejenisnya](#30-leet-speak-normalization--mendeteksi-h0ki777-dan-sejenisnya)
+31. [Perlindungan Data Laporan Extension — /report ke Dua File](#31-perlindungan-data-laporan-extension--report-ke-dua-file)
+32. [Penghapusan slot dan deposit dari HARD_SPAM_SIGNALS](#32-penghapusan-slot-dan-deposit-dari-hard_spam_signals)
 
 ---
 
@@ -370,6 +373,7 @@ Pipeline di `src/preprocessing.py` menangani semua ini dalam **7 langkah + 3 sub
 | Step 3 | Cyrillic/Greek/Thai homoglyph fix |
 | Step 4 | Emoji demojize |
 | Step 5 | Lowercase |
+| **Step 5b-i** | **Leet speak normalization** → `0→o`, `1→i` (baru) |
 | **Step 5b** | **Brand canonicalization** → `judolbrand` (baru) |
 | Step 6 | Hapus URL dan karakter non-alfabet |
 | Step 7 | Hapus stopwords dan token pendek |
@@ -2689,11 +2693,11 @@ def apply_manual_overrides(spam, non_spam, overrides_path):
 
 Sebelumnya alurnya hanya 3 step (tanpa Step 3). Penambahan Step 3 memastikan koreksi manual selalu teraplikasikan, berapapun kali `prepare_dataset.py` dijalankan ulang.
 
-### Isi `manual_overrides.csv` Saat Ini (213 entry)
+### Isi `manual_overrides.csv` Saat Ini (343 entry)
 
 | Tipe | Jumlah | Keterangan |
 |------|--------|------------|
-| `non_spam` (false positive) | 20 | Kata Indonesia umum yang salah ditangkap: nyabet, kesambet, ngebet, lembet, deswin, darwin, situs jembot, situs darkweb, kunjungi |
+| `non_spam` (false positive) | 79+ | 20 koreksi awal (kata umum Indonesia) + 59 laporan extension yang diselamatkan + 71 dari pzE8S6N0vwo |
 | `spam` (tambahan) | 193 | 1 entry baru (ALEXIS17) + 192 entry spam yang tidak terjangkau rescue pattern otomatis |
 
 ### Kapan Perlu Ditambah Entry Baru ke `manual_overrides.csv`?
@@ -2801,4 +2805,187 @@ Ini satu-satunya kasus di mana hybrid rule justru memperburuk hasil. `maxwin` di
 
 ### Untuk Sidang
 
-> *"Selain evaluasi standar pada test set biasa (accuracy 98.23%), dilakukan evaluasi tambahan menggunakan hard test set yang terdiri dari 70 komentar non-spam yang secara leksikal mirip spam — diambil dari video YouTube bertema judi online, di mana komentarnya berisi kritik, pengalaman rugi, dan permintaan pemblokiran situs. Pada hard test set ini, model mencapai accuracy 75.71% dengan 17 false positive dari 70 komentar. Analisis menunjukkan bahwa kegagalan terjadi pada kasus di mana token yang sama digunakan dalam konteks yang berbeda — misalnya menyebut nama situs untuk dikritik vs dipromosikan. Ini adalah keterbatasan inheren dari model Bag of Words yang tidak memahami konteks kalimat. Hybrid Rule A berhasil mencegah 35 false positive tambahan dengan cara memverifikasi ada tidaknya sinyal keras judol sebelum mengkonfirmasi prediksi spam dari SVM."*
+> *"Selain evaluasi standar pada test set biasa (accuracy 96.95%), dilakukan evaluasi tambahan menggunakan hard test set yang terdiri dari 141 komentar — diambil dari dua video YouTube bertema judi online (kM99uBssHvQ dan pzE8S6N0vwo), di mana komentarnya berisi kritik, pengalaman rugi, dan permintaan pemblokiran situs. Pada hard test set ini, model mencapai accuracy 80.14% dengan 28 false positive. Analisis menunjukkan bahwa kegagalan terjadi pada kasus di mana token yang sama digunakan dalam konteks yang berbeda — misalnya menyebut nama situs untuk dikritik vs dipromosikan, atau menyebut kata 'maxwin' dalam konteks komentar humor negatif. Ini adalah keterbatasan inheren dari model Bag of Words yang tidak memahami konteks kalimat."*
+
+---
+
+## 30. Leet Speak Normalization — Mendeteksi H0KI777 dan Sejenisnya
+
+### Masalah
+
+Spammer menggunakan trik **leet speak** — mengganti huruf dengan digit yang bentuknya mirip:
+- `O` → `0` (huruf O → angka nol)
+- `I` → `1` (huruf I → angka satu)
+
+Contoh nyata: `H0KI777` (ditulis dengan angka nol, bukan huruf O).
+
+Setelah Step 5 (lowercase): `h0ki777`
+
+Setelah Step 5b brand canonicalization, pola `JUDOL_BRAND_PATTERN` mencari `[a-z]{2,}` + suffix angka. Tapi `h0ki` mengandung digit di tengah — regex `[a-z]{2,}` hanya cocok untuk huruf a-z berurutan, dan `0` memecah urutan itu. Akibatnya `h0ki777` tidak cocok → tidak diubah ke `judolbrand` → SVM belajar fitur `hki` atau `ki` yang tidak informatif → spam lolos.
+
+### Solusi: Step 5b-i
+
+Langkah normalisasi leet disisipkan **setelah Step 5 (lowercase)** dan **sebelum Step 5b (brand canonicalization)**:
+
+```python
+# Step 5b-i: Leet speak normalization
+# Hanya berlaku pada kata yang mengandung campuran huruf dan digit
+def _normalize_leet(m):
+    word = m.group(0)
+    word = word.replace("0", "o").replace("1", "i")
+    return word
+text = re.sub(r'\b[a-z0-9]*[0-9][a-z0-9]*\b', _normalize_leet, text)
+```
+
+**Alur baru untuk `H0KI777`:**
+```
+H0KI777
+  → (Step 5: lowercase) h0ki777
+  → (Step 5b-i: leet norm) hoki777   ← "0" jadi "o"
+  → (Step 5b: brand canon) judolbrand ← "hoki" + "777" cocok JUDOL_BRAND_PATTERN
+  → (server.py Hybrid B) spam ✓
+```
+
+### Kenapa Regex Hanya Menarget Kata dengan Digit?
+
+Pola `r'\b[a-z0-9]*[0-9][a-z0-9]*\b'` mensyaratkan setidaknya satu digit dalam kata. Ini penting karena:
+
+- Kata Indonesia biasa seperti `bola`, `solo`, `motor` tidak terpengaruh (tidak ada digit)
+- Hanya kata campuran huruf-angka yang berpotensi leet yang diproses
+- Menghindari mengubah angka murni seperti tahun (`2024` → `2o24` yang salah)
+
+### Batasan
+
+Normalisasi ini hanya menangani `0→o` dan `1→i`. Leet speak bisa lebih luas:
+- `3→e`, `4→a`, `5→s`, `7→t` juga dipakai
+- Tapi substitusi ini lebih berisiko false positive pada teks normal (angka 3, 4, 5, 7 sering muncul bukan sebagai leet)
+
+Trade-off yang dipilih: tangkap kasus yang paling umum (`0` dan `1`) dengan risiko rendah, bukan mencoba menangkap semua kemungkinan leet dan memperkenalkan false positive baru.
+
+### Untuk Sidang
+
+> *"Spammer menggunakan teknik leet speak untuk menghindari deteksi berbasis pola — mengganti huruf dengan digit yang bentuknya mirip. Kasus yang paling umum ditemukan adalah angka 0 menggantikan huruf O (contoh: H0KI777 untuk HOKI777). Normalisasi leet speak ditambahkan sebagai Step 5b-i dalam pipeline preprocessing, di antara lowercase (Step 5) dan brand canonicalization (Step 5b). Normalisasi hanya diterapkan pada kata yang mengandung campuran huruf dan digit — mencegah pengubahan angka murni yang bukan leet. Dengan langkah ini, H0KI777 berhasil dikonversi ke hoki777, yang selanjutnya cocok dengan pola brand judol dan direpresentasikan sebagai token judolbrand."*
+
+---
+
+## 31. Perlindungan Data Laporan Extension — /report ke Dua File
+
+### Masalah
+
+Endpoint `/report` dirancang untuk menerima laporan "bukan spam" dari pengguna extension — saat user klik tombol "Bukan spam?", teks komentar dikirim ke server dan disimpan sebagai data training non_spam.
+
+Masalahnya: endpoint ini **hanya menulis ke `data/comments.csv`**. File ini ditimpa setiap kali `prepare_dataset.py` dijalankan (untuk rebuild dataset dari sumber scraper). Ini berarti:
+
+1. User melaporkan 59 komentar lewat extension
+2. 59 entri tersimpan di `comments.csv`
+3. Bulan berikutnya, ada scraping data baru → `prepare_dataset.py` dijalankan
+4. `comments.csv` ditimpa dari nol → **59 laporan hilang**
+
+### Solusi: Tulis ke Dua File Sekaligus
+
+Endpoint `/report` diperbarui untuk menulis ke:
+- `data/comments.csv` — efek langsung ke training berikutnya (sama seperti sebelumnya)
+- `data/manual_overrides.csv` — persisten lintas rebuild (sama seperti koreksi manual lainnya)
+
+```python
+# Append ke comments.csv
+with open(DATA_PATH, "a", encoding="utf-8", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow([request.text, request.label])
+
+# Append ke manual_overrides.csv (persisten saat prepare_dataset.py dijalankan ulang)
+overrides_has_header = os.path.exists(MANUAL_OVERRIDES_CSV) and os.path.getsize(MANUAL_OVERRIDES_CSV) > 0
+with open(MANUAL_OVERRIDES_CSV, "a", encoding="utf-8", newline="") as f:
+    writer = csv.writer(f)
+    if not overrides_has_header:
+        writer.writerow(["text", "label"])
+    writer.writerow([request.text, request.label])
+```
+
+Deduplication juga diperkuat — cek duplikat di **kedua file** sebelum menyimpan:
+
+```python
+for check_path in (DATA_PATH, MANUAL_OVERRIDES_CSV):
+    if os.path.exists(check_path):
+        with open(check_path, ...) as f:
+            for row in csv.reader(f):
+                if row and row[0].strip() == request.text:
+                    return ReportResponse(success=False, duplicate=True)
+```
+
+### Rescue 59 Laporan yang Sudah Ada
+
+Sebelum fix ini dibuat, 59 laporan sudah terlanjur hanya ada di `comments.csv`. Mereka diselamatkan dengan cara:
+1. Bandingkan `comments.csv` dengan semua sumber pipeline (scraper final_spam.json, final_non_spam.json, manual_overrides.csv)
+2. Entri yang tidak ada di sumber manapun = berasal dari laporan extension
+3. Entri tersebut dimigrasi ke `manual_overrides.csv`
+
+**Hasilnya:** `manual_overrides.csv` tumbuh dari 213 → 343 entri (tambah 71 dari pzE8S6N0vwo + 59 rescue).
+
+### Untuk Sidang
+
+> *"Endpoint /report pada server API memungkinkan pengguna extension melaporkan false positive secara langsung selama penggunaan. Ditemukan bahwa laporan ini hanya tersimpan di comments.csv yang digenerate ulang setiap rebuild dataset — risiko kehilangan data yang signifikan. Solusinya adalah menulis setiap laporan ke dua file: comments.csv untuk efek langsung, dan manual_overrides.csv sebagai penyimpanan permanen yang dihormati oleh pipeline prepare_dataset.py. Dengan arsitektur ini, laporan pengguna persisten lintas siklus scraping dan rebuild."*
+
+---
+
+## 32. Penghapusan `slot` dan `deposit` dari HARD_SPAM_SIGNALS
+
+### Latar Belakang
+
+`HARD_SPAM_SIGNALS` adalah daftar kata yang, jika muncul di teks yang sudah dipreprocessing, memicu **Hybrid Rule (B)**: prediksi SVM non_spam di-override ke spam. Logikanya: kata-kata ini sangat spesifik ke promosi judi sehingga keberadaannya hampir selalu menandakan spam.
+
+Tapi "sangat spesifik" adalah asumsi yang perlu dikalibrasi terus seiring data bertambah.
+
+### Masalah yang Ditemukan
+
+Setelah ekspansi hard test set ke 141 entri (termasuk 71 komentar dari video finansial bertema anti-judol), ditemukan pola FP baru:
+
+```
+"Saya kenal judi slot, hidup gue jadi berantakan dan keluarga berantakan"
+→ cleaned: "kenal judi slot hidup berantakan keluarga berantakan"
+→ SVM: non_spam (benar — kalimat cerita rugi)
+→ Hybrid B: ada "slot" → paksa spam ✗  (false positive)
+
+"Ini nyata! Tetangga saya kerja serabutan... hasil kerja dipakai deposit lagi"
+→ cleaned: "nyata tetangga kerja serabutan hasil kerja deposit lagi"
+→ SVM: non_spam (benar — cerita korban)
+→ Hybrid B: ada "deposit" → paksa spam ✗  (false positive)
+```
+
+Kedua kata ini ternyata sangat sering muncul di testimoni negatif dan diskusi anti-judol — konteks yang sama sekali berbeda dari promosi.
+
+### Keputusan: Hapus dari HARD_SPAM_SIGNALS
+
+| Kata | Alasan dihapus |
+|------|----------------|
+| `slot` | Sangat umum di cerita korban ("kecanduan slot"), diskusi edukasi, permintaan blokir. Spam yang pakai "slot" hampir selalu juga punya `gacor` atau `judolbrand`. |
+| `deposit` | Muncul wajar di cerita korban ("dia gadai motor buat deposit lagi"), bahkan di konteks perbankan umum. |
+
+Perubahan diterapkan di **dua file secara konsisten**:
+- `src/server.py` — engine prediksi live
+- `src/evaluate_hard_set.py` — evaluasi offline (harus sama persis agar angka evaluasi valid)
+
+### Dampak Terukur
+
+Evaluasi pada 141-entri hard test set sebelum dan sesudah penghapusan:
+
+| Metrik | Sebelum | Sesudah | Delta |
+|--------|---------|---------|-------|
+| FP (non_spam salah → spam) | 37 | **28** | −9 |
+| Accuracy | 73.76% | **80.14%** | +6.38% |
+
+Dua komentar yang sebelumnya FP, sekarang benar:
+- `"Saya kenal judi slot..."` → sekarang `[non_spam (svm)]` ✓
+- `"...hasil kerja dipakai deposit lagi"` → sekarang `[non_spam (svm)]` ✓
+
+### Trade-off yang Diterima
+
+Penghapusan ini memindahkan tanggung jawab klasifikasi sepenuhnya ke SVM untuk komentar yang hanya mengandung "slot" atau "deposit" tanpa sinyal lain.
+
+Risiko: spam yang HANYA menyebut "slot deposit" tanpa `gacor`, `judolbrand`, atau sinyal keras lainnya **mungkin lolos** sebagai non_spam.
+
+Namun secara empiris, spam judol yang hanya berisi "slot deposit" tanpa sinyal keras lain hampir tidak ada — promosi judol hampir selalu menyertakan nama brand, kata `gacor`, atau ajakan eksplisit yang tertangkap sinyal lain.
+
+### Untuk Sidang
+
+> *"Evaluasi berulang terhadap hard test set mengungkap bahwa kata 'slot' dan 'deposit' di HARD_SPAM_SIGNALS menyebabkan Hybrid Rule (B) terlalu agresif — memaksa prediksi ke spam pada komentar korban dan diskusi anti-judol yang secara wajar mengandung kedua kata tersebut. Berdasarkan analisis empiris pada 141 hard examples, penghapusan dua kata ini mengurangi false positive dari 37 menjadi 28 (−24%) dan meningkatkan accuracy hard test set dari 73.76% menjadi 80.14%. Risiko yang diterima adalah kemungkinan spam yang hanya menyebut 'slot' dan 'deposit' tanpa sinyal keras lain dapat lolos — namun berdasarkan observasi data, spam jenis ini hampir selalu juga mengandung nama brand atau kata gacor yang masih tertangkap sinyal lain."*

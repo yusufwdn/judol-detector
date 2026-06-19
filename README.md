@@ -240,6 +240,52 @@ svm-judol-spam/
 
 ## 4. Cara Menjalankan
 
+### Menambah data ke dataset
+
+Ada empat cara menambah data, tergantung kasusnya:
+
+| Kasus | File yang diubah | Keterangan |
+|-------|-----------------|------------|
+| Koreksi label (spam → non_spam atau sebaliknya) | `data/manual_overrides.csv` | **Cara paling aman.** Berlaku di setiap rebuild. |
+| Data spam baru dari YouTube (banyak) | Scraper → `scraper/final_spam.json` | Jalankan scraper dulu, lalu sync ke sini. |
+| Data non-spam baru dari YouTube (banyak) | Scraper → `scraper/final_non_spam.json` | Sama seperti spam, mode `non_spam`. |
+| Satu komentar langsung | `data/manual_overrides.csv` | Jangan hanya edit `comments.csv` — file itu ter-overwrite saat rebuild. |
+
+**Jangan edit `data/comments.csv` secara langsung** kecuali kamu langsung ikuti dengan menambahkan entri yang sama ke `manual_overrides.csv`. File `comments.csv` digenerate ulang setiap `prepare_dataset.py` dijalankan — koreksi yang hanya ada di sana akan hilang.
+
+#### Alur lengkap: koreksi label manual
+
+Edit `data/manual_overrides.csv` langsung:
+```csv
+text,label
+"teks komentar yang mau dikoreksi",non_spam
+```
+
+Lalu rebuild dan retrain:
+```bash
+python src/prepare_dataset.py
+python src/train.py
+```
+
+#### Alur lengkap: data spam/non-spam baru dari scraper
+
+```bash
+# Di folder scraper-judol-yt-comment:
+node scraper/index.js <VIDEO_ID>                    # spam (default)
+node scraper/index.js <VIDEO_ID> video non_spam     # non-spam
+
+# Setelah semua video selesai:
+node scraper/filter.js
+# → hasilnya: final_spam.json dan final_non_spam.json
+
+# Copy ke folder ini:
+# scraper/final_spam.json dan scraper/final_non_spam.json
+
+# Rebuild dataset dan retrain:
+python src/prepare_dataset.py
+python src/train.py
+```
+
 ### Training ulang model (setelah menambah data baru)
 
 ```bash

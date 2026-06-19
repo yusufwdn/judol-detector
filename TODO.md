@@ -113,10 +113,11 @@ akan terlihat langsung di hasil evaluasi.
   jalankan `node scraper/filter.js` untuk mengagregasi ke `scraper/final_spam.json`.
 
 - [✅] **Kumpulkan "hard examples" / kasus ambigu secara manual.**
-  70 komentar dari video YouTube `kM99uBssHvQ` (video bertema judi online).
-  Komentar berisi kritik, cerita rugi, permintaan blokir — secara leksikal
-  mirip spam tapi bukan promosi. Review manual mengkonfirmasi 70 sebagai non_spam.
-  → File: `data/hard_test_set.csv`
+  141 komentar dari dua video YouTube bertema judi online:
+  - `kM99uBssHvQ` — 70 non_spam (kritik, cerita rugi, permintaan blokir)
+  - `pzE8S6N0vwo` — 71 non_spam (diskusi anti-judol di video finansial)
+  Review manual mengkonfirmasi semuanya bukan spam promosi.
+  → File: `data/hard_test_set.csv` (141 entri, kolom: text, label, source_video, note)
 
 - [✅] **Dokumentasikan jumlah data setiap kali dataset diperbarui.**
   Catat di README atau di file log sederhana: tanggal, jumlah spam, jumlah
@@ -213,8 +214,13 @@ bereksperimen meningkatkan kualitas model itu sendiri.
 **Tujuan:** Pastikan extension benar-benar bekerja di kondisi nyata, bukan
 hanya secara teori.
 
-- [ ] **Uji coba langsung di YouTube** (load unpacked extension, scroll
+- [✅] **Uji coba langsung di YouTube** (load unpacked extension, scroll
   komentar, cek console log, screenshot hasil deteksi).
+  Diuji pada video `pzE8S6N0vwo` (finansial/anti-judol). Temuan:
+  - Komentar korban/diskusi anti-judol awalnya banyak yang ter-flag → diperbaiki
+    dengan menghapus `slot` dan `deposit` dari HARD_SPAM_SIGNALS (Versi 8)
+  - `H0KI777` (leet speak dengan digit `0`) tidak terdeteksi → diperbaiki
+    dengan tambah Step 5b-i normalisasi leet di preprocessing
 
 - [ ] **Cek selector Instagram** — komentar di `content.js` sendiri
   menyebutkan selector Instagram (`ul._a9ym li`, `span._aacl`) "may change

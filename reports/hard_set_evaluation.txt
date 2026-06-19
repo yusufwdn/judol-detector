@@ -2,47 +2,47 @@ HARD TEST SET EVALUATION
 Model: C:\Personal\kulyeah\Skripsi\svm-judol-spam\model\svm_model.joblib
 Hard set: C:\Personal\kulyeah\Skripsi\svm-judol-spam\data\hard_test_set.csv (141 entries)
 
-Accuracy : 73.76%
-F1-macro : 0.4245
-FP       : 37
+Accuracy : 80.14%
+F1-macro : 0.4449
+FP       : 28
 FN       : 0
 
 Confusion Matrix:
                   Prediksi non_spam  Prediksi spam
-Aktual non_spam                104             37
+Aktual non_spam                113             28
 Aktual spam                      0              0
 
-FALSE POSITIVES (37):
+FALSE POSITIVES (28):
 
 [1] via=svm  conf=1.00
     TEXT   : Probet88 judol..
     CLEANED: judolbrand judol
 
-[2] via=svm  conf=0.83
+[2] via=hybrid_B  conf=0.90
     TEXT   : Lbih baik berhenti, krna judi online itu setingan.. Mhon kepada yg berwajib agar segera mmberantas judol karna sangat meresakan masyrakat, trutama generasi muda. Dan situs yg masi aktif skrg, TRUTAMA D Situs @MDG99. ni situs yg msi aktif.
     CLEANED: lbih baik berhenti krna judi online setingan mhon kepada berwajib segera mmberantas judol karna meresakan masyrakat trutama generasi muda situs masi aktif skrg trutama situs judolbrand ni situs msi aktif
 
-[3] via=svm  conf=0.98
+[3] via=hybrid_B  conf=0.90
     TEXT   : Situs ini wajib di blokir Krn masih bisa di akses SITUS seng Toto
     CLEANED: situs wajib blokir akses situs seng toto
 
-[4] via=svm  conf=1.00
+[4] via=svm  conf=0.76
     TEXT   : Blokir aja situs web Kenzo Toto, biru toto, mawar Toto ovo188 sgcwin88, jp368, naga138,dewi138 Kudus Toto,
     CLEANED: blokir aja situs web kenzo toto biru toto mawar toto judolbrand judolbrand jp nagai dewii kudus toto
 
-[5] via=svm  conf=1.00
+[5] via=hybrid_B  conf=0.90
     TEXT   : 7naga Toto jngan main di situs ini gk bkal menang seting
     CLEANED: naga toto jngan main situs gk bkal menang seting
 
-[6] via=svm  conf=1.00
+[6] via=svm  conf=0.99
     TEXT   : Bagai mana dengan situs nagahuter88 saldo saya ngk bisa di main kan situs apa tu bos deposi udah berapa kali ngk bisa di main kan
     CLEANED: bagai mana situs judolbrand saldo ngk main situs apa tu bos deposi berapa kali ngk main
 
-[7] via=svm  conf=1.00
+[7] via=svm  conf=0.93
     TEXT   : Brantas pak, ini situs Judi online yg saya tahu... Udintogel, Zara4d, Playbook88 dll
     CLEANED: brantas pak situs judi online udintogel judolbrand judolbrand dll
 
-[8] via=svm  conf=0.99
+[8] via=hybrid_B  conf=0.90
     TEXT   : Aslm mualaikum kodenis saya main slot di situs dalang Toto saya maxwin di Zeus 100 saya buisepin 40.000 maxwin 6jt pasdi witdraw berhasil TPI g masuk kerekening saya terus pas saya coba hubungi Cs via levcet akun saya langsung di blok kejadian tgl6 Agustus jam 14 apakah saldo kemenangan saya bisa masuk kerek saya itu pertanyaan saya kodenis mohon diberi jwbn maksih
     CLEANED: aslm mualaikum kodenis main slot situs dalang toto maxwin zeus ioo buisepin ooo maxwin jt pasdi witdraw berhasil tpi masuk kerekening pas coba hubungi cs via levcet akun langsung blok kejadian tgl agustus jam apakah saldo kemenangan masuk kerek pertanyaan kodenis mohon diberi jwbn maksih
 
@@ -50,114 +50,78 @@ FALSE POSITIVES (37):
     TEXT   : Kok Aneh bg ? kalau memang pekerja slot / admin slot bisa setting , itu keluarga mreka udh pada kaya karena di setting buat mereka dulu , bukannya apa , dari pengalaman saya sendiri main di situs kaget77 , depo 5 juta mledak jadi 73 jt , saya langsung stop dan berhenti bermain karena saya tau jika saya main dan depo pasti di sedot , alhasil duit kemenangan itu saya belikan motor baru dan sisanya saya tabung , intinya tergantung orgnya , klo emg serakah , mau judi atau engga pun bakal habis duitnya.   kalau memang sperti kata narasumber ini betul , awal main pasti di kasih menang ,100 jt jadi 200 jt , tinggal buat aja akun baru banyak2 atau pakai data diri teman / kerabat , alhasili smua org jadi kaya ? ga logika kan ? member baru di kasih menang dulu ? bisa di curangi /akalin dong dengan cara yg saya sebutkan diatas ? IP jg bisa diganti pakai VPN tapi di luar itu alhamdulilah saya jg ga main lgi , bkn maksud sombong atau apa , tapi mau sy tekankan mau judi atau apa pun tidak usah rakus / tamak
     CLEANED: kok aneh bg memang pekerja slot admin slot setting keluarga mreka udh kaya setting dulu bukannya apa pengalaman sendiri main situs judolbrand depo juta mledak jt langsung stop berhenti bermain main depo pasti sedot alhasil duit kemenangan belikan motor sisanya tabung intinya tergantung orgnya klo emg serakah judi engga bakal habis duitnya memang sperti kata narasumber betul awal main pasti menang ioo jt oo jt tinggal aja akun banyak pakai data diri teman kerabat alhasili smua org kaya ga logika member menang dulu curangi akalin cara sebutkan diatas ip jg diganti pakai vpn luar alhamdulilah jg ga main lgi bkn maksud sombong apa sy tekankan judi apa usah rakus tamak
 
-[10] via=svm  conf=0.82
-    TEXT   : Apa itu bonus saldo IPO ,jadi kita di kasih saldo awal 1juta sama situs slot,tapi dengan syarat harus depo dulu 100 ribu.keterangan nya,si saldo 1 juta itu bisa di witdraw tanpa syarat apapun,kecuali depo 100 ribu itu.gmn,? Apa ini penipuan stelah depo 100k akun kita di block,atw emang real situs mau kasih saldo cuma2.? Tolong yang tau bisa kasih penjelasan
-    CLEANED: apa bonus saldo ipo saldo awal ijuta situs slot syarat harus depo dulu ioo ribu keterangan saldo juta witdraw tanpa syarat apapun kecuali depo ioo ribu gmn apa penipuan stelah depo iook akun block atw emang real situs saldo cuma tolong penjelasan
-
-[11] via=hybrid_B  conf=0.90
+[10] via=hybrid_B  conf=0.90
     TEXT   : Judi itu haram tp klo maxwin huu harumm
     CLEANED: judi haram klo maxwin huu harumm
 
-[12] via=hybrid_B  conf=0.90
+[11] via=hybrid_B  conf=0.90
     TEXT   : Alexis togel pihak pemerintah blokir situs ini
     CLEANED: alexis togel pihak pemerintah blokir situs
 
-[13] via=hybrid_B  conf=0.90
+[12] via=hybrid_B  conf=0.90
     TEXT   : Gw penasaran tmnku depo 50k maxwin 2jt..gw pun depo pertama x maen slot depo 50k maen 3jam lose abis duit trs off ogah mae lagi😅
     CLEANED: gw penasaran tmnku depo ok maxwin jt gw depo pertama maen slot depo ok maen jam lose abis duit trs off ogah mae grinning face with sweat
 
-[14] via=hybrid_B  conf=0.90
+[13] via=hybrid_B  conf=0.90
     TEXT   : saya tanggal 1 bulan ini dapat maxwin 2 juta tanggal 2 saya depo habis 1.2jt dan sampai sekarang kalah sekali depo 300k
     CLEANED: tanggal bulan dapat maxwin juta tanggal depo habis jt sampai sekarang kalah depo ook
 
-[15] via=hybrid_B  conf=0.90
-    TEXT   : menutup situs judi online hanyalah perbuatan sia2 ,apakah pemerintah tidak bisa memblokir fasilitas rekening atau ewallet deposit ,dan juga uang nya bisa di sita oleh negara ,apa susah nya.
-    CLEANED: menutup situs judi online hanyalah perbuatan sia apakah pemerintah memblokir fasilitas rekening ewallet deposit uang sita negara apa susah
-
-[16] via=svm  conf=0.76
-    TEXT   : 👾 Asal kalian tau pekerja slot skrg juga banyak cwe yg main diBigo .. ada cwe2 seksi modusnya yg mau vcs wajib depo disitus slot mreka .  Mreka ditipu duit yg mreka depo ilang dislot
-    CLEANED: alien monster asal kalian pekerja slot skrg banyak cwe main dibigo cwe seksi modusnya vcs wajib depo disitus slot mreka mreka ditipu duit mreka depo ilang dislot
-
-[17] via=svm  conf=0.84
+[14] via=svm  conf=0.73
     TEXT   : Maxwin boskuh😂😂😂😂😂😂lumayan rokok kopi aman selama setahun
     CLEANED: maxwin boskuh face with tears of joy face with tears of joy face with tears of joy face with tears of joy face with tears of joy face with tears of joy lumayan rokok kopi aman selama setahun
 
-[18] via=hybrid_B  conf=0.90
+[15] via=hybrid_B  conf=0.90
     TEXT   : Gua punya Temen mantan admin Dia udah tobat karna pas itu ketangkep tapi untungnya bapaknya kaya dan ngeringinain hukumanya...  Jadi Admin di Judi slot itu ada 3  Admin Costumer service Admin IT ( Ngurusin web kalo keblokir) Admin Player ( Nah ini bahaya )   Dalam 1 minggu Admin player itu Kerjanya 3 hari doang   dan itu Harinya RANDOM pokonya 1 minggu mereka kerja 3x   Ada admin player total 5  Tugas Admin player Itu mantau Setiap member Inget Mantau....  Sistem admin player beda ama admin lain dia punya web khusus yang di mana semua data player nomor hp,bettingan yang di gunakan, game yang di mainkan kekalahan/kemenangan bank. itu mereka tau    Nah ini lah kerjaan mereka ngasih kemenangan....  bukan ngasih kekalahan karna kekalahan itu emng udah pasti 100% kalo gak ada admin player  ya ngga menang  paham kan kenapa gua ngomong 7 hari dan 3 hari kerja dan 5 orang   betull dari 7 hari cuma 3 hari kesempatan lu bisa menang dan cuma 5 orang yang bisa menang berstti dalam 7 hari cuma 15 orang yang di kasih menang dan dari ratusan pemain.....  dan ini tuh licik bngt sistemnya Jadi di web itu dia tau kita lagi main apa dan di situ tuh udah kecatet mau kita betting berapapun menanganya udah kecatet 10x per beting jadi mau dpt scatter mau pecahan di luar dari bettingan yang kita lakuin kemenanganya hanya 10x perbettingan  kecualiii Admin player mengubah itu menjadi 500x perbettingan atau bisa di tulis jumlah nominal yang mau di dapetin misal admin player mau ngasih menang A 3.5juta   nah pas lagi main Pragmagtic dia akan nyeting kemenangan elu di 3.5  maxwin zeus maxwin inces semuanya itu settingan scatter turun  itu juga settingan pun kalo misal scatter itu turun di luar kehendak admin maka kembali ke tadi hanya maksimal 10x bettingan jadi sistem slot ini tuh emang udah di setting buat bikin duit lu habis
     CLEANED: punya temen mantan admin tobat karna pas ketangkep untungnya bapaknya kaya ngeringinain hukumanya admin judi slot admin costumer service admin it ngurusin web keblokir admin player nah bahaya minggu admin player kerjanya hari doang harinya random pokonya minggu kerja admin player total tugas admin player mantau setiap member inget mantau sistem admin player beda ama admin lain punya web khusus mana semua data player nomor hp bettingan gunakan game mainkan kekalahan kemenangan bank nah kerjaan ngasih kemenangan bukan ngasih kekalahan karna kekalahan emng pasti ioo gak admin player ngga menang paham kenapa ngomong hari hari kerja orang betull hari cuma hari kesempatan lu menang cuma orang menang berstti hari cuma orang menang ratusan pemain licik bngt sistemnya web main apa situ kecatet betting berapapun menanganya kecatet iox per beting dpt scatter pecahan luar bettingan lakuin kemenanganya hanya iox perbettingan kecualiii admin player mengubah menjadi oox perbettingan tulis jumlah nominal dapetin misal admin player ngasih menang juta nah pas main pragmagtic nyeting kemenangan elu maxwin zeus maxwin inces semuanya settingan scatter turun settingan misal scatter turun luar kehendak admin kembali tadi hanya maksimal iox bettingan sistem slot emang setting duit lu habis
 
-[19] via=hybrid_B  conf=0.90
+[16] via=hybrid_B  conf=0.90
     TEXT   : Temen gw maxwin (entah apa lah istilah menang itu) smpe 20 JT. Woa 50 JT, ohh si anu 100jt. Di sisipi kalimat terakhir, abis itu mereka berhenti.. BLA BLA BLA BLA... Jawaban yg saya sering denger dari pelaku slot 😂
     CLEANED: temen gw maxwin entah apa istilah menang smpe jt woa jt ohh anu ioojt sisipi kalimat terakhir abis berhenti bla bla bla bla jawaban sering denger pelaku slot face with tears of joy
 
-[20] via=hybrid_B  conf=0.90
+[17] via=hybrid_B  conf=0.90
     TEXT   : membandingkan 2 hal buruk memang ngga membuat salah satunya lebih baik, tapi kalau boleh jujur situs sports betting macem judi bola, pacuan kuda, dan sejenisnya jauh lebih fair daripada judi slot gacor gacor itu
     CLEANED: membandingkan hal buruk memang ngga membuat salah satunya baik boleh jujur situs sports betting macem judi bola pacuan kuda sejenisnya jauh fair daripada judi slot gacor gacor
 
-[21] via=svm  conf=0.98
+[18] via=svm  conf=0.87
     TEXT   : Hati hati dengan Situs ANDARA99 Dan Situs RAJA787. Yang Telah Banyak Menipuh Orang. Dan Buat Kominfo Agar Cepat blokir situs itu.. biar korban nya tidak bertambah..
     CLEANED: hati hati situs judolbrand situs raja telah banyak menipuh orang kominfo cepat blokir situs biar korban bertambah
 
-[22] via=hybrid_B  conf=0.90
+[19] via=hybrid_B  conf=0.90
     TEXT   : Gw pernah coba tapi gara" Dipengaruhi temen,  Jadi awalnya gua memang berpegang kuat ama pemikiran gua kalo judol itu nggk bakal bikin untung tapi logic gua, gua akan percaya dan penasaran kalo memang ada Bukit,  akhirnya pas ketemu teman gua di kasih bukti kalau dia Bisa jackpot yaa akhirnya gua percaya dengan bukti dari temen baik sendiri apa yg harus gua ragukan,,  selasai itu gua coba depo 100k coba main, tapi mainnya sama temen gua itu yg udah expert disitu, main sampe stengah jam hangus 100k truss lngsung berhenti lah kita, kata temen gw lanjut besok saja,  Esoknya kita depo lagi 35k karna gw tau bakal hangus gua nggk mau depo banyak lagi, main" uangya naik smpe 100k sampe maxwin 1,2 juta yah kita langsung tarik truss kabur wkkwkw, jadi menurut gwa judol hokinya lebih besar kalo lu player baru tapi kalo udah lama beh Amit" dah jadi kek situsnya udah atur kemenangan buat player baru biar bisa addict gitu wkkw
     CLEANED: gw pernah coba gara dipengaruhi temen awalnya memang berpegang kuat ama pemikiran judol nggk bakal untung logic percaya penasaran memang bukit akhirnya pas ketemu teman bukti jackpot yaa akhirnya percaya bukti temen baik sendiri apa harus ragukan selasai coba depo iook coba main mainnya temen expert disitu main sampe stengah jam hangus iook truss lngsung berhenti kata temen gw lanjut besok esoknya depo karna gw bakal hangus nggk depo banyak main uangya naik smpe iook sampe maxwin juta yah langsung tarik truss kabur wkkwkw menurut gwa judol hokinya besar lu player lama beh amit dah kek situsnya atur kemenangan player biar addict wkkw
 
-[23] via=hybrid_B  conf=0.90
+[20] via=hybrid_B  conf=0.90
     TEXT   : Youtuber bahas judol iklan display nya muncul iklan situs gacor... Adsanse adsanse adsanse 🤣🤣🤣
     CLEANED: youtuber bahas judol iklan display muncul iklan situs gacor adsanse adsanse adsanse rolling on the floor laughing rolling on the floor laughing rolling on the floor laughing
 
-[24] via=hybrid_B  conf=0.90
-    TEXT   : Apalah daya ,pejabat sudah makan suap dari situs judol..apalagi yg berbentuk aplikasi contoh game2 slot domino..itu saja mereka gak sanggup berantas,apalagi yg berbentuk situs..karna uang masuk nya besar
-    CLEANED: apalah daya pejabat makan suap situs judol apalagi berbentuk aplikasi contoh game slot domino gak sanggup berantas apalagi berbentuk situs karna uang masuk besar
-
-[25] via=hybrid_B  conf=0.90
+[21] via=hybrid_B  conf=0.90
     TEXT   : Teman teman kakak kakak semuanya mohon solusinya 😢 saya baru   5-8 bulan aktif main judi online ini dan saya ga tau uda brapa banyak uang kluar/masuk ke situs2 judi soalnya saya punya banyak akun/situs judi, di lingkungan kerja sya hampir 80% main slot jujur dulu saya sering bilang mreka tolol dan goblok main judol, dan smakin jauh sya liat Yuforia kawan2 yg menang sya makin tertarik lalu coba2 deposit 100K dikasi menang ga smpe 500an dari situlah awal mula semuanya jadi penasaran deposit lagi dikasi menang malam ga tidur jdi penasaran deposit lagi dikasi menang lagi deposit 500k kalah deposit lagi kalah lagi, ulang2 saya terus penasaran dgn kemenangan, dulunya saya ga smpe pinjol skrng uda smpe 3-4 akun pinjol yang harus saya cicil gara2 judi ini, saya coba cari2 konten beginian sesering mungkin biar sya sadar lebih dalam soal tololnya orang yang main judi termasuk saya, saya takutnya saya jatuh lebih dalam, skarang pinjol saya kira2 6 jtan dan ini uda yang paling besar saya punya hutang di pinjol, bingung mau stop judi tapi rasa penasaran soalnya sering liat di YouTube yg fideo2 maxwin kemenangan yang harus sya kejar sampai sekarang saya g pernah dapat yang katanya maxwin, sampai2 saya chat adminnya dan cuma kata admin suatu saat pasti dapat maxwin intinya bermain sabar, menurut teman2 benar ga soal maxwin2 itu?  Dan ada yang pernah dapat maxwin dari slot?  *edit  + sekarang saya coba cicil hutang saya yang 6 jutaan pelan2 mau coba Stop secara perlahan judi online. Pelan2 saya mulai iklhas dengan kekalahan yang lalu2, semoga edukasi2 ginian lebih sering muncul di beranda ytb saya
     CLEANED: teman teman kakak kakak semuanya mohon solusinya crying face bulan aktif main judi online ga uda brapa banyak uang kluar masuk situs judi soalnya punya banyak akun situs judi lingkungan kerja sya hampir main slot jujur dulu sering bilang mreka tolol goblok main judol smakin jauh sya liat yuforia kawan menang sya makin tertarik lalu coba deposit iook dikasi menang ga smpe ooan situlah awal mula semuanya penasaran deposit dikasi menang malam ga tidur jdi penasaran deposit dikasi menang deposit ook kalah deposit kalah ulang penasaran kemenangan dulunya ga smpe pinjol skrng uda smpe akun pinjol harus cicil gara judi coba cari konten beginian sesering mungkin biar sya sadar soal tololnya orang main judi termasuk takutnya jatuh skarang pinjol kira jtan uda paling besar punya hutang pinjol bingung stop judi rasa penasaran soalnya sering liat youtube fideo maxwin kemenangan harus sya kejar sampai sekarang pernah dapat katanya maxwin sampai chat adminnya cuma kata admin suatu pasti dapat maxwin intinya bermain sabar menurut teman benar ga soal maxwin pernah dapat maxwin slot edit sekarang coba cicil hutang jutaan pelan coba stop secara perlahan judi online pelan mulai iklhas kekalahan lalu semoga edukasi ginian sering muncul beranda ytb
 
-[26] via=hybrid_B  conf=0.90
-    TEXT   : Gua pernah jadi pemain sejak dari jaman binary option indra kenz sampe slot sekarang.. Gua udah bertahun" main dan bisa sesimple itu buat berenti.. Sekarang gua ngga main lagi.. Karna emng gua pikir" agak unik gitu pemain" ini.. Tapi gua ngga benci apa gimana.. Anggap masalah ato gimana gitu engga karna gua sendiri bisa gampang banget buat berenti.. Gua agak seneng juga karna adanya iklan judi di situs" anime.. Situs itu jadi lebih rajin upload.. Mungkin karna dapet duit lebih gitu kali yak.. Tapi gua sendiri emng ngga ngedukung buat main tapi ngga ngedukung juga buat nutup.. Goblok"nya aja yg main masih nongkrong disitu 😂
-    CLEANED: pernah pemain sejak jaman binary option indra kenz sampe slot sekarang bertahun main sesimple berenti sekarang ngga main karna emng pikir agak unik pemain ngga benci apa anggap masalah ato engga karna sendiri gampang berenti agak seneng karna adanya iklan judi situs anime situs rajin upload mungkin karna dapet duit kali yak sendiri emng ngga ngedukung main ngga ngedukung nutup goblok aja main nongkrong disitu face with tears of joy
-
-[27] via=hybrid_B  conf=0.90
-    TEXT   : Itulah mengapa sdm indo dan tingkat kecerdasan/IQ nya 78, Kalo Judi bola chancenya 50% Menang 50% kalah  Kalo slot 100% kalah karna udah di program ama IT situs
-    CLEANED: itulah mengapa sdm indo tingkat kecerdasan iq judi bola chancenya menang kalah slot ioo kalah karna program ama it situs
-
-[28] via=hybrid_B  conf=0.90
+[22] via=hybrid_B  conf=0.90
     TEXT   : Meregulasi sesuatu yg online tp sifatnya dipegang oleh beberapa bos bandar kyknya agak sulit, apalagi sifat ego manusia yg udah terjun ke dunia bisnis gelap kyk gini bs dipastikan pemilik bisnis 'ogah' untuk ikut regulasi. Disisi lain, apa bisa memonitoring pembuatan situs baru yg sifatnya mirror dr situs utama nya? Diblokir 1 bikin lagi 3,4,5 situs..  Ini memang udah jd racun, yg perlu dibenahin kyknya emang mindsetnya. Tp disisi lain, lingkungan pengaruh besar.. Udah berhenti judol, eeehh temen ada main & jackpot.. Penasaran deh.. Bingung jg sih utk ngobatinnya..
     CLEANED: meregulasi sesuatu online sifatnya dipegang beberapa bos bandar kyknya agak sulit apalagi sifat ego manusia terjun dunia bisnis gelap kyk gini bs dipastikan pemilik bisnis ogah ikut regulasi disisi lain apa memonitoring pembuatan situs sifatnya mirror situs utama diblokir situs memang racun perlu dibenahin kyknya emang mindsetnya disisi lain lingkungan pengaruh besar berhenti judol eeehh temen main jackpot penasaran bingung jg sih ngobatinnya
 
-[29] via=hybrid_B  conf=0.90
-    TEXT   : BANG GUA PEN JELASIN NIH. BEKAS ADMIN SLOT. . DI INDONESIA KEBANYAKAN TUH . YANG HYPE NYA ADA DI SELES SITUSNYA. BUAT NAIKIN RETING SAMA CARI PEMAIN DI SITUSNYA AGAR ADA PEMASUKAN  . KARNA YANG PUNYA SITUS JUGA BAYAR LAGI BUAT BAYAR GAME NYA. YANG MAHAL . . LU MASUK KE GRUP TELE NAMANYA BARTER DATABASE. BANYAK DISITU YANG UDAH NYEDIAIN SITUS . TARIF HARGA TERGANTUNG GAMENYA BISA DI MAININ ATAU NGGA. Lengkap atau ngga. DAN SEKARANG HYPENYA SELES JUDI ONLINE . ADALAH SITUS SCAM.. SCAME DALAM ARTIAN GAME NYA GA BISA DI MAININ. DAN DEPOSIT MASUK KE REKENING PRIBADI.. ITU SEBAGIAN LITERASI DARI GUA . GUA AJA MASIH DI TAWARIN KE KAMBOJA. BUAT JADI CS JUDI ONLINE
-    CLEANED: bang pen jelasin bekas admin slot indonesia kebanyakan hype seles situsnya naikin reting cari pemain situsnya pemasukan karna punya situs bayar bayar game mahal lu masuk grup tele namanya barter database banyak disitu nyediain situs tarif harga tergantung gamenya mainin ngga lengkap ngga sekarang hypenya seles judi online situs scam scame artian game ga mainin deposit masuk rekening pribadi sebagian literasi aja tawarin kamboja cs judi online
-
-[30] via=hybrid_B  conf=0.90
+[23] via=hybrid_B  conf=0.90
     TEXT   : Pin bang 📌 Bang coba itu perhatiin drag indo. yg jadi boss bossannya Tekno Tuner si Dior dulunya promosiin slot di situs idola69 sampe skrng jadi boss bossan di dunia balap drag masih bawa idola69 buat promoin situs ke anak anak balap,, lu cek aja jejak digitalnya masih banyak kook! gua ngerasa dirugikan meskipun gua ga main tapi banyak temen temen gua yg skrng hidupnya susah jadi gembel gara gara judi, skrng main motor kaga malah jadi gembel semua temen gua!
     CLEANED: pin bang pushpin bang coba perhatiin drag indo boss bossannya tekno tuner dior dulunya promosiin slot situs judolbrand sampe skrng boss bossan dunia balap drag bawa judolbrand promoin situs anak anak balap lu cek aja jejak digitalnya banyak kook ngerasa dirugikan meskipun ga main banyak temen temen skrng hidupnya susah gembel gara gara judi skrng main motor kaga malah gembel semua temen
 
-[31] via=hybrid_B  conf=0.90
+[24] via=hybrid_B  conf=0.90
     TEXT   : Sedikit sharing untuk lebih membahas mengenai judi online di permainan slot. Bagi teman-teman disini yang bukan pelaku judol atau memang pernah judol menurut aku konten ini sudah cukup merangkum dan mengedukasi kita semua dampak bahaya bermain judol guys, jadi buat yang bertanya" kenapa banyak sekali pelaku judol di indonesia kalian bisa ambil pov dari saya yang punya pengalaman bermain judol.  Nah disini karena aku salah satu pelaku judol meskipun belum lama mainnya bisa dibilang masih sekitar 3-4 bulan memang pengeluaran dan pendapatan yang di dapat dari judol ini tidak bisa dijelaskan spesifik secara nominal jika pemain tersebut tidak pernah mengkalkulasi outcome/income agau bahkan mencatat di note khusus. Beberapa motif alasan saya mencoba memainkan judi online bisa coba uraikan satu persatu dari segi POV saya:  1. Rasa penasaran, ada rasa penasaran bagaimana cara mendapatkan uang dari bermain slot online.  2. Proses deposit mudah, proses untuk mentransfer sejumlah uang ke website judol tergolong mudah dan terjangkau yang saya tau ada situs yang menawarkan untuk game slot mulai deposito sejumlah 10.000 - tak terhingga. Jadi untuk kalangan bawah/pemula sangat memungkinkan memainkan karena nominal minimum deposit terjangkau.  3. Promosi besar"an dan iklan yang menarik, di iming" i kemenangan besar dan slogan "gacor" setelah mencoba dan menang memang ada sensasi yang berbeda.  4. Kemenangan dan kekalahan, kemenangan membuat kita ketagihan dan kekalahan membuat kita penasaran.  5. Proses withdraw/tarik tunai langsung cair, ketika menang saldo kemenangan dapat di uangkan atau ditarik tunai dalam kurun waktu 2-30 menit uang akan langsung masuk rekening.  Alasan tetap bertahan bermain game slot (judol):  1. Ada modal dan bisa mengatur modal, dalam game kita dapat mengatur yang namanya BET atau kalo versi saya mudahnya memutar game sesuai modal kita deposito jadi tidak harus takut jika kalah. Tapi kesalahan saya atau pemain jika kita tidak bisa mengontrol pengeluaran untuk main slot alhasil adanya kita yang rungkad.  2. Merasa tidak merugikan orang lain, jika kita melihat di medsos/tv seringkali pasti kita menyalahkan tersangka judol yang rela sampai menggadaikan barang" berharga itu hanya segincir orang bahkan penjudi online yang melihat akan beranggapan itu "kelakuan bodoh dan gak masuk akal" tapi dibalik itu ada yang tidak banyak kalian tau alasan mereka tetap bermain yaitu dari kalangan bawah sampai yang pintarpun memainkan slot ini guys mereka benar" tau taktik bermain sampai bisa mengatur putaran slot yang dirasa ini jelek ataupun bagus meskipun teori yang mereka anggap tidak semua benar karena setiap pemain punya cara bermain yang berbeda".  3. Bermain secara efektif versi penjudi online, menurutnya selama mereka bekerja dan menghasilkan uang dari pekerjaan halal slot adalah hiburan mereka akan terus memainkan tapi diwaktu yang ditentukan sesuai mood mereka artinya tidak setiap waktu mereka memainkannya dan tidak dijadikan ladang penghasilan utama mereka. Dilain sisi meskipun kalah mereka atau saya pribadi tidak akan kecewa karena tujuannya hanya mengisi waktu dan modal yang kita keluarkan juga minim berbeda lagi kalo pemain bar" jelas mereka bertujuan mendapatkan kemenangan besar yang nantinya hasil tersebut untuk menyambung hidup.  Mungkin kurang lebih itulah pengalaman saya bermain online. Tidak dianjurkan karena pemerintah serentak melawan judol dan banyak influence yang menolak adanya judol saya rasa itu benar dan kita jangan pernah mencoba, meskipun dari diri saya sendiri belum bisa dikatakan berhenti total tapi paling tidak saat ini saya mencoba mengurangi sampai benar" berhenti total. Semoga sharing saya ini dan disebarkan jika dirasa sharing saya ini bermanfaat buat teman yang jadi pelaku judol atau yang penasaran. Thank You
     CLEANED: sedikit sharing membahas mengenai judi online permainan slot bagi teman teman disini bukan pelaku judol memang pernah judol menurut aku konten cukup merangkum mengedukasi semua dampak bahaya bermain judol guys bertanya kenapa banyak pelaku judol indonesia kalian ambil pov punya pengalaman bermain judol nah disini aku salah satu pelaku judol meskipun lama mainnya dibilang sekitar bulan memang pengeluaran pendapatan dapat judol dijelaskan spesifik secara nominal pemain tersebut pernah mengkalkulasi outcome income agau bahkan mencatat note khusus beberapa motif alasan mencoba memainkan judi online coba uraikan satu persatu segi pov rasa penasaran rasa penasaran bagaimana cara mendapatkan uang bermain slot online proses deposit mudah proses mentransfer sejumlah uang website judol tergolong mudah terjangkau situs menawarkan game slot mulai deposito sejumlah io ooo tak terhingga kalangan bawah pemula memungkinkan memainkan nominal minimum deposit terjangkau promosi besar an iklan menarik iming kemenangan besar slogan gacor setelah mencoba menang memang sensasi berbeda kemenangan kekalahan kemenangan membuat ketagihan kekalahan membuat penasaran proses withdraw tarik tunai langsung cair ketika menang saldo kemenangan dapat uangkan ditarik tunai kurun waktu menit uang langsung masuk rekening alasan tetap bertahan bermain game slot judol modal mengatur modal game dapat mengatur namanya bet versi mudahnya memutar game sesuai modal deposito harus takut kalah kesalahan pemain mengontrol pengeluaran main slot alhasil adanya rungkad merasa merugikan orang lain melihat medsos tv seringkali pasti menyalahkan tersangka judol rela sampai menggadaikan barang berharga hanya segincir orang bahkan penjudi online melihat beranggapan kelakuan bodoh gak masuk akal dibalik banyak kalian alasan tetap bermain yaitu kalangan bawah sampai pintarpun memainkan slot guys benar taktik bermain sampai mengatur putaran slot dirasa jelek ataupun bagus meskipun teori anggap semua benar setiap pemain punya cara bermain berbeda bermain secara efektif versi penjudi online menurutnya selama bekerja menghasilkan uang pekerjaan halal slot hiburan memainkan diwaktu ditentukan sesuai mood artinya setiap waktu memainkannya dijadikan ladang penghasilan utama dilain sisi meskipun kalah pribadi kecewa tujuannya hanya mengisi waktu modal keluarkan minim berbeda pemain bar jelas bertujuan mendapatkan kemenangan besar nantinya hasil tersebut menyambung hidup mungkin kurang itulah pengalaman bermain online dianjurkan pemerintah serentak melawan judol banyak influence menolak adanya judol rasa benar jangan pernah mencoba meskipun diri sendiri dikatakan berhenti total paling mencoba mengurangi sampai benar berhenti total semoga sharing disebarkan dirasa sharing bermanfaat teman pelaku judol penasaran thank you
 
-[32] via=hybrid_B  conf=0.90
-    TEXT   : Gimana sih gw pgn jdi orang yang bisa blokir semua akses ke kek gituu anjrrr😢 tolong yang ngerti kek gituu bisa dibantuuu blokir situs slot slot gituan
-    CLEANED: sih gw pgn jdi orang blokir semua akses kek gituu anjrrr crying face tolong ngerti kek gituu dibantuuu blokir situs slot slot gituan
-
-[33] via=hybrid_B  conf=0.90
+[25] via=hybrid_B  conf=0.90
     TEXT   : SY SIH BARU2 INI AJA MAIN SLOT  KARENA PENASARAN KAYA APA CM  GAK MAU LAGI   KALAH TERUS  BUKANNYA INSYAF  MALAH MAKIN KALAP  HARAPANNYA KEKALAHAN BISA KEMBALI  TERNYATA SITUS NYA MAKIN  GACOR  SEDOT DUIT PEMAIN  KARENA SITUS NYA TAU  PEMAIN KALAH TRS  MALAH MAKIN PENASARAN   PANTAS BANYAK YG KERE SAMPAI BUNUH DIRI   APA LAGI SEKARANG MIN BET 800RUPIAH  MAKIN GACOR NYEDOT DUIT PEMAIN   BET 200 RUPIAH AJA MENANG NYA  SUSAH  APALAGI 800 RPH   ITUNGAN BULAN BISA JD GEMBEL   MAKANYA SAYA BERHENTI  APA LAGI BET NYA SEKALI PASANG 800 RPH  KADANG BISA 30 KALI PUTARAN GAK KENA2  30 *800PERAK UDAH MAU 24 RB  GILIRAN KITA KENA  GAK SAMPE 1RB PERAK  SUEEEE😂😂😂
     CLEANED: sy sih aja main slot penasaran kaya apa cm gak kalah bukannya insyaf malah makin kalap harapannya kekalahan kembali ternyata situs makin gacor sedot duit pemain situs pemain kalah trs malah makin penasaran pantas banyak kere sampai bunuh diri apa sekarang min bet oorupiah makin gacor nyedot duit pemain bet oo rupiah aja menang susah apalagi oo rph itungan bulan gembel makanya berhenti apa bet pasang oo rph kadang kali putaran gak kena ooperak rb giliran kena gak sampe irb perak sueeee face with tears of joy face with tears of joy face with tears of joy
 
-[34] via=hybrid_B  conf=0.90
+[26] via=hybrid_B  conf=0.90
     TEXT   : Bang, walaupun video ini disebar ke grup jud*l. Tetap percuma karena para pemain ga akan mau nonton ini. Mereka lebih minat nyari + nonton tutorial maxwin dan tururannya. Percaya deh, gua dah pernah share soalnya. Bebalnya bukan maen.
     CLEANED: bang walaupun video disebar grup jud tetap percuma pemain ga nonton minat nyari nonton tutorial maxwin tururannya percaya dah pernah share soalnya bebalnya bukan maen
 
-[35] via=hybrid_B  conf=0.90
+[27] via=hybrid_B  conf=0.90
     TEXT   : Gue pernah maen judol sampai 3 kali, karna penasaran. Modal habis +- 80.000 .  Di permainan ke 3 dapat maxwin menang 2 juta. Tapi malah takut. Lalu aku bilang ke istri, walau menang tapi dimaki abis abisan sampai dilaporin ibu gue. Sama ibu dimarahin juga. Emg sengaja gue lakuin itu biar ga ketagihan dan berhenti. Kapok akhirnya karna istri jga gag mau trima uangnya
     CLEANED: pernah maen judol sampai kali karna penasaran modal habis ooo permainan dapat maxwin menang juta malah takut lalu aku bilang istri walau menang dimaki abis abisan sampai dilaporin ibu ibu dimarahin emg sengaja lakuin biar ga ketagihan berhenti kapok akhirnya karna istri jga gag trima uangnya
 
-[36] via=hybrid_B  conf=0.90
-    TEXT   : dari awal melihat situs slot ini gw udah mikir ini tu bahkan ga bisa disebut judi. setau gw judi tu harus ada lawannya dan kedua pihak seharusnya ga ada yg tau gimana hasil dari pilihan yg dijadikan objek judi mereka. lah ini yg jadi lawan judi aiapa, masa yg dilawan orang yg punya dan yg bikin permainannya,  ya jelas ga mungkin orang yg punya sistem itu kalah. yg berarti lo yg main ga bakal menang
-    CLEANED: awal melihat situs slot gw mikir tu bahkan ga disebut judi setau gw judi tu harus lawannya kedua pihak seharusnya ga hasil pilihan dijadikan objek judi lawan judi aiapa masa dilawan orang punya permainannya jelas ga mungkin orang punya sistem kalah berarti lo main ga bakal menang
-
-[37] via=svm  conf=0.98
+[28] via=svm  conf=1.00
     TEXT   : Sabung marmut aja dri pda GACOR88
     CLEANED: sabung marmut aja dri pda judolbrand

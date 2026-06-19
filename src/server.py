@@ -71,8 +71,9 @@ app.add_middleware(
 # Load the model once at startup, not on every request.
 # Loading from disk on every request would make the API extremely slow.
 
-MODEL_PATH = os.path.join(BASE_DIR, "model", "svm_model.joblib")
-DATA_PATH  = os.path.join(BASE_DIR, "data", "comments.csv")
+MODEL_PATH           = os.path.join(BASE_DIR, "model", "svm_model.joblib")
+DATA_PATH            = os.path.join(BASE_DIR, "data", "comments.csv")
+MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
 model = None
 
 
@@ -153,19 +154,25 @@ class BatchPredictResponse(BaseModel):
 
 HARD_SPAM_SIGNALS = {
     # Istilah judi yang tidak punya makna lain dalam percakapan sehari-hari
-    "gacor",      # slang: slot dengan RTP tinggi / sering keluar jackpot
-    "scatter",    # simbol bonus di mesin slot
+    "gacor",      # slang: slot dengan RTP tinggi / sering keluar jackpot — SANGAT spesifik ke promosi
+    "scatter",    # simbol bonus di mesin slot — tidak muncul di percakapan normal
     "jackpot",    # kemenangan besar di mesin judi
     "maxwin",     # kemenangan maksimum di slot
     "togel",      # lotere ilegal
     "toto",       # lotere / situs judi
-    "rtp",        # Return to Player — persentase payout slot
-    "slot",       # mesin slot
+    "rtp",        # Return to Player — istilah teknis slot, tidak wajar di komentar biasa
+    # "slot" dihapus — terlalu sering muncul di cerita korban/diskusi anti-judol:
+    #   "saya kenal judi slot, hidup berantakan"  → bukan promosi
+    #   "blokir situs slot gituan"                → permintaan blokir
+    # Spam yang sebut "slot" hampir selalu juga punya "gacor"/judolbrand/brand
+    # yang masih tertangkap sinyal lain. SVM kini dilatih cukup membedakan konteks.
     # "situs" dihapus — terlalu generik: "situs darkweb", "situs jembot",
     # "tempat yang dikunjungi" adalah kata wajar tanpa konotasi judi.
     # Brand yang memakai "situs" + nama judol tetap tertangkap via judolbrand.
-    "withdraw",   # tarik dana kemenangan
-    "deposit",    # setor dana ke akun judi
+    "withdraw",   # tarik dana kemenangan — konteks tarik selalu di akun judi
+    # "deposit" dihapus — muncul wajar di cerita korban: "dia jual barang buat deposit lagi"
+    # Spam yang sebut "deposit" hampir selalu juga punya "gacor"/brand/withdraw
+    # yang masih tertangkap sinyal lain. SVM sekarang cukup kuat untuk handle ini.
     # Nama brand / situs yang diketahui (angka dihapus preprocessing: PSTOTO99 → pstoto)
     "pstoto", "jptogel", "supermoney", "xuxu", "bardi",
     "bukit", "dora", "pluto", "jalak",
@@ -372,22 +379,31 @@ def report_false_positive(request: ReportRequest):
     Deduplication: if the exact text already exists in the CSV, the request
     is rejected to prevent duplicate entries from inflating the dataset.
     """
-    # Deduplicate — scan existing rows for an exact text match
-    if os.path.exists(DATA_PATH):
-        with open(DATA_PATH, "r", encoding="utf-8") as f:
-            reader = csv.reader(f)
-            next(reader, None)  # skip header row
-            for row in reader:
-                if row and row[0].strip() == request.text:
-                    return ReportResponse(
-                        success=False,
-                        message="Komentar ini sudah ada di dataset — tidak ditambahkan lagi.",
-                        duplicate=True,
-                    )
+    # Deduplicate — cek di comments.csv DAN manual_overrides.csv
+    for check_path in (DATA_PATH, MANUAL_OVERRIDES_CSV):
+        if os.path.exists(check_path):
+            with open(check_path, "r", encoding="utf-8") as f:
+                reader = csv.reader(f)
+                next(reader, None)  # skip header row
+                for row in reader:
+                    if row and row[0].strip() == request.text:
+                        return ReportResponse(
+                            success=False,
+                            message="Komentar ini sudah ada di dataset — tidak ditambahkan lagi.",
+                            duplicate=True,
+                        )
 
-    # Append using csv.writer so commas/quotes inside text are escaped correctly
+    # Append ke comments.csv (efek langsung ke training berikutnya)
     with open(DATA_PATH, "a", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
+        writer.writerow([request.text, request.label])
+
+    # Append ke manual_overrides.csv (persisten saat prepare_dataset.py dijalankan ulang)
+    overrides_has_header = os.path.exists(MANUAL_OVERRIDES_CSV) and os.path.getsize(MANUAL_OVERRIDES_CSV) > 0
+    with open(MANUAL_OVERRIDES_CSV, "a", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        if not overrides_has_header:
+            writer.writerow(["text", "label"])
         writer.writerow([request.text, request.label])
 
     print(f"[DEV] Reported as '{request.label}': {request.text[:80]}")

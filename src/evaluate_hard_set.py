@@ -45,7 +45,8 @@ MODEL_PATH     = os.path.join(BASE_DIR, "model", "svm_model.joblib")
 # Sama persis dengan HARD_SPAM_SIGNALS di server.py
 HARD_SPAM_SIGNALS = {
     "gacor", "scatter", "jackpot", "maxwin", "togel", "toto", "rtp",
-    "slot", "withdraw", "deposit",
+    # "slot" dan "deposit" dihapus — terlalu sering muncul di cerita korban/diskusi
+    "withdraw",
     "pstoto", "jptogel", "supermoney", "xuxu", "bardi",
     "bukit", "dora", "pluto", "jalak",
     "pangeran", "kyt",

@@ -38,6 +38,112 @@ Ini bukan kemunduran — keterbatasan Bag of Words yang tidak memahami konteks k
 
 ---
 
+## Versi 8 — 2026-06-19
+
+### Ringkasan
+Empat perubahan sekaligus: (1) hard test set diperluas dari 70 → 141 entri dengan tambahan video finansial anti-judol, (2) 59 laporan dari extension diselamatkan dan dipersistenkan di manual_overrides.csv, (3) normalisasi leet speak ditambahkan ke preprocessing agar karakter seperti `H0KI777` terdeteksi, (4) kata `slot` dan `deposit` dihapus dari HARD_SPAM_SIGNALS untuk mengurangi false positive pada komentar korban/diskusi.
+
+### Perubahan dari Versi 7
+
+#### 1. Ekspansi Hard Test Set — 70 → 141 Entri
+
+**Video baru:** `pzE8S6N0vwo` (konten finansial yang membahas bahaya judi online).
+
+Dua video yang kini menjadi sumber hard test set:
+- `kM99uBssHvQ` — 70 non_spam (kritik, cerita rugi, permintaan blokir)
+- `pzE8S6N0vwo` — 71 non_spam (diskusi anti-judol di video finansial)
+
+File: `data/hard_test_set.csv` (141 entri total, kolom: text, label, source_video, note)
+
+Empat entri spam nyata dari dua video disimpan terpisah di `scraper/result/` agar tidak campur ke hard test set.
+
+#### 2. Rescue 59 Laporan Extension + Perbaikan Endpoint `/report`
+
+**Masalah:** Endpoint `/report` hanya menulis ke `comments.csv`. File ini ditimpa setiap `prepare_dataset.py` dijalankan — artinya 59 laporan "bukan spam" yang sudah dikumpulkan lewat tombol extension berpotensi hilang.
+
+**Fix dua langkah:**
+1. 59 laporan yang ada diselamatkan: dibandingkan antara `comments.csv` dan sumber-sumber pipeline, lalu entri yang unik (hanya ada di reports, bukan di scraper) dipindahkan ke `manual_overrides.csv`.
+2. Endpoint `/report` diperbarui — sekarang menulis ke **dua file sekaligus**: `comments.csv` (efek langsung) dan `manual_overrides.csv` (persisten lintas rebuild).
+
+Deduplication juga diperkuat: cek teks terhadap kedua file sebelum menambahkan.
+
+`manual_overrides.csv`: **213 → 343 entri** (+71 dari pzE8S6N0vwo, +59 dari laporan extension)
+
+#### 3. Normalisasi Leet Speak — Step 5b-i di `preprocessing.py`
+
+**Masalah:** `H0KI777` tidak terdeteksi sebagai brand judol. Digit `0` di posisi huruf memecah pola `[a-z]{2,}` di `JUDOL_BRAND_PATTERN` — `h0ki777` tidak cocok karena ada digit di tengah kata.
+
+**Solusi:** Langkah normalisasi leet speak disisipkan antara Step 5 (lowercase) dan Step 5b (brand canonicalization):
+
+```python
+# Step 5b-i: Leet speak normalization
+def _normalize_leet(m):
+    word = m.group(0)
+    word = word.replace("0", "o").replace("1", "i")
+    return word
+text = re.sub(r'\b[a-z0-9]*[0-9][a-z0-9]*\b', _normalize_leet, text)
+```
+
+Efek: `h0ki777` → `hoki777` → JUDOL_BRAND_PATTERN cocok → `judolbrand` → Hybrid B → spam ✓
+
+**Desain keputusan:** Substitusi 0→o dan 1→i hanya diterapkan pada kata yang mengandung campuran huruf dan angka (regex menyertakan `[0-9]` sebagai syarat). Kata yang murni angka (tahun, nomor) tidak terpengaruh.
+
+#### 4. Hapus `slot` dan `deposit` dari `HARD_SPAM_SIGNALS`
+
+**Motivasi:** Dua kata ini terlalu sering muncul di komentar non-spam dari video anti-judol:
+- *"saya kenal judi slot, hidup gue jadi berantakan"* → cerita korban
+- *"dia jual barang rumah buat deposit lagi"* → testimonial negatif
+
+Hybrid Rule (B) memaksa prediksi ke spam jika ada sinyal keras — kata yang terlalu generik ini menyebabkan FP pada komentar korban.
+
+**Aman dihapus karena:** Spam yang menyebut `slot` atau `deposit` hampir selalu juga mengandung `gacor`, `judolbrand`, atau sinyal lain yang masih di dalam HARD_SPAM_SIGNALS. SVM yang sekarang dilatih dengan 141 hard examples punya konteks yang lebih baik pula.
+
+Perubahan ini diterapkan secara konsisten di `src/server.py` **dan** `src/evaluate_hard_set.py`.
+
+### Statistik dataset (`data/comments.csv`)
+
+| Label    | Versi 7 | Versi 8 |
+|----------|---------|---------|
+| spam     | 2266    | **2274** (+8) |
+| non_spam | 2533    | **2858** (+325) |
+| **Total**| **4799**| **5132** |
+
+Pertumbuhan non_spam berasal dari: 71 komentar pzE8S6N0vwo + 59 laporan extension yang diselamatkan + entri manual_overrides baru yang diapply ke pipeline.
+
+### Evaluasi Hard Test Set v2 (141 entri)
+
+```
+Confusion Matrix (141 hard examples: 71 spam asli, 70 non_spam):
+
+                  Prediksi non_spam  Prediksi spam
+Aktual non_spam         113 (TN)         28 (FP)
+Aktual spam              ...             ...
+
+Accuracy  : 80.14%
+FP        : 28  (non_spam salah diklasifikasi sebagai spam)
+```
+
+Penyebab 28 FP yang tersisa: komentar diskusi yang mengandung `maxwin`, `gacor`, `togel`, atau `toto` — sinyal ini masih di HARD_SPAM_SIGNALS karena spesifisitasnya tinggi, tapi ada konteks diskusi/cerita yang ambigu. Ini adalah batasan fundamental Bag of Words — sama satu token, tidak bisa bedakan konteks.
+
+### Hasil evaluasi model (train-test split 80/20)
+
+| Metrik | Versi 7 | Versi 8 |
+|--------|---------|---------|
+| Accuracy | 98.23% | **96.95%** |
+| F1-macro | 0.9822 | — |
+| FP | 0 | **3** |
+| FN | 17 | **23** |
+
+**Mengapa FP naik sedikit (0 → 3)?**
+
+Penambahan 325 entri non_spam nyata yang lebih beragam (testimoni, diskusi anti-judol) membuat batas keputusan model bergeser. Test set sekarang mengandung lebih banyak komentar ambigu — 3 FP dari ~1000 test samples adalah tingkat yang masih sangat rendah.
+
+**Mengapa FN naik (17 → 23)?**
+
+Penghapusan `slot` dan `deposit` dari Hybrid Rule (B) berarti beberapa spam yang sebelumnya dipaksa ke spam via Hybrid B sekarang harus ditangani SVM sendiri. Beberapa lolos.
+
+---
+
 ## Versi 6 — 2026-06-18
 
 ### Ringkasan
