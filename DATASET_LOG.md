@@ -131,6 +131,61 @@ User menemukan via review manual satu komentar di video `1eNUtmfTckk` yang jelas
 
 ---
 
+## Versi 12 — 2026-06-30
+
+### Ringkasan
+Lanjutan investigasi kasus PBB4D (Versi 11): dicoba pendekatan scraping ulang yang berbeda — bukan ganti video, tapi ganti **parameter scraping** di video yang sudah terbukti relevan (`order=relevance` → `order=time`, plus `TARGET_COUNT` dinaikkan jauh, plus threshold non-spam dilebarkan sementara untuk menangkap dead zone). Pendekatan ini berhasil menyisir 561 komentar (vs ~150-300 sebelumnya) dari 2 video yang sama, dan dari situ ditemukan **181 komentar dead zone yang genuinely non-spam** — bukan pola "brand diulang + kritik" spesifik yang dicari, tapi cerita/opini/diskusi soal judi yang sebelumnya dibuang scraper hanya karena kepadatan keyword.
+
+### Kenapa Scrape Ulang Video yang Sama Bisa Berguna
+
+Investigasi sebelumnya (Versi 11) menyarankan "video baru" untuk memperluas pencarian. Itu kurang tepat — dua hal yang sebenarnya membatasi cakupan scraping di video yang **sama**:
+1. `order` tidak ditentukan di URL API → default `order=relevance`, hasilnya konsisten sama persis untuk video yang sama dalam rentang waktu dekat.
+2. `while (results.length < TARGET_COUNT) break` → scraper berhenti begitu kuota tercapai, hanya menyentuh ~100-200 komentar paling "relevant" dari video yang bisa punya ribuan komentar.
+
+Ditambahkan env var `COMMENT_ORDER` (default `relevance`, tidak mengubah perilaku lama) ke `scraper/index.js`. Scrape ulang dengan `COMMENT_ORDER=time TARGET_COUNT=400` pada `1eNUtmfTckk` dan `wxhbjPxrDR0` menyisir 561 komentar total (vs 215 sebelumnya di dua video itu) — termasuk hingga habis (`[Info] Semua halaman komentar sudah dipindai`) untuk `1eNUtmfTckk` (475 komentar, semuanya sudah tersisir).
+
+### Hasil Pencarian Pola Spesifik vs Temuan Lain
+
+Pencarian pola "brand ALL-CAPS+digit diulang + kata kritik" (persis PBB4D) di 190 entri dead zone hasil scrape ulang ini: **0 kandidat baru**. Sinyal dominan di dead zone kedua video ini ternyata `plain_keyword` (125), `emoji_spam` (41), `excessive_caps` (14), `high_symbol_ratio` (11) — bukan `brand_pattern` sama sekali. Artinya pola PBB4D (kritik + brand disebut berkali-kali) memang relatif langka, bukan karena pencarian kurang dalam.
+
+Tapi dead zone itu sendiri ternyata isinya **mayoritas cerita/opini non-spam asli** yang kena ganjal cuma karena menyebut kata "judol"/"slot"/"menang"/"wd" berkali-kali dalam komentar yang panjang — persis kategori yang paling dibutuhkan sejak audit Versi 10.
+
+### Review Manual & Filtering
+
+190 entri dead zone direview manual:
+- 8 entri dibuang karena terlalu pendek (≤3 kata) — masalah kualitas data, bukan konten salah
+- **1 entri dibuang karena pakai Unicode dekoratif** (font monospace), berisi klaim hiperbolis ("menang 300 juta/hari, 80 rumah mewah, tinggal di Antartika") — kemungkinan besar sarkasme/parodi gaya testimoni spam, tapi dikeluarkan demi kehati-hatian (pelajaran langsung dari insiden Mantulhoki di atas)
+- **181 entri tersisa ditambahkan** ke `manual_overrides.csv` sebagai `non_spam`
+
+### Statistik Dataset (`data/comments.csv`)
+
+| Label | Versi 11 (akhir) | Versi 12 |
+|---|---|---|
+| spam | 2332 | 2332 (tidak berubah) |
+| non_spam | 4177 | **4358** (+181) |
+| **Total** | **6509** | **6690** |
+
+### Hasil Evaluasi Model
+
+| Metrik | Versi 11 (akhir) | Versi 12 |
+|---|---|---|
+| Accuracy (train-test split) | 97.39% | **97.46%** |
+| Hard test set accuracy | 97.04% | **98.52%** (rekor tertinggi, 2 FP dari 135) |
+
+### Temuan Penting: PBB4D Masih Salah Walau Sekarang Masuk Training
+
+Komposisi dataset berubah cukup besar sehingga `train_test_split` (random_state=42) menempatkan kasus PBB4D ke **training set** kali ini (sebelumnya test set). Model tetap memprediksi `spam` dengan confidence 99.18% — **walau sekarang benar-benar dilatih dengan contoh itu**.
+
+Ini bukti empiris yang jauh lebih kuat dari sebelumnya: bukan soal kurang data, tapi keterbatasan struktural SVM linear teregularisasi (`C=1`). "PBB4D" disebut 3 kali sebagai `judolbrand` dalam satu komentar — term frequency yang sangat tinggi untuk token yang sangat kuat berasosiasi dengan spam di 2332 dokumen spam lainnya. `sublinear_tf=True` meredam pengulangan lewat skala logaritmik, tapi tidak cukup untuk kasus ekstrem 3x ini. Model dengan regularisasi sengaja menerima beberapa training point salah klasifikasi demi margin keputusan yang lebih lebar dan generalisasi yang lebih baik secara keseluruhan — PBB4D adalah salah satu titik itu.
+
+**Implikasi:** ini memperkuat dasar empiris untuk *engineered features* (dibahas sebelum sesi scraping ini dimulai) sebagai langkah selanjutnya yang paling masuk akal — fitur eksplisit untuk "ada kata kritik/laporan" yang bobotnya tidak ikut diencerkan oleh seberapa banyak token brand muncul, alih-alih terus menambah data individual yang terbukti tidak selalu cukup bahkan saat masuk training langsung.
+
+### Untuk Sidang
+
+> *"Eksperimen lanjutan menunjukkan bahwa scraping ulang dengan parameter berbeda (order kronologis, target lebih tinggi) pada video yang sama bisa jauh lebih efektif daripada mencari video baru — berhasil menyisir hingga seluruh komentar yang tersedia pada satu video. Dari situ ditemukan 181 komentar non-spam bertema judi yang sebelumnya terbuang oleh scraper karena kepadatan kata kunci, menaikkan akurasi hard test set ke rekor tertinggi 98.52%. Namun satu kasus spesifik (komentar yang menyebut nama brand tiga kali dalam konteks kritik) tetap salah diklasifikasi meskipun kini benar-benar termasuk dalam data training — sebuah bukti empiris langsung bahwa keterbatasan tersebut bersifat struktural pada model SVM linear teregularisasi, bukan sekadar kekurangan data, dan menjadi dasar pertimbangan kuat untuk menambahkan fitur turunan (engineered features) pada iterasi pengembangan berikutnya."*
+
+---
+
 ## Versi 10 — 2026-06-30
 
 ### Ringkasan

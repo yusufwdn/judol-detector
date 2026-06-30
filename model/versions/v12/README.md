@@ -1,5 +1,10 @@
 # Model v12 — 2026-06-30
 
+> **Disusul oleh [`v13/`](../v13/) di hari yang sama** — 181 komentar dead
+> zone tambahan ditemukan via scraping ulang dengan parameter berbeda,
+> menaikkan hard test set ke 98.52%. v12 tetap diarsipkan sebagai
+> checkpoint "kontaminasi sudah dibersihkan, sebelum dead zone harvest".
+
 Commit: *(belum di-commit)*
 Dataset: 2332 spam / 4177 non_spam / 6509 total
 Accuracy: **97.39%** (F1 0.9713, train-test split) — hard test set: **97.04%**
