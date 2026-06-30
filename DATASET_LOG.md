@@ -10,6 +10,204 @@ Berguna untuk bab metodologi skripsi dan untuk melacak versi mana yang menghasil
 
 ---
 
+## Versi 11 — 2026-06-30
+
+### Ringkasan
+**Insiden kualitas data ditemukan dan diperbaiki.** Setelah scraping Versi
+10, user me-review manual salah satu file hasil scraping dan menemukan
+komentar yang jelas-jelas spam tapi ke-label `non_spam` oleh heuristik
+scraper. Investigasi lanjutan menemukan **3 kampanye spam terselubung**
+yang lolos dari deteksi heuristik (`spam_score = 0` untuk semuanya),
+termasuk yang sudah ada di pool non-spam **sejak sebelum sesi ini** (bukan
+cuma dari scraping baru).
+
+### Temuan: 3 Kampanye Spam yang Lolos Heuristik
+
+| Kampanye | Teknik penyamaran | Jumlah | Sumber |
+|---|---|---|---|
+| `MANTULHOKI` | Unicode dekoratif (math bold/script/double-struck/monospace), 7+ varian font berbeda, kalimat ditemplate ("aman dan cocok...", "sistemnya rapi...", "jadi rekomendasi karena...") | 39 | 3 video baru (Versi 10) |
+| `HOKI777` | Leet speak (H0KI777/H0K1777) **dan** full-width spacing (`Ｈ Ｏ ＫＩ 7 7 7`) menyamar sebagai komentar timestamp ("01:35 HOKI777 auto betah") | 14 | 2 video baru + **pool lama** (sejak sebelum sesi ini) |
+| `4rabet` | Brand betting internasional, bahasa Inggris, kalimat ditemplate ("every event by 4rabet sets new standards...") | 14 | 1 video baru |
+| `ANRU33` | Full-width digit + bracket (`【ＡＮＲＵ３３】`) | 1 | 1 video baru |
+
+**Total: 61 entri** (dari 4156 entri pool non-spam saat itu, termasuk 8 yang
+sudah ada sebelum sesi scraping Versi 10).
+
+### Kenapa Heuristik Scraper Tidak Mendeteksinya
+
+`scraper/index.js` menghitung `spam_score` dari sinyal seperti `brand_pattern`
+**tanpa NFKC normalization terlebih dahulu** — beda dengan `preprocessing.py`
+di sisi model yang secara eksplisit menormalisasi Unicode dekoratif sebelum
+mengecek pola brand (lihat §6 dan §7). Akibatnya:
+- Font dekoratif (`𝐌𝐚𝐧𝐭𝐮𝐥𝐡𝟎𝐤𝟏`, `𝕄𝔸ℕ𝕋𝕌𝕃ℍ𝕆𝕂𝕀`, dll.) tidak dikenali scraper sebagai
+  teks biasa, sehingga `brand_pattern` tidak pernah terpicu.
+- Full-width spacing (`Ｈ Ｏ ＫＩ 7 7 7`) menyamar sebagai gaya komentar
+  reaksi timestamp video (`01:35 ... auto betah`), pola yang sangat umum
+  di komentar YouTube asli sehingga tidak mencurigakan secara visual.
+- Brand bahasa Inggris (`4rabet`) tidak match pola regex Indonesia
+  (`brandPattern` di scraper fokus ke suffix lokal seperti 4D/88/99/QQ).
+
+**Implikasi:** ini bukan insiden sekali doang — blind spot ini kemungkinan
+sudah ada sejak data non-spam pertama kali dikumpulkan (Versi 2). Video yang
+secara spesifik membahas topik judi (seperti 12 video Versi 10) ternyata
+**menarik lebih banyak spam tersamar** dibanding video umum, karena spammer
+menargetkan thread yang relevan dengan produk mereka.
+
+### Tindakan Perbaikan
+
+1. **Audit menyeluruh** pool non-spam (lama + baru) dengan deteksi
+   berlapis: NFKC normalize + homoglyph translation (Cyrillic/Greek) +
+   leet substitution + regex word-boundary brand matching — bukan exact
+   keyword match yang gampang ke-bypass.
+2. **61 entri dihapus** dari `final_non_spam.json`.
+3. **61 entri ditambahkan ke `manual_overrides.csv` sebagai `spam`** — bukan
+   sekadar dibuang, supaya model belajar pola penyamaran ini secara
+   eksplisit. (Percobaan pertama hanya menghapus tanpa relabel — sanity
+   check menunjukkan model retrain masih salah klasifikasi `Mantulhoki`
+   dan `4rabet` baru sebagai non_spam karena tidak pernah melihat contoh
+   positifnya. Setelah direlabel jadi spam, sanity check ulang: semua
+   brand terdeteksi spam dengan confidence 99.6–100%.)
+4. Dataset di-rebuild dan model di-retrain ulang.
+
+### Statistik Dataset (`data/comments.csv`)
+
+| Label | Versi 10 (terkontaminasi) | Versi 11 (bersih) |
+|---|---|---|
+| spam | 2271 | **2332** (+61 relabel) |
+| non_spam | 4238 | **4177** (−61 dihapus dari pool, lalu sebagian kembali lewat overrides non_spam yang valid) |
+| **Total** | **6509** | **6509** |
+
+### Hasil Evaluasi Model
+
+| Metrik | Versi 10 (terkontaminasi) | Versi 11 (bersih) |
+|---|---|---|
+| Accuracy (train-test split) | 98.23% | **97.39%** |
+| F1-macro | 0.9804 | 0.9713 |
+| FP | 2 | 8 |
+| FN | 21 | 26 |
+| Hard test set accuracy | 97.78% | **97.04%** |
+
+**Akurasi turun, dan ini yang diharapkan, bukan kemunduran.** Model Versi 10
+"curang" — sebagian skornya didapat dari menghafal bahwa kalimat
+promosi bergaya Mantulhoki/4rabet adalah `non_spam` (karena memang begitu
+labelnya yang salah). Setelah label diperbaiki, angka yang lebih rendah
+ini **lebih jujur** mencerminkan kemampuan model yang sesungguhnya — sama
+seperti pelajaran dari Versi 1→2 (akurasi ~100% dengan data sintetis bukan
+prestasi, akurasi 97% dengan data nyata yang lebih sulit justru lebih
+bisa dipercaya).
+
+### Untuk Sidang
+
+> *"Selama proses scraping data tambahan, ditemukan tiga kampanye spam yang menggunakan teknik penyamaran (font Unicode dekoratif, leet speak, spasi karakter full-width) untuk lolos dari heuristik penilaian spam_score milik scraper — termasuk satu kampanye yang ternyata sudah mencemari dataset sejak pengumpulan data non-spam pertama kali, bukan insiden baru. Setelah diaudit ulang dengan deteksi berlapis (normalisasi Unicode, translasi homoglyph, substitusi leet speak), 61 komentar yang salah label dipindahkan dari kelas non-spam ke kelas spam yang benar. Model yang dilatih ulang dengan data yang sudah dibersihkan menunjukkan accuracy yang sedikit lebih rendah dari sebelumnya (97.39% vs 98.23%) — penurunan ini disengaja dan diharapkan, karena angka sebelumnya sebagian berasal dari model menghafal label yang salah. Ini menegaskan pentingnya audit kualitas data manual, bukan hanya mengandalkan heuristik otomatis, terutama untuk dataset yang dikumpulkan dari sumber yang secara aktif ditargetkan oleh spammer."*
+
+---
+
+## Versi 10 — 2026-06-30
+
+### Ringkasan
+Scraping tertarget untuk mengisi kesenjangan yang ditemukan lewat audit dataset
+(lihat bagian "Evaluasi Dataset" di bawah): hanya 8.0% (228/2861) data
+non-spam yang benar-benar menyinggung topik judi (kritik/cerita/diskusi),
+sisanya topik generik yang nggak relevan untuk melatih model membedakan
+"kritik judi" dari "promosi judi". Di-scrape 12 video baru bertema edukasi
+dan pengalaman pribadi soal judi online (ID video disediakan user).
+
+### Evaluasi Dataset Sebelum Scraping
+
+| Aspek | Temuan |
+|---|---|
+| Balance kelas | 2271 spam : 2861 non_spam (1:1.26) — sehat |
+| Duplikat | 0 baris — bersih |
+| Keberagaman sumber | Spam dari 77 video, non-spam cuma dari **19 video** |
+| **Non-spam yang menyinggung topik judi** | **228 / 2861 (8.0%)** — sisanya 92% topik tidak relevan |
+
+Distribusi 19 video sumber non-spam relatif merata (3.6%–8.0% per video, bukan
+didominasi 1-2 video), tapi kategori paling sulit (kritik/cerita yang
+menyebut brand judi) cuma datang dari **2 video** (`kM99uBssHvQ`,
+`pzE8S6N0vwo` — sumber `hard_test_set.csv`). Ini selaras dengan temuan
+Versi 9: SVM gagal generalisasi pola "kritik + sebut brand" ke brand yang
+beda karena training data untuk pola itu terlalu sempit.
+
+### Scraping 12 Video Baru
+
+Video ID (disediakan user, tema edukasi/pengalaman pribadi soal judi online):
+`J7-P3Oz9CKA`, `wxhbjPxrDR0`, `RDH0VTSDbLk`, `w2e4ioPI-5I`, `X1ePrz3gev8`,
+`PpU1Rxqka5s`, `yMBMEBc0a9s`, `FgKV4IT4vHU`, `brA4tbgGkNQ`, `sjkU1cSq900`,
+`1dfhdjSzR3c`, `1eNUtmfTckk`.
+
+Dijalankan `node index.js <video_id> video non_spam` per video (di repo
+`scraper-judol-yt-comment`), lalu `node filter.js` untuk agregasi + dedup.
+
+| Metrik | Sebelum | Sesudah |
+|---|---|---|
+| `final_non_spam.json` (raw, sebelum dedup) | 2779 | 4201 |
+| `final_non_spam.json` (bersih, setelah dedup) | 2779 | **4156** |
+| Video unik sumber non-spam | 19 | **31** |
+| Non-spam yang menyinggung topik judi | 228 (8.0%) | **471 (11.3%)** |
+
+`final_spam.json` tidak berubah (2324) — tidak ada scraping spam baru di
+sesi ini.
+
+### Statistik Dataset (`data/comments.csv`)
+
+| Label | Versi 9 | Versi 10 |
+|---|---|---|
+| spam | 2271 | 2271 (tidak berubah) |
+| non_spam | 2861 | **4238** (+1377) |
+| **Total** | **5132** | **6509** |
+| Rasio spam:non | 1:1.26 | 1:1.87 |
+
+Rasio jadi lebih timpang, tapi `class_weight='balanced'` di SVM dirancang
+untuk menangani ini — dampaknya dievaluasi di bawah, bukan diasumsikan aman.
+
+### Hasil Evaluasi Model
+
+**Train-test split (80/20, test set 1302 sampel):**
+
+| Metrik | Versi 9 | Versi 10 |
+|---|---|---|
+| Accuracy | 97.57% | **98.23%** |
+| F1-macro | 0.9752 | **0.9804** |
+| FP | 5 | **2** |
+| FN | 20 | 21 |
+
+**K-Fold CV (cv=5):** Mean F1-macro 97.36% ± 0.31% (naik dari 97.24%
+± 0.37%, dan std lebih kecil — model lebih konsisten antar-fold).
+
+**Hard test set (135 entri):**
+
+| Metrik | Versi 9 | Versi 10 |
+|---|---|---|
+| Accuracy | 97.04% | **97.78%** |
+| FP | 4 | **3** |
+| FN | 0 | 0 |
+
+### Temuan Kunci: Generalisasi Beneran Terjadi, Bukan Hafalan
+
+Salah satu dari dua contoh yang **sengaja ditahan** sebagai uji generalisasi
+di Versi 9 (*"100% situs NAGAPOKER situs penguras..100% super licik..."*)
+sekarang **terklasifikasi benar** — padahal kalimat ini sendiri tidak pernah
+ditambahkan ke training. Yang berubah adalah variasi data non-spam
+ber-topik-judi secara umum (228 → 471 contoh, dari 2 video jadi 14 video
+yang relevan). Ini bukti bahwa menambah keberagaman contoh **di kategori
+yang tepat** memberi generalisasi nyata, bukan sekadar menghafal kalimat
+yang sama persis.
+
+3 FP yang masih tersisa di hard test set:
+- *"Brantas pak, ini situs Judi online..."* — pola sama (Pola A) tapi masih
+  belum ter-generalisasi, brand-nya (`Udintogel`, `Zara4d`) berbeda dari
+  yang ada di training.
+- *"Maxwin boskuh??????..."* — nada ambigu/borderline promosi (Pola D),
+  diterima sebagai keterbatasan sejak Versi 9.
+- *"Sabung marmut aja dri pda GACOR88"* — sarkasme/idiom (Pola E), diterima
+  sebagai keterbatasan sejak Versi 9.
+
+### Untuk Sidang
+
+> *"Audit dataset menemukan bahwa hanya 8% data non-spam yang benar-benar membahas topik judi — sisanya topik tidak relevan yang mudah dipisahkan dari spam, sehingga tidak banyak membantu model belajar membedakan kritik dari promosi. Dilakukan scraping tertarget pada 12 video bertema edukasi dan pengalaman pribadi soal judi online, meningkatkan cakupan menjadi 471 contoh dari 14 video relevan. Setelah retrain, akurasi hard test set naik dari 97.04% menjadi 97.78%, dan salah satu kasus yang sebelumnya gagal digeneralisasi kini terklasifikasi benar tanpa pernah dilatih dengan kalimat persis tersebut — menunjukkan model benar-benar belajar pola umum, bukan menghafal contoh spesifik. Sisa kegagalan yang ada bersifat kasus tepi (sarkasme, nada ambigu) yang diterima sebagai keterbatasan terdokumentasi."*
+
+---
+
 ## Versi 9 — 2026-06-30
 
 ### Ringkasan

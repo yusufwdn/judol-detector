@@ -135,6 +135,24 @@ akan terlihat langsung di hasil evaluasi.
   F1-macro 0.9752), dan semua angka di README/PENJELASAN_TEKNIS sudah
   disinkronkan ke hasil rebuild ini.
 
+- [x] **Insiden kontaminasi data ditemukan & diperbaiki (2026-06-30).**
+  61 komentar spam tersamar (Unicode dekoratif/leet speak — kampanye
+  Mantulhoki/Hoki777/4rabet/Anru33) lolos heuristik scraper dan ter-label
+  `non_spam`, termasuk 8 yang sudah ada di pool sejak sebelum sesi ini.
+  Direlabel ke `spam` lewat `manual_overrides.csv`, model di-retrain.
+  Detail lengkap di
+  [PENJELASAN_TEKNIS.md §35](PENJELASAN_TEKNIS.md#35-insiden-kontaminasi-data--spam-tersamar-yang-lolos-heuristik-scraper)
+  dan [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30).
+
+- [ ] **Perbaiki root cause di `scraper/index.js` (belum dikerjakan).**
+  Scraper menghitung `spam_score` dari teks mentah **tanpa NFKC
+  normalization**, beda dengan `preprocessing.py` di sisi model yang
+  menormalisasi Unicode dekoratif sebelum cek pola apapun. Ini kenapa
+  kampanye Mantulhoki/Hoki777 lolos tak terdeteksi. Perbaikan: terapkan
+  NFKC normalize + homoglyph translation di scraper sebelum menghitung
+  `active_signals`, supaya scraping berikutnya tidak mengulang masalah yang
+  sama. Repo scraper terpisah dari proyek ini (`scraper-judol-yt-comment`).
+
 ---
 
 ## Fase 2 — Evaluasi Model yang Lebih Jujur

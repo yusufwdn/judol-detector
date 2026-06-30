@@ -42,6 +42,7 @@
 32. [Penghapusan slot dan deposit dari HARD_SPAM_SIGNALS](#32-penghapusan-slot-dan-deposit-dari-hard_spam_signals)
 33. [Ablation Study Hybrid Rules — Kenapa Akhirnya Dimatikan](#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan)
 34. [Generalisasi ke Brand Judol Baru — Sejauh Mana Model Bisa Mengikuti?](#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti)
+35. [Insiden Kontaminasi Data — Spam Tersamar yang Lolos Heuristik Scraper](#35-insiden-kontaminasi-data--spam-tersamar-yang-lolos-heuristik-scraper)
 
 ---
 
@@ -3098,3 +3099,54 @@ Bukan dianggap kegagalan desain — setiap sistem deteksi spam berbasis konten (
 ### Untuk Sidang
 
 > *"Diuji secara empiris menggunakan nama brand fiktif yang dipastikan tidak ada di dataset training. Hasilnya, brand baru dengan suffix penamaan yang dikenal (pola digit seperti 4D/88/99/77, atau QQ) langsung dikenali dengan confidence 100% lewat mekanisme canonicalization di preprocessing — bukan hafalan nama, tapi pengenalan pola. Brand dengan suffix di luar pola itu (misal TOTO/BET/WIN tanpa digit) tetap terdeteksi 85–92% selama disertai kalimat promosi, karena model mengandalkan kata-kata ajakan di sekitarnya, bukan nama brand semata. Celah yang teridentifikasi adalah kombinasi brand benar-benar baru tanpa kalimat promosi sama sekali, di mana confidence turun mendekati batas keputusan. Perluasan pola canonicalization untuk menutup celah ini dipertimbangkan tapi ditunda karena berisiko menghidupkan kembali bug false positive pada kata Indonesia umum (ribet, kesambet) yang sudah pernah diperbaiki sebelumnya — sehingga keterbatasan ini diterima dan dimitigasi secara operasional lewat pipeline scraping-retraining yang sudah ada, bukan lewat penambahan aturan baru yang berisiko."*
+
+---
+
+## 35. Insiden Kontaminasi Data — Spam Tersamar yang Lolos Heuristik Scraper
+
+### Bagaimana Ini Ditemukan
+
+Setelah scraping 12 video baru (lihat [DATASET_LOG.md Versi 10](DATASET_LOG.md#versi-10--2026-06-30)) dan model selesai dilatih ulang, user secara manual membuka salah satu file hasil scraping mentah di editor dan menemukan komentar yang jelas-jelas promosi judi tapi ter-label `non_spam`. Ini **bukan ditemukan lewat metrik otomatis** — `spam_score` dari scraper untuk semua entri yang bermasalah adalah 0, jadi tidak ada alarm apapun dari sistem. Murni dari peninjauan manual.
+
+Ini poin metodologis penting: **evaluasi otomatis (accuracy, F1, hard test set) tidak bisa mendeteksi data yang salah label sejak awal** — kalau label sumbernya salah, model yang "akurat" terhadap label itu sebenarnya akurat terhadap kesalahan. Audit manual berkala terhadap sampel data mentah tetap diperlukan, walau sudah ada pipeline otomatis.
+
+### Tiga Kampanye Spam yang Ditemukan
+
+| Kampanye | Teknik Penyamaran | Contoh |
+|---|---|---|
+| `MANTULHOKI` | Unicode dekoratif — 7 varian font berbeda (math bold, italic, double-struck, monospace, script, bahkan campuran Cyrillic+Greek homoglyph) | `𝐌𝐚𝐧𝐭𝐮𝐥𝐡𝟎𝐤𝟏`, `𝕄𝔸ℕ𝕋𝕌𝕃ℍ𝕆𝕂𝕀`, `мαηтυℓнσкι` |
+| `HOKI777` | Leet speak (digit 0/1 menggantikan huruf) **dan** full-width spacing yang menyamar sebagai komentar reaksi timestamp video | `H0KI777`, `Ｈ Ｏ ＫＩ 7 7 7` di tengah komentar `"01:35 ... auto betah"` |
+| `4rabet` / `ANRU33` | Brand internasional berbahasa Inggris, dan full-width digit dibungkus bracket | `4rabet sets new standards...`, `【ＡＮＲＵ３３】` |
+
+Total **61 entri** terkonfirmasi dari 4156 entri pool non-spam saat itu (1.5%) — 53 dari scraping 12 video baru, **8 sudah ada di pool sejak sebelum sesi scraping ini**, kemungkinan sejak data non-spam awal dikumpulkan di Versi 2.
+
+### Root Cause: Scraper Tidak Menormalisasi Unicode Sebelum Menilai
+
+`scraper/index.js` menghitung `spam_score` berdasarkan sinyal seperti `brand_pattern` **langsung dari teks mentah**, tanpa NFKC normalization terlebih dahulu. Ini kontras dengan `preprocessing.py` di sisi model, yang secara eksplisit melakukan NFKC normalize (Step 2), strip combining marks (Step 2b), dan homoglyph translation (Step 3) — *sebelum* mengecek pola apapun (lihat §6 dan §7).
+
+Akibatnya: scraper "buta" terhadap persis jenis obfuscation yang justru paling sering dipakai spammer dan yang preprocessing model sudah dirancang untuk membongkar. Scraper dan model menggunakan standar normalisasi yang berbeda — sebuah inkonsistensi yang baru terlihat dampaknya sekarang.
+
+### Kenapa Video Bertema Judi Lebih Rentan
+
+12 video baru yang di-scrape secara spesifik membahas topik judi online (edukasi, pengalaman pribadi). Video semacam ini ternyata **menarik lebih banyak spam tersamar** dibanding video acak — masuk akal secara logika spammer: mereka menargetkan audiens yang sudah terbukti tertarik dengan topik judi, bukan menyebar acak ke semua video. Tiga dari empat kampanye yang ditemukan (39 dari 53 entri baru) berasal dari hanya 1-2 video saja — terkonsentrasi, bukan tersebar merata, konsisten dengan pola serangan terarah/bot farming pada thread spesifik.
+
+**Implikasi untuk scraping selanjutnya:** video yang relevan secara topik untuk dataset (semakin spesifik membahas judi) kemungkinan akan terus membawa risiko kontaminasi yang lebih tinggi dibanding video acak. Audit manual menjadi lebih penting, bukan kurang, justru untuk kategori data yang paling berharga untuk training.
+
+### Perbaikan: Relabel, Bukan Sekadar Hapus
+
+Percobaan pertama hanya menghapus 61 entri dari pool non-spam. Sanity check pasca-retrain menunjukkan model **masih salah** mengklasifikasikan kalimat baru bergaya Mantulhoki/4rabet sebagai non_spam — karena model tidak pernah diberi contoh bahwa pola itu *adalah* spam, ia hanya tidak lagi diberi tahu (secara salah) bahwa itu non-spam. Menghapus saja menghasilkan kekosongan informasi, bukan koreksi.
+
+Keputusan akhir: 61 entri direlabel jadi `spam` dan ditambahkan ke `manual_overrides.csv` (mekanisme yang sama dengan koreksi false positive di §27/§28, dipakai di sini untuk arah sebaliknya — false negative dari sumber data). Setelah retrain ulang, sanity check pada brand yang sama menunjukkan confidence 99.6–100% terdeteksi sebagai spam.
+
+### Dampak Terukur
+
+| Metrik | Versi 10 (terkontaminasi) | Versi 11 (bersih) |
+|---|---|---|
+| Accuracy (train-test split) | 98.23% | 97.39% |
+| Hard test set accuracy | 97.78% | 97.04% |
+
+Penurunan ini **disengaja dan diharapkan** — paralel langsung dengan pelajaran Versi 1→2 (data sintetis vs nyata): angka yang lebih tinggi tapi dari label yang salah bukan prestasi, angka yang lebih rendah tapi jujur lebih bisa dipercaya dan lebih defensible di sidang.
+
+### Untuk Sidang
+
+> *"Selama proses audit dataset, ditemukan secara manual bahwa beberapa komentar yang ter-scrape sebagai non-spam ternyata spam yang disamarkan menggunakan font Unicode dekoratif, leet speak, dan spasi karakter full-width — teknik yang dirancang untuk lolos dari filter kata kunci sederhana. Heuristik penilaian milik scraper tidak melakukan normalisasi Unicode sebelum menilai, sehingga 61 komentar (termasuk 8 yang sudah mencemari dataset sejak pengumpulan data non-spam pertama kali) lolos tak terdeteksi. Setelah diaudit dan direlabel ke kelas yang benar — bukan sekadar dihapus, karena percobaan awal menunjukkan penghapusan saja tidak mengajarkan model mengenali pola itu — model dilatih ulang dan menunjukkan accuracy yang sedikit lebih rendah dari sebelumnya. Penurunan ini dianggap sebagai indikator data yang lebih jujur, bukan kemunduran kualitas model, dan menjadi pengingat bahwa evaluasi otomatis tidak bisa menggantikan audit data manual ketika sumber datanya sendiri berpotensi salah label."*

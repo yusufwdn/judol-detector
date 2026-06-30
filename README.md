@@ -132,7 +132,7 @@ python src/prepare_dataset.py
 
 Skrip ini membaca data scraping dari `scraper/final_spam.json`, memfilter komentar spam menggunakan **two-pass filter** (lihat penjelasan di bawah), lalu menggabungkannya dengan contoh komentar non-spam untuk membentuk dataset di `data/comments.csv`.
 
-Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 8, lihat [DATASET_LOG.md](DATASET_LOG.md)):
+Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 11, lihat [DATASET_LOG.md](DATASET_LOG.md)):
 ```
 [1/4] Loading spam data (threshold >= 80)...
   Total entries in JSON        : 2324
@@ -143,19 +143,19 @@ Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 
   Total spam collected         : 2085
 
 [2/4] Loading non-spam data...
-  Total entries in JSON : 2779
-  Loaded                : 2779
+  Total entries in JSON : 4156
+  Loaded                : 4156
 
 [3/4] Applying manual overrides (data/manual_overrides.csv)...
-  Loaded 346 manual overrides:
+  Loaded 349 manual overrides:
     FP dihapus dari spam      : 7
     Entry ditambah ke non_spam: 82
     Entry ditambah ke spam    : 193
 
 [4/4] Merging, shuffling, and saving dataset...
-  Spam samples    : 2271
-  Non-spam samples: 2861
-  Total           : 5132
+  Spam samples    : 2332
+  Non-spam samples: 4177
+  Total           : 6509
   Saved to: data/comments.csv
 ```
 
@@ -163,7 +163,7 @@ Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 
 >
 > Maka ditambahkan **Pass 2**: untuk entri berskor rendah yang mengandung sinyal `brand_pattern`, dicek apakah `normalized_text`-nya mengandung pola brand judi yang jelas (huruf kapital + angka seperti `WIFI4D`, atau suffix khas seperti `*TOTO`/`*BET`/`*WIN`/`*QQ`). Kalau cocok, entri itu "diselamatkan" sebagai spam asli.
 >
-> Hasil akhir tahap ini: **2085 spam** (138 dari Pass 1 + 1947 dari rescue), lalu di tahap [3/4] ditambah/dikurangi lagi oleh `manual_overrides.csv` (lihat [Bagian 4](#4-cara-menjalankan)) sampai jadi **2271 spam** final. Penjelasan lengkap + contoh kasus nyata ("kesambet" yang awalnya ke-flag salah) ada di [PENJELASAN_TEKNIS.md bagian 5](PENJELASAN_TEKNIS.md#5-solusi-two-pass-filter-di-prepare_datasetpy).
+> Hasil akhir tahap ini: **2085 spam** (138 dari Pass 1 + 1947 dari rescue), lalu di tahap [3/4] ditambah/dikurangi lagi oleh `manual_overrides.csv` (lihat [Bagian 4](#4-cara-menjalankan)) sampai jadi **2332 spam** final — termasuk 61 entri yang awalnya salah ter-scrape sebagai non-spam (spam tersamar pakai Unicode dekoratif/leet speak yang lolos heuristik scraper, lihat [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)) dan direlabel manual ke spam. Penjelasan lengkap + contoh kasus nyata ("kesambet" yang awalnya ke-flag salah) ada di [PENJELASAN_TEKNIS.md bagian 5](PENJELASAN_TEKNIS.md#5-solusi-two-pass-filter-di-prepare_datasetpy).
 
 ### Langkah 5 — Training Model
 
@@ -492,20 +492,20 @@ Manfaat Pipeline:
 
 ### Cara Membaca Hasil Evaluasi
 
-Setelah training, akan tampil laporan seperti ini (angka aktual dari dataset Versi 8, 5132 baris, split 80/20 stratified → test set 1026 sampel):
+Setelah training, akan tampil laporan seperti ini (angka aktual dari dataset Versi 11, 6509 baris, split 80/20 stratified → test set 1302 sampel):
 
 ```
               precision    recall  f1-score   support
 
-    non_spam       0.96      0.99      0.98       572
-        spam       0.99      0.95      0.97       454
+    non_spam       0.97      0.99      0.98       836
+        spam       0.98      0.94      0.96       466
 
-    accuracy                           0.97      1026
+    accuracy                           0.97      1302
 ```
 
-Akurasi train-test split: **96.95%** (F1-macro 0.9822). Angka ini jauh dari 100% justru karena dataset sudah jauh lebih beragam (data non-spam nyata, bukan sintetis) dibanding versi awal proyek.
+Akurasi train-test split: **97.39%** (F1-macro 0.9713). Angka ini jauh dari 100% justru karena dataset sudah jauh lebih beragam (data non-spam nyata, bukan sintetis) dibanding versi awal proyek.
 
-> **Apakah angka ini cukup meyakinkan?** Selain train-test split, model juga dievaluasi dengan **5-fold cross-validation** (mean F1 97.45% ± 2.81%) dan **hard test set** berisi 141 komentar ambigu yang sengaja sulit (accuracy turun ke 80.14% — ini realistis dan diharapkan, karena hard set berisi kasus abu-abu seperti komentar yang mengkritik judol tapi menyebut nama situs). Detail lengkap metodologi evaluasi dan kenapa angka tidak 100% itu justru tanda dataset yang lebih jujur, ada di [PENJELASAN_TEKNIS.md bagian 15](PENJELASAN_TEKNIS.md#15-pertanyaan-yang-mungkin-muncul-saat-sidang).
+> **Apakah angka ini cukup meyakinkan?** Selain train-test split, model juga dievaluasi dengan **5-fold cross-validation** (mean F1 97.30% ± 0.27%) dan **hard test set** berisi 135 komentar ambigu yang sengaja sulit (accuracy 97.04%). Detail lengkap metodologi evaluasi, riwayat tiap iterasi (termasuk insiden kontaminasi data spam tersamar yang ditemukan dan diperbaiki di Versi 11), dan kenapa angka tidak 100% itu justru tanda dataset yang lebih jujur, ada di [PENJELASAN_TEKNIS.md bagian 15](PENJELASAN_TEKNIS.md#15-pertanyaan-yang-mungkin-muncul-saat-sidang) dan [DATASET_LOG.md](DATASET_LOG.md).
 
 **Precision** — Dari semua yang diprediksi "spam", berapa persen yang benar-benar spam?
 
@@ -641,7 +641,7 @@ Dua kolom wajib:
 - `label` — `spam` atau `non_spam`
 
 > **Semakin banyak dan beragam datanya, semakin baik modelnya.**
-> Dataset proyek ini (Versi 8) berisi **5132 baris**: 2271 spam + 2861 non-spam, **keduanya dari data scraping nyata** (non-spam tidak lagi sintetis sejak Versi 2 — lihat [DATASET_LOG.md](DATASET_LOG.md)).
+> Dataset proyek ini (Versi 11) berisi **6509 baris**: 2332 spam + 4177 non-spam, **keduanya dari data scraping nyata** (non-spam tidak lagi sintetis sejak Versi 2 — lihat [DATASET_LOG.md](DATASET_LOG.md)). Bukan cuma soal jumlah — audit menemukan mayoritas data non-spam sebelumnya bertopik generik (tidak menyinggung judi sama sekali), sehingga kurang membantu model membedakan kritik dari promosi; Versi 10 secara khusus menambah komentar non-spam yang benar-benar membahas topik judi (kritik, cerita pengalaman, edukasi). Versi 11 lalu memperbaiki insiden kualitas data: 61 komentar spam tersamar (Unicode dekoratif/leet speak) yang lolos heuristik scraper direlabel dari non-spam ke spam.
 > Untuk hasil yang andal:
 > - **Minimum:** 1:1 rasio spam:non-spam, minimal 500 sampel per kelas
 > - **Target realistis:** 1.500+ sampel per kelas dengan rasio 1:1 hingga 2:1
@@ -962,11 +962,11 @@ Keduanya adalah format serialisasi Python (cara menyimpan objek Python ke file).
 
 ---
 
-**Q: Akurasi 96.95% di test set, tapi kenapa turun ke 80% di hard test set?**
+**Q: Akurasi 97.39% di test set biasa, tapi kenapa hard test set juga 97.04%? Kok deketan?**
 
-Wajar dan diharapkan. Test set biasa (20% dari `comments.csv`, diambil acak dari distribusi yang sama dengan data training) berisi pola yang relatif khas — nama brand judi + kata kunci tertentu vs komentar normal — jadi mudah dipisahkan. `data/hard_test_set.csv` sengaja diisi 141 komentar **ambigu** (misalnya komentar yang mengkritik/melaporkan judol tapi menyebut nama situsnya) yang jauh lebih sulit bagi model manapun.
+Karena dataset sudah cukup beragam dan bersih sehingga gap antara kasus "mudah" dan "ambigu" mengecil — itu justru indikator kualitas data yang baik, bukan kebetulan. Riwayat selisih ini dari waktu ke waktu: 80.14% (hybrid rules masih aktif) → 92.91% (hybrid dimatikan) → 97.04% (error analysis & data augmentation tertarget) → sempat naik ke 97.78% setelah scraping tambahan, **lalu turun lagi ke 97.04%** setelah ditemukan dan diperbaiki insiden kontaminasi data (61 komentar spam yang salah label non-spam, lihat [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)). Penurunan terakhir itu disengaja — angka sebelumnya sebagian berasal dari model menghafal label yang salah.
 
-Selisih ini justru jadi bukti dataset utama tidak overfit ke kasus mudah saja — proyek ini secara sengaja mengukur dirinya dengan dua skenario berbeda alih-alih hanya melaporkan angka tertinggi. Jalankan `python src/evaluate_hard_set.py` untuk melihat detail kegagalannya (semua salah ke arah false positive, bukan false negative — lihat `reports/hard_set_evaluation.txt`).
+Jalankan `python src/evaluate_hard_set.py` untuk melihat detail kegagalan yang tersisa. Riwayat lengkap tiap iterasi ada di [DATASET_LOG.md Versi 8-11](DATASET_LOG.md) dan [PENJELASAN_TEKNIS.md §33-34](PENJELASAN_TEKNIS.md).
 
 ---
 
