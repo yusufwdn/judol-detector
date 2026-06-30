@@ -153,6 +153,18 @@ akan terlihat langsung di hasil evaluasi.
   `active_signals`, supaya scraping berikutnya tidak mengulang masalah yang
   sama. Repo scraper terpisah dari proyek ini (`scraper-judol-yt-comment`).
 
+- [ ] **Scraper punya "dead zone" — komentar skor 10-29 dibuang total, tidak
+  disimpan di manapun (belum dikerjakan).**
+  Ditemukan saat menelusuri kasus FN "PBB4D" (lihat
+  [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)) — komentar
+  kritik/korban yang menyebut brand ALL-CAPS+digit memicu `brand_pattern`
+  cukup untuk lewat dari threshold non-spam (`<10`) tapi tidak cukup untuk
+  masuk threshold spam (`>=30`), lalu dibuang scraper tanpa jejak. Perbaikan:
+  simpan rentang skor 10-29 ke kategori terpisah (`result/borderline_*.json`)
+  untuk direview manual, bukan dibuang — kemungkinan besar berisi banyak
+  contoh "kritik + sebut brand" yang justru paling dibutuhkan untuk
+  mengatasi limitasi di [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
+
 ---
 
 ## Fase 2 — Evaluasi Model yang Lebih Jujur

@@ -113,6 +113,22 @@ df[df.source == "J7-P3Oz9CKA"]  # semua baris dari satu video
 df[df.source == "manual_override"]  # semua koreksi manual
 ```
 
+### Tambahan: Satu Kasus FN Ditemukan via Review Manual + Limitasi "Dead Zone" Scraper
+
+User menemukan via review manual satu komentar di video `1eNUtmfTckk` yang jelas kritik/keluhan korban tapi diprediksi `spam` (100% confidence) oleh model:
+
+> *"Sorry bg ronal..skrg banyak situs judol yg bangsat beredar..bahkan PENIPUUU.. GW SDH NGERASAIN WD NYA GAK D BAYAR..NAMANYA SITUS PBB4D...[brand disebut 3x, semuanya dalam konteks kritik]"*
+
+**Temuan 1 — komentar ini tidak pernah masuk pool data sama sekali.** Bukan di `final_spam.json`, bukan di `final_non_spam.json`, bahkan bukan di file mentah hasil scraping video tersebut. Sebabnya: brand `PBB4D` (ALL-CAPS + digit) memicu `brand_pattern`, mendorong `spam_score` ke rentang 10–29 — di atas threshold non-spam (`<10`) tapi di bawah threshold spam (`>=30`). Scraper **membuang** komentar di rentang ini sepenuhnya, tidak menyimpannya ke file manapun. Ini "dead zone" yang baru ketahuan sekarang — bukan masalah baru, tapi baru pertama kali punya bukti konkret dampaknya.
+
+**Tindakan:** komentar ditambahkan manual ke `manual_overrides.csv` (`non_spam`), dataset di-rebuild + model di-retrain.
+
+**Temuan 2 — `train_test_split` (random_state=42) menempatkan contoh ini di test set, bukan train set.** Model produksi hasil retrain karena itu belum benar-benar "melihat" contoh ini saat training, dan sanity check pasca-retrain masih memprediksi `spam`. Ini beda dari kasus Mantulhoki (gagal generalisasi meski berulang kali dicoba) — di sini baru 1 contoh, dan kebagian split yang salah secara kebetulan.
+
+**Upaya mencari contoh tambahan sejenis:** threshold `NON_SPAM_SCORE_THRESHOLD` di scraper dilebarkan sementara (10→30) untuk menangkap dead zone, di-scrape ulang untuk 6 video relevan (`1eNUtmfTckk`, `kM99uBssHvQ`, `pzE8S6N0vwo`, `wxhbjPxrDR0`, `RDH0VTSDbLk`, `yMBMEBc0a9s`), lalu dicari pola "brand ALL-CAPS+digit diulang + kata kritik". **Tidak ditemukan kandidat baru yang valid** — kandidat yang muncul semuanya false positive dari reduplikasi informal Indonesia ("MASING2", "ADMIN2", dst., bukan nama brand). File hasil scraping diagnostik ini dihapus (tidak ikut masuk pool resmi), dan threshold scraper dikembalikan ke nilai semula.
+
+**Keputusan:** diterima sebagai keterbatasan terdokumentasi, bukan dikejar lebih jauh untuk saat ini. Satu contoh satu-satunya yang ditemukan tetap tersimpan benar di dataset (akan punya peluang masuk training di rebuild berikutnya kalau komposisi data berubah). Untuk benar-benar menutup celah "dead zone" scraper secara sistematis, dibutuhkan baik (a) perbaikan permanen di scraper untuk menyimpan rentang skor 10–29 ke kategori terpisah untuk direview manual, maupun (b) lebih banyak video sumber baru — bukan menggali lebih dalam di video yang sudah ada.
+
 ---
 
 ## Versi 10 — 2026-06-30
