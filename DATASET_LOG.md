@@ -3,6 +3,11 @@
 Setiap kali dataset diperbarui, catat di sini: tanggal, jumlah data, dan sumber.
 Berguna untuk bab metodologi skripsi dan untuk melacak versi mana yang menghasilkan hasil evaluasi tertentu.
 
+> **File model `.joblib` historis untuk tiap versi di bawah ini diarsipkan di
+> [`model/versions/`](model/versions/INDEX.md)** — bisa langsung di-load dan
+> dibandingkan, bukan cuma angka di tabel. Versi 4 dan 5 tidak punya file
+> biner tersimpan (lihat catatan di `model/versions/INDEX.md`).
+
 ---
 
 ## Hard Test Set — 2026-06-19

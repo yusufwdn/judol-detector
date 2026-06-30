@@ -132,30 +132,38 @@ python src/prepare_dataset.py
 
 Skrip ini membaca data scraping dari `scraper/final_spam.json`, memfilter komentar spam menggunakan **two-pass filter** (lihat penjelasan di bawah), lalu menggabungkannya dengan contoh komentar non-spam untuk membentuk dataset di `data/comments.csv`.
 
-Output yang diharapkan (angka aktual dari dataset proyek ini saat ini):
+Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 8, lihat [DATASET_LOG.md](DATASET_LOG.md)):
 ```
-[1/3] Loading spam data (two-pass filter)...
-  Total entries in JSON         : 2318
-  Pass 1 - score >= 80           : 137
-  Pass 2 - rescued via brand regex: 962
-  Skipped (false positives)      : 1219
-  Total spam collected           : 1099
+[1/4] Loading spam data (threshold >= 80)...
+  Total entries in JSON        : 2324
+  Passed primary threshold     : 138
+  Rescued via brand regex      : 1947
+  Skipped (low score / noisy)  : 239
+    -> brand_pattern false pos.: 152
+  Total spam collected         : 2085
 
-[2/3] Generating 700 synthetic non-spam samples...
-  Generated: 700 samples
+[2/4] Loading non-spam data...
+  Total entries in JSON : 2779
+  Loaded                : 2779
 
-[3/3] Merging, shuffling, and saving dataset...
-  Spam samples    : 1099
-  Non-spam samples: 700
-  Total           : 1799
+[3/4] Applying manual overrides (data/manual_overrides.csv)...
+  Loaded 346 manual overrides:
+    FP dihapus dari spam      : 7
+    Entry ditambah ke non_spam: 82
+    Entry ditambah ke spam    : 193
+
+[4/4] Merging, shuffling, and saving dataset...
+  Spam samples    : 2271
+  Non-spam samples: 2861
+  Total           : 5132
   Saved to: data/comments.csv
 ```
 
-> **Kenapa "two-pass filter", bukan threshold tunggal?** Sistem scraping menghitung `spam_score` (0–100) berdasarkan sinyal heuristik (brand name, link kontak, kata kunci tersamarkan, dll.). Kalau kita hanya ambil yang skornya **≥ 80** (Pass 1), hasilnya cuma 137 entri — terlalu sedikit untuk training.
+> **Kenapa "two-pass filter", bukan threshold tunggal?** Sistem scraping menghitung `spam_score` (0–100) berdasarkan sinyal heuristik (brand name, link kontak, kata kunci tersamarkan, dll.). Kalau kita hanya ambil yang skornya **≥ 80** (Pass 1), hasilnya cuma ~138 entri — terlalu sedikit untuk training.
 >
-> Maka ditambahkan **Pass 2**: untuk entri berskor rendah yang **hanya** memicu sinyal `brand_pattern`, dicek apakah `normalized_text`-nya mengandung pola brand judi yang jelas (huruf kapital + angka, contoh `WIFI4D`, `ROMA4D`). Kalau cocok, entri itu "diselamatkan" sebagai spam asli — menambah 962 entri.
+> Maka ditambahkan **Pass 2**: untuk entri berskor rendah yang mengandung sinyal `brand_pattern`, dicek apakah `normalized_text`-nya mengandung pola brand judi yang jelas (huruf kapital + angka seperti `WIFI4D`, atau suffix khas seperti `*TOTO`/`*BET`/`*WIN`/`*QQ`). Kalau cocok, entri itu "diselamatkan" sebagai spam asli.
 >
-> Hasil akhir: **1099 spam** (137 + 962), jauh lebih banyak dan tetap bisa dipertanggungjawabkan. Penjelasan lengkap + contoh kasus nyata ("kesambet" yang awalnya ke-flag salah) ada di [PENJELASAN_TEKNIS.md bagian 5](PENJELASAN_TEKNIS.md#5-solusi-two-pass-filter-di-prepare_datasetpy).
+> Hasil akhir tahap ini: **2085 spam** (138 dari Pass 1 + 1947 dari rescue), lalu di tahap [3/4] ditambah/dikurangi lagi oleh `manual_overrides.csv` (lihat [Bagian 4](#4-cara-menjalankan)) sampai jadi **2271 spam** final. Penjelasan lengkap + contoh kasus nyata ("kesambet" yang awalnya ke-flag salah) ada di [PENJELASAN_TEKNIS.md bagian 5](PENJELASAN_TEKNIS.md#5-solusi-two-pass-filter-di-prepare_datasetpy).
 
 ### Langkah 5 — Training Model
 
@@ -197,43 +205,59 @@ Server akan berjalan di `http://localhost:8000`. Buka URL tersebut di browser un
 svm-judol-spam/
 │
 ├── data/
-│   └── comments.csv          ← Dataset berlabel (dibuat oleh prepare_dataset.py)
+│   ├── comments.csv           ← Dataset berlabel final (dibuat oleh prepare_dataset.py)
+│   ├── manual_overrides.csv   ← Koreksi label manual, persisten lintas rebuild (lihat Bagian 4)
+│   ├── hard_test_set.csv      ← 141 komentar ambigu, dipakai evaluate_hard_set.py
+│   └── skipped_entries.json   ← Audit entri yang ke-skip oleh two-pass filter
 │
 ├── scraper/
-│   ├── index.js              ← YouTube Data API v3 scraper (Node.js)
-│   ├── filter.js             ← Agregasi hasil scraping per label
-│   ├── final_spam.json       ← Agregasi komentar spam (output filter.js)
-│   └── final_non_spam.json   ← Agregasi komentar non-spam (output filter.js)
+│   ├── index.js               ← YouTube Data API v3 scraper (Node.js)
+│   ├── filter.js              ← Agregasi hasil scraping per label
+│   ├── final_spam.json        ← Agregasi komentar spam (output filter.js)
+│   ├── final_non_spam.json    ← Agregasi komentar non-spam (output filter.js)
+│   └── result/                ← Output mentah per-run scraping
 │
 ├── src/
-│   ├── prepare_dataset.py    ← Konversi JSON scraping → comments.csv
-│   ├── preprocessing.py      ← Pipeline 7-lapisan pembersih teks
-│   ├── train.py              ← Script training model SVM
-│   └── server.py             ← REST API server (FastAPI)
+│   ├── prepare_dataset.py     ← Konversi JSON scraping → comments.csv (two-pass filter + overrides)
+│   ├── preprocessing.py       ← Pipeline 7+3 lapisan pembersih teks
+│   ├── train.py                ← Script training model SVM (k-fold CV + GridSearchCV)
+│   ├── server.py              ← REST API server (FastAPI) + hybrid rules
+│   ├── compare_baselines.py   ← Perbandingan SVM vs Naive Bayes vs Logistic Regression
+│   ├── evaluate_hard_set.py   ← Evaluasi model di hard_test_set.csv
+│   ├── experiment_stemming.py ← Eksperimen Sastrawi stemming
+│   ├── experiment_features.py ← Eksperimen ngram_range & max_features
+│   └── inspect_features.py    ← Inspeksi fitur TF-IDF berbobot tertinggi
 │
 ├── model/
-│   └── svm_model.joblib      ← Model hasil training (dibuat otomatis)
+│   ├── svm_model.joblib       ← Model produksi saat ini (dibuat otomatis)
+│   └── versions/              ← Arsip biner tiap versi model historis (lihat versions/INDEX.md)
 │
 ├── extension/
-│   ├── manifest.json         ← Konfigurasi Chrome extension (Manifest v3)
-│   ├── content.js            ← Script yang berjalan di halaman web
-│   ├── popup.html            ← Tampilan UI popup extension
-│   ├── popup.js              ← Logic popup
-│   └── icons/                ← Ikon extension
+│   ├── manifest.json          ← Konfigurasi Chrome extension (Manifest v3)
+│   ├── content.js             ← Script yang berjalan di halaman web
+│   ├── popup.html             ← Tampilan UI popup extension
+│   ├── popup.js               ← Logic popup
+│   └── icons/                 ← Ikon extension
 │
-├── notebooks/                ← (opsional, belum ada) tempat eksplorasi Jupyter kalau dibutuhkan
-├── requirements.txt          ← Daftar library Python yang dibutuhkan
-└── README.md                 ← File ini
+├── reports/                   ← Output evaluasi: confusion matrix, top features, hasil eksperimen
+├── notebooks/                 ← (opsional, kosong) tempat eksplorasi Jupyter kalau dibutuhkan
+├── requirements.txt           ← Daftar library Python yang dibutuhkan
+├── DATASET_LOG.md             ← Log riwayat versi dataset (8 versi tercatat)
+├── JOURNEY.md                 ← Cerita kronologis pengembangan proyek
+├── PENJELASAN_TEKNIS.md       ← Pendalaman teknis + Q&A sidang
+├── TODO.md                    ← Roadmap pengembangan per fase
+└── README.md                  ← File ini
 ```
 
 ### Penjelasan Singkat Setiap Folder
 
 | Folder/File | Peran |
 |------------|-------|
-| `data/` | Menyimpan dataset mentah. Semakin banyak dan beragam datanya, semakin baik model |
-| `src/` | Inti dari sistem: preprocessing, training, dan serving model |
+| `data/` | Dataset berlabel + file pendukung (overrides, hard test set). Semakin banyak dan beragam datanya, semakin baik model |
+| `src/` | Inti dari sistem: preprocessing, training, evaluasi, dan serving model |
 | `model/` | Hasil dari proses training. File `.joblib` berisi "otak" yang sudah dilatih |
 | `extension/` | Kode browser extension yang berinteraksi langsung dengan halaman web |
+| `reports/` | Hasil evaluasi (confusion matrix, top features, eksperimen) — referensi untuk sidang |
 | `notebooks/` | (Opsional, belum dibuat) tempat bereksperimen interaktif pakai Jupyter Notebook, kalau dibutuhkan nanti |
 
 ---
@@ -468,18 +492,20 @@ Manfaat Pipeline:
 
 ### Cara Membaca Hasil Evaluasi
 
-Setelah training, akan tampil laporan seperti ini (angka kira-kira, sesuai dataset 1799 baris dengan split 80/20 → test set ±360 sampel):
+Setelah training, akan tampil laporan seperti ini (angka aktual dari dataset Versi 8, 5132 baris, split 80/20 stratified → test set 1026 sampel):
 
 ```
               precision    recall  f1-score   support
 
-    non_spam       1.00      1.00      1.00       140
-        spam       1.00      1.00      1.00       220
+    non_spam       0.96      0.99      0.98       572
+        spam       0.99      0.95      0.97       454
 
-    accuracy                           1.00       360
+    accuracy                           0.97      1026
 ```
 
-> **Akurasi 100% — apakah ini wajar?** Untuk dataset ini, ya, masuk akal — pola spam (nama brand judi + kata kunci khas) sangat berbeda dari komentar normal, jadi mudah dipisahkan secara linear. Tapi angka 100% **tidak boleh langsung dianggap "model sudah sempurna"**. Penjelasan lengkap kenapa ini bisa terjadi tanpa berarti overfitting, plus apa yang masih perlu diuji lebih lanjut, ada di [PENJELASAN_TEKNIS.md bagian 15](PENJELASAN_TEKNIS.md#15-pertanyaan-yang-mungkin-muncul-saat-sidang).
+Akurasi train-test split: **96.95%** (F1-macro 0.9822). Angka ini jauh dari 100% justru karena dataset sudah jauh lebih beragam (data non-spam nyata, bukan sintetis) dibanding versi awal proyek.
+
+> **Apakah angka ini cukup meyakinkan?** Selain train-test split, model juga dievaluasi dengan **5-fold cross-validation** (mean F1 97.45% ± 2.81%) dan **hard test set** berisi 141 komentar ambigu yang sengaja sulit (accuracy turun ke 80.14% — ini realistis dan diharapkan, karena hard set berisi kasus abu-abu seperti komentar yang mengkritik judol tapi menyebut nama situs). Detail lengkap metodologi evaluasi dan kenapa angka tidak 100% itu justru tanda dataset yang lebih jujur, ada di [PENJELASAN_TEKNIS.md bagian 15](PENJELASAN_TEKNIS.md#15-pertanyaan-yang-mungkin-muncul-saat-sidang).
 
 **Precision** — Dari semua yang diprediksi "spam", berapa persen yang benar-benar spam?
 
@@ -615,13 +641,11 @@ Dua kolom wajib:
 - `label` — `spam` atau `non_spam`
 
 > **Semakin banyak dan beragam datanya, semakin baik modelnya.**
-> Dataset proyek ini menggunakan data scraping nyata yang difilter oleh `prepare_dataset.py`.
+> Dataset proyek ini (Versi 8) berisi **5132 baris**: 2271 spam + 2861 non-spam, **keduanya dari data scraping nyata** (non-spam tidak lagi sintetis sejak Versi 2 — lihat [DATASET_LOG.md](DATASET_LOG.md)).
 > Untuk hasil yang andal:
 > - **Minimum:** 1:1 rasio spam:non-spam, minimal 500 sampel per kelas
 > - **Target realistis:** 1.500+ sampel per kelas dengan rasio 1:1 hingga 2:1
-> - **Ideal:** Data non-spam juga dari scraping nyata (bukan sintetis) untuk menghindari bias distribusi
->
-> Untuk mengganti data non-spam sintetis dengan data nyata, kumpulkan komentar non-spam YouTube ke file JSON terpisah, lalu modifikasi `src/prepare_dataset.py` untuk membaca file tersebut alih-alih memanggil `generate_non_spam_data()`.
+> - **Ideal:** Data non-spam juga dari scraping nyata (bukan sintetis) untuk menghindari bias distribusi — **sudah tercapai di Versi 8**
 
 ---
 
@@ -630,9 +654,9 @@ Dua kolom wajib:
 Skrip persiapan dataset. Harus dijalankan **sebelum** `train.py` setiap kali data scraping diperbarui.
 
 Cara kerjanya:
-1. Baca `scraper/final_spam.json`
-2. Filter entri spam dengan **two-pass filter**: ambil yang `spam_score >= 80` (Pass 1), lalu "selamatkan" entri berskor rendah yang terbukti mengandung pola brand judi nyata di `normalized_text` (Pass 2). Lihat [Bagian 2, Langkah 4](#langkah-4--siapkan-dataset) untuk detail & angka aktualnya
-3. Generate ~700 contoh non-spam sintetis dari template beragam
+1. Baca `scraper/final_spam.json`, filter entri spam dengan **two-pass filter**: ambil yang `spam_score >= 80` (Pass 1), lalu "selamatkan" entri berskor rendah yang terbukti mengandung pola brand judi nyata di `normalized_text` (Pass 2). Lihat [Bagian 2, Langkah 4](#langkah-4--siapkan-dataset) untuk detail & angka aktualnya
+2. Baca `scraper/final_non_spam.json` — komentar non-spam nyata hasil scraping (bukan sintetis)
+3. Terapkan koreksi dari `data/manual_overrides.csv` (hapus false positive, tambah entry yang lolos filter otomatis) — lihat [Bagian 4](#4-cara-menjalankan)
 4. Gabungkan, acak, simpan ke `data/comments.csv`
 
 Menggunakan `original_text` (bukan `normalized_text`) dari JSON. Lihat [Bagian 7](#7-training-serving-consistency) untuk alasannya.
@@ -641,29 +665,33 @@ Menggunakan `original_text` (bukan `normalized_text`) dari JSON. Lihat [Bagian 7
 
 ### `src/preprocessing.py`
 
-Modul yang bertugas membersihkan teks sebelum diproses model. Pipeline 7 lapisan yang dijalankan secara berurutan:
+Modul yang bertugas membersihkan teks sebelum diproses model. Pipeline 7 langkah + 3 sub-langkah yang dijalankan secara berurutan:
 
 ```
 Teks mentah
-    ↓ 1. Hapus karakter zero-width: U+200B, U+FEFF, dll. (tak kasat mata)
-    ↓ 2. NFKC normalization: 𝑅𝒪𝑀𝒜 → ROMA, Ｄａｆｔａｒ → Daftar
-    ↓ 3. Homoglyph Cyrillic/Greek: а→a, е→e, о→o (karakter yang mirip huruf Latin)
-    ↓ 4. Demojize emoji: 🎰 → slot_machine, 💰 → money_bag
-    ↓ 5. Lowercase
-    ↓ 6. Hapus URL + karakter non-alfabet
-    ↓ 7. Hapus stopwords + token pendek (< 2 karakter)
+    ↓ 1.  Hapus karakter zero-width: U+200B, U+FEFF, dll. (tak kasat mata)
+    ↓ 2.  NFKC normalization: 𝑅𝒪𝑀𝒜 → ROMA, Ｄａｆｔａｒ → Daftar
+    ↓ 2b. Hapus combining diacritical marks: P̲U̲L̲A̲U̲ → PULAU
+    ↓ 2c. Buka karakter yang dibungkus kurung: [P][U][L] → PUL
+    ↓ 3.  Homoglyph Cyrillic/Greek/Thai: а→a, е→e, о→o (karakter yang mirip huruf Latin)
+    ↓ 4.  Demojize emoji: 🎰 → slot_machine, 💰 → money_bag
+    ↓ 5.  Lowercase
+    ↓ 5b-i. Normalisasi leet speak: h0ki777 → hoki777, s1tus → situs (hanya 0→o, 1→i)
+    ↓ 5b. Kanonikalisasi brand judol: keju4d/hobiqq/betawi77 → judolbrand
+    ↓ 6.  Hapus URL + karakter non-alfabet
+    ↓ 7.  Hapus stopwords + token pendek (≤ 1 karakter)
 Teks bersih → siap diproses TF-IDF
 ```
 
 Contoh nyata:
 ```
 Sebelum: "𝑅𝒪𝑀𝒜4𝒟 🎰 dаftаr sekarang bonus 100%!"
-Sesudah: "roma slot_machine daftar sekarang bonus"
+Sesudah: "judolbrand slot_machine daftar sekarang bonus"
 ```
 
-**Kenapa 7 lapisan, bukan cukup lowercase dan hapus simbol?**
+**Kenapa pipeline berlapis, bukan cukup lowercase dan hapus simbol?**
 
-Spammer sengaja menyamarkan teks agar lolos filter kata kunci sederhana: menggunakan huruf Unicode dekoratif (𝑹𝑶𝑴𝑨), karakter Cyrillic yang identik secara visual dengan huruf Latin (а vs a), dan emoji sebagai pengganti kata. Pipeline ini secara eksplisit membongkar setiap teknik penyamaran tersebut sebelum teks dianalisis oleh model.
+Spammer sengaja menyamarkan teks agar lolos filter kata kunci sederhana: huruf Unicode dekoratif (𝑹𝑶𝑴𝑨), karakter Cyrillic yang identik secara visual dengan huruf Latin (а vs a), karakter dibungkus tanda baca per huruf ([P][U][L]), leet speak (h0ki777), dan emoji sebagai pengganti kata. Pipeline ini secara eksplisit membongkar setiap teknik penyamaran tersebut sebelum teks dianalisis oleh model. Step 5b juga mengonversi pola brand judol (nama + suffix angka/QQ) ke token universal `judolbrand` agar model bisa generalisasi ke brand baru yang belum pernah dilihat — detail lengkap ada di komentar `JUDOL_BRAND_PATTERN` di `src/preprocessing.py`.
 
 **Fungsi penting:**
 - `clean_text(text)` — Proses satu string, kembalikan string bersih. Dipakai di training DAN inference.
@@ -732,6 +760,21 @@ Response:
 
 CORS (Cross-Origin Resource Sharing) adalah mekanisme keamanan browser yang mencegah halaman web membuat request ke domain yang berbeda tanpa izin eksplisit. Karena extension kita mengirim request dari `chrome-extension://...` ke `http://localhost:8000`, browser akan memblokir ini secara default. Mengaktifkan CORS di server adalah cara memberitahu browser bahwa request dari extension diizinkan.
 
+**Hybrid Rules — eksperimen yang dicoba, diukur, lalu dimatikan**
+
+`server.py` masih menyimpan kode `HARD_SPAM_SIGNALS` dan `has_hard_spam_signal()` — sisa dari eksperimen menambahkan lapisan rule-based di atas prediksi SVM. Idenya saat itu masuk akal: cegah false positive (SVM bilang spam tapi teks tidak punya kata judi pasti → override ke `non_spam`) dan cegah false negative (SVM bilang non_spam tapi teks punya kata judi pasti → override ke `spam`).
+
+**Tapi setelah diukur dengan ablation study** (`src/evaluate_hybrid_ablation.py`, hasil tersimpan di `reports/hybrid_ablation.txt`), hybrid rule ini terbukti **menurunkan akurasi** dibanding SVM murni, di kedua dataset evaluasi:
+
+| Dataset | SVM murni | SVM + Hybrid | Delta |
+|---|---|---|---|
+| Train-test split (1027 sampel) | 97.57% | 91.33% | **-6.23%** |
+| Hard test set (141 sampel) | 92.91% | 80.14% | **-12.77%** |
+
+Breakdown per-rule: Rule A (spam→non_spam) salah 62 dari 66 kali nyala di test set normal — kebanyakan spam asli memang tidak memuat kata persis dari daftar sinyal keras. Rule B (non_spam→spam) salah **100% dari 27 kali nyala** di kedua dataset — sering salah konteks pada komentar yang mengkritik judol (memuat kata "toto"/"togel" tapi bukan promosi).
+
+**Kesimpulan:** begitu model dilatih ulang dengan dataset yang lebih besar (Versi 8, 5132 baris), SVM sendiri sudah lebih baik dari override kata-kunci manual yang dikalibrasi untuk model versi lama. Hybrid rule sekarang **dinonaktifkan** lewat flag `ENABLE_HYBRID_RULES = False` di `src/server.py` — kodenya sengaja tidak dihapus, supaya tetap jadi bukti proses eksperimen dan bisa diaktifkan ulang + diuji lagi kalau pola spam baru di masa depan menunjukkan kebutuhan berbeda.
+
 ---
 
 ### `extension/manifest.json`
@@ -782,8 +825,9 @@ YouTube dan Instagram tidak memuat semua komentar sekaligus — komentar muncul 
 
 Antarmuka visual yang muncul saat pengguna mengklik ikon extension di toolbar Chrome. Menampilkan:
 - Status server (aktif/tidak)
-- Jumlah komentar spam yang disembunyikan
-- Jumlah komentar yang sudah dipindai
+- Jumlah komentar spam yang disembunyikan (`hiddenCount`)
+- Jumlah komentar yang sudah dipindai (`scannedCount`)
+- Slider confidence threshold (default 75%) — mengubah nilainya langsung tersimpan ke `chrome.storage.local` dan dipakai `content.js` setelah halaman di-reload
 
 ---
 
@@ -858,7 +902,7 @@ python src/train.py
 | Layak | 1:1 hingga 2:1, ≥ 1.500 per kelas | Performa produksi yang wajar |
 | Ideal | 1:1, ≥ 3.000 per kelas, data non-spam nyata | Performa terbaik, false positive rendah |
 
-> **Data non-spam sintetis vs. nyata:** Saat ini data non-spam dihasilkan dari template oleh `prepare_dataset.py`. Data sintetis lebih mudah dibuat tapi distribusinya tidak mencerminkan komentar YouTube yang sesungguhnya. Begitu kamu bisa mengumpulkan komentar non-spam nyata dari YouTube, ganti fungsi `generate_non_spam_data()` dengan loader dari file JSON untuk meningkatkan kualitas secara signifikan.
+> **Data non-spam sudah dari scraping nyata** (sejak Versi 2 di [DATASET_LOG.md](DATASET_LOG.md)), bukan template sintetis lagi. Untuk menambah lebih banyak, scrape video baru dengan `node scraper/index.js <VIDEO_ID> video non_spam` lalu jalankan `node scraper/filter.js` untuk update `scraper/final_non_spam.json`.
 
 > **Penting:** Setiap kali `src/preprocessing.py` diubah, model wajib dilatih ulang. Lihat [Bagian 7 — Training-Serving Consistency](#7-training-serving-consistency) untuk penjelasan lengkapnya.
 
@@ -918,21 +962,23 @@ Keduanya adalah format serialisasi Python (cara menyimpan objek Python ke file).
 
 ---
 
-**Q: Akurasi tinggi (bahkan 100%) di test set, tapi di dunia nyata rasanya beda?**
+**Q: Akurasi 96.95% di test set, tapi kenapa turun ke 80% di hard test set?**
 
-Wajar. Dataset training kita (1799 baris: 1099 spam + 700 non-spam) berasal dari pola yang relatif khas (nama brand judi + kata kunci tertentu vs komentar normal), jadi mudah dipisahkan. Tapi dunia nyata punya variasi yang jauh lebih luas — brand judi baru, gaya bahasa baru, atau komentar "abu-abu" (misal komentar yang membahas bahaya judi tapi memuat kata-kata serupa) yang belum pernah dilihat model.
+Wajar dan diharapkan. Test set biasa (20% dari `comments.csv`, diambil acak dari distribusi yang sama dengan data training) berisi pola yang relatif khas — nama brand judi + kata kunci tertentu vs komentar normal — jadi mudah dipisahkan. `data/hard_test_set.csv` sengaja diisi 141 komentar **ambigu** (misalnya komentar yang mengkritik/melaporkan judol tapi menyebut nama situsnya) yang jauh lebih sulit bagi model manapun.
 
-Solusinya: tambah lebih banyak data yang beragam (termasuk "hard examples"/kasus ambigu), dan idealnya buat **test set terpisah** yang sengaja berisi kasus-kasus sulit untuk mengukur performa yang lebih jujur. Lihat [TODO.md Fase 2](TODO.md#fase-2--evaluasi-model-yang-lebih-jujur) untuk rencana ini.
+Selisih ini justru jadi bukti dataset utama tidak overfit ke kasus mudah saja — proyek ini secara sengaja mengukur dirinya dengan dua skenario berbeda alih-alih hanya melaporkan angka tertinggi. Jalankan `python src/evaluate_hard_set.py` untuk melihat detail kegagalannya (semua salah ke arah false positive, bukan false negative — lihat `reports/hard_set_evaluation.txt`).
 
 ---
 
 **Q: Confidence threshold 75% itu dapat dari mana?**
 
-Angka ini adalah keputusan desain, bukan hasil kalkulasi ilmiah. Artinya: model hanya akan menyembunyikan komentar jika yakin ≥ 75% bahwa itu spam. Nilai ini bisa disesuaikan di `extension/content.js`:
+Angka ini adalah keputusan desain, bukan hasil kalkulasi ilmiah. Artinya: model hanya akan menyembunyikan komentar jika yakin ≥ 75% bahwa itu spam. Default-nya ada di `extension/content.js`:
 
 ```javascript
-const CONFIDENCE_THRESHOLD = 0.75; // ubah sesuai kebutuhan
+let confidenceThreshold = 0.75; // fallback kalau belum ada nilai tersimpan di chrome.storage
 ```
+
+Nilai ini **bisa diubah pengguna langsung dari slider di popup extension** (`extension/popup.html`/`popup.js`) tanpa edit kode — perubahannya disimpan ke `chrome.storage.local` dan baru berlaku penuh setelah halaman di-reload.
 - Nilai lebih tinggi (0.90) → lebih sedikit false alarm, tapi lebih banyak spam yang lolos
 - Nilai lebih rendah (0.60) → lebih banyak spam terdeteksi, tapi lebih banyak false alarm
 

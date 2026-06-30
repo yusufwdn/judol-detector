@@ -40,6 +40,7 @@
 30. [Leet Speak Normalization — Mendeteksi H0KI777 dan Sejenisnya](#30-leet-speak-normalization--mendeteksi-h0ki777-dan-sejenisnya)
 31. [Perlindungan Data Laporan Extension — /report ke Dua File](#31-perlindungan-data-laporan-extension--report-ke-dua-file)
 32. [Penghapusan slot dan deposit dari HARD_SPAM_SIGNALS](#32-penghapusan-slot-dan-deposit-dari-hard_spam_signals)
+33. [Ablation Study Hybrid Rules — Kenapa Akhirnya Dimatikan](#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan)
 
 ---
 
@@ -2989,3 +2990,53 @@ Namun secara empiris, spam judol yang hanya berisi "slot deposit" tanpa sinyal k
 ### Untuk Sidang
 
 > *"Evaluasi berulang terhadap hard test set mengungkap bahwa kata 'slot' dan 'deposit' di HARD_SPAM_SIGNALS menyebabkan Hybrid Rule (B) terlalu agresif — memaksa prediksi ke spam pada komentar korban dan diskusi anti-judol yang secara wajar mengandung kedua kata tersebut. Berdasarkan analisis empiris pada 141 hard examples, penghapusan dua kata ini mengurangi false positive dari 37 menjadi 28 (−24%) dan meningkatkan accuracy hard test set dari 73.76% menjadi 80.14%. Risiko yang diterima adalah kemungkinan spam yang hanya menyebut 'slot' dan 'deposit' tanpa sinyal keras lain dapat lolos — namun berdasarkan observasi data, spam jenis ini hampir selalu juga mengandung nama brand atau kata gacor yang masih tertangkap sinyal lain."*
+
+---
+
+## 33. Ablation Study Hybrid Rules — Kenapa Akhirnya Dimatikan
+
+### Latar Belakang
+
+Bagian 22, 26, dan 32 di atas menceritakan proses iteratif mengembangkan dan menyempurnakan hybrid rule — menambah arah B, lalu mengkalibrasi ulang `HARD_SPAM_SIGNALS` setelah ditemukan false positive baru. Semua keputusan itu didasarkan pada satu sumber evaluasi: `data/hard_test_set.csv` (141 kasus ambigu).
+
+Setelah dataset utama diperluas ke Versi 8 (5132 baris, lihat [DATASET_LOG.md](DATASET_LOG.md)) dan model dilatih ulang, muncul pertanyaan yang belum pernah dijawab dengan angka: **apakah hybrid rule masih membantu, atau cuma membantu di hard test set tapi merugikan di distribusi data yang lebih luas?**
+
+### Metodologi: Ablation Study
+
+Dibuat `src/evaluate_hybrid_ablation.py` — script yang menjalankan model SVM yang sama dua kali per dataset evaluasi: sekali tanpa hybrid rule (`model.predict()` langsung), sekali dengan hybrid rule diterapkan (logika identik dengan `server.py`). Dievaluasi di **dua** dataset sekaligus, bukan cuma satu:
+
+1. **Train-test split (20% holdout dari comments.csv, n=1027)** — representasi distribusi data yang lebih umum/realistis.
+2. **Hard test set (n=141)** — kasus ambigu yang sengaja sulit, sumber kalibrasi hybrid rule selama ini.
+
+### Hasil
+
+| Dataset | SVM murni | SVM + Hybrid | Delta |
+|---|---|---|---|
+| Train-test split | **97.57%** acc, F1 0.9752 | 91.33% acc, F1 0.9101 | **-6.23%** acc, **-0.0651** F1 |
+| Hard test set | **92.91%** acc, F1 0.4816 | 80.14% acc, F1 0.4449 | **-12.77%** acc, **-0.0367** F1 |
+
+SVM murni menang di **kedua** dataset — termasuk di hard test set, tempat hybrid rule sebelumnya dianggap berguna. Ini titik baliknya: ketika §22 dan §32 ditulis, model dilatih dari dataset yang lebih kecil, sehingga SVM sendirian belum cukup kuat membedakan konteks ambigu — hybrid rule menutupi kelemahan itu. Setelah dataset diperluas (lebih banyak data non-spam nyata, leet speak normalization, dll), SVM sendiri sudah cukup kuat, dan hybrid rule yang dikalibrasi untuk model lama justru jadi beban.
+
+### Breakdown Per-Rule
+
+Untuk memastikan bukan kebetulan, setiap kali rule menyala dicatat apakah hasilnya benar atau salah dibanding label asli:
+
+| Rule | Train-test split | Hard test set |
+|---|---|---|
+| **Rule A** (spam→non_spam) | nyala 66×, 4 benar / 62 salah (94% salah) | nyala 3×, 3 benar / 0 salah |
+| **Rule B** (non_spam→spam) | nyala 6×, 0 benar / 6 salah | nyala 21×, 0 benar / 21 salah (100% salah) |
+
+**Rule B gagal total** — 0 benar dari 27 kali nyala di kedua dataset gabungan. Hampir semua kasus adalah komentar yang menyebut istilah judi (`toto`, `togel`, dst.) dalam konteks **mengkritik atau melaporkan** situs judol, bukan mempromosikannya — persis masalah konteks yang sudah diidentifikasi sejak §26 dan §32, tapi ternyata tidak pernah benar-benar terselesaikan, hanya dikurangi.
+
+**Rule A** menunjukkan trade-off yang timpang: efektif di hard test set (3/3 benar — inilah alasan rule ini awalnya terasa berguna), tapi di test set normal mengorbankan 62 komentar spam asli demi menyelamatkan 4. Penjelasannya: spam asli sering tidak memuat kata persis dari `HARD_SPAM_SIGNALS` (misalnya "daftar sekarang gan, wd lancar, gabung yuk" — tidak ada `gacor`/`maxwin`/`judolbrand` sama sekali), sehingga Rule A salah mengira itu false positive SVM padahal SVM sudah benar.
+
+### Keputusan: Dinonaktifkan, Bukan Dihapus
+
+`src/server.py` sekarang punya `ENABLE_HYBRID_RULES = False`. Kode `HARD_SPAM_SIGNALS` dan `has_hard_spam_signal()` tetap ada — dimatikan lewat flag, bukan dihapus, dengan dua alasan:
+
+1. **Bukti proses eksperimen.** Skripsi yang baik menunjukkan iterasi: mencoba pendekatan, mengukur, dan mengambil keputusan berdasarkan data — bukan cuma melaporkan hasil akhir yang sudah "rapi". Riwayat di §22/§26/§32 plus ablation study ini *adalah* bagian dari kontribusi metodologis, bukan dead-end yang perlu disembunyikan.
+2. **Bisa diuji ulang.** Kalau pola spam baru di masa depan menunjukkan SVM murni mulai kewalahan lagi (misal spam mulai konsisten menghindari TF-IDF dengan cara baru), `ENABLE_HYBRID_RULES = True` lalu jalankan ulang `python src/evaluate_hybrid_ablation.py` untuk memverifikasi efeknya sebelum di-deploy — bukan asumsi seperti dulu.
+
+### Untuk Sidang
+
+> *"Hybrid rule berbasis kata kunci sempat diterapkan untuk mengatasi false positive/negative pada model versi awal, dan terbukti meningkatkan accuracy hard test set dari 73.76% menjadi 80.14% saat itu. Namun setelah dataset training diperluas ke 5132 baris dan model dilatih ulang, dilakukan ablation study sistematis (membandingkan SVM murni vs SVM+hybrid pada dua dataset evaluasi independen) yang menunjukkan hybrid rule justru menurunkan accuracy 6–13 poin persentase — model SVM yang lebih kuat tidak lagi membutuhkan koreksi berbasis kata kunci, dan rule tersebut sekarang lebih sering salah mengoreksi prediksi SVM yang sudah benar daripada membantu. Hybrid rule kemudian dinonaktifkan secara default, dengan kode dipertahankan sebagai dokumentasi proses eksperimen dan dapat diaktifkan kembali untuk pengujian di masa depan."*

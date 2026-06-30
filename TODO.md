@@ -125,6 +125,16 @@ akan terlihat langsung di hasil evaluasi.
   menjelaskan "dataset versi berapa yang dipakai untuk hasil X").
   → Lihat [DATASET_LOG.md](DATASET_LOG.md)
 
+- [x] **`data/comments.csv` di-rebuild ulang (2026-06-30).**
+  Ditemukan saat audit dokumentasi: `comments.csv` yang ter-commit sedikit
+  "stale" dibanding hasil rebuild murni dari `prepare_dataset.py` (selisih 3
+  baris kategori, kemungkinan dari entry yang masuk lewat endpoint
+  `POST /report` tanpa full rebuild). Sudah dijalankan ulang
+  `python src/prepare_dataset.py && python src/train.py` — dataset sekarang
+  **2271 spam / 2861 non-spam = 5132**, model di-retrain (97.57% accuracy,
+  F1-macro 0.9752), dan semua angka di README/PENJELASAN_TEKNIS sudah
+  disinkronkan ke hasil rebuild ini.
+
 ---
 
 ## Fase 2 — Evaluasi Model yang Lebih Jujur
@@ -160,6 +170,18 @@ akan terlihat langsung di hasil evaluasi.
   - `reports/confusion_matrix_svm.png`
   - `reports/confusion_matrix_naive_bayes_multinomialnb.png`
   - `reports/confusion_matrix_logistic_regression.png`
+
+- [✅] **Ablation study: SVM murni vs SVM + Hybrid Rules (2026-06-30).**
+  Dibuat `src/evaluate_hybrid_ablation.py` — hasil tersimpan di
+  `reports/hybrid_ablation.txt`. Temuan: hybrid rule yang sebelumnya dianggap
+  membantu (lihat `PENJELASAN_TEKNIS.md §22/§26/§32`) ternyata **menurunkan**
+  accuracy 6–13 poin persentase setelah model dilatih ulang dengan dataset
+  yang lebih besar — SVM murni menang di train-test split (97.57% vs 91.33%)
+  **dan** di hard test set (92.91% vs 80.14%). Rule B (non_spam→spam) gagal
+  100% (0 benar dari 27× nyala). Hybrid rule dinonaktifkan via
+  `ENABLE_HYBRID_RULES = False` di `src/server.py` (kode dipertahankan,
+  bukan dihapus). Detail lengkap + kalimat siap kutip untuk sidang di
+  [PENJELASAN_TEKNIS.md §33](PENJELASAN_TEKNIS.md#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan).
 
 ---
 
@@ -222,11 +244,13 @@ hanya secara teori.
   - `H0KI777` (leet speak dengan digit `0`) tidak terdeteksi → diperbaiki
     dengan tambah Step 5b-i normalisasi leet di preprocessing
 
-- [ ] **Cek selector Instagram** — komentar di `content.js` sendiri
-  menyebutkan selector Instagram (`ul._a9ym li`, `span._aacl`) "may change
-  with Instagram UI updates". Verifikasi apakah masih valid; kalau Instagram
-  bukan target utama, pertimbangkan fokuskan dulu ke YouTube saja dan
-  dokumentasikan keterbatasan ini.
+- [x] **~~Cek selector Instagram~~ — di luar scope, diabaikan.**
+  Judul skripsi ("...DETEKSI KOMENTAR SPAM JUDI ONLINE PADA YOUTUBE BERBASIS
+  CHROME EXTENSION") secara eksplisit hanya menyebut YouTube. Selector
+  Instagram di `content.js` (`ul._a9ym li`, `span._aacl`) dibiarkan apa
+  adanya sebagai kode tambahan yang tidak diverifikasi/tidak diklaim — kalau
+  ditanya saat sidang, jawab bahwa scope proyek memang dibatasi ke YouTube
+  sesuai judul, Instagram bukan bagian dari kontribusi yang diuji.
 
 - [✅] **Buat threshold confidence bisa diatur dari popup.**
   Slider ditambahkan di `popup.html` (range 50%–95%, step 5%). Nilai disimpan
