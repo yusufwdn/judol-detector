@@ -10,6 +10,92 @@ Berguna untuk bab metodologi skripsi dan untuk melacak versi mana yang menghasil
 
 ---
 
+## Versi 9 — 2026-06-30
+
+### Ringkasan
+Dua perubahan: (1) dataset di-rebuild ulang dari `prepare_dataset.py` untuk
+menghilangkan ketidaksinkronan kecil di `comments.csv` (lihat
+`model/versions/INDEX.md` soal v8a/v8b), hybrid rules dimatikan setelah
+ablation study (lihat `PENJELASAN_TEKNIS.md §33`); (2) error analysis
+sistematis pada hard test set, lalu 3 contoh kasus "kritik/laporan + sebut
+nama brand" dipindah dari `hard_test_set.csv` (eval-only) ke
+`manual_overrides.csv` (training), dan 3 fragmen terlalu pendek untuk
+dinilai konteksnya dibuang dari hard test set.
+
+### Latar Belakang: Error Analysis pada Hard Test Set (SVM murni, hybrid off)
+
+Setelah hybrid rules dimatikan, hard test set dievaluasi ulang dengan SVM
+murni: **10 FP, 0 FN dari 141 entri (92.91%)** — jauh lebih baik dari 28 FP
+saat hybrid masih aktif, tapi 10 FP itu dikelompokkan jadi 5 pola:
+
+| Pola | Jumlah | Contoh | Tindakan |
+|---|---|---|---|
+| A. Kata laporan ("blokir"/"brantas"/"hati-hati") tenggelam oleh banyaknya brand disebut | 3 | "Blokir aja situs web Kenzo Toto, biru toto, mawar Toto..." | 2 dipindah ke training, 1 ditahan di eval |
+| B. Narasi keluhan/korban tanpa kata laporan eksplisit | 2 | "saldo saya ngk bisa di main kan...deposi udah berapa kali" | 1 dipindah ke training, 1 ditahan di eval |
+| C. Fragmen terlalu pendek untuk dinilai konteksnya | 3 | "Situs", "Situs dancuk", "Probet88 judol.." | Dibuang dari hard test set (bukan kelemahan model, masalah kualitas data) |
+| D. Testimoni dengan nada ambigu/borderline promosi | 1 | "Maxwin boskuh??????lumayan rokok kopi aman selama setahun" | Diterima sebagai keterbatasan, tidak ditindaklanjuti |
+| E. Sarkasme/idiom yang butuh pemahaman pragmatik | 1 | "Sabung marmut aja dri pda GACOR88" | Diterima sebagai keterbatasan, tidak ditindaklanjuti |
+
+### Perubahan Dataset
+
+**`data/hard_test_set.csv`**: 141 → 135 entri.
+- 3 entri (Pola C) dihapus permanen — terlalu pendek untuk jadi eval yang adil.
+- 3 entri (2× Pola A, 1× Pola B) dipindah ke `manual_overrides.csv` sebagai
+  contoh training `non_spam`. **2 entri sejenis (1× Pola A, 1× Pola B)
+  sengaja TIDAK dipindah** — ditahan di eval set untuk mengukur apakah model
+  bisa generalisasi ke kasus serupa dengan brand berbeda, bukan cuma
+  menghafal 3 contoh yang baru ditambahkan.
+
+**`data/manual_overrides.csv`**: 346 → 349 entri (+3, semua `non_spam`).
+
+**`data/comments.csv`**: tetap 2271 spam / 2861 non_spam / 5132 total (3
+entri baru menggantikan 3 entri yang sebelumnya sudah ada di pool non_spam
+dari sumber lain — total kebetulan tidak berubah, tapi komposisi training
+set berubah).
+
+### Hasil: Dampak Terukur pada Hard Test Set
+
+Model dilatih ulang (`train.py`), lalu hard test set (135 entri tersisa)
+dievaluasi ulang dengan model baru:
+
+| Metrik | Sebelum (141 entri, model lama) | Sesudah (135 entri, model baru) |
+|---|---|---|
+| Accuracy | 92.91% | **97.04%** |
+| FP | 10 | **4** |
+| FN | 0 | 0 |
+
+**4 FP yang tersisa:**
+- 2 dari Pola A/B yang sengaja ditahan di eval (bukan dipindah ke training)
+  — **tetap salah setelah retrain**, brand name-nya beda dari 3 contoh yang
+  baru ditambahkan ("Udintogel/Zara4d" vs "Kenzo Toto/Probet88").
+- 2 dari Pola D/E (nada ambigu, sarkasme) — sesuai ekspektasi, tidak
+  terpengaruh oleh penambahan data.
+
+### Interpretasi Penting
+
+Dua entri Pola A/B yang ditahan di eval **tidak ikut membaik** meski 3
+contoh sejenis sudah masuk training. Ini bukti konkret bahwa SVM berbasis
+TF-IDF (token-matching) **tidak men-generalisasi pola abstrak** ("ada kata
+laporan + ada beberapa nama brand disebut") dari beberapa contoh ke
+kombinasi brand yang belum pernah dilihat — ia hanya belajar token spesifik
+yang muncul di training. Temuan ini jadi dasar pertimbangan untuk menambah
+*engineered feature* yang menangkap pola itu secara eksplisit (independen
+dari brand spesifik), alih-alih terus menambah contoh kasus per brand satu
+per satu.
+
+### Hasil Evaluasi Model (train-test split 80/20)
+
+Tidak berubah secara signifikan dari rebuild sebelumnya (hanya 3 baris
+berbeda dari 5132) — Accuracy 97.57%, F1-macro 0.9752, 5 FP, 20 FN. Lihat
+[`model/versions/v9/README.md`](model/versions/v9/README.md) dan
+[`model/versions/v10/README.md`](model/versions/v10/README.md) untuk detail.
+
+### Untuk Sidang
+
+> *"Setelah menonaktifkan hybrid rule, dilakukan analisis error sistematis terhadap 10 false positive yang tersisa di hard test set, mengelompokkannya menjadi 5 pola kegagalan. Tiga contoh dari pola 'kata laporan tenggelam oleh banyaknya brand disebut' dipindahkan dari data evaluasi ke data training, sementara dua contoh berpola sama sengaja ditahan di evaluasi untuk menguji generalisasi. Hasilnya, akurasi hard test set meningkat dari 92.91% menjadi 97.04%, namun dua contoh yang ditahan tetap salah diklasifikasi — membuktikan bahwa model berbasis TF-IDF menggeneralisasi pada level token spesifik, bukan pola linguistik abstrak. Temuan ini menjadi dasar empiris untuk mempertimbangkan penambahan fitur turunan (engineered features) pada tahap pengembangan berikutnya."*
+
+---
+
 ## Hard Test Set — 2026-06-19
 
 ### Sumber

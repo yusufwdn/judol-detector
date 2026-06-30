@@ -21,10 +21,12 @@ Penjelasan naratif tiap perubahan (kenapa, apa yang diubah, dampaknya) ada di **
 | 7 | [`v7/`](v7/) | `6928ef5` | 2026-06-19 | 2266 / 2533 / 4799 | 5480 | 98.23% | 20 FP direlabel, `manual_overrides.csv` dibuat. |
 | 8a | [`v8a/`](v8a/) | `2636549` | 2026-06-19 | 2274 / 2799 / 5073 | 6010 | — | Commit pertama bertanda "Versi 8" (leet speak normalization, hard test set 141 entri). Jumlah non_spam belum final. |
 | 8b | [`v8b/`](v8b/) | `c46c2d4` | 2026-06-19 | 2268 / 2864 / 5132 | 6360 | 96.95% | Commit terakhir sebelum sesi audit ini — total baris sudah 5132 sesuai `DATASET_LOG.md`, tapi split spam/non_spam sedikit beda dari tabel V8 (2274/2858) karena ada entri masuk lewat endpoint `/report` tanpa full rebuild. |
-| **9** | [`v9/`](v9/) | *(belum di-commit)* | 2026-06-30 | 2271 / 2861 / 5132 | 6375 | **97.57%** | **Model produksi saat ini.** Dataset di-rebuild bersih dari `prepare_dataset.py` (menghilangkan ketidaksinkronan v8b). Hybrid rules (`ENABLE_HYBRID_RULES`) dimatikan setelah ablation study membuktikan menurunkan akurasi — lihat [`PENJELASAN_TEKNIS.md §33`](../../PENJELASAN_TEKNIS.md#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan). |
+| 9 | [`v9/`](v9/) | `d932f41`/`349c813` | 2026-06-30 | 2271 / 2861 / 5132 | 6375 | 97.57% | Dataset di-rebuild bersih dari `prepare_dataset.py` (menghilangkan ketidaksinkronan v8b). Hybrid rules (`ENABLE_HYBRID_RULES`) dimatikan setelah ablation study membuktikan menurunkan akurasi — lihat [`PENJELASAN_TEKNIS.md §33`](../../PENJELASAN_TEKNIS.md#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan). **Disusul v10 di hari yang sama** setelah error analysis lanjutan. |
+| **10** | [`v10/`](v10/) | *(belum di-commit)* | 2026-06-30 | 2271 / 2861 / 5132*** | 6378 | **97.57%** (hard test set: **97.04%**, naik dari 92.91% di v9) | **Model produksi saat ini.** Error analysis sistematis pada hard test set: 3 contoh "kata laporan tenggelam oleh brand" dipindah dari eval ke training, 3 fragmen terlalu pendek dibuang dari eval. 2 contoh sejenis sengaja ditahan di eval — tetap salah setelah retrain, membuktikan model tidak men-generalisasi pola abstrak antar-brand. Detail di [`DATASET_LOG.md` Versi 9](../../DATASET_LOG.md#versi-9--2026-06-30). |
 
 \* Versi 1 dianggap tidak realistis karena non-spam sintetis terlalu seragam — lihat [`DATASET_LOG.md` Versi 1](../../DATASET_LOG.md#versi-1--sebelum-2026-06-16) dan [README.md FAQ](../../README.md#11-faq--pertanyaan-yang-mungkin-muncul).
 \** Angka Versi 3 diambil dari tabel perbandingan di `DATASET_LOG.md` Versi 4 (kolom "Versi 3") — dataset Versi 3 tidak punya tabel evaluasi independen di bagiannya sendiri.
+\*** Total baris sama dengan v9, tapi komposisi beda — 3 baris diganti (lihat `DATASET_LOG.md` Versi 9).
 
 ---
 

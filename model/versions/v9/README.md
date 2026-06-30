@@ -1,5 +1,10 @@
 # Model v9 — 2026-06-30
 
+> **Disusul oleh [`v10/`](../v10/) di hari yang sama** — error analysis lanjutan
+> pada hard test set menghasilkan model dengan komposisi training sedikit
+> berbeda. v9 tetap diarsipkan sebagai checkpoint "hybrid rules baru
+> dimatikan, sebelum error analysis hard test set".
+
 Commit: `(belum di-commit)`
 Dataset: 2271 spam / 2861 non_spam / 5132 total
 Accuracy: 97.57% (F1 0.9752) -- SVM murni, hybrid rules off
