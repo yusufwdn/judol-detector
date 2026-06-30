@@ -628,17 +628,23 @@ Urutan yang benar selalu:
 
 ### `data/comments.csv`
 
-Dataset berlabel yang menjadi "bahan belajar" model. File ini **tidak ada di repo secara default** — dibuat otomatis oleh `src/prepare_dataset.py`. Format:
+Dataset berlabel yang menjadi "bahan belajar" model. File ini **tidak ada di repo secara default** — dibuat otomatis oleh `src/prepare_dataset.py`. Format (sejak Versi 11):
 
 ```
-text,label
-"Daftar sekarang bonus 100%!",spam
-"Video ini sangat membantu!",non_spam
+text,label,source
+"Daftar sekarang bonus 100%!",spam,abc123XYZvid
+"Video ini sangat membantu!",non_spam,def456UVWvid
+"Komentar yang dikoreksi manual",non_spam,manual_override
 ```
 
-Dua kolom wajib:
+Tiga kolom:
 - `text` — isi komentar mentah (`original_text` dari data scraping)
 - `label` — `spam` atau `non_spam`
+- `source` — `video_id` asal komentar (untuk data dari scraper), atau literal `manual_override` (untuk data dari `manual_overrides.csv` / endpoint `/report`)
+
+> **Kenapa ada kolom `source`?** Setiap kali `prepare_dataset.py` dijalankan, `comments.csv` di-regenerate total dari `final_spam.json` + `final_non_spam.json` + `manual_overrides.csv`, lalu **diacak ulang** (`random.shuffle`) — bukan di-append di bagian bawah. Jadi data dari scraping terbaru akan selalu tercampur posisinya dengan data lama, dan urutan baris di file **tidak bisa dipakai** untuk melacak "mana yang baru ditambahkan". Kolom `source` menyelesaikan ini — bisa di-filter (`df[df.source == 'VIDEO_ID']`) kapan saja tanpa perlu shuffle stabil atau balik buka JSON mentah. Ini juga yang dipakai untuk audit kualitas data (lihat insiden kontaminasi di [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)).
+>
+> Shuffle sendiri tetap dipertahankan dan **tidak masalah untuk training** — `train_test_split` di `train.py` sudah shuffle ulang dengan `random_state=42` + `stratify=y`, jadi urutan baris di CSV tidak memengaruhi hasil training sama sekali.
 
 > **Semakin banyak dan beragam datanya, semakin baik modelnya.**
 > Dataset proyek ini (Versi 11) berisi **6509 baris**: 2332 spam + 4177 non-spam, **keduanya dari data scraping nyata** (non-spam tidak lagi sintetis sejak Versi 2 — lihat [DATASET_LOG.md](DATASET_LOG.md)). Bukan cuma soal jumlah — audit menemukan mayoritas data non-spam sebelumnya bertopik generik (tidak menyinggung judi sama sekali), sehingga kurang membantu model membedakan kritik dari promosi; Versi 10 secara khusus menambah komentar non-spam yang benar-benar membahas topik judi (kritik, cerita pengalaman, edukasi). Versi 11 lalu memperbaiki insiden kualitas data: 61 komentar spam tersamar (Unicode dekoratif/leet speak) yang lolos heuristik scraper direlabel dari non-spam ke spam.

@@ -416,9 +416,12 @@ def report_false_positive(request: ReportRequest):
                         )
 
     # Append ke comments.csv (efek langsung ke training berikutnya)
+    # Kolom ketiga ("source") harus diisi "manual_override" agar selaras dengan
+    # skema 3-kolom yang dihasilkan prepare_dataset.py — kalau cuma 2 kolom,
+    # baris ini akan misalign saat dibaca ulang sebagai DataFrame.
     with open(DATA_PATH, "a", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([request.text, request.label])
+        writer.writerow([request.text, request.label, "manual_override"])
 
     # Append ke manual_overrides.csv (persisten saat prepare_dataset.py dijalankan ulang)
     overrides_has_header = os.path.exists(MANUAL_OVERRIDES_CSV) and os.path.getsize(MANUAL_OVERRIDES_CSV) > 0

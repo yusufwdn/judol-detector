@@ -100,6 +100,19 @@ bisa dipercaya).
 
 > *"Selama proses scraping data tambahan, ditemukan tiga kampanye spam yang menggunakan teknik penyamaran (font Unicode dekoratif, leet speak, spasi karakter full-width) untuk lolos dari heuristik penilaian spam_score milik scraper — termasuk satu kampanye yang ternyata sudah mencemari dataset sejak pengumpulan data non-spam pertama kali, bukan insiden baru. Setelah diaudit ulang dengan deteksi berlapis (normalisasi Unicode, translasi homoglyph, substitusi leet speak), 61 komentar yang salah label dipindahkan dari kelas non-spam ke kelas spam yang benar. Model yang dilatih ulang dengan data yang sudah dibersihkan menunjukkan accuracy yang sedikit lebih rendah dari sebelumnya (97.39% vs 98.23%) — penurunan ini disengaja dan diharapkan, karena angka sebelumnya sebagian berasal dari model menghafal label yang salah. Ini menegaskan pentingnya audit kualitas data manual, bukan hanya mengandalkan heuristik otomatis, terutama untuk dataset yang dikumpulkan dari sumber yang secara aktif ditargetkan oleh spammer."*
 
+### Tambahan: Kolom `source` di `comments.csv`
+
+Insiden kontaminasi di atas ditemukan dengan cara membuka file JSON mentah hasil scraping satu per satu secara manual — lambat dan tidak skalabel. Akar masalahnya: `prepare_dataset.py` meregenerasi `comments.csv` total dari nol setiap dijalankan (baca ulang `final_spam.json` + `final_non_spam.json` + `manual_overrides.csv`, gabung, **acak ulang** dengan `random.shuffle`), dan hanya menyimpan kolom `text` + `label` — informasi video sumber dibuang.
+
+Akibatnya data baru selalu tercampur posisinya dengan data lama (bukan ditambahkan di akhir file), dan tidak ada cara melacak "baris ini dari video/sumber mana" tanpa membuka JSON mentah.
+
+**Perbaikan:** `prepare_dataset.py` dan endpoint `/report` di `server.py` sekarang menyertakan kolom ketiga, `source` — berisi `video_id` untuk data dari scraper, atau literal `manual_override` untuk koreksi manual. Shuffle tetap dipertahankan (tidak memengaruhi training, karena `train_test_split` di `train.py` sudah shuffle ulang sendiri), tapi sekarang bisa difilter kapan saja:
+
+```python
+df[df.source == "J7-P3Oz9CKA"]  # semua baris dari satu video
+df[df.source == "manual_override"]  # semua koreksi manual
+```
+
 ---
 
 ## Versi 10 — 2026-06-30

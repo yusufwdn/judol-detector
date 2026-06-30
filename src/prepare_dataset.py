@@ -145,6 +145,7 @@ def load_spam_data(json_path: str, threshold: int) -> list:
         text = entry.get("original_text", "").strip()
         normalized = entry.get("normalized_text", "").strip()
         signals = entry.get("active_signals", [])
+        source = entry.get("video_id", "unknown")
 
         if not text:
             skipped_low_score += 1
@@ -152,7 +153,7 @@ def load_spam_data(json_path: str, threshold: int) -> list:
 
         # Pass 1: primary threshold — high confidence, always include
         if score >= threshold:
-            spam_entries.append({"text": text, "label": "spam"})
+            spam_entries.append({"text": text, "label": "spam", "source": source})
 
         # Pass 2: rescue entries below threshold that contain a confirmed real
         # gambling brand name in normalized_text.
@@ -176,7 +177,7 @@ def load_spam_data(json_path: str, threshold: int) -> list:
             BRAND_RESCUE_PATTERN.search(normalized)
             or BRAND_SUFFIX_PATTERN.search(normalized)
         ):
-            spam_entries.append({"text": text, "label": "spam"})
+            spam_entries.append({"text": text, "label": "spam", "source": source})
             rescued += 1
 
         else:
@@ -223,7 +224,7 @@ def load_non_spam_data(json_path: str) -> list:
     for entry in raw_data:
         text = entry.get("original_text", "").strip()
         if text:
-            entries.append({"text": text, "label": "non_spam"})
+            entries.append({"text": text, "label": "non_spam", "source": entry.get("video_id", "unknown")})
 
     skipped = len(raw_data) - len(entries)
     print(f"  Total entries in JSON : {len(raw_data)}")
@@ -280,7 +281,7 @@ def apply_manual_overrides(spam: list, non_spam: list, overrides_path: str):
     added_non_spam = 0
     for text in fp_texts:
         if text not in existing_non_spam:
-            non_spam.append({"text": text, "label": "non_spam"})
+            non_spam.append({"text": text, "label": "non_spam", "source": "manual_override"})
             existing_non_spam.add(text)
             added_non_spam += 1
 
@@ -289,7 +290,7 @@ def apply_manual_overrides(spam: list, non_spam: list, overrides_path: str):
     added_spam = 0
     for text in spam_additions:
         if text not in existing_spam:
-            spam.append({"text": text, "label": "spam"})
+            spam.append({"text": text, "label": "spam", "source": "manual_override"})
             existing_spam.add(text)
             added_spam += 1
 
