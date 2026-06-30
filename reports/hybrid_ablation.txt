@@ -1,0 +1,19 @@
+ABLATION STUDY: SVM MURNI vs SVM + HYBRID RULES
+Model: C:\Personal\kulyeah\Skripsi\svm-judol-spam\model\svm_model.joblib
+
+======================================================================
+Dataset: Train-test split (20% holdout, n=test set) (n=1027)
+======================================================================
+Mode                Accuracy  F1-macro      FP      FN
+SVM murni             97.57%    0.9752       5      20
+SVM + Hybrid          91.33%    0.9101       7      82
+Delta: accuracy -6.23%, F1-macro -0.0651
+
+======================================================================
+Dataset: Hard test set (141 kasus ambigu) (n=141)
+======================================================================
+Mode                Accuracy  F1-macro      FP      FN
+SVM murni             92.91%    0.4816      10       0
+SVM + Hybrid          80.14%    0.4449      28       0
+Delta: accuracy -12.77%, F1-macro -0.0367
+

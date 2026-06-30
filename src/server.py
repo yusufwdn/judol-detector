@@ -128,29 +128,51 @@ class BatchPredictResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# HYBRID RULE — Hard Spam Signal Check
+# HYBRID RULE — Hard Spam Signal Check  [DINONAKTIFKAN — lihat catatan di bawah]
 # ---------------------------------------------------------------------------
 #
-# MASALAH YANG DISELESAIKAN:
-# SVM (Bag of Words) memberi bobot spam kepada kata-kata yang sering muncul
-# di data training spam, termasuk kata ambigu seperti "hoki", "serius", "keren".
-# Tanpa pemahaman konteks, kata-kata itu bisa sebabkan false positive di komentar
-# yang sama sekali tidak berhubungan dengan judi.
+# STATUS: DICOBA, DIUKUR, DAN DIMATIKAN (ENABLE_HYBRID_RULES = False)
+# ---------------------------------------------------------------------------
+# Rule ini awalnya ditambahkan untuk dua alasan:
+#   Rule A: SVM bilang "spam" tapi teks tidak punya kata judi pasti → override
+#           ke "non_spam" (mencegah false positive dari kata ambigu seperti
+#           "hoki", "serius", "keren").
+#   Rule B: SVM bilang "non_spam" tapi teks punya kata judi pasti → override
+#           ke "spam" (mencegah false negative).
 #
-# SOLUSI:
-# Setelah SVM memprediksi "spam", kita verifikasi apakah teks mengandung minimal
-# satu kata yang secara PASTI berhubungan dengan judi online. Jika tidak ada,
-# prediksi di-override ke "non_spam".
+# Saat itu kelihatan membantu di `data/hard_test_set.csv` (141 kasus ambigu).
+# Tapi setelah model dilatih ulang dengan dataset yang lebih besar (Versi 8,
+# 5132 baris) dan diuji dengan ablation study (src/evaluate_hybrid_ablation.py,
+# bandingkan SVM murni vs SVM+hybrid di DUA dataset evaluasi), hasilnya:
 #
-# TRADE-OFF (disadari dan diterima):
-# Spam yang sengaja menghindari semua kata keras (misal spam memakai kalimat
-# puitis tanpa kata judi eksplisit) akan lolos sebagai non_spam. Ini dianggap
-# lebih baik daripada terus-menerus menyembunyikan komentar normal yang kebetulan
-# mengandung kata berbobot spam.
+#                         SVM murni      SVM + Hybrid      Delta
+#   Train-test split      97.57% acc     91.33% acc        -6.23%
+#   Hard test set         92.91% acc     80.14% acc       -12.77%
 #
-# MAINTENANCE:
-# Daftar ini perlu diperbarui jika spammer mulai menggunakan kata/brand baru
-# yang belum terdaftar. Ini adalah keterbatasan utama pendekatan berbasis aturan.
+# Breakdown per-rule (lihat reports/hybrid_ablation.txt untuk detail lengkap):
+#   Rule A: 66x nyala di train-test split → cuma 4 benar, 62 SALAH (94% salah).
+#           Spam asli sering tidak memuat kata persis dari HARD_SPAM_SIGNALS
+#           (mis. "daftar sekarang, wd lancar, gabung yuk"), jadi Rule A malah
+#           meloloskan spam yang sudah benar dideteksi SVM.
+#   Rule B: 0 benar dari 27x nyala TOTAL di kedua dataset (0%). Kata seperti
+#           "togel"/"toto" sering muncul di komentar yang justru MENGKRITIK
+#           judol, bukan mempromosikannya — Rule B salah paham konteks ini.
+#
+# KESIMPULAN: begitu model dilatih dengan data yang lebih banyak dan beragam,
+# SVM sendiri sudah lebih baik dari override berbasis kata kunci manual.
+# Hybrid rule dipertahankan di kode ini (bukan dihapus) sebagai bukti proses
+# eksperimen — dimatikan via flag, bukan dihapus, supaya bisa diaktifkan lagi
+# dan diuji ulang kalau pola spam baru di masa depan menunjukkan kebutuhan
+# yang berbeda. Untuk mengaktifkan kembali, set ENABLE_HYBRID_RULES = True
+# lalu jalankan ulang `python src/evaluate_hybrid_ablation.py` untuk
+# memverifikasi efeknya sebelum di-deploy.
+#
+# MAINTENANCE (kalau diaktifkan lagi):
+# Daftar HARD_SPAM_SIGNALS perlu diperbarui manual kalau spammer mulai
+# menggunakan kata/brand baru yang belum terdaftar — ini keterbatasan utama
+# pendekatan berbasis aturan, di luar soal akurasi yang sudah diukur di atas.
+
+ENABLE_HYBRID_RULES = False
 
 HARD_SPAM_SIGNALS = {
     # Istilah judi yang tidak punya makna lain dalam percakapan sehari-hari
@@ -287,24 +309,22 @@ def predict(request: PredictRequest):
     label_idx = list(classes).index(label)
     confidence = float(proba[label_idx])
 
-    # Hybrid rule — dua arah:
-    #
-    # (A) FP prevention: SVM bilang spam tapi tidak ada sinyal keras judol →
-    #     kemungkinan false positive dari kata ambigu (hoki, serius, keren, dll).
-    #     Override ke non_spam.
-    #
-    # (B) FN prevention: SVM bilang non_spam padahal ada sinyal keras judol →
-    #     terjadi ketika komentar punya banyak kata normal yang bobotnya mengalahkan
-    #     token judolbrand di model linear. Sinyal keras harus menang — override ke spam.
-    has_signal = has_hard_spam_signal(cleaned)
+    # Hybrid rule — DINONAKTIFKAN (ENABLE_HYBRID_RULES = False).
+    # Diukur lewat ablation study (lihat komentar panjang di atas dan
+    # reports/hybrid_ablation.txt) dan terbukti net negative setelah model
+    # dilatih ulang dengan dataset Versi 8 — SVM murni lebih akurat di kedua
+    # dataset evaluasi. Kode tetap di sini, tinggal aktifkan flag-nya kalau
+    # suatu saat perlu diuji ulang.
+    if ENABLE_HYBRID_RULES:
+        has_signal = has_hard_spam_signal(cleaned)
 
-    if label == "spam" and not has_signal:
-        print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
-        return PredictResponse(label="non_spam", confidence=0.5, is_spam=False)
+        if label == "spam" and not has_signal:
+            print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
+            return PredictResponse(label="non_spam", confidence=0.5, is_spam=False)
 
-    if label == "non_spam" and has_signal:
-        print(f"[HYBRID] Override non_spam→spam (hard signal present): {cleaned[:60]}")
-        return PredictResponse(label="spam", confidence=0.9, is_spam=True)
+        if label == "non_spam" and has_signal:
+            print(f"[HYBRID] Override non_spam→spam (hard signal present): {cleaned[:60]}")
+            return PredictResponse(label="spam", confidence=0.9, is_spam=True)
 
     return PredictResponse(
         label=label,
@@ -344,18 +364,20 @@ def predict_batch(request: BatchPredictRequest):
         label_idx = list(classes).index(label)
         confidence = float(proba[label_idx])
 
-        # Hybrid rule — dua arah, sama seperti di /predict
-        has_signal = has_hard_spam_signal(cleaned)
+        # Hybrid rule — DINONAKTIFKAN, sama seperti di /predict (lihat penjelasan
+        # lengkap + ablation study di atas).
+        if ENABLE_HYBRID_RULES:
+            has_signal = has_hard_spam_signal(cleaned)
 
-        if label == "spam" and not has_signal:
-            print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
-            results.append(PredictResponse(label="non_spam", confidence=0.5, is_spam=False))
-            continue
+            if label == "spam" and not has_signal:
+                print(f"[HYBRID] Override spam→non_spam (no hard signal): {cleaned[:60]}")
+                results.append(PredictResponse(label="non_spam", confidence=0.5, is_spam=False))
+                continue
 
-        if label == "non_spam" and has_signal:
-            print(f"[HYBRID] Override non_spam→spam (hard signal present): {cleaned[:60]}")
-            results.append(PredictResponse(label="spam", confidence=0.9, is_spam=True))
-            continue
+            if label == "non_spam" and has_signal:
+                print(f"[HYBRID] Override non_spam→spam (hard signal present): {cleaned[:60]}")
+                results.append(PredictResponse(label="spam", confidence=0.9, is_spam=True))
+                continue
 
         results.append(PredictResponse(
             label=label,
