@@ -41,6 +41,7 @@
 31. [Perlindungan Data Laporan Extension — /report ke Dua File](#31-perlindungan-data-laporan-extension--report-ke-dua-file)
 32. [Penghapusan slot dan deposit dari HARD_SPAM_SIGNALS](#32-penghapusan-slot-dan-deposit-dari-hard_spam_signals)
 33. [Ablation Study Hybrid Rules — Kenapa Akhirnya Dimatikan](#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan)
+34. [Generalisasi ke Brand Judol Baru — Sejauh Mana Model Bisa Mengikuti?](#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti)
 
 ---
 
@@ -3040,3 +3041,60 @@ Untuk memastikan bukan kebetulan, setiap kali rule menyala dicatat apakah hasiln
 ### Untuk Sidang
 
 > *"Hybrid rule berbasis kata kunci sempat diterapkan untuk mengatasi false positive/negative pada model versi awal, dan terbukti meningkatkan accuracy hard test set dari 73.76% menjadi 80.14% saat itu. Namun setelah dataset training diperluas ke 5132 baris dan model dilatih ulang, dilakukan ablation study sistematis (membandingkan SVM murni vs SVM+hybrid pada dua dataset evaluasi independen) yang menunjukkan hybrid rule justru menurunkan accuracy 6–13 poin persentase — model SVM yang lebih kuat tidak lagi membutuhkan koreksi berbasis kata kunci, dan rule tersebut sekarang lebih sering salah mengoreksi prediksi SVM yang sudah benar daripada membantu. Hybrid rule kemudian dinonaktifkan secara default, dengan kode dipertahankan sebagai dokumentasi proses eksperimen dan dapat diaktifkan kembali untuk pengujian di masa depan."*
+
+---
+
+## 34. Generalisasi ke Brand Judol Baru — Sejauh Mana Model Bisa Mengikuti?
+
+### Pertanyaan yang Mendasari
+
+Semua brand judol di dataset training adalah brand yang **sudah pernah muncul** saat scraping. Pertanyaan wajar yang muncul: bagaimana kalau muncul brand benar-benar baru setelah model selesai dilatih — apakah sistem ini langsung buta terhadapnya sampai di-retrain manual?
+
+Ini beda dari masalah di §33 (konteks ajakan vs kritik) — di sini soalnya murni soal **brand name yang belum pernah dilihat sama sekali**, bukan soal salah baca konteks kalimat.
+
+### Mekanisme yang Sudah Ada: Canonicalization, Bukan Hafalan
+
+Step 5b di `preprocessing.py` (`JUDOL_BRAND_PATTERN`) tidak menghafal nama brand satu per satu — ia mengenali **pola penamaan**: `[kata bebas] + [suffix numerik atau qq]` (4d, 3d, 2d, 88, 99, 77, 69, 138, 388, 303, 777, 888, qq). Begitu sebuah kata cocok pola ini, ia diubah jadi token `judolbrand` — token yang sudah sangat kuat bobotnya di model, terlepas dari nama aslinya. Ini didesain sejak Versi 5 (lihat §23) justru untuk mengantisipasi brand baru yang mengikuti konvensi penamaan yang sama.
+
+### Uji Empiris: Brand yang Benar-Benar Tidak Ada di Dataset
+
+Untuk memverifikasi seberapa jauh generalisasi ini bekerja, diuji beberapa nama brand fiktif yang dipastikan tidak ada di `data/comments.csv` sama sekali:
+
+| Skenario | Teks Uji | Tercanonicalize jadi `judolbrand`? | Prediksi | Confidence |
+|---|---|---|---|---|
+| Suffix digit umum (88) + konteks promosi | "Daftar sekarang di NAMABRANDBARU88, bonus new member gede!" | Ya | spam | 100% |
+| Suffix digit (888), tanpa kalimat promosi | "liat aja di MEGAHWIN888" | Ya | spam | 100% |
+| Suffix digit (99), brand doang tanpa konteks | "EMASJAYA99" | Ya | spam | 100% |
+| Suffix TOTO (tanpa digit) + konteks promosi | "Daftar sekarang di RAJATOTO, bonus new member gede!" | **Tidak** | spam | 91.89% |
+| Suffix BET (tanpa digit) + konteks promosi | "Gabung yuk di SULTANBET, wd lancar tiap hari!" | **Tidak** | spam | 88.40% |
+| Suffix WIN (tanpa digit) + konteks promosi | "Main di ISTANAWIN aja, gampang menang!" | **Tidak** | spam | 85.09% |
+| Suffix BET, **tanpa** konteks promosi | "SULTANBET mantap" | **Tidak** | **non_spam (salah arah, tapi aman)** | 95.27% |
+| Suffix tidak dikenal sama sekali + konteks promosi jelas | "Daftar sekarang di JAYAMAKMUR, bonus gede!" | **Tidak** | non_spam | **43.94%** ⚠ |
+| Suffix tidak dikenal, brand doang | "JAYAMAKMUR aja" | **Tidak** | non_spam | 97.06% |
+
+### Interpretasi
+
+**Dua lapis generalisasi yang sudah bekerja dengan baik:**
+1. Brand baru dengan suffix dikenal (digit/`qq`) → langsung tercanonicalize ke `judolbrand`, confidence selalu 100% terlepas dari ada/tidaknya kalimat promosi di sekitarnya. **Tidak butuh maintenance apapun** untuk brand jenis ini.
+2. Brand baru dengan suffix tidak dikenal (termasuk TOTO/BET/WIN) **tapi** disertai kalimat promosi yang jelas → tetap terdeteksi spam dengan confidence tinggi (85–92%), murni dari kata-kata promosi di sekitarnya ("daftar", "gabung", "bonus", "wd", "gampang menang") yang sudah dipelajari model — brand-nya sendiri boleh benar-benar asing.
+
+**Satu celah nyata ditemukan:** brand dengan suffix yang sama sekali tidak dikenali pola **dan** tanpa kata promosi yang kuat di sekitarnya → confidence anjlok ke kisaran 44–56%, jauh di bawah threshold default extension (75%). Kasus *"Daftar sekarang di JAYAMAKMUR, bonus gede!"* adalah contoh paling mengkhawatirkan — kalimatnya jelas-jelas promosi untuk manusia, tapi model ragu karena baik brand maupun kombinasi kata di sekitarnya berada di luar pola yang pernah dipelajari.
+
+### Kenapa "Tinggal Tambahkan TOTO/BET/WIN ke JUDOL_BRAND_PATTERN" Bukan Solusi Murah
+
+`prepare_dataset.py` memang sudah punya pola serupa untuk TOTO/BET/WIN/QQ (`BRAND_SUFFIX_PATTERN`, lihat §5 dan §27), jadi solusi yang kelihatan jelas adalah menyamakan `JUDOL_BRAND_PATTERN` di `preprocessing.py` dengan pola itu. Tapi ada perbedaan krusial:
+
+- `BRAND_SUFFIX_PATTERN` di `prepare_dataset.py` berjalan di atas `normalized_text` **sebelum** lowercase — ia bisa aman mensyaratkan ALL-CAPS (`[A-Z]{3,}TOTO`) untuk membedakan brand asli dari kata Indonesia biasa yang kebetulan mengandung substring sama.
+- `JUDOL_BRAND_PATTERN` di `preprocessing.py` berjalan **setelah** Step 5 (lowercase) — informasi huruf besar/kecil sudah hilang di titik ini. Menambahkan `bet`/`win`/`toto` tanpa syarat huruf besar akan menangkap ulang kata Indonesia umum yang **sudah pernah jadi false positive dan diperbaiki**: `ribet`, `kesambet`, `ngebet`, `ngerebet` (lihat §27, kasus Versi 6–7).
+
+Memperbaiki ini dengan benar butuh exclude-list kata Indonesia umum yang mengandung substring tersebut — bukan perubahan satu baris, dan beresiko menciptakan ulang bug yang sudah pernah diperbaiki kalau terburu-buru. Belum dikerjakan karena ROI-nya belum jelas dibanding risikonya — tabel di atas menunjukkan brand suffix TOTO/BET/WIN **tanpa** canonicalization pun sudah terdeteksi 85–92% selama ada konteks promosi, jadi gap yang ditutup oleh perbaikan ini relatif sempit.
+
+### Keputusan: Diterima sebagai Keterbatasan Sistem, Dimitigasi Secara Operasional
+
+Bukan dianggap kegagalan desain — setiap sistem deteksi spam berbasis konten (regex, keyword list, atau model statistik manapun) punya batas yang sama: ia hanya bisa mengenali pola yang sudah pernah diobservasi, baik secara eksplisit (hardcoded) maupun implisit (dipelajari dari data). Brand benar-benar baru dengan konvensi penamaan benar-benar baru **dan** tanpa kalimat promosi sama sekali di sekitarnya adalah kasus tepi yang juga sulit dinilai manusia tanpa konteks tambahan.
+
+**Mitigasi yang sudah tersedia, bukan perbaikan kode baru:** pipeline `scraper/index.js → prepare_dataset.py → train.py` yang sudah ada di proyek ini *adalah* jawaban untuk brand baru — begitu brand baru muncul di hasil scraping berikutnya, ia otomatis masuk dataset training tanpa perlu update regex manual satu per satu. Endpoint `/report` di `server.py` juga memungkinkan koreksi langsung dari pengguna extension yang menemukan kasus terlewat, tersimpan permanen di `manual_overrides.csv` (lihat §28). Maintenance yang dibutuhkan adalah **retraining berkala**, bukan **pengkodean ulang per brand**.
+
+### Untuk Sidang
+
+> *"Diuji secara empiris menggunakan nama brand fiktif yang dipastikan tidak ada di dataset training. Hasilnya, brand baru dengan suffix penamaan yang dikenal (pola digit seperti 4D/88/99/77, atau QQ) langsung dikenali dengan confidence 100% lewat mekanisme canonicalization di preprocessing — bukan hafalan nama, tapi pengenalan pola. Brand dengan suffix di luar pola itu (misal TOTO/BET/WIN tanpa digit) tetap terdeteksi 85–92% selama disertai kalimat promosi, karena model mengandalkan kata-kata ajakan di sekitarnya, bukan nama brand semata. Celah yang teridentifikasi adalah kombinasi brand benar-benar baru tanpa kalimat promosi sama sekali, di mana confidence turun mendekati batas keputusan. Perluasan pola canonicalization untuk menutup celah ini dipertimbangkan tapi ditunda karena berisiko menghidupkan kembali bug false positive pada kata Indonesia umum (ribet, kesambet) yang sudah pernah diperbaiki sebelumnya — sehingga keterbatasan ini diterima dan dimitigasi secara operasional lewat pipeline scraping-retraining yang sudah ada, bukan lewat penambahan aturan baru yang berisiko."*

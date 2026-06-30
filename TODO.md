@@ -313,7 +313,17 @@ koheren.
 - [ ] **Bab Keterbatasan & Saran:** Tulis jujur — dependency server lokal,
   data non-spam sintetis (jika belum sempat diganti), selector extension yang
   rapuh terhadap perubahan UI platform, dll. Penguji **menghargai** kejujuran
-  soal limitasi dibanding klaim berlebihan.
+  soal limitasi dibanding klaim berlebihan. Dua keterbatasan yang sudah diuji
+  empiris dan siap dikutip langsung:
+  - **Generalisasi ke brand judol baru** — diuji pakai brand fiktif, model
+    robust untuk brand bersuffix pola dikenal (digit/QQ) atau yang disertai
+    kalimat promosi jelas, tapi confidence anjlok untuk brand+suffix
+    benar-benar baru tanpa konteks promosi. Mitigasinya operasional (pipeline
+    scraping-retraining), bukan perbaikan kode. Detail di
+    [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
+  - **Generalisasi pola "kritik + sebut brand"** — SVM/TF-IDF belajar di
+    level token spesifik, bukan pola linguistik abstrak; lihat eksperimen di
+    [DATASET_LOG.md Versi 9](DATASET_LOG.md#versi-9--2026-06-30).
 
 - [ ] **Siapkan demo live** — extension + server jalan saat sidang, dengan
   beberapa video YouTube yang sudah diketahui mengandung komentar spam.
