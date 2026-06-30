@@ -1168,37 +1168,44 @@ Untuk skripsi, SVM dipilih karena kombinasi performa yang baik + interpretabilit
 
 ---
 
-**Q: Akurasi 100% di test set — bukankah ini tanda overfitting?**
+**Q: Akurasi test set sekarang berapa, dan kenapa bukan 100%?**
 
-Overfitting adalah ketika model "menghafal" training data dan gagal generalisasi ke data baru. Gejalanya: akurasi training tinggi sekali tapi akurasi test turun signifikan.
+> ⚠️ **Catatan revisi:** dua jawaban di bawah ini awalnya ditulis untuk Versi 1 proyek (akurasi 100%, non-spam sintetis) — kondisi yang sudah tidak berlaku sejak Versi 2 (2026-06-16). Diperbarui di sini supaya tidak menyesatkan kalau dikutip untuk skripsi.
 
-Di sini, akurasi **test set** juga 100% — bukan hanya training set. Artinya model berhasil generalisasi ke data yang tidak pernah ia lihat.
+Per Versi 12 (terbaru, lihat [DATASET_LOG.md](DATASET_LOG.md)): **accuracy 97.53%** di train-test split (F1-macro 0.9726), **98.52%** di hard test set (135 komentar ambigu). Bukan 100%, dan itu justru tanda dataset yang sehat — bukan kelemahan.
 
-Mengapa ini mungkin? Karena komentar spam judi memiliki pola yang sangat khas dan konsisten (nama brand, kata kunci spesifik). Komentar non-spam sama sekali tidak mengandung pola ini. Dua kelas ini sangat mudah dipisahkan secara linear di ruang TF-IDF.
+Riwayat akurasi train-test split dari awal proyek:
+- Versi 1 (data non-spam sintetis): ~100% — **tidak realistis**, karena template sintetis terlalu seragam sehingga dua kelas sangat mudah dipisahkan
+- Versi 2 (non-spam diganti ke data nyata): turun ke 97.23% — **inilah yang lebih jujur**, karena komentar nyata jauh lebih beragam dan kadang ambigu
+- Versi 5-12: berfluktuasi 96.95%–99.53% seiring dataset diperluas dan dibersihkan, stabil di kisaran 97-98%
 
-Caveats yang perlu disebutkan:
-1. Test set ini masih dari distribusi data yang sama (YouTube Indonesia)
-2. Kalau ada spam dengan pola yang benar-benar baru (brand name baru yang belum pernah ada di training data), model mungkin tidak mengenalinya
-3. Perlu pengujian dengan data yang lebih beragam untuk validasi sesungguhnya
+Caveats yang masih berlaku:
+1. Test set ini masih dari distribusi data yang sama (YouTube Indonesia, video-video yang sudah di-scrape)
+2. Brand judol benar-benar baru (suffix yang belum dikenal pola) bisa luput kalau tidak disertai kalimat promosi — diuji empiris di [§34](#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti)
+3. Komentar yang menyebut brand berkali-kali dalam konteks kritik (bukan promosi) terbukti sulit dipelajari model linear bahkan saat masuk training langsung — lihat kasus PBB4D di [DATASET_LOG.md Versi 12](DATASET_LOG.md#versi-12--2026-06-30)
 
 ---
 
-**Q: Kenapa synthetic data untuk non-spam, bukan data nyata?**
+**Q: Data non-spamnya nyata atau sintetis?**
 
-Scraper dirancang untuk mengumpulkan spam — tidak ada scraper untuk komentar non-spam. Mengumpulkan non-spam nyata butuh effort yang sama: menjalankan scraper yang berbeda, memverifikasi secara manual bahwa komentar-komentar itu memang bukan spam.
+> ⚠️ Lihat catatan revisi di atas — pertanyaan ini juga peninggalan Versi 1.
 
-Synthetic data adalah kompromi pragmatis untuk bisa menjalankan proyek ini. Template non-spam yang dibuat cukup beragam (tutorial, gaming, musik, reaksi umum) untuk mencegah model belajar hanya mengenali "komentar spam" vs "komentar template tertentu".
+**Nyata**, sejak Versi 2 (2026-06-16). Data non-spam dikumpulkan dengan scraper yang sama (`scraper/index.js`, mode `video non_spam`) dari video YouTube yang sama dengan sumber data spam — bukan dari scraper terpisah, dan bukan template buatan. Per Versi 12, dataset berisi 6690 baris (2332 spam, 4358 non-spam), seluruhnya dari scraping nyata.
 
-Untuk improvement: kumpulkan komentar non-spam nyata dari YouTube dan ganti `generate_non_spam_data()` di `prepare_dataset.py` dengan loader dari file nyata.
+Yang sempat jadi tantangan bukan "nyata vs sintetis" lagi, tapi **representativitas**: audit di Versi 10 menemukan hanya 8% data non-spam yang benar-benar menyinggung topik judi (sisanya topik generik yang gampang dibedakan dari spam) — dataset diperluas secara tertarget untuk memperbaiki ini. Detail di [DATASET_LOG.md Versi 10](DATASET_LOG.md#versi-10--2026-06-30).
 
 ---
 
 **Q: Apa kelemahan utama sistem ini?**
 
+Daftar ini diperbarui berdasarkan temuan empiris sepanjang pengembangan, bukan asumsi:
+
 1. **Dependency pada server lokal:** Extension tidak bisa bekerja tanpa Python server berjalan. Ini tidak praktis untuk pengguna umum.
-2. **Tidak ada update model otomatis:** Spammer bisa belajar pola baru yang model belum pernah lihat.
-3. **False positive untuk konten edukatif:** Artikel atau komentar yang membahas "bahaya judi" mungkin mengandung kata-kata yang sama dengan spam.
-4. **Hanya YouTube/Instagram:** Scraper CSS selectors spesifik untuk dua platform ini.
+2. **Tidak ada update model otomatis:** Spammer bisa belajar pola baru yang model belum pernah lihat. Mitigasinya operasional (pipeline scraping-retraining yang sudah ada), bukan otomatis.
+3. **Generalisasi brand baru terbatas pada pola yang dikenal:** brand dengan suffix digit (4D/88/99/QQ) langsung dikenali lewat canonicalization; brand dengan suffix di luar pola itu masih terdeteksi *kalau* disertai kalimat promosi, tapi confidence anjlok kalau brand-nya benar-benar asing tanpa konteks. Diuji empiris, lihat [§34](#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
+4. **Kritik yang menyebut brand berkali-kali bisa salah diklasifikasi sebagai spam:** keterbatasan struktural model linear teregularisasi — terbukti pada kasus nyata (komentar PBB4D) yang tetap salah meski sudah masuk training langsung. Lihat [DATASET_LOG.md Versi 12](DATASET_LOG.md#versi-12--2026-06-30).
+5. **Scraper punya "dead zone":** komentar dengan spam_score 10-29 dibuang total saat scraping, tidak disimpan di manapun — berpotensi membuang contoh kritik/korban yang justru paling dibutuhkan. Belum diperbaiki di level scraper (lihat [TODO.md](TODO.md)).
+6. **Hanya YouTube (resmi):** Selector Instagram ada di `content.js` tapi tidak diverifikasi/tidak jadi bagian scope — judul skripsi secara eksplisit hanya menyebut YouTube.
 
 ---
 
@@ -1208,7 +1215,7 @@ Untuk improvement: kumpulkan komentar non-spam nyata dari YouTube dan ganti `gen
 
 0.9 artinya hanya komentar yang sangat jelas spam yang disembunyikan — banyak spam lolos.
 
-0.75 adalah keputusan desain (bukan hasil optimasi matematis). Artinya model harus setidaknya 75% yakin baru ambil tindakan. Bisa diubah di `content.js` sesuai preferensi trade-off precision vs recall.
+0.75 adalah keputusan desain (bukan hasil optimasi matematis) — nilai default kalau pengguna belum pernah mengatur apa-apa. **Bisa diubah langsung dari slider di popup extension** (`extension/popup.html`), tersimpan di `chrome.storage.local`, tidak perlu edit kode. Lihat [README.md Bagian 8](README.md#extensionpopuphtml-dan-popupjs).
 
 ---
 

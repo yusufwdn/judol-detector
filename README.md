@@ -132,7 +132,7 @@ python src/prepare_dataset.py
 
 Skrip ini membaca data scraping dari `scraper/final_spam.json`, memfilter komentar spam menggunakan **two-pass filter** (lihat penjelasan di bawah), lalu menggabungkannya dengan contoh komentar non-spam untuk membentuk dataset di `data/comments.csv`.
 
-Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 11, lihat [DATASET_LOG.md](DATASET_LOG.md)):
+Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 12, lihat [DATASET_LOG.md](DATASET_LOG.md)):
 ```
 [1/4] Loading spam data (threshold >= 80)...
   Total entries in JSON        : 2324
@@ -143,19 +143,19 @@ Output yang diharapkan (angka aktual dari dataset proyek ini saat ini — Versi 
   Total spam collected         : 2085
 
 [2/4] Loading non-spam data...
-  Total entries in JSON : 4156
-  Loaded                : 4156
+  Total entries in JSON : 4095
+  Loaded                : 4095
 
 [3/4] Applying manual overrides (data/manual_overrides.csv)...
-  Loaded 349 manual overrides:
+  Loaded 592 manual overrides:
     FP dihapus dari spam      : 7
-    Entry ditambah ke non_spam: 82
-    Entry ditambah ke spam    : 193
+    Entry ditambah ke non_spam: 263
+    Entry ditambah ke spam    : 254
 
 [4/4] Merging, shuffling, and saving dataset...
   Spam samples    : 2332
-  Non-spam samples: 4177
-  Total           : 6509
+  Non-spam samples: 4358
+  Total           : 6690
   Saved to: data/comments.csv
 ```
 
@@ -492,20 +492,20 @@ Manfaat Pipeline:
 
 ### Cara Membaca Hasil Evaluasi
 
-Setelah training, akan tampil laporan seperti ini (angka aktual dari dataset Versi 11, 6509 baris, split 80/20 stratified → test set 1302 sampel):
+Setelah training, akan tampil laporan seperti ini (angka aktual dari dataset Versi 12, 6690 baris, split 80/20 stratified → test set 1338 sampel):
 
 ```
               precision    recall  f1-score   support
 
-    non_spam       0.97      0.99      0.98       836
-        spam       0.98      0.94      0.96       466
+    non_spam       0.97      0.99      0.98       872
+        spam       0.98      0.95      0.96       466
 
-    accuracy                           0.97      1302
+    accuracy                           0.98      1338
 ```
 
-Akurasi train-test split: **97.39%** (F1-macro 0.9713). Angka ini jauh dari 100% justru karena dataset sudah jauh lebih beragam (data non-spam nyata, bukan sintetis) dibanding versi awal proyek.
+Akurasi train-test split: **97.53%** (F1-macro 0.9726). Angka ini jauh dari 100% justru karena dataset sudah jauh lebih beragam (data non-spam nyata, bukan sintetis) dibanding versi awal proyek.
 
-> **Apakah angka ini cukup meyakinkan?** Selain train-test split, model juga dievaluasi dengan **5-fold cross-validation** (mean F1 97.30% ± 0.27%) dan **hard test set** berisi 135 komentar ambigu yang sengaja sulit (accuracy 97.04%). Detail lengkap metodologi evaluasi, riwayat tiap iterasi (termasuk insiden kontaminasi data spam tersamar yang ditemukan dan diperbaiki di Versi 11), dan kenapa angka tidak 100% itu justru tanda dataset yang lebih jujur, ada di [PENJELASAN_TEKNIS.md bagian 15](PENJELASAN_TEKNIS.md#15-pertanyaan-yang-mungkin-muncul-saat-sidang) dan [DATASET_LOG.md](DATASET_LOG.md).
+> **Apakah angka ini cukup meyakinkan?** Selain train-test split, model juga dievaluasi dengan **5-fold cross-validation** (mean F1 97.41% ± 0.21%) dan **hard test set** berisi 135 komentar ambigu yang sengaja sulit (accuracy **98.52%**, rekor tertinggi sejauh ini). Detail lengkap metodologi evaluasi, riwayat tiap iterasi (termasuk insiden kontaminasi data spam tersamar yang ditemukan dan diperbaiki di Versi 11, dan dead-zone harvest di Versi 12), dan kenapa angka tidak 100% itu justru tanda dataset yang lebih jujur, ada di [PENJELASAN_TEKNIS.md bagian 15](PENJELASAN_TEKNIS.md#15-pertanyaan-yang-mungkin-muncul-saat-sidang) dan [DATASET_LOG.md](DATASET_LOG.md).
 
 **Precision** — Dari semua yang diprediksi "spam", berapa persen yang benar-benar spam?
 
@@ -647,7 +647,7 @@ Tiga kolom:
 > Shuffle sendiri tetap dipertahankan dan **tidak masalah untuk training** — `train_test_split` di `train.py` sudah shuffle ulang dengan `random_state=42` + `stratify=y`, jadi urutan baris di CSV tidak memengaruhi hasil training sama sekali.
 
 > **Semakin banyak dan beragam datanya, semakin baik modelnya.**
-> Dataset proyek ini (Versi 11) berisi **6509 baris**: 2332 spam + 4177 non-spam, **keduanya dari data scraping nyata** (non-spam tidak lagi sintetis sejak Versi 2 — lihat [DATASET_LOG.md](DATASET_LOG.md)). Bukan cuma soal jumlah — audit menemukan mayoritas data non-spam sebelumnya bertopik generik (tidak menyinggung judi sama sekali), sehingga kurang membantu model membedakan kritik dari promosi; Versi 10 secara khusus menambah komentar non-spam yang benar-benar membahas topik judi (kritik, cerita pengalaman, edukasi). Versi 11 lalu memperbaiki insiden kualitas data: 61 komentar spam tersamar (Unicode dekoratif/leet speak) yang lolos heuristik scraper direlabel dari non-spam ke spam.
+> Dataset proyek ini (Versi 12) berisi **6690 baris**: 2332 spam + 4358 non-spam, **keduanya dari data scraping nyata** (non-spam tidak lagi sintetis sejak Versi 2 — lihat [DATASET_LOG.md](DATASET_LOG.md)). Bukan cuma soal jumlah — audit menemukan mayoritas data non-spam sebelumnya bertopik generik (tidak menyinggung judi sama sekali), sehingga kurang membantu model membedakan kritik dari promosi; Versi 10 secara khusus menambah komentar non-spam yang benar-benar membahas topik judi (kritik, cerita pengalaman, edukasi). Versi 11 memperbaiki insiden kualitas data (61 komentar spam tersamar direlabel dari non-spam ke spam), dan Versi 12 menambah 181 komentar non-spam lagi dari "dead zone" scraper yang sebelumnya terbuang.
 > Untuk hasil yang andal:
 > - **Minimum:** 1:1 rasio spam:non-spam, minimal 500 sampel per kelas
 > - **Target realistis:** 1.500+ sampel per kelas dengan rasio 1:1 hingga 2:1
@@ -968,9 +968,9 @@ Keduanya adalah format serialisasi Python (cara menyimpan objek Python ke file).
 
 ---
 
-**Q: Akurasi 97.39% di test set biasa, tapi kenapa hard test set juga 97.04%? Kok deketan?**
+**Q: Akurasi 97.53% di test set biasa, tapi kenapa hard test set malah lebih tinggi (98.52%)?**
 
-Karena dataset sudah cukup beragam dan bersih sehingga gap antara kasus "mudah" dan "ambigu" mengecil — itu justru indikator kualitas data yang baik, bukan kebetulan. Riwayat selisih ini dari waktu ke waktu: 80.14% (hybrid rules masih aktif) → 92.91% (hybrid dimatikan) → 97.04% (error analysis & data augmentation tertarget) → sempat naik ke 97.78% setelah scraping tambahan, **lalu turun lagi ke 97.04%** setelah ditemukan dan diperbaiki insiden kontaminasi data (61 komentar spam yang salah label non-spam, lihat [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)). Penurunan terakhir itu disengaja — angka sebelumnya sebagian berasal dari model menghafal label yang salah.
+Karena dataset sudah cukup beragam dan bersih sehingga gap antara kasus "mudah" dan "ambigu" nyaris hilang — itu justru indikator kualitas data yang baik, bukan kebetulan. Riwayat selisih ini dari waktu ke waktu: 80.14% (hybrid rules masih aktif) → 92.91% (hybrid dimatikan) → 97.04% (error analysis & data augmentation tertarget) → sempat naik ke 97.78% setelah scraping tambahan, **turun lagi ke 97.04%** setelah ditemukan dan diperbaiki insiden kontaminasi data (61 komentar spam yang salah label non-spam, lihat [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)), lalu **naik lagi ke 98.52%** setelah dead-zone harvest menambah 181 komentar non-spam relevan (lihat [DATASET_LOG.md Versi 12](DATASET_LOG.md#versi-12--2026-06-30)). Satu kasus false negative (komentar yang menyebut nama brand 3x dalam konteks kritik) tetap salah diklasifikasi meski sudah masuk training langsung — didokumentasikan sebagai keterbatasan struktural SVM linear, bukan kekurangan data.
 
 Jalankan `python src/evaluate_hard_set.py` untuk melihat detail kegagalan yang tersisa. Riwayat lengkap tiap iterasi ada di [DATASET_LOG.md Versi 8-11](DATASET_LOG.md) dan [PENJELASAN_TEKNIS.md §33-34](PENJELASAN_TEKNIS.md).
 
