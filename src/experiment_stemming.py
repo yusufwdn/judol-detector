@@ -35,6 +35,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import classification_report, f1_score, accuracy_score
 from sklearn.pipeline import Pipeline
+from scipy import stats
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(BASE_DIR, "data", "comments.csv")
@@ -215,6 +216,130 @@ def save_comparison_chart(results: list) -> str:
     return path
 
 
+def run_cv_comparison(X_no_stem: list, X_with_stem: list, y: list) -> dict:
+    """
+    Compare stemming vs no-stemming using 5-fold CV instead of a single
+    80/20 split, with a paired t-test on the per-fold scores.
+
+    WHY THIS IS MORE RELIABLE THAN THE SINGLE-SPLIT COMPARISON ABOVE:
+    A single split's delta can be an artifact of which rows happened to
+    land in the test set — especially after the dataset changes size/
+    composition between experiment runs (see DATASET_LOG.md). Averaging
+    over 5 folds is more stable, and because cv=5 (an integer) uses an
+    UNSHUFFLED (Stratified)KFold, the fold assignment depends only on
+    label order — which is IDENTICAL for X_no_stem and X_with_stem (same
+    rows, same order, only the text content differs). That means fold i
+    of "no stemming" and fold i of "with stemming" test on the exact same
+    samples, so the per-fold DIFFERENCE is a valid paired comparison, not
+    just two independent averages.
+
+    A paired t-test on those 5 differences answers the actual question:
+    "is stemming consistently better across different data subsets, or
+    did it only win by chance on one particular split?"
+
+    Returns:
+        dict with per-fold scores for both variants and the p-value.
+    """
+    print("\n[CV] Menjalankan 5-fold cross-validation untuk kedua varian...")
+    print("    (dipakai untuk uji signifikansi, bukan cuma satu angka split)")
+
+    scores_no_stem = cross_val_score(
+        build_pipeline(), X_no_stem, y, cv=5, scoring="f1_macro", n_jobs=-1
+    )
+    scores_with_stem = cross_val_score(
+        build_pipeline(), X_with_stem, y, cv=5, scoring="f1_macro", n_jobs=-1
+    )
+    deltas = scores_with_stem - scores_no_stem
+    t_stat, p_value = stats.ttest_rel(scores_with_stem, scores_no_stem)
+
+    print(f"\n  {'Fold':<6} {'Tanpa Stemming':>16} {'Dengan Stemming':>18} {'Delta':>10}")
+    for i, (a, b) in enumerate(zip(scores_no_stem, scores_with_stem), start=1):
+        print(f"  {i:<6} {a:>16.4f} {b:>18.4f} {b - a:>+10.4f}")
+
+    print(f"\n  Mean (tanpa stemming) : {scores_no_stem.mean():.4f} ± {scores_no_stem.std():.4f}")
+    print(f"  Mean (dengan stemming): {scores_with_stem.mean():.4f} ± {scores_with_stem.std():.4f}")
+    print(f"  Mean delta            : {deltas.mean():+.4f} ± {deltas.std():.4f}")
+    print(f"  Paired t-test         : t={t_stat:.3f}, p={p_value:.4f}")
+
+    print("\n" + "=" * 65)
+    print("INTERPRETASI (CV, 5 fold berpasangan)")
+    print("=" * 65)
+    if p_value < 0.05:
+        print(f"""
+  Selisih SIGNIFIKAN secara statistik (p={p_value:.4f} < 0.05).
+  Stemming konsisten {"lebih baik" if deltas.mean() > 0 else "lebih buruk"}
+  di 5 subset data yang berbeda-beda, bukan cuma menang di satu split
+  tertentu. Ini memperkuat (atau membantah, tergantung arah) hasil
+  single-split di atas dengan bukti yang lebih robust.""")
+    else:
+        print(f"""
+  Selisih TIDAK signifikan secara statistik (p={p_value:.4f} >= 0.05).
+  Meski single-split di atas menunjukkan delta positif/negatif, setelah
+  diuji di 5 subset data berbeda selisihnya tidak konsisten arahnya —
+  kemungkinan besar itu adalah noise dari komposisi split tertentu, BUKAN
+  efek stemming yang bisa diandalkan. Untuk skripsi, ini justifikasi yang
+  lebih kuat untuk TETAP TIDAK mengintegrasikan stemming ke produksi,
+  walau angka single-split terlihat menjanjikan.""")
+    print("=" * 65)
+
+    chart_path = save_cv_comparison_chart(scores_no_stem, scores_with_stem, p_value)
+    print(f"\n  Grafik CV comparison tersimpan: {chart_path}")
+
+    return {
+        "scores_no_stem": scores_no_stem,
+        "scores_with_stem": scores_with_stem,
+        "p_value": p_value,
+    }
+
+
+def save_cv_comparison_chart(scores_no_stem, scores_with_stem, p_value: float) -> str:
+    """
+    Save a grouped bar chart of per-fold F1-macro for both variants,
+    annotated with the paired t-test p-value.
+
+    Returns:
+        str: Path to the saved PNG file.
+    """
+    os.makedirs(REPORTS_DIR, exist_ok=True)
+    folds = [f"Fold {i + 1}" for i in range(len(scores_no_stem))]
+    x = list(range(len(folds)))
+    width = 0.35
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    bars1 = ax.bar([i - width / 2 for i in x], scores_no_stem, width,
+                    label="Tanpa Stemming", color="#2980b9", alpha=0.85)
+    bars2 = ax.bar([i + width / 2 for i in x], scores_with_stem, width,
+                    label="Dengan Stemming", color="#e67e22", alpha=0.85)
+
+    for bars in [bars1, bars2]:
+        for bar in bars:
+            h = bar.get_height()
+            ax.annotate(f"{h:.4f}", xy=(bar.get_x() + bar.get_width() / 2, h),
+                        xytext=(0, 3), textcoords="offset points",
+                        ha="center", fontsize=8)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(folds)
+    y_min = min(scores_no_stem.min(), scores_with_stem.min()) - 0.01
+    ax.set_ylim(y_min, 1.0)
+    ax.set_ylabel("F1-macro", fontsize=11)
+    sig_label = "signifikan" if p_value < 0.05 else "tidak signifikan"
+    ax.set_title(
+        f"Eksperimen Stemming — 5-Fold CV Berpasangan\n"
+        f"(paired t-test: p={p_value:.4f}, {sig_label})",
+        fontsize=12,
+    )
+    ax.legend(fontsize=10)
+    ax.yaxis.grid(True, linestyle="--", alpha=0.5)
+    ax.set_axisbelow(True)
+    plt.tight_layout()
+
+    path = os.path.join(REPORTS_DIR, "experiment_stemming_cv.png")
+    plt.savefig(path, dpi=150)
+    plt.close()
+    return path
+
+
 def print_results(results: list) -> None:
     """Cetak tabel perbandingan dan classification report lengkap."""
     print("\n" + "=" * 65)
@@ -351,6 +476,9 @@ def main():
     print(f"    Tersimpan: {chart_path}")
 
     interpret_result(results)
+
+    # --- CV-based comparison (lebih robust dari single-split di atas) ---
+    run_cv_comparison(X_no_stem, X_with_stem, labels)
 
 
 if __name__ == "__main__":

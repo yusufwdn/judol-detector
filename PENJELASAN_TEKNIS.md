@@ -1718,32 +1718,77 @@ Perhatikan: "tertarik" → "tarik". Stemmer memotong awalan "ter-".
 
 ---
 
-### 18.5 Hasil Eksperimen
+### 18.5 Hasil Eksperimen (Single Split 80/20)
 
 Dijalankan dengan: `python src/experiment_stemming.py`
 
 ```
-  Model                         Accuracy   F1-spam   F1-non    F1-macro
-  ----------------------------  ---------  --------  --------  --------
-  Tanpa Stemming (baseline)      97.23%    0.9539    0.9802    0.9671
-  Dengan Stemming (Sastrawi)     97.23%    0.9543    0.9801    0.9672
+  Model                            Accuracy   F1-spam    F1-non   F1-macro
+  ------------------------------ ---------- --------- --------- ----------
+  Tanpa Stemming (baseline)          97.53%    0.9640    0.9812     0.9726
+  Dengan Stemming (Sastrawi)         97.76%    0.9673    0.9829     0.9751
 
-  Perbedaan F1-macro: +0.0002
+  Perbedaan F1-macro: +0.0025
 ```
 
 → Lihat grafik: `reports/experiment_stemming.png`
 
+Sekilas ini terlihat seperti stemming membantu — angkanya naik, dan +0.0025
+jauh lebih besar dari eksperimen pertama kali dijalankan di dataset lama
+(~5132 baris, +0.0002). Tapi **satu split tunggal tidak cukup** untuk
+menyimpulkan itu — lihat §18.6.
+
 ---
 
-### 18.6 Interpretasi Hasil
+### 18.6 Kenapa Satu Split Tidak Cukup: Verifikasi dengan 5-Fold CV Berpasangan
 
-**Perbedaan 0.0002 di F1-macro itu artinya apa?**
+**Masalah dengan angka di atas:** 80/20 split hanya satu cara membagi data.
+Delta +0.0025 itu bisa jadi sinyal nyata, atau bisa juga cuma kebetulan —
+test set tertentu yang terbentuk kebetulan sedikit lebih mudah untuk model
+dengan stemming. Tanpa pengujian lebih lanjut, kita tidak tahu mana yang
+benar.
 
-F1-macro 0.9671 vs 0.9672 — selisihnya cuma 0.0002. Angka ini **jauh di bawah ambang signifikansi praktis**. Dengan kata lain: dalam penggunaan nyata, kedua model ini berperilaku identik. Stemming tidak memberikan manfaat yang berarti.
+**Solusi:** jalankan 5-fold cross-validation untuk KEDUA varian (dengan dan
+tanpa stemming), lalu uji apakah selisihnya konsisten. Karena `cv=5`
+memakai `(Stratified)KFold` tanpa shuffle, dan urutan baris data identik
+untuk kedua varian (yang beda cuma isi teksnya, bukan urutannya), fold ke-i
+di kedua varian menguji **baris yang persis sama**. Ini membuat
+perbandingan per-fold jadi *paired comparison* yang valid — bukan sekadar
+dua rata-rata independen — sehingga bisa diuji dengan **paired t-test**.
 
-**Kenapa stemming tidak membantu di sini?**
+```
+  Fold     Tanpa Stemming    Dengan Stemming      Delta
+  1                0.9734             0.9726    -0.0008
+  2                0.9700             0.9691    -0.0008
+  3                0.9743             0.9727    -0.0016
+  4                0.9734             0.9718    -0.0016
+  5                0.9793             0.9810    +0.0017
 
-Ada tiga penjelasan yang masuk akal:
+  Mean (tanpa stemming) : 0.9741 ± 0.0030
+  Mean (dengan stemming): 0.9734 ± 0.0040
+  Mean delta            : -0.0006 ± 0.0012
+  Paired t-test         : t=-1.039, p=0.3575
+```
+
+→ Lihat grafik: `reports/experiment_stemming_cv.png`
+
+**Hasilnya membalikkan kesimpulan single-split:** rata-rata delta di 5 fold
+justru **negatif** (stemming sedikit lebih buruk, bukan lebih baik), dan
+4 dari 5 fold menunjukkan arah yang sama (stemming kalah). p-value
+**0.3575** jauh di atas ambang signifikansi 0.05 — artinya selisih yang
+teramati **tidak bisa dibedakan dari noise statistik**.
+
+**Kesimpulan:** delta +0.0025 di single-split adalah kebetulan komposisi
+split 80/20 tersebut, bukan efek stemming yang konsisten. Dataset boleh
+tumbuh, tapi kesimpulan dasarnya tidak berubah.
+
+---
+
+### 18.7 Interpretasi Hasil
+
+**Kenapa stemming tidak membantu di sini, walau dataset sudah jauh lebih besar dan lebih beragam?**
+
+Ada tiga penjelasan yang masuk akal (tidak berubah dari eksperimen pertama):
 
 1. **Spam pakai nama brand, bukan kata imbuhan.**
    Kata-kata paling khas di komentar spam adalah nama brand: ROMA4D, WIFI4D, PSTOTO, dll. Kata-kata ini sudah dalam bentuk "dasar" yang tidak bisa di-stem lagi. Stemming tidak punya apa-apa untuk dikerjakan di sini.
@@ -1754,32 +1799,47 @@ Ada tiga penjelasan yang masuk akal:
 3. **Bahasa komentar YouTube bersifat informal dan slang.**
    Sastrawi dirancang untuk Bahasa Indonesia formal. Kata-kata seperti "gue", "udah", "nggak", "kuy" tidak ada di kamus Sastrawi — stemmer melewatinya begitu saja atau malah salah memprosesnya. Untuk domain komentar media sosial, keterbatasan ini cukup signifikan.
 
+**Kenapa delta single-split sempat naik 12x (dari +0.0002 ke +0.0025) kalau kesimpulannya tetap sama?**
+
+Dataset tumbuh dari ~5132 ke 6690 baris, dan pertambahannya (lihat
+[DATASET_LOG.md](DATASET_LOG.md) Versi 10-12) mayoritas komentar non-spam
+naratif — cerita/kritik/opini yang lebih kaya variasi imbuhan dibanding
+data lama yang lebih generik. Vocabulary TF-IDF (tanpa batas
+`max_features`) memang berkurang dari 10296 fitur jadi 10010 fitur (−286,
+~2.8%) setelah stemming — jadi mekanismenya nyata dan masuk akal. Tapi
+5-fold CV menunjukkan efek itu **tidak cukup besar dan tidak cukup
+konsisten** untuk terlihat di luar noise satu split tunggal. Ini contoh
+bagus kenapa evaluasi tunggal (single split) bisa menyesatkan, dan kenapa
+Fase 2 proyek ini secara eksplisit menambahkan cross-validation sebagai
+pelengkap (lihat §16).
+
 **Apakah ini hasil yang buruk?**
 
 Tidak. Justru sebaliknya — ini hasil yang *jujur* dan *berharga* untuk skripsi.
 
-Banyak paper akademis hanya melaporkan hal-hal yang berhasil. Melaporkan eksperimen yang "tidak berhasil" beserta penjelasan yang solid justru menunjukkan bahwa peneliti memahami domain masalahnya — bukan sekadar mencoba teknik secara acak lalu melaporkan yang kebetulan bagus.
+Banyak paper akademis hanya melaporkan hal-hal yang berhasil. Melaporkan eksperimen yang "tidak berhasil" beserta penjelasan yang solid justru menunjukkan bahwa peneliti memahami domain masalahnya — bukan sekadar mencoba teknik secara acak lalu melaporkan yang kebetulan bagus. Menunjukkan bahwa satu hasil single-split diverifikasi lebih lanjut dengan uji statistik dan ternyata tidak robust adalah bukti kehati-hatian metodologis, bukan kelemahan.
 
 ---
 
-### 18.7 Kesimpulan dan Rekomendasi untuk Skripsi
+### 18.8 Kesimpulan dan Rekomendasi untuk Skripsi
 
-**Keputusan teknis:** Model produksi tetap menggunakan pipeline *tanpa* stemming. Lebih sederhana, lebih cepat, dan hasilnya sama.
+**Keputusan teknis:** Model produksi tetap menggunakan pipeline *tanpa* stemming. Lebih sederhana, lebih cepat, dan hasilnya secara statistik tidak berbeda.
 
 **Kalimat untuk bab metodologi/pembahasan:**
 
-> *"Eksperimen stemming menggunakan library PySastrawi dilakukan untuk mengevaluasi apakah normalisasi morfologi dapat meningkatkan performa model. Dua model dilatih dengan kondisi identik (dataset, split, hyperparameter) — satu tanpa stemming sebagai baseline dan satu dengan stemming Sastrawi. Hasil menunjukkan perbedaan F1-macro yang tidak signifikan (0.9671 vs 0.9672, selisih +0.0002). Stemming tidak diintegrasikan ke pipeline produksi karena: (1) fitur diskriminatif utama adalah nama brand judi yang sudah dalam bentuk dasar, (2) TF-IDF bigram sudah mampu menangani variasi morfologi dalam konteks yang relevan, dan (3) Sastrawi kurang optimal untuk teks informal/slang yang mendominasi komentar YouTube."*
+> *"Eksperimen stemming menggunakan library PySastrawi dilakukan untuk mengevaluasi apakah normalisasi morfologi dapat meningkatkan performa model. Pengujian awal dengan satu pembagian data 80/20 menunjukkan kenaikan F1-macro sebesar 0.0025 pada model dengan stemming. Namun, karena satu pembagian data berisiko bias, dilakukan verifikasi lanjutan dengan 5-fold cross-validation berpasangan dan paired t-test. Hasilnya menunjukkan rata-rata selisih justru negatif (-0.0006) dengan p-value 0.3575 — jauh di atas ambang signifikansi 0.05 — sehingga selisih yang teramati pada pengujian tunggal tidak dapat dibedakan dari variasi acak. Stemming tidak diintegrasikan ke pipeline produksi karena: (1) fitur diskriminatif utama adalah nama brand judi yang sudah dalam bentuk dasar, (2) TF-IDF bigram sudah mampu menangani variasi morfologi dalam konteks yang relevan, (3) Sastrawi kurang optimal untuk teks informal/slang yang mendominasi komentar YouTube, dan (4) uji statistik lanjutan tidak mendukung klaim peningkatan performa yang konsisten."*
 
 ---
 
-### 18.8 Cara Menjalankan
+### 18.9 Cara Menjalankan
 
 ```bash
 python src/experiment_stemming.py
 ```
 
 Output tersimpan di `reports/`:
-- `experiment_stemming.png` — grafik perbandingan F1 dua model
+- `experiment_stemming.png` — grafik perbandingan F1 dua model (single split)
+- `experiment_stemming_cv.png` — grafik perbandingan per-fold 5-fold CV, dengan p-value paired t-test
 
 ---
 

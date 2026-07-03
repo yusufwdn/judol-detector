@@ -134,6 +134,52 @@ def run_cross_validation(X: list, y: list) -> None:
           f"{scores.mean():.2%} +/- {scores.std():.2%} "
           f"di 5 fold berbeda.")
 
+    plot_path = save_cv_fold_plot(scores, REPORTS_DIR)
+    print(f"\n    5-fold CV plot saved: {plot_path}")
+
+
+def save_cv_fold_plot(scores, output_dir: str) -> str:
+    """
+    Save a bar chart of the 5-fold F1-macro scores, with the mean and
+    +/- 1 std deviation band overlaid.
+
+    Why a plot instead of just the mean +/- std numbers?
+    A single "96.61% +/- 0.59%" line hides whether the variance comes from
+    one weak fold or is spread evenly — a chart makes that visible at a
+    glance, and is easier to cite in a thesis defense than reading numbers
+    off a console log.
+
+    Returns:
+        str: Path to the saved PNG file.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    mean = scores.mean()
+    std = scores.std()
+
+    fig, ax = plt.subplots(figsize=(7, 5))
+    fold_labels = [f"Fold {i + 1}" for i in range(len(scores))]
+    bars = ax.bar(fold_labels, scores, color="#1565c0", alpha=0.85)
+
+    ax.axhline(mean, color="#d32f2f", linestyle="--", linewidth=1.5,
+               label=f"Mean = {mean:.4f}")
+    ax.axhspan(mean - std, mean + std, color="#d32f2f", alpha=0.1,
+               label=f"+/- Std = {std:.4f}")
+
+    for bar, score in zip(bars, scores):
+        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.002,
+                 f"{score:.4f}", ha="center", fontsize=9)
+
+    ax.set_ylim(min(scores) - 0.02, 1.0)
+    ax.set_ylabel("F1-macro", fontsize=11)
+    ax.set_title("5-Fold Cross-Validation — F1-macro per Fold", fontsize=13, pad=12)
+    ax.legend(loc="lower right")
+    plt.tight_layout()
+
+    output_path = os.path.join(output_dir, "cv_5fold_scores.png")
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+    return output_path
+
 
 def split_data(X: list, y: list) -> tuple:
     """
@@ -220,7 +266,56 @@ def find_best_hyperparams(X_train: list, y_train: list) -> dict:
     print(f"\n    Best C    : {best_C}")
     print(f"    Best F1   : {best_score:.4f}")
 
+    plot_path = save_gridsearch_plot(grid_search, REPORTS_DIR)
+    print(f"\n    GridSearchCV plot saved: {plot_path}")
+
     return {"best_C": best_C, "best_score": best_score}
+
+
+def save_gridsearch_plot(grid_search: GridSearchCV, output_dir: str) -> str:
+    """
+    Save a plot of F1-macro CV score vs. C (log scale), with error bars
+    from the std across folds and the selected C highlighted.
+
+    Why this matters for the thesis:
+    "C=1 dipilih via GridSearchCV" is a claim readers can't visually verify
+    from a single number — this plot shows the full trade-off curve (higher
+    C overfitting, lower C underfitting) so the choice looks empirically
+    justified rather than arbitrary.
+
+    Returns:
+        str: Path to the saved PNG file.
+    """
+    os.makedirs(output_dir, exist_ok=True)
+    cv_results = grid_search.cv_results_
+    C_values = [p["svm__C"] for p in cv_results["params"]]
+    means = cv_results["mean_test_score"]
+    stds = cv_results["std_test_score"]
+    best_C = grid_search.best_params_["svm__C"]
+    best_idx = C_values.index(best_C)
+
+    fig, ax = plt.subplots(figsize=(7, 5))
+    ax.errorbar(
+        C_values, means, yerr=stds,
+        fmt="-o", color="#1565c0", ecolor="#90caf9",
+        capsize=4, linewidth=2, markersize=7, label="F1-macro CV (mean +/- std)",
+    )
+    ax.scatter(
+        [best_C], [means[best_idx]],
+        color="#d32f2f", s=140, zorder=5, label=f"C terpilih = {best_C}",
+    )
+    ax.set_xscale("log")
+    ax.set_xlabel("Nilai C (skala log)", fontsize=11)
+    ax.set_ylabel("F1-macro (rata-rata 5-fold CV)", fontsize=11)
+    ax.set_title("GridSearchCV — Pencarian Nilai C Terbaik", fontsize=13, pad=12)
+    ax.legend(loc="lower right")
+    ax.grid(alpha=0.3)
+    plt.tight_layout()
+
+    output_path = os.path.join(output_dir, "gridsearch_c_sweep.png")
+    plt.savefig(output_path, dpi=150)
+    plt.close()
+    return output_path
 
 
 def build_and_train_pipeline(X_train: list, y_train: list, best_C: float) -> Pipeline:

@@ -191,18 +191,24 @@ akan terlihat langsung di hasil evaluasi.
 
 - [✅] **Tambahkan k-fold cross-validation** sebagai pelengkap train-test split.
   Sudah diimplementasikan di `src/train.py`. Dijalankan otomatis setiap
-  `python src/train.py`. Hasil: **F1-macro 96.61% ± 0.59%** di 5 fold.
+  `python src/train.py`. Hasil (Versi 12, 2026-07-03): **F1-macro 97.41% ±
+  0.30%** di 5 fold. Sejak 2026-07-03 hasil ini juga divisualisasikan
+  otomatis ke `reports/cv_5fold_scores.png` (bar chart per-fold + pita
+  mean±std) — siap tempel ke draft skripsi, tidak perlu buat manual.
 
 - [✅] **Hyperparameter tuning sistematis** (bukan coba-coba manual).
   `GridSearchCV` dengan `C ∈ [0.01, 0.1, 1, 10, 100]` sudah berjalan di
-  `src/train.py`. Hasil: **C=1 terpilih** (F1-macro CV 0.9543) — sekarang ada
-  justifikasi empiris, bukan sekadar default.
+  `src/train.py`. Hasil (Versi 12, 2026-07-03): **C=1 terpilih** (F1-macro CV
+  0.9728) — sekarang ada justifikasi empiris, bukan sekadar default. Sejak
+  2026-07-03 kurva pencarian C juga divisualisasikan otomatis ke
+  `reports/gridsearch_c_sweep.png`.
 
 - [✅] **Bandingkan SVM dengan baseline lain** (sebagai pembanding, bukan
-  pengganti). Sudah diimplementasikan di `src/train.py`. Hasil:
-  - SVM: accuracy 97.23%, F1-macro 0.9671 ✓
-  - Naive Bayes: accuracy 94.32%, F1-macro 0.9305
-  - Logistic Regression: accuracy 95.15%, F1-macro 0.9423
+  pengganti). Diimplementasikan di `src/compare_baselines.py` (bukan
+  `train.py`). Hasil (Versi 12, 2026-07-03):
+  - SVM: accuracy 97.53%, F1-macro 0.9726 ✓
+  - Naive Bayes: accuracy 93.95%, F1-macro 0.9313
+  - Logistic Regression: accuracy 97.09%, F1-macro 0.9675
 
 - [✅] **Visualisasikan confusion matrix** dengan `matplotlib`/`seaborn`.
   Tersimpan otomatis ke `reports/` setiap run training:
@@ -235,10 +241,28 @@ bereksperimen meningkatkan kualitas model itu sendiri.
 > [`PENJELASAN_TEKNIS.md`](PENJELASAN_TEKNIS.md) bagian 11).
 
 - [✅] **Coba stemming dengan Sastrawi.**
-  Dieksperimen di `src/experiment_stemming.py`. Hasil: perbedaan F1-macro
-  hanya +0.0002 (0.9671 → 0.9672) — tidak signifikan. Model produksi tetap
-  tanpa stemming. Penjelasan + kalimat siap kutip untuk skripsi ada di
-  [PENJELASAN_TEKNIS.md §18](PENJELASAN_TEKNIS.md#18-eksperimen-stemming--apakah-stemming-membantu).
+  Dieksperimen di `src/experiment_stemming.py`. Hasil lama (dataset ~5132
+  baris, single 80/20 split): perbedaan F1-macro +0.0002 — tidak signifikan,
+  model produksi tetap tanpa stemming.
+
+  **Diverifikasi ulang 2026-07-03 di dataset Versi 12 (6690 baris).** Single
+  80/20 split sempat menunjukkan delta naik ke +0.0025 (12x lebih besar,
+  sempat terlihat mengkhawatirkan). Tapi setelah ditambahkan **perbandingan
+  5-fold CV berpasangan + paired t-test** (fitur baru di
+  `experiment_stemming.py`, karena fold assignment identik untuk kedua
+  varian saat cv=5 dan urutan data sama, jadi delta per-fold valid
+  dibandingkan langsung) — hasilnya **kebalikannya**: mean delta
+  **−0.0006** (stemming sedikit lebih **buruk**, bukan lebih baik), 4 dari 5
+  fold menunjukkan stemming kalah, **p=0.3575** (jauh dari signifikan).
+  Kesimpulan: delta +0.0025 di single-split murni kebetulan komposisi
+  split, bukan efek stemming yang nyata. **Keputusan awal (tidak pakai
+  stemming) terbukti tetap benar**, sekarang dengan bukti yang lebih kuat
+  (uji statistik, bukan cuma satu angka). Grafik:
+  `reports/experiment_stemming_cv.png`. Narasi di
+  [PENJELASAN_TEKNIS.md §18](PENJELASAN_TEKNIS.md#18-eksperimen-stemming--apakah-stemming-membantu)
+  masih memakai angka & kalimat sidang versi lama (dataset lama) — perlu
+  ditulis ulang dengan temuan CV ini supaya argumennya lebih kuat saat
+  ditanya penguji "yakin tidak signifikan?".
 
 - [ ] **Tambah stopwords domain-spesifik** ("kak", "bang", "min", "subscribe",
   "like", "video", "nonton", dll) ke `STOPWORDS_ID`.
