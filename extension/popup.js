@@ -18,6 +18,9 @@ const btnReset = document.getElementById("btnReset");
 const thresholdSlider = document.getElementById("thresholdSlider");
 const thresholdValue = document.getElementById("thresholdValue");
 const devModeToggle = document.getElementById("devModeToggle");
+const devModeBox = document.getElementById("devModeBox");
+const modeProdBtn = document.getElementById("modeProdBtn");
+const modeDevBtn = document.getElementById("modeDevBtn");
 
 /**
  * Check the health of the Python API server and update the status indicator.
@@ -169,6 +172,48 @@ devModeToggle.addEventListener("change", () => {
 });
 
 // ---------------------------------------------------------------------------
+// APP MODE — Production (default) vs Development
+// ---------------------------------------------------------------------------
+
+/**
+ * Show/hide the Dev Mode box based on the current app mode.
+ * Production users should never even see that this feature exists.
+ *
+ * @param {"production" | "development"} mode
+ */
+function applyModeUI(mode) {
+  modeProdBtn.classList.toggle("active", mode === "production");
+  modeDevBtn.classList.toggle("active", mode === "development");
+  modeDevBtn.classList.toggle("dev", mode === "development");
+  devModeBox.classList.toggle("hidden", mode !== "development");
+}
+
+/**
+ * Load the saved app mode from chrome.storage. Defaults to "production" —
+ * dev-only UI must be opted into explicitly, never on by default.
+ */
+function loadAppMode() {
+  chrome.storage.local.get(["appMode"], (data) => {
+    const mode = data.appMode === "development" ? "development" : "production";
+    applyModeUI(mode);
+  });
+}
+
+/**
+ * Save the app mode whenever the user clicks a mode button.
+ * content.js listens via chrome.storage.onChanged and updates immediately —
+ * switching to "production" turns off dev features even if the inner
+ * "Bukan spam?" toggle was left on.
+ */
+function setAppMode(mode) {
+  chrome.storage.local.set({ appMode: mode });
+  applyModeUI(mode);
+}
+
+modeProdBtn.addEventListener("click", () => setAppMode("production"));
+modeDevBtn.addEventListener("click", () => setAppMode("development"));
+
+// ---------------------------------------------------------------------------
 // EVENT LISTENERS & STARTUP
 // ---------------------------------------------------------------------------
 
@@ -180,3 +225,4 @@ checkServer();
 loadStats();
 loadThreshold();
 loadDevMode();
+loadAppMode();

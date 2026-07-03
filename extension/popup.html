@@ -215,6 +215,55 @@
         margin-bottom: 14px;
       }
 
+      .dev-mode-box.hidden {
+        display: none;
+      }
+
+      .mode-box {
+        background: #1e1e1e;
+        border: 1px solid #2a2a2a;
+        border-radius: 10px;
+        padding: 10px 14px;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .mode-box .label {
+        font-size: 12px;
+        color: #aaa;
+      }
+
+      .mode-switch {
+        display: flex;
+        background: #111;
+        border-radius: 8px;
+        padding: 2px;
+        gap: 2px;
+      }
+
+      .mode-switch button {
+        border: none;
+        background: transparent;
+        color: #777;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .mode-switch button.active {
+        background: #2a2a2a;
+        color: #e8e8e8;
+      }
+
+      .mode-switch button.active.dev {
+        background: #b71c1c;
+        color: white;
+      }
+
       .dev-mode-header {
         display: flex;
         justify-content: space-between;
@@ -280,7 +329,9 @@
         top: 3px;
         background: #666;
         border-radius: 50%;
-        transition: transform 0.2s, background 0.2s;
+        transition:
+          transform 0.2s,
+          background 0.2s;
       }
 
       .toggle input:checked + .toggle-slider {
@@ -329,13 +380,33 @@
         </div>
       </div>
 
+      <!-- App Mode: Production / Development -->
+      <div class="mode-box">
+        <span class="label">Mode</span>
+        <div class="mode-switch">
+          <button type="button" id="modeProdBtn" data-mode="production">
+            Production
+          </button>
+          <button type="button" id="modeDevBtn" data-mode="development">
+            Development
+          </button>
+        </div>
+      </div>
+
       <!-- Threshold Slider -->
       <div class="threshold-box">
         <div class="threshold-header">
           <span class="label">Confidence threshold</span>
           <span class="value" id="thresholdValue">75%</span>
         </div>
-        <input type="range" id="thresholdSlider" min="50" max="95" step="5" value="75" />
+        <input
+          type="range"
+          id="thresholdSlider"
+          min="50"
+          max="95"
+          step="5"
+          value="75"
+        />
         <div class="threshold-hint">
           <span>50% · Lebih sensitif</span>
           <span>95% · Lebih selektif</span>
@@ -343,7 +414,7 @@
       </div>
 
       <!-- Dev Mode Toggle -->
-      <div class="dev-mode-box">
+      <div class="dev-mode-box hidden" id="devModeBox">
         <div class="dev-mode-header">
           <span class="label">
             Dev Mode
@@ -354,7 +425,10 @@
             <span class="toggle-slider"></span>
           </label>
         </div>
-        <div class="dev-mode-hint">Aktifkan untuk menampilkan tombol <strong>"Bukan spam?"</strong> pada komentar yang disembunyikan.</div>
+        <div class="dev-mode-hint">
+          Aktifkan untuk menampilkan tombol <strong>"Bukan spam?"</strong> pada
+          komentar yang disembunyikan.
+        </div>
       </div>
 
       <!-- Info -->

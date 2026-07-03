@@ -33,10 +33,35 @@ const BATCH_API_URL = "http://localhost:8000/predict/batch";
 // Users can change this via the slider in the popup.
 let confidenceThreshold = 0.75;
 
-// Dev mode — when true, a "Bukan spam?" button appears on every hidden comment.
-// Clicking it sends the comment to POST /report, which appends it to the CSV dataset.
-// Off by default; toggled from the popup. Never enable in production.
+// App mode — "production" (default) or "development". Toggled from the popup.
+// Production hides all dev-only UI and silences verbose console logging,
+// regardless of what devMode was previously set to.
+let appMode = "production";
+
+// Dev mode — when true (and appMode is "development"), a "Bukan spam?" button
+// appears on every hidden comment. Clicking it sends the comment to POST
+// /report, which appends it to the CSV dataset.
 let devMode = false;
+
+/**
+ * Is dev-only behavior (report button, etc.) actually active right now?
+ * Requires BOTH appMode === "development" AND the devMode toggle to be on,
+ * so switching back to production always turns dev features off even if
+ * devMode was left checked.
+ */
+function isDevActive() {
+  return appMode === "development" && devMode;
+}
+
+/**
+ * Log only when running in development mode — keeps the production
+ * console clean for end users while still helping during debugging.
+ * console.warn calls (server errors) are left as-is since those are
+ * useful to any user troubleshooting a dead server.
+ */
+function devLog(...args) {
+  if (appMode === "development") console.log(...args);
+}
 
 // CSS selectors for comment elements on each supported platform.
 // These are the most likely to break when platforms update their UI.
@@ -153,7 +178,9 @@ async function predictBatch(texts) {
     // Batch failed — server may have gone down after the initial health check.
     // Re-check so isServerAvailable is updated and future scans don't keep
     // hitting a dead server.
-    console.warn("[Judol Detector] Batch request failed, re-checking server...");
+    console.warn(
+      "[Judol Detector] Batch request failed, re-checking server...",
+    );
     await checkServerHealth();
     return null;
   }
@@ -211,10 +238,12 @@ function attachReportButton(element, originalText) {
  * already hidden before dev mode was activated.
  */
 function attachReportButtonsToExisting() {
-  document.querySelectorAll("[data-judol-detected='spam']").forEach((element) => {
-    const text = element.dataset.judolText;
-    if (text) attachReportButton(element, text);
-  });
+  document
+    .querySelectorAll("[data-judol-detected='spam']")
+    .forEach((element) => {
+      const text = element.dataset.judolText;
+      if (text) attachReportButton(element, text);
+    });
 }
 
 async function reportFalsePositive(text, reportBtn) {
@@ -237,7 +266,9 @@ async function reportFalsePositive(text, reportBtn) {
     } else {
       reportBtn.textContent = "✓ Dilaporkan";
       reportBtn.style.background = "#388e3c";
-      console.log(`[Judol Detector][DEV] Reported false positive: "${text.slice(0, 60)}..."`);
+      devLog(
+        `[Judol Detector][DEV] Reported false positive: "${text.slice(0, 60)}..."`,
+      );
     }
   } catch {
     reportBtn.textContent = "Gagal";
@@ -245,7 +276,6 @@ async function reportFalsePositive(text, reportBtn) {
     console.warn("[Judol Detector][DEV] Failed to send report to server.");
   }
 }
-
 
 /**
  * Visually hide a spam comment with a semi-transparent overlay and badge.
@@ -299,7 +329,7 @@ function hideSpamComment(element, confidence, originalText) {
   element.appendChild(badge);
 
   // Dev mode: show a "Bukan spam?" button to report this comment as a false positive
-  if (devMode) {
+  if (isDevActive()) {
     attachReportButton(element, originalText);
   }
 
@@ -352,7 +382,7 @@ async function scanComments() {
   scannedCount += toProcess.length;
   persistStats();
 
-  console.log(
+  devLog(
     `[Judol Detector] Scanning ${toProcess.length} new comment(s)... (total scanned: ${scannedCount})`,
   );
 
@@ -397,19 +427,26 @@ async function loadSettings() {
   if (typeof chrome === "undefined" || !chrome.storage) return;
 
   return new Promise((resolve) => {
-    chrome.storage.local.get(["confidenceThreshold", "devMode"], (data) => {
-      if (data.confidenceThreshold !== undefined) {
-        confidenceThreshold = data.confidenceThreshold;
-        console.log(
+    chrome.storage.local.get(
+      ["confidenceThreshold", "devMode", "appMode"],
+      (data) => {
+        if (data.confidenceThreshold !== undefined) {
+          confidenceThreshold = data.confidenceThreshold;
+        }
+        devMode = data.devMode === true;
+        appMode = data.appMode === "development" ? "development" : "production";
+
+        devLog(
           `[Judol Detector] Threshold loaded from storage: ${Math.round(confidenceThreshold * 100)}%`,
         );
-      }
-      devMode = data.devMode === true;
-      if (devMode) {
-        console.log("[Judol Detector][DEV] Dev mode is ON — 'Bukan spam?' button enabled.");
-      }
-      resolve();
-    });
+        if (isDevActive()) {
+          devLog(
+            "[Judol Detector][DEV] Dev mode is ON — 'Bukan spam?' button enabled.",
+          );
+        }
+        resolve();
+      },
+    );
   });
 }
 
@@ -422,15 +459,24 @@ if (typeof chrome !== "undefined" && chrome.storage) {
   chrome.storage.onChanged.addListener((changes) => {
     if (changes.confidenceThreshold) {
       confidenceThreshold = changes.confidenceThreshold.newValue;
-      console.log(
+      devLog(
         `[Judol Detector] Threshold updated to: ${Math.round(confidenceThreshold * 100)}%`,
       );
     }
+    if (changes.appMode !== undefined) {
+      appMode =
+        changes.appMode.newValue === "development"
+          ? "development"
+          : "production";
+      devLog(`[Judol Detector] App mode: ${appMode}`);
+    }
     if (changes.devMode !== undefined) {
       devMode = changes.devMode.newValue;
-      console.log(`[Judol Detector] Dev mode: ${devMode ? "ON" : "OFF"}`);
-      // Retroactively add buttons to comments hidden before dev mode was turned on
-      if (devMode) attachReportButtonsToExisting();
+    }
+    if (changes.appMode !== undefined || changes.devMode !== undefined) {
+      devLog(`[Judol Detector] Dev features: ${isDevActive() ? "ON" : "OFF"}`);
+      // Retroactively add buttons to comments hidden before dev features turned on
+      if (isDevActive()) attachReportButtonsToExisting();
     }
   });
 }
@@ -445,7 +491,11 @@ if (typeof chrome !== "undefined" && chrome.storage) {
  * tab's content script (chrome.tabs.sendMessage), and we reply with this
  * tab's own in-memory counters instead of a shared/global value.
  */
-if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.onMessage) {
+if (
+  typeof chrome !== "undefined" &&
+  chrome.runtime &&
+  chrome.runtime.onMessage
+) {
   chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (message?.type === "getStats") {
       sendResponse({ hiddenCount, scannedCount });
@@ -481,10 +531,10 @@ const observer = new MutationObserver(() => {
 // ---------------------------------------------------------------------------
 
 async function init() {
-  console.log("[Judol Detector] Extension loaded...");
-
-  // Load user settings before doing anything else
+  // Load user settings before doing anything else (sets appMode, so devLog
+  // below already knows whether to print)
   await loadSettings();
+  devLog("[Judol Detector] Extension loaded...");
 
   const serverOk = await checkServerHealth();
   if (!serverOk) {
@@ -495,7 +545,7 @@ async function init() {
     return;
   }
 
-  console.log(
+  devLog(
     `[Judol Detector] Server OK · threshold: ${Math.round(confidenceThreshold * 100)}% · starting comment monitoring...`,
   );
 
