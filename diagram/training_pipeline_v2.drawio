@@ -1,0 +1,91 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="3Vtp5CxCWx1KpmT6KfyF" name="Halaman-1">
+    <mxGraphModel dx="764" dy="445" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uzwn9PhJBp4vAPR1v_ow-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#ffffff, #ffffff);strokeColor=default;" value="" vertex="1">
+          <mxGeometry height="1050" width="450" x="330" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" value="Alur Pelatihan Model (Training Pipeline)" vertex="1">
+          <mxGeometry height="30" width="400" x="355" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=light-dark(#ffffff, #ededed);fontColor=default;strokeColor=#000000;fontSize=12;fontStyle=1;" value="Mulai" vertex="1">
+          <mxGeometry height="40" width="100" x="430" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="1. Pengumpulan Data&#xa;(Web Scraping via Node.js)" vertex="1">
+          <mxGeometry height="50" width="250" x="355" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="2. Persiapan Dataset&#xa;(prepare_dataset.py)" vertex="1">
+          <mxGeometry height="50" width="250" x="355" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="spam_score ≥ 80?" vertex="1">
+          <mxGeometry height="60" width="200" x="380" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="reject" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Data Ditolak" vertex="1">
+          <mxGeometry height="30" width="120" x="640" y="315" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="3. Prapemrosesan Teks (preprocessing.py)&#xa;Zero-width strip → NFKC Unicode →&#xa;Leet speak → Brand canonicalization →&#xa;Lowercase → Hapus URL → Stopword removal" vertex="1">
+          <mxGeometry height="70" width="250" x="355" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="s4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="4. Ekstraksi Fitur TF-IDF&#xa;(ngram=(1,2), max_features=10.000,&#xa;sublinear_tf=True, min_df=2)" vertex="1">
+          <mxGeometry height="60" width="250" x="355" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="s5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="5. Pembagian Dataset&#xa;(Train 80% / Test 20%, stratify=y)" vertex="1">
+          <mxGeometry height="50" width="250" x="355" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="s6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" value="6. Pencarian Parameter Terbaik&#xa;(GridSearchCV — C: 0.01/0.1/1/10/100&#xa;5-fold cross-validation, metrik F1-macro)" vertex="1">
+          <mxGeometry height="60" width="250" x="355" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="s7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="7. Pelatihan Model&#xa;(Linear SVM, kernel=linear,&#xa;class_weight=balanced)" vertex="1">
+          <mxGeometry height="60" width="250" x="355" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="s8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" value="8. Evaluasi Model&#xa;(Test set 20% + Hard Test Set&#xa;Akurasi, Presisi, Recall, F1-Score)" vertex="1">
+          <mxGeometry height="60" width="250" x="355" y="845" as="geometry" />
+        </mxCell>
+        <mxCell id="s9" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" value="9. Simpan Model&#xa;(svm_model.joblib)" vertex="1">
+          <mxGeometry height="55" width="210" x="375" y="935" as="geometry" />
+        </mxCell>
+        <mxCell id="end" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=default;fontColor=default;strokeColor=#000000;fontSize=12;fontStyle=1;" value="Selesai" vertex="1">
+          <mxGeometry height="40" width="100" x="430" y="1015" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="start" style="edgeStyle=orthogonalEdgeStyle;" target="s1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;" target="s2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;" target="d1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="d1" style="edgeStyle=orthogonalEdgeStyle;" target="reject" value="Tidak">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="d1" style="edgeStyle=orthogonalEdgeStyle;" target="s3" value="Ya">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;" target="s4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;" target="s5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="s5" style="edgeStyle=orthogonalEdgeStyle;" target="s6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="s6" style="edgeStyle=orthogonalEdgeStyle;" target="s7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="s7" style="edgeStyle=orthogonalEdgeStyle;" target="s8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="s8" style="edgeStyle=orthogonalEdgeStyle;" target="s9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="s9" style="edgeStyle=orthogonalEdgeStyle;" target="end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
