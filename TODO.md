@@ -144,26 +144,35 @@ akan terlihat langsung di hasil evaluasi.
   [PENJELASAN_TEKNIS.md §35](PENJELASAN_TEKNIS.md#35-insiden-kontaminasi-data--spam-tersamar-yang-lolos-heuristik-scraper)
   dan [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30).
 
-- [ ] **Perbaiki root cause di `scraper/index.js` (belum dikerjakan).**
-  Scraper menghitung `spam_score` dari teks mentah **tanpa NFKC
-  normalization**, beda dengan `preprocessing.py` di sisi model yang
-  menormalisasi Unicode dekoratif sebelum cek pola apapun. Ini kenapa
-  kampanye Mantulhoki/Hoki777 lolos tak terdeteksi. Perbaikan: terapkan
-  NFKC normalize + homoglyph translation di scraper sebelum menghitung
-  `active_signals`, supaya scraping berikutnya tidak mengulang masalah yang
-  sama. Repo scraper terpisah dari proyek ini (`scraper-judol-yt-comment`).
+- [x] **Perbaiki root cause di `scraper/index.js` (2026-07-03).**
+  NFKC sudah ada sejak awal, tapi homoglyph translation dan leet-speak
+  normalization (yang jadi penyebab sebenarnya Mantulhoki/Hoki777 lolos)
+  belum ada. Ditambahkan `applyHomoglyphMap()` (port dari `HOMOGLYPH_MAP` di
+  `preprocessing.py`) dan `normalizeLeetSpeak()` (port dari Step 5b-i),
+  dipasang di `analyzeSpamScore()` sebelum semua regex signal dicek.
+  Diverifikasi manual: `H0KI777` sekarang match `brand_pattern` (sebelumnya
+  digit `0` memutus rangkaian huruf sehingga regex tidak match), dan
+  Cyrillic homoglyph `dаftаr` sekarang ternormalisasi jadi `daftar`. Repo
+  scraper terpisah dari proyek ini (`scraper-judol-yt-comment`), belum
+  di-commit — cek `git status` di sana sebelum lanjut.
 
-- [ ] **Scraper punya "dead zone" — komentar skor 10-29 dibuang total, tidak
-  disimpan di manapun (belum dikerjakan).**
+- [x] **Scraper "dead zone" — komentar skor 10-29 sekarang disimpan, tidak
+  dibuang (2026-07-03).**
   Ditemukan saat menelusuri kasus FN "PBB4D" (lihat
   [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)) — komentar
   kritik/korban yang menyebut brand ALL-CAPS+digit memicu `brand_pattern`
   cukup untuk lewat dari threshold non-spam (`<10`) tapi tidak cukup untuk
-  masuk threshold spam (`>=30`), lalu dibuang scraper tanpa jejak. Perbaikan:
-  simpan rentang skor 10-29 ke kategori terpisah (`result/borderline_*.json`)
-  untuk direview manual, bukan dibuang — kemungkinan besar berisi banyak
-  contoh "kritik + sebut brand" yang justru paling dibutuhkan untuk
+  masuk threshold spam (`>=30`), lalu dibuang scraper tanpa jejak.
+  Ditambahkan `isBorderlineComment()` di `scraper/index.js` — skor 10-29
+  sekarang disimpan ke `result/borderline_video_*.json` /
+  `result/borderline_livechat_*.json` dengan `label: "borderline"` (belum
+  berlabel final, wajib direview manual). `filter.js` diupdate supaya bisa
+  mengagregasi semua file `borderline_*.json` jadi satu
+  `final_borderline.json` untuk memudahkan review — kemungkinan besar berisi
+  banyak contoh "kritik + sebut brand" yang justru paling dibutuhkan untuk
   mengatasi limitasi di [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
+  **Belum dikerjakan:** scraping ulang dengan kode baru ini untuk benar-benar
+  mengisi `final_borderline.json`, lalu review manual isinya.
 
 ---
 
