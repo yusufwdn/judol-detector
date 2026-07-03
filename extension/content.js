@@ -308,14 +308,13 @@ function hideSpamComment(element, confidence, originalText) {
 }
 
 /**
- * Persist the current hiddenCount and scannedCount to chrome.storage
- * so the popup can read up-to-date numbers whenever it opens.
+ * hiddenCount/scannedCount live only in this tab's memory — they are never
+ * written to chrome.storage. That storage is shared by every tab, so any
+ * tab writing there would clobber the others' numbers (last write wins).
+ * Instead the popup asks the active tab directly for its counts, see the
+ * "getStats"/"resetStats" message listener below.
  */
-function persistStats() {
-  if (typeof chrome !== "undefined" && chrome.storage) {
-    chrome.storage.local.set({ hiddenCount, scannedCount });
-  }
-}
+function persistStats() {}
 
 // ---------------------------------------------------------------------------
 // COMMENT SCANNING
@@ -432,6 +431,28 @@ if (typeof chrome !== "undefined" && chrome.storage) {
       console.log(`[Judol Detector] Dev mode: ${devMode ? "ON" : "OFF"}`);
       // Retroactively add buttons to comments hidden before dev mode was turned on
       if (devMode) attachReportButtonsToExisting();
+    }
+  });
+}
+
+// ---------------------------------------------------------------------------
+// MESSAGING — Let the popup query/reset THIS tab's stats on demand
+// ---------------------------------------------------------------------------
+
+/**
+ * The popup has no way to know which tab's numbers it's looking at unless
+ * it asks the tab directly. It sends "getStats"/"resetStats" to the active
+ * tab's content script (chrome.tabs.sendMessage), and we reply with this
+ * tab's own in-memory counters instead of a shared/global value.
+ */
+if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.onMessage) {
+  chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+    if (message?.type === "getStats") {
+      sendResponse({ hiddenCount, scannedCount });
+    } else if (message?.type === "resetStats") {
+      hiddenCount = 0;
+      scannedCount = 0;
+      sendResponse({ hiddenCount, scannedCount });
     }
   });
 }

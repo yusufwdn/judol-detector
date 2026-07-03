@@ -8,16 +8,16 @@
 const API_BASE = "http://localhost:8000";
 
 // DOM element references
-const statusDot    = document.getElementById("statusDot");
-const statusLabel  = document.getElementById("statusLabel");
-const statusSub    = document.getElementById("statusSub");
-const hiddenCount  = document.getElementById("hiddenCount");
+const statusDot = document.getElementById("statusDot");
+const statusLabel = document.getElementById("statusLabel");
+const statusSub = document.getElementById("statusSub");
+const hiddenCount = document.getElementById("hiddenCount");
 const scannedCount = document.getElementById("scannedCount");
-const btnCheck     = document.getElementById("btnCheck");
-const btnReset     = document.getElementById("btnReset");
+const btnCheck = document.getElementById("btnCheck");
+const btnReset = document.getElementById("btnReset");
 const thresholdSlider = document.getElementById("thresholdSlider");
-const thresholdValue  = document.getElementById("thresholdValue");
-const devModeToggle   = document.getElementById("devModeToggle");
+const thresholdValue = document.getElementById("thresholdValue");
+const devModeToggle = document.getElementById("devModeToggle");
 
 /**
  * Check the health of the Python API server and update the status indicator.
@@ -59,22 +59,60 @@ function setStatus(state, label, sub) {
 }
 
 /**
- * Load and display spam detection statistics from chrome.storage.
+ * Get the active tab in the current window, so stats always reflect
+ * whichever page the user is actually looking at.
+ *
+ * @returns {Promise<chrome.tabs.Tab | null>}
  */
-function loadStats() {
-  chrome.storage.local.get(["hiddenCount", "scannedCount"], (data) => {
-    hiddenCount.textContent  = data.hiddenCount  || 0;
-    scannedCount.textContent = data.scannedCount || 0;
+function getActiveTab() {
+  return new Promise((resolve) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      resolve(tabs[0] || null);
+    });
   });
 }
 
 /**
- * Reset all statistics counters in chrome.storage and the UI.
+ * Load and display spam detection statistics for the active tab.
+ *
+ * Stats live only in each tab's content.js memory (not in chrome.storage),
+ * because a shared storage key would get overwritten every time any tab
+ * scans comments — the popup would then show whichever tab wrote last
+ * instead of the tab the user is currently viewing. Asking the active tab
+ * directly guarantees the numbers always match what's on screen.
  */
-function resetStats() {
-  chrome.storage.local.set({ hiddenCount: 0, scannedCount: 0 }, () => {
-    hiddenCount.textContent  = 0;
+async function loadStats() {
+  const tab = await getActiveTab();
+  if (!tab) {
+    hiddenCount.textContent = 0;
     scannedCount.textContent = 0;
+    return;
+  }
+
+  chrome.tabs.sendMessage(tab.id, { type: "getStats" }, (response) => {
+    // chrome.runtime.lastError fires when content.js isn't injected on this
+    // tab (e.g. not a YouTube/Instagram page) — just show zero in that case.
+    if (chrome.runtime.lastError || !response) {
+      hiddenCount.textContent = 0;
+      scannedCount.textContent = 0;
+      return;
+    }
+    hiddenCount.textContent = response.hiddenCount || 0;
+    scannedCount.textContent = response.scannedCount || 0;
+  });
+}
+
+/**
+ * Reset the active tab's statistics counters and refresh the UI.
+ */
+async function resetStats() {
+  const tab = await getActiveTab();
+  if (!tab) return;
+
+  chrome.tabs.sendMessage(tab.id, { type: "resetStats" }, (response) => {
+    if (chrome.runtime.lastError || !response) return;
+    hiddenCount.textContent = response.hiddenCount || 0;
+    scannedCount.textContent = response.scannedCount || 0;
   });
 }
 
@@ -89,7 +127,7 @@ function resetStats() {
 function loadThreshold() {
   chrome.storage.local.get(["confidenceThreshold"], (data) => {
     const pct = Math.round((data.confidenceThreshold ?? 0.75) * 100);
-    thresholdSlider.value   = pct;
+    thresholdSlider.value = pct;
     thresholdValue.textContent = `${pct}%`;
   });
 }
