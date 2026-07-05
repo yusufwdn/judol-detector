@@ -207,7 +207,7 @@ svm-judol-spam/
 ├── data/
 │   ├── comments.csv           ← Dataset berlabel final (dibuat oleh prepare_dataset.py)
 │   ├── manual_overrides.csv   ← Koreksi label manual, persisten lintas rebuild (lihat Bagian 4)
-│   ├── hard_test_set.csv      ← 141 komentar ambigu, dipakai evaluate_hard_set.py
+│   ├── hard_test_set.csv      ← 135 komentar ambigu (semua non_spam), dipakai evaluate_hard_set.py
 │   └── skipped_entries.json   ← Audit entri yang ke-skip oleh two-pass filter
 │
 ├── scraper/
@@ -223,7 +223,7 @@ svm-judol-spam/
 │   ├── train.py                ← Script training model SVM (k-fold CV + GridSearchCV)
 │   ├── server.py              ← REST API server (FastAPI) + hybrid rules
 │   ├── compare_baselines.py   ← Perbandingan SVM vs Naive Bayes vs Logistic Regression
-│   ├── evaluate_hard_set.py   ← Evaluasi model di hard_test_set.csv
+│   ├── evaluate_hard_set.py   ← Evaluasi SVM murni di hard_test_set.csv (detail per-FP)
 │   ├── experiment_stemming.py ← Eksperimen Sastrawi stemming
 │   ├── experiment_features.py ← Eksperimen ngram_range & max_features
 │   └── inspect_features.py    ← Inspeksi fitur TF-IDF berbobot tertinggi

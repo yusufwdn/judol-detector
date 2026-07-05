@@ -1,8 +1,8 @@
 """
 evaluate_hard_set.py
 ====================
-Evaluasi model terhadap "hard test set" — komentar ambigu yang secara leksikal
-mirip spam tapi bukan promosi judi.
+Evaluasi model (SVM murni) terhadap "hard test set" — komentar ambigu yang
+secara leksikal mirip spam tapi bukan promosi judi.
 
 KENAPA PERLU EVALUASI TERPISAH?
 ---------------------------------
@@ -13,17 +13,30 @@ kasus abu-abu:
 
   "link hondatoto penipu bisa mengubah no rek dana kita secepatny hati2"
   -> Bukan promosi — ini peringatan. Tapi menyebut nama brand judol.
-  -> Model (dan hybrid rule) kemungkinan salah klasifikasikan sebagai spam.
+  -> Model kemungkinan salah klasifikasikan sebagai spam.
 
 Hard test set dirancang khusus untuk mengukur kasus seperti ini. Hasilnya
 dilaporkan TERPISAH dari angka evaluasi utama — bukan untuk menggantikannya,
 tapi sebagai lapisan analisis tambahan yang jujur tentang batasan model.
 
+KENAPA SVM MURNI (TANPA HYBRID RULE)?
+---------------------------------------
+Ablation study (`evaluate_hybrid_ablation.py`, lihat `PENJELASAN_TEKNIS.md
+§33`) membuktikan hybrid rule berbasis kata kunci (HARD_SPAM_SIGNALS)
+menaikkan false positive dan MENURUNKAN akurasi baik di test set biasa
+maupun hard test set. Hybrid rule dimatikan permanen sejak Versi 9
+(`ENABLE_HYBRID_RULES = False` di server.py). Script ini dulu masih
+menerapkan hybrid rule versi lama secara manual — sudah diperbaiki supaya
+konsisten dengan keputusan itu dan dengan metodologi yang sebenarnya
+dipakai untuk angka-angka di `DATASET_LOG.md` sejak Versi 9.
+
 SUMBER DATA:
-  data/hard_test_set.csv — komentar dari video YouTube bertema judi online
-  (ID: kM99uBssHvQ). Awalnya scraper menandai semua sebagai spam, tapi setelah
-  review manual 70 di antaranya dikonfirmasi bukan spam (diskusi/kritik/pengalaman
-  buruk, bukan promosi).
+  data/hard_test_set.csv (135 entri, semua berlabel non_spam) — komentar
+  ambigu dari 2 video YouTube bertema judi online (kM99uBssHvQ,
+  pzE8S6N0vwo). Set ini murni mengukur false positive rate model pada
+  kritik/diskusi anti-judol yang menyebut istilah/brand judi — bukan set
+  campuran spam+non_spam, karena itu baris "Aktual spam" di confusion
+  matrix akan selalu 0.
 
 Jalankan:
     python src/evaluate_hard_set.py
@@ -42,40 +55,16 @@ from src.preprocessing import clean_text
 HARD_TEST_PATH = os.path.join(BASE_DIR, "data", "hard_test_set.csv")
 MODEL_PATH     = os.path.join(BASE_DIR, "model", "svm_model.joblib")
 
-# Sama persis dengan HARD_SPAM_SIGNALS di server.py
-HARD_SPAM_SIGNALS = {
-    "gacor", "scatter", "jackpot", "maxwin", "togel", "toto", "rtp",
-    # "slot" dan "deposit" dihapus — terlalu sering muncul di cerita korban/diskusi
-    "withdraw",
-    "pstoto", "jptogel", "supermoney", "xuxu", "bardi",
-    "bukit", "dora", "pluto", "jalak",
-    "pangeran", "kyt",
-    "pulauwin",
-    "judolbrand",
-}
 
-
-def has_hard_spam_signal(cleaned_text: str) -> bool:
-    words = set(cleaned_text.split())
-    return bool(words & HARD_SPAM_SIGNALS)
-
-
-def predict_with_hybrid(model, text: str) -> dict:
+def predict_svm(model, text: str) -> dict:
     cleaned = clean_text(text)
     if not cleaned:
-        return {"label": "non_spam", "confidence": 0.5, "via": "empty_text"}
+        return {"label": "non_spam", "confidence": 0.5, "via": "empty_text", "cleaned": cleaned}
 
     raw_label = model.predict([cleaned])[0]
     proba     = model.predict_proba([cleaned])[0]
     classes   = list(model.classes_)
     confidence = float(proba[classes.index(raw_label)])
-
-    has_signal = has_hard_spam_signal(cleaned)
-
-    if raw_label == "spam" and not has_signal:
-        return {"label": "non_spam", "confidence": 0.5, "via": "hybrid_A", "svm": raw_label, "cleaned": cleaned}
-    if raw_label == "non_spam" and has_signal:
-        return {"label": "spam", "confidence": 0.9, "via": "hybrid_B", "svm": raw_label, "cleaned": cleaned}
 
     return {"label": raw_label, "confidence": round(confidence, 4), "via": "svm", "cleaned": cleaned}
 
@@ -107,7 +96,7 @@ def main():
 
     results = []
     for e in entries:
-        pred = predict_with_hybrid(model, e["text"])
+        pred = predict_svm(model, e["text"])
         pred["true_label"] = e["label"]
         pred["text"]       = e["text"]
         results.append(pred)

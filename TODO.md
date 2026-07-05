@@ -18,6 +18,7 @@
 - [Fase 3 — Preprocessing & Eksperimen Model](#fase-3--preprocessing--eksperimen-model)
 - [Fase 4 — Robustness Extension](#fase-4--robustness-extension)
 - [Fase 5 — Deployment (Opsional)](#fase-5--deployment-opsional)
+- [Future Work — Belum Dikerjakan (Ditunda Pasca-Riset)](#future-work--belum-dikerjakan-ditunda-pasca-riset)
 - [Fase 6 — Penulisan Skripsi](#fase-6--penulisan-skripsi)
 - [Tips Belajar & Cara Kerja untuk Junior](#tips-belajar--cara-kerja-untuk-junior)
 - [Pertanyaan untuk Diskusi Lanjut](#pertanyaan-untuk-diskusi-lanjut)
@@ -171,8 +172,7 @@ akan terlihat langsung di hasil evaluasi.
   `final_borderline.json` untuk memudahkan review — kemungkinan besar berisi
   banyak contoh "kritik + sebut brand" yang justru paling dibutuhkan untuk
   mengatasi limitasi di [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
-  **Belum dikerjakan:** scraping ulang dengan kode baru ini untuk benar-benar
-  mengisi `final_borderline.json`, lalu review manual isinya.
+  **Belum dikerjakan** — dipindah ke [Future Work](#future-work--belum-dikerjakan-ditunda-pasca-riset).
 
 ---
 
@@ -260,20 +260,12 @@ bereksperimen meningkatkan kualitas model itu sendiri.
   (uji statistik, bukan cuma satu angka). Grafik:
   `reports/experiment_stemming_cv.png`. Narasi di
   [PENJELASAN_TEKNIS.md §18](PENJELASAN_TEKNIS.md#18-eksperimen-stemming--apakah-stemming-membantu)
-  masih memakai angka & kalimat sidang versi lama (dataset lama) — perlu
-  ditulis ulang dengan temuan CV ini supaya argumennya lebih kuat saat
-  ditanya penguji "yakin tidak signifikan?".
+  **sudah ditulis ulang** (§18.6–18.8) memakai temuan CV + paired t-test ini,
+  termasuk kalimat siap kutip untuk sidang. Tidak ada lagi yang menggantung
+  di item ini.
 
-- [ ] **Tambah stopwords domain-spesifik** ("kak", "bang", "min", "subscribe",
-  "like", "video", "nonton", dll) ke `STOPWORDS_ID`.
-  ⚠️ Dari hasil inspeksi fitur ([PENJELASAN_TEKNIS.md §17](PENJELASAN_TEKNIS.md#17-inspeksi-fitur--apa-yang-dipelajari-model)),
-  `bang` dan `dok` justru menjadi sinyal non-spam yang kuat (bobot -1.55 dan
-  -1.39). Ini terjadi karena kata-kata itu sangat umum di komentar percakapan
-  biasa tapi hampir tidak pernah muncul di komentar spam — persis kebalikan
-  dari yang diharapkan stopword. Menghapusnya akan menghilangkan sinyal
-  diskriminatif yang sudah dipelajari model, sehingga performa kemungkinan
-  turun. Eksperimen tetap bisa dilakukan untuk membuktikannya, tapi hasilnya
-  sudah bisa diprediksi dari data inspeksi fitur.
+- [ ] **Tambah stopwords domain-spesifik** — dipindah ke
+  [Future Work](#future-work--belum-dikerjakan-ditunda-pasca-riset).
 
 - [✅] **Inspeksi fitur paling berpengaruh (support vectors / koefisien).**
   Diimplementasikan di `src/inspect_features.py`. Jalankan setelah training:
@@ -339,18 +331,57 @@ hanya secara teori.
 skripsi murni). **Fase ini opsional** — kerjakan hanya jika Fase 1–4 sudah
 solid dan kamu masih punya waktu/energi.
 
-- [ ] **Packaging server jadi executable** (misal dengan `PyInstaller`) supaya
-  pengguna awam tidak perlu install Python + dependencies manual.
+Semua item di fase ini dipindah ke
+[Future Work](#future-work--belum-dikerjakan-ditunda-pasca-riset) — sifatnya
+sama-sama "nice to have di luar scope inti skripsi", jadi dikonsolidasikan
+di satu tempat.
 
-- [ ] **Auto-start server** — opsi launcher yang menjalankan server di
-  background saat Chrome dibuka (kompleks, butuh native messaging atau
-  installer terpisah).
+---
 
-- [ ] *(Eksplorasi jangka panjang, bukan prioritas)* Riset konversi model ke
-  ONNX Runtime Web / TensorFlow.js agar prediksi berjalan langsung di
-  browser tanpa server Python. Ini sudah disebut di FAQ dokumentasi sebagai
-  "di luar scope skripsi" — realistis untuk dijadikan bagian "future work",
-  bukan dikerjakan sekarang.
+## Future Work — Belum Dikerjakan (Ditunda Pasca-Riset)
+
+**Konteks:** Per 2026-07-05, riset teknis proyek ini dihentikan sementara
+untuk fokus ke penulisan skripsi (Fase 6 di bawah). Ini daftar item yang
+**sengaja tidak dikerjakan**, dikonsolidasikan dari berbagai fase di atas
+supaya jelas mana yang murni "future work" (boleh disebut di Bab
+Keterbatasan & Saran) vs mana yang masih jadi pekerjaan aktif. Tidak ada
+satupun di bawah ini yang menghalangi penulisan — semua metrik dan klaim
+yang sudah ada di dokumentasi (README, DATASET_LOG, PENJELASAN_TEKNIS) valid
+dan reproducible tanpa perlu menyelesaikan item-item ini terlebih dahulu.
+
+- [ ] **Scraping ulang untuk mengisi `final_borderline.json` + review manual.**
+  (Dari Fase 1.) Kode `isBorderlineComment()` sudah ditambahkan ke
+  `scraper/index.js` (2026-07-03) supaya komentar berskor 10-29 tidak lagi
+  dibuang tanpa jejak, tapi **belum pernah dijalankan** — dicek langsung ke
+  repo scraper (`scraper-judol-yt-comment`), tidak ada satupun file
+  `result/borderline_*.json` atau `final_borderline.json` yang ada. Kalau
+  dikerjakan, ini kemungkinan sumber terbaik untuk menambah contoh "kritik +
+  sebut brand" yang jadi limitasi terdokumentasi di
+  [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
+  Aman dijadikan future work — §34 sudah membahas limitasi ini secara jujur
+  tanpa perlu data tambahan ini untuk skripsi selesai.
+
+- [ ] **Tambah stopwords domain-spesifik** ("kak", "bang", "min",
+  "subscribe", "like", "video", "nonton", dll) ke `STOPWORDS_ID`. (Dari Fase
+  3.) ⚠️ Dari hasil inspeksi fitur
+  ([PENJELASAN_TEKNIS.md §17](PENJELASAN_TEKNIS.md#17-inspeksi-fitur--apa-yang-dipelajari-model)),
+  `bang` dan `dok` justru jadi sinyal non-spam kuat (bobot -1.55 dan -1.39)
+  — kebalikan dari asumsi stopword biasa. Hasil eksperimen sudah bisa
+  diprediksi dari data ini (kemungkinan performa turun kalau dihapus), jadi
+  prioritasnya rendah — aman ditunda tanpa risiko.
+
+- [ ] **Packaging server jadi executable** (misal `PyInstaller`) supaya
+  pengguna awam tidak perlu install Python + dependencies manual. (Dari Fase
+  5, opsional, di luar scope inti skripsi.)
+
+- [ ] **Auto-start server** — launcher yang menjalankan server di background
+  saat Chrome dibuka (kompleks, butuh native messaging/installer terpisah).
+  (Dari Fase 5, opsional.)
+
+- [ ] *(Eksplorasi jangka panjang)* Riset konversi model ke ONNX Runtime Web
+  / TensorFlow.js agar prediksi berjalan langsung di browser tanpa server
+  Python. Sudah disebut di FAQ dokumentasi sebagai "di luar scope skripsi" —
+  realistis untuk disebut sebagai future work di Bab Keterbatasan & Saran.
 
 ---
 

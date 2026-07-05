@@ -3110,6 +3110,19 @@ Untuk memastikan bukan kebetulan, setiap kali rule menyala dicatat apakah hasiln
 
 > *"Hybrid rule berbasis kata kunci sempat diterapkan untuk mengatasi false positive/negative pada model versi awal, dan terbukti meningkatkan accuracy hard test set dari 73.76% menjadi 80.14% saat itu. Namun setelah dataset training diperluas ke 5132 baris dan model dilatih ulang, dilakukan ablation study sistematis (membandingkan SVM murni vs SVM+hybrid pada dua dataset evaluasi independen) yang menunjukkan hybrid rule justru menurunkan accuracy 6–13 poin persentase — model SVM yang lebih kuat tidak lagi membutuhkan koreksi berbasis kata kunci, dan rule tersebut sekarang lebih sering salah mengoreksi prediksi SVM yang sudah benar daripada membantu. Hybrid rule kemudian dinonaktifkan secara default, dengan kode dipertahankan sebagai dokumentasi proses eksperimen dan dapat diaktifkan kembali untuk pengujian di masa depan."*
 
+### Catatan Update (2026-07-05): `evaluate_hard_set.py` Sempat Tidak Sinkron
+
+Keputusan mematikan hybrid rule di atas diterapkan ke `server.py`
+(`ENABLE_HYBRID_RULES = False`), tapi **tidak diterapkan** ke
+`src/evaluate_hard_set.py` — script itu masih menjalankan logika hybrid versi
+lama secara hardcoded, terpisah dari flag di `server.py`. Akibatnya, sampai
+diaudit ulang, `python src/evaluate_hard_set.py` selalu melaporkan angka
+hard test set yang jauh lebih rendah (~80–82%) dibanding angka yang sudah
+jadi acuan sejak Versi 9 (SVM murni, sekarang 98.52% di model v14). Sudah
+diperbaiki: `evaluate_hard_set.py` sekarang memanggil `model.predict()`
+langsung, sama seperti mode "SVM murni" di `evaluate_hybrid_ablation.py`.
+Detail audit di [`DATASET_LOG.md`](DATASET_LOG.md#audit-evaluate_hard_setpy-tidak-sinkron-dengan-enable_hybrid_rules--2026-07-05).
+
 ---
 
 ## 34. Generalisasi ke Brand Judol Baru — Sejauh Mana Model Bisa Mengikuti?

@@ -10,6 +10,61 @@ Berguna untuk bab metodologi skripsi dan untuk melacak versi mana yang menghasil
 
 ---
 
+## Audit: `evaluate_hard_set.py` Tidak Sinkron dengan `ENABLE_HYBRID_RULES` — 2026-07-05
+
+### Masalah yang Ditemukan
+
+Saat menulis jurnal, ditemukan inkonsistensi: jurnal mengutip **hard test set
+accuracy 98.52%**, tapi menjalankan `python src/evaluate_hard_set.py` dengan
+model produksi saat ini (v14) menghasilkan **82.22%** (24 FP dari 135), dan
+`reports/hard_set_evaluation.txt` yang ter-commit di repo malah menunjukkan
+**80.14%** (28 FP dari 141 — dari checkpoint jauh lebih lama).
+
+### Root Cause
+
+`src/evaluate_hard_set.py` dibuat di era Versi 8, saat hybrid rule masih
+aktif, dan **tidak pernah diupdate** ketika hybrid rule dinonaktifkan secara
+default di Versi 9 (`ENABLE_HYBRID_RULES = False` di `server.py`, lihat
+[§33](PENJELASAN_TEKNIS.md#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan)).
+Script ini masih menerapkan `predict_with_hybrid()` (hardcoded, independen
+dari flag di `server.py`), sehingga setiap kali dijalankan ulang hasilnya
+selalu jauh lebih buruk dari performa SVM murni yang sebenarnya jadi acuan
+sejak Versi 9. Laporan `.txt`-nya juga tidak pernah di-regenerate sejak
+commit `c46c2d4` (masih dari hard test set 141 entri, sebelum di-prune ke
+135 di Versi 9).
+
+Angka 98.52% sendiri **valid** — tercatat di [Versi 12](#versi-12--2026-06-30)
+(2 FP dari 135, SVM murni) dan berhasil direproduksi ulang dengan model v14
+via `src/evaluate_hybrid_ablation.py`. Sumber kebingungannya murni karena ada
+dua script evaluasi hard test set yang tidak disinkronkan: yang satu
+(`evaluate_hybrid_ablation.py`) sudah ikut keputusan hybrid-off, yang satu lagi
+(`evaluate_hard_set.py`) belum.
+
+### Perbaikan
+
+`src/evaluate_hard_set.py` diubah supaya prediksi langsung lewat
+`model.predict()` (SVM murni), konsisten dengan `ENABLE_HYBRID_RULES = False`.
+`reports/hard_set_evaluation.txt` di-regenerate dengan model v14 dan hard
+test set 135 entri saat ini:
+
+```
+Accuracy : 98.52%  (133/135 benar)
+F1-macro : 0.4963
+FP       : 2
+FN       : 0
+```
+
+Cocok dengan angka yang dikutip di jurnal, dan dengan hasil
+`evaluate_hybrid_ablation.py` (SVM murni, hard test set).
+
+**Pelajaran:** ketika sebuah keputusan arsitektur berubah (hybrid rule
+dimatikan), semua script evaluasi yang meniru logika lama harus diaudit
+ulang, bukan cuma kode produksi (`server.py`). Dua script yang mengklaim
+mengukur hal yang sama tapi punya logika berbeda adalah sumber angka yang
+tidak bisa dipertanggungjawabkan saat sidang.
+
+---
+
 ## Versi 11 — 2026-06-30
 
 ### Ringkasan
