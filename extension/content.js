@@ -33,25 +33,18 @@ const BATCH_API_URL = "http://localhost:8000/predict/batch";
 // Users can change this via the slider in the popup.
 let confidenceThreshold = 0.75;
 
-// App mode — "production" (default) or "development". Toggled from the popup.
-// Production hides all dev-only UI and silences verbose console logging,
-// regardless of what devMode was previously set to.
-let appMode = "production";
+// How a detected spam comment is visually handled — set via the popup.
+// "dim": semi-transparent overlay + badge the user can click to reveal it.
+// "remove": the comment is hidden outright (display: none), no badge.
+let hideMode = "dim";
 
-// Dev mode — when true (and appMode is "development"), a "Bukan spam?" button
-// appears on every hidden comment. Clicking it sends the comment to POST
-// /report, which appends it to the CSV dataset.
-let devMode = false;
-
-/**
- * Is dev-only behavior (report button, etc.) actually active right now?
- * Requires BOTH appMode === "development" AND the devMode toggle to be on,
- * so switching back to production always turns dev features off even if
- * devMode was left checked.
- */
-function isDevActive() {
-  return appMode === "development" && devMode;
-}
+// Dev flag — analogous to NODE_ENV in Node.js. This is a developer-only
+// switch: flip it manually in this file before running locally, then flip
+// it back before shipping. It is never exposed in the popup UI and never
+// read from chrome.storage, so end users have no way to turn it on.
+// When true, a "Bukan spam?" button appears on every hidden comment, letting
+// whoever is testing report false positives straight into the CSV dataset.
+const DEV_MODE = false;
 
 /**
  * Log only when running in development mode — keeps the production
@@ -60,7 +53,7 @@ function isDevActive() {
  * useful to any user troubleshooting a dead server.
  */
 function devLog(...args) {
-  if (appMode === "development") console.log(...args);
+  if (DEV_MODE) console.log(...args);
 }
 
 // CSS selectors for comment elements on each supported platform.
@@ -233,19 +226,6 @@ function attachReportButton(element, originalText) {
   element.appendChild(reportBtn);
 }
 
-/**
- * When dev mode is toggled ON, add report buttons to comments that were
- * already hidden before dev mode was activated.
- */
-function attachReportButtonsToExisting() {
-  document
-    .querySelectorAll("[data-judol-detected='spam']")
-    .forEach((element) => {
-      const text = element.dataset.judolText;
-      if (text) attachReportButton(element, text);
-    });
-}
-
 async function reportFalsePositive(text, reportBtn) {
   reportBtn.textContent = "Mengirim...";
   reportBtn.style.cursor = "not-allowed";
@@ -278,12 +258,15 @@ async function reportFalsePositive(text, reportBtn) {
 }
 
 /**
- * Visually hide a spam comment with a semi-transparent overlay and badge.
- * The comment is NOT removed from the DOM — just visually suppressed.
- * Users can click the badge to reveal the comment if they choose.
+ * Hide a spam comment according to the user's chosen hideMode.
  *
- * In dev mode, an additional "Bukan spam?" button is shown. Clicking it
- * sends the comment text to POST /report so it gets saved as non_spam.
+ * "dim": semi-transparent overlay + badge — comment stays in the DOM and
+ * the user can click the badge to reveal it.
+ * "remove": the comment is hidden outright (display: none), no badge.
+ *
+ * In dev mode, an additional "Bukan spam?" button is shown (dim mode only,
+ * since a removed element has no visible surface to attach it to). Clicking
+ * it sends the comment text to POST /report so it gets saved as non_spam.
  *
  * @param {Element} element   - The comment container DOM element
  * @param {number} confidence - Model confidence score (0-1)
@@ -292,7 +275,14 @@ async function reportFalsePositive(text, reportBtn) {
 function hideSpamComment(element, confidence, originalText) {
   element.dataset.judolDetected = "spam";
   element.dataset.judolConfidence = confidence.toFixed(2);
-  element.dataset.judolText = originalText; // stored so dev mode can add button retroactively
+  element.dataset.judolText = originalText;
+
+  if (hideMode === "remove") {
+    element.style.display = "none";
+    hiddenCount++;
+    persistStats();
+    return;
+  }
 
   element.style.transition = "opacity 0.3s ease, max-height 0.5s ease";
   element.style.opacity = "0.15";
@@ -329,7 +319,7 @@ function hideSpamComment(element, confidence, originalText) {
   element.appendChild(badge);
 
   // Dev mode: show a "Bukan spam?" button to report this comment as a false positive
-  if (isDevActive()) {
+  if (DEV_MODE) {
     attachReportButton(element, originalText);
   }
 
@@ -428,18 +418,17 @@ async function loadSettings() {
 
   return new Promise((resolve) => {
     chrome.storage.local.get(
-      ["confidenceThreshold", "devMode", "appMode"],
+      ["confidenceThreshold", "hideMode"],
       (data) => {
         if (data.confidenceThreshold !== undefined) {
           confidenceThreshold = data.confidenceThreshold;
         }
-        devMode = data.devMode === true;
-        appMode = data.appMode === "development" ? "development" : "production";
+        hideMode = data.hideMode === "remove" ? "remove" : "dim";
 
         devLog(
           `[Judol Detector] Threshold loaded from storage: ${Math.round(confidenceThreshold * 100)}%`,
         );
-        if (isDevActive()) {
+        if (DEV_MODE) {
           devLog(
             "[Judol Detector][DEV] Dev mode is ON — 'Bukan spam?' button enabled.",
           );
@@ -463,20 +452,9 @@ if (typeof chrome !== "undefined" && chrome.storage) {
         `[Judol Detector] Threshold updated to: ${Math.round(confidenceThreshold * 100)}%`,
       );
     }
-    if (changes.appMode !== undefined) {
-      appMode =
-        changes.appMode.newValue === "development"
-          ? "development"
-          : "production";
-      devLog(`[Judol Detector] App mode: ${appMode}`);
-    }
-    if (changes.devMode !== undefined) {
-      devMode = changes.devMode.newValue;
-    }
-    if (changes.appMode !== undefined || changes.devMode !== undefined) {
-      devLog(`[Judol Detector] Dev features: ${isDevActive() ? "ON" : "OFF"}`);
-      // Retroactively add buttons to comments hidden before dev features turned on
-      if (isDevActive()) attachReportButtonsToExisting();
+    if (changes.hideMode !== undefined) {
+      hideMode = changes.hideMode.newValue === "remove" ? "remove" : "dim";
+      devLog(`[Judol Detector] Hide mode updated to: ${hideMode}`);
     }
   });
 }
@@ -531,8 +509,7 @@ const observer = new MutationObserver(() => {
 // ---------------------------------------------------------------------------
 
 async function init() {
-  // Load user settings before doing anything else (sets appMode, so devLog
-  // below already knows whether to print)
+  // Load user settings (threshold, hideMode) before doing anything else.
   await loadSettings();
   devLog("[Judol Detector] Extension loaded...");
 

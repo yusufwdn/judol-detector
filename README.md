@@ -874,7 +874,7 @@ Server kirim balik array hasil prediksi
         ▼
 Extension loop hasil:
   confidence ≥ 0.75 dan is_spam = true?
-    ├── Ya  → Beri efek opacity 15%, tambah badge merah "⚠ Spam XX%"
+    ├── Ya  → Sembunyikan sesuai mode pilihan user: "Redupkan" (opacity 15% + badge merah "⚠ Spam XX%") atau "Hilangkan" (display: none)
     └── Tidak → Biarkan komentar tampil normal
         │
         ▼

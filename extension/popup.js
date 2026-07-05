@@ -17,10 +17,8 @@ const btnCheck = document.getElementById("btnCheck");
 const btnReset = document.getElementById("btnReset");
 const thresholdSlider = document.getElementById("thresholdSlider");
 const thresholdValue = document.getElementById("thresholdValue");
-const devModeToggle = document.getElementById("devModeToggle");
-const devModeBox = document.getElementById("devModeBox");
-const modeProdBtn = document.getElementById("modeProdBtn");
-const modeDevBtn = document.getElementById("modeDevBtn");
+const hideModeDimBtn = document.getElementById("hideModeDimBtn");
+const hideModeRemoveBtn = document.getElementById("hideModeRemoveBtn");
 
 /**
  * Check the health of the Python API server and update the status indicator.
@@ -150,68 +148,41 @@ thresholdSlider.addEventListener("input", () => {
 });
 
 // ---------------------------------------------------------------------------
-// DEV MODE TOGGLE
+// HIDE MODE — Dim (default) vs Remove
 // ---------------------------------------------------------------------------
 
 /**
- * Load the saved dev mode state from chrome.storage and set the toggle.
- * Defaults to false (off) — dev mode is never on by default.
+ * Reflect the current hide mode in the toggle buttons.
+ *
+ * @param {"dim" | "remove"} mode
  */
-function loadDevMode() {
-  chrome.storage.local.get(["devMode"], (data) => {
-    devModeToggle.checked = data.devMode === true;
+function applyHideModeUI(mode) {
+  hideModeDimBtn.classList.toggle("active", mode === "dim");
+  hideModeRemoveBtn.classList.toggle("active", mode === "remove");
+}
+
+/**
+ * Load the saved hide mode from chrome.storage. Defaults to "dim" (current
+ * behavior: semi-transparent overlay + badge that can reveal the comment).
+ */
+function loadHideMode() {
+  chrome.storage.local.get(["hideMode"], (data) => {
+    const mode = data.hideMode === "remove" ? "remove" : "dim";
+    applyHideModeUI(mode);
   });
 }
 
 /**
- * Save dev mode state whenever the toggle changes.
+ * Save the hide mode whenever the user clicks a mode button.
  * content.js listens via chrome.storage.onChanged and updates immediately.
  */
-devModeToggle.addEventListener("change", () => {
-  chrome.storage.local.set({ devMode: devModeToggle.checked });
-});
-
-// ---------------------------------------------------------------------------
-// APP MODE — Production (default) vs Development
-// ---------------------------------------------------------------------------
-
-/**
- * Show/hide the Dev Mode box based on the current app mode.
- * Production users should never even see that this feature exists.
- *
- * @param {"production" | "development"} mode
- */
-function applyModeUI(mode) {
-  modeProdBtn.classList.toggle("active", mode === "production");
-  modeDevBtn.classList.toggle("active", mode === "development");
-  modeDevBtn.classList.toggle("dev", mode === "development");
-  devModeBox.classList.toggle("hidden", mode !== "development");
+function setHideMode(mode) {
+  chrome.storage.local.set({ hideMode: mode });
+  applyHideModeUI(mode);
 }
 
-/**
- * Load the saved app mode from chrome.storage. Defaults to "production" —
- * dev-only UI must be opted into explicitly, never on by default.
- */
-function loadAppMode() {
-  chrome.storage.local.get(["appMode"], (data) => {
-    const mode = data.appMode === "development" ? "development" : "production";
-    applyModeUI(mode);
-  });
-}
-
-/**
- * Save the app mode whenever the user clicks a mode button.
- * content.js listens via chrome.storage.onChanged and updates immediately —
- * switching to "production" turns off dev features even if the inner
- * "Bukan spam?" toggle was left on.
- */
-function setAppMode(mode) {
-  chrome.storage.local.set({ appMode: mode });
-  applyModeUI(mode);
-}
-
-modeProdBtn.addEventListener("click", () => setAppMode("production"));
-modeDevBtn.addEventListener("click", () => setAppMode("development"));
+hideModeDimBtn.addEventListener("click", () => setHideMode("dim"));
+hideModeRemoveBtn.addEventListener("click", () => setHideMode("remove"));
 
 // ---------------------------------------------------------------------------
 // EVENT LISTENERS & STARTUP
@@ -224,5 +195,4 @@ btnReset.addEventListener("click", resetStats);
 checkServer();
 loadStats();
 loadThreshold();
-loadDevMode();
-loadAppMode();
+loadHideMode();

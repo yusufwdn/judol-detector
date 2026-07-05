@@ -1067,7 +1067,12 @@ Mengapa `WeakSet` bukan `Set` biasa? Karena `WeakSet` menyimpan referensi yang *
 ### Cara menyembunyikan komentar
 
 ```javascript
-function hideSpamComment(element, confidence) {
+function hideSpamComment(element, confidence, originalText) {
+    if (hideMode === "remove") {
+        element.style.display = "none";
+        return;
+    }
+
     element.style.opacity = "0.15";
     element.style.border = "1px solid #ff4444";
 
@@ -1084,10 +1089,22 @@ function hideSpamComment(element, confidence) {
 }
 ```
 
-Komentar tidak dihapus dari DOM — hanya opacity-nya dikurangi ke 15%. Ini sengaja:
-- User bisa memilih untuk melihat komentar yang disembunyikan dengan mengklik badge
-- Menghapus dari DOM bisa menyebabkan masalah dengan cara YouTube mengelola scroll position
-- Lebih aman untuk false positive — user tidak kehilangan komentar secara permanen
+Ada dua mode, dipilih pengguna lewat toggle di popup dan disimpan sebagai
+`hideMode` (`"dim"` atau `"remove"`) di `chrome.storage.local`:
+
+- **`"dim"` (default)** — komentar tidak dihapus dari DOM, hanya opacity-nya
+  dikurangi ke 15%. Sengaja begitu karena:
+  - User bisa memilih untuk melihat komentar yang disembunyikan dengan
+    mengklik badge
+  - Menghapus dari DOM bisa menyebabkan masalah dengan cara YouTube
+    mengelola scroll position
+  - Lebih aman untuk false positive — user tidak kehilangan komentar
+    secara permanen
+- **`"remove"`** — elemen diberi `display: none`, jadi hilang total secara
+  visual (elemen tetap ada di DOM, `display: none` bukan `element.remove()`,
+  jadi masalah scroll-position di atas tetap terhindari). Tidak ada badge
+  untuk membatalkan — untuk pengguna yang lebih memilih ketegasan daripada
+  kemampuan mengecek ulang.
 
 ---
 

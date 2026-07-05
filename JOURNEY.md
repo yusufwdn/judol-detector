@@ -654,22 +654,41 @@ merepresentasikan trade-off:
 0.75 adalah titik tengah yang dipilih sebagai starting point — **bisa dan
 sebaiknya disesuaikan** berdasarkan masukan pengguna nyata.
 
-### Kenapa Komentar Di-"redupkan" (opacity 15%), Bukan Dihapus dari Halaman?
+### Kenapa Ada Dua Cara Menyembunyikan Komentar: "Redupkan" vs "Hilangkan"?
 
 ```javascript
-element.style.opacity = "0.15";
+if (hideMode === "remove") {
+  element.style.display = "none";
+} else {
+  element.style.opacity = "0.15";
+  // ...tambah badge "Spam XX%" yang bisa diklik untuk menampilkan lagi
+}
 ```
 
-1. Kalau elemen **dihapus total** dari DOM, YouTube yang mengelola posisi
-   scroll bisa "bingung" (tinggi halaman berubah mendadak, posisi scroll
-   meloncat)
-2. Memberi kesempatan ke pengguna untuk **mengecek ulang** — kalau itu
-   ternyata false positive, klik badge untuk menampilkan lagi. Ini lebih
-   aman daripada menghilangkan informasi secara permanen.
+Awalnya cuma ada satu perilaku (redupkan + badge). Ini kemudian diubah jadi
+toggle yang bisa dipilih pengguna sendiri lewat popup extension, karena
+kedua opsi punya trade-off berbeda dan tidak ada satu jawaban yang benar
+untuk semua orang:
 
-**Analogi:** seperti mem-blur foto yang dicurigai tidak pantas di media
-sosial, dengan tombol "tampilkan tetap" — bukan menghapus fotonya secara
-permanen.
+- **Redupkan (default)** — komentar tetap ada di DOM, hanya opacity
+  diturunkan ke 15% + border merah + badge confidence. Klik badge untuk
+  menampilkan lagi. Aman untuk kasus false positive, dan tidak mengganggu
+  posisi scroll karena tinggi elemen di halaman tidak berubah.
+- **Hilangkan** — elemen langsung diberi `display: none`, hilang total dari
+  tampilan (tapi tetap ada di DOM, bukan dihapus/`remove()` — jadi jejak
+  `dataset.judol*` untuk debugging masih bisa dicek lewat DevTools). Cocok
+  untuk pengguna yang tidak ingin repot lihat komentar spam sama sekali,
+  dengan konsekuensi tidak ada cara mudah untuk membatalkan kalau ternyata
+  false positive.
+
+**Analogi:** "Redupkan" seperti mem-blur foto yang dicurigai tidak pantas di
+media sosial dengan tombol "tampilkan tetap" — bukan menghapus fotonya
+secara permanen. "Hilangkan" seperti langsung menyembunyikan postingan itu
+dari linimasa — lebih tegas, tapi tidak reversibel semudah itu.
+
+Pilihan ini disimpan di `chrome.storage.local` sebagai `hideMode`
+(`"dim"` atau `"remove"`), dibaca oleh `content.js` di setiap tab, dan bisa
+diganti kapan saja dari popup tanpa reload halaman.
 
 ### Output Babak 6
 
@@ -776,7 +795,8 @@ tempat, untuk referensi cepat saat sidang.
 | 14 | `/predict/batch` endpoint | Hanya `/predict` single, dipanggil berkali-kali | Mengurangi jumlah round-trip jaringan untuk 50-200 komentar per halaman | `src/server.py`, `extension/content.js` |
 | 15 | `MutationObserver` + debounce 1 detik | Polling interval tetap (misal cek tiap 1 detik) | Lebih efisien — hanya bereaksi saat DOM benar-benar berubah, bukan terus-menerus | `extension/content.js` |
 | 16 | `WeakSet` untuk dedup komentar | `Set` biasa | Mencegah memory leak saat elemen DOM dihapus YouTube | `extension/content.js` |
-| 17 | Sembunyikan komentar (opacity 15% + badge) | Hapus elemen dari DOM | Menghindari masalah scroll-position; reversibel jika false positive | `extension/content.js` |
+| 17 | Sembunyikan komentar via toggle "Redupkan" (opacity 15% + badge, default) / "Hilangkan" (`display: none`) | Satu perilaku tetap (redupkan saja), atau hapus elemen dari DOM | Redupkan menghindari masalah scroll-position dan reversibel jika false positive; opsi hilangkan diberikan karena sebagian pengguna lebih memilih ketegasan daripada reversibilitas — dibuat sebagai pilihan, bukan dipaksakan salah satu | `extension/content.js`, `extension/popup.js` |
+| 17b | Dev Mode ("Bukan spam?" report button) sebagai konstanta `DEV_MODE` di kode, bukan toggle UI | Toggle Production/Development + Dev Mode di popup (versi awal) | Fitur report ke dataset hanya relevan untuk developer, bukan urusan pengguna akhir — mirip environment variable di Node.js, di-set manual sebelum testing lokal, tidak pernah terekspos ke UI produksi | `extension/content.js` |
 | 18 | Confidence threshold 0.75 | 0.5 atau 0.9 | Titik tengah trade-off precision vs recall; recall lebih diprioritaskan untuk kasus spam | `extension/content.js` |
 
 ---
