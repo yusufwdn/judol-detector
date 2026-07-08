@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Title -->
+    <mxCell id="title" value="Activity Diagram — Sistem Deteksi Spam Komentar YouTube" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="200" y="20" width="1100" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- Swimlane: Pengguna -->
+    <mxCell id="sw_user" value="Pengguna YouTube" style="swimlane;startSize=40;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="40" y="60" width="300" height="1100" as="geometry" />
+    </mxCell>
+
+    <!-- Swimlane: Ekstensi Chrome -->
+    <mxCell id="sw_ext" value="Ekstensi Chrome" style="swimlane;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="340" y="60" width="320" height="1100" as="geometry" />
+    </mxCell>
+
+    <!-- Swimlane: Server API -->
+    <mxCell id="sw_server" value="Server API (VPS)" style="swimlane;startSize=40;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="660" y="60" width="280" height="1100" as="geometry" />
+    </mxCell>
+
+    <!-- INITIAL NODE -->
+    <mxCell id="init" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw_user">
+      <mxGeometry x="135" y="60" width="30" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- Pengguna: Membuka & Menggulir -->
+    <mxCell id="p1" value="Membuka &amp; Menggulir&#xa;Halaman Video YouTube" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" vertex="1" parent="sw_user">
+      <mxGeometry x="75" y="120" width="150" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Mendeteksi Elemen Komentar -->
+    <mxCell id="e1" value="Mendeteksi Elemen&#xa;Komentar Baru (MutationObserver)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="60" y="120" width="200" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Decision WeakSet -->
+    <mxCell id="d_weak" value="Teks sudah ada&#xa;di WeakSet?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="85" y="210" width="150" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Abaikan Duplikat -->
+    <mxCell id="e_skip" value="Abaikan&#xa;(Duplikat)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="220" y="320" width="90" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Simpan ke WeakSet & Kemas Batch -->
+    <mxCell id="e2" value="Simpan ke WeakSet&#xa;&amp; Kemas JSON Batch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="60" y="320" width="150" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Kirim HTTP POST -->
+    <mxCell id="e3" value="Kirim HTTP POST&#xa;ke /predict/batch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="60" y="410" width="150" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Server: Terima Request -->
+    <mxCell id="s1" value="Terima Request&#xa;/predict/batch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="sw_server">
+      <mxGeometry x="60" y="410" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Server: Prapemrosesan -->
+    <mxCell id="s2" value="Prapemrosesan Teks&#xa;(7 tahap clean_text)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="sw_server">
+      <mxGeometry x="60" y="500" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Server: Ekstraksi TF-IDF & Klasifikasi SVM -->
+    <mxCell id="s3" value="Ekstraksi Fitur TF-IDF&#xa;&amp; Klasifikasi SVM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="sw_server">
+      <mxGeometry x="60" y="590" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Server: Kembalikan Response -->
+    <mxCell id="s4" value="Kembalikan&#xa;Response JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="sw_server">
+      <mxGeometry x="60" y="680" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Terima Hasil Prediksi -->
+    <mxCell id="e4" value="Terima Hasil Prediksi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="75" y="680" width="150" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Decision Spam -->
+    <mxCell id="d_spam" value="Spam &amp; Confidence&#xa;&gt;= threshold?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="85" y="775" width="150" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Pengguna: Biarkan Normal -->
+    <mxCell id="p_show" value="Biarkan Komentar&#xa;Tampil Normal" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="sw_user">
+      <mxGeometry x="75" y="680" width="150" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Ekstensi: Decision hideMode -->
+    <mxCell id="d_mode" value="hideMode?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="sw_ext">
+      <mxGeometry x="95" y="890" width="130" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Pengguna: Mode Redupkan -->
+    <mxCell id="p_dim" value="Redupkan Komentar&#xa;(opacity 15% + badge)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="sw_user">
+      <mxGeometry x="30" y="890" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Pengguna: Mode Hilangkan -->
+    <mxCell id="p_hide" value="Hilangkan Komentar&#xa;(CSS: display: none)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="sw_user">
+      <mxGeometry x="30" y="980" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Final Node -->
+    <mxCell id="final" value="" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw_user">
+      <mxGeometry x="133" y="1055" width="34" height="34" as="geometry" />
+    </mxCell>
+    <mxCell id="final_inner" value="" style="ellipse;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="sw_user">
+      <mxGeometry x="142" y="1064" width="16" height="16" as="geometry" />
+    </mxCell>
+
+    <!-- ARROWS -->
+
+    <!-- Init → p1 -->
+    <mxCell id="a1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="init" target="p1" parent="sw_user">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- p1 → e1 cross swimlane -->
+    <mxCell id="a2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p1" target="e1" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- e1 → d_weak -->
+    <mxCell id="a3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="e1" target="d_weak" parent="sw_ext">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- d_weak → e_skip (Ya) -->
+    <mxCell id="a4" value="Ya" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="d_weak" target="e_skip" parent="sw_ext">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- d_weak → e2 (Tidak) -->
+    <mxCell id="a5" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="d_weak" target="e2" parent="sw_ext">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- e_skip loop back ke e1 -->
+    <mxCell id="a_skip" value="kembali pantau" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="e_skip" target="e1" parent="sw_ext">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="300" y="345" />
+          <mxPoint x="300" y="145" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- e2 → e3 -->
+    <mxCell id="a6" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="e2" target="e3" parent="sw_ext">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- e3 → s1 cross swimlane -->
+    <mxCell id="a7" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="e3" target="s1" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- s1 → s2 -->
+    <mxCell id="a8" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="s1" target="s2" parent="sw_server">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- s2 → s3 -->
+    <mxCell id="a9" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="s2" target="s3" parent="sw_server">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- s3 → s4 -->
+    <mxCell id="a10" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="s3" target="s4" parent="sw_server">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- s4 → e4 cross swimlane -->
+    <mxCell id="a11" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="s4" target="e4" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- e4 → d_spam -->
+    <mxCell id="a12" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="e4" target="d_spam" parent="sw_ext">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- d_spam → p_show (Tidak, cross swimlane) -->
+    <mxCell id="a13" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="d_spam" target="p_show" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- d_spam → d_mode (Ya) -->
+    <mxCell id="a14" value="Ya" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="d_spam" target="d_mode" parent="sw_ext">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- d_mode → p_dim (dim, cross swimlane) -->
+    <mxCell id="a15" value="dim" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="d_mode" target="p_dim" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- d_mode → p_hide (remove, cross swimlane) -->
+    <mxCell id="a16" value="remove" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="d_mode" target="p_hide" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- p_show → final -->
+    <mxCell id="a17" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p_show" target="final" parent="sw_user">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- p_dim → final -->
+    <mxCell id="a18" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p_dim" target="final" parent="sw_user">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- p_hide → final -->
+    <mxCell id="a19" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" edge="1" source="p_hide" target="final" parent="sw_user">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

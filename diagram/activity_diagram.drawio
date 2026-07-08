@@ -1,92 +1,92 @@
 <mxfile host="app.diagrams.net">
   <diagram id="q05HQt56maYFHkuK5myw" name="Halaman-1">
-    <mxGraphModel dx="1768" dy="1029" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1414" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="8QelEOphbjsbJdaB8w3s-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+        <mxCell id="8QelEOphbjsbJdaB8w3s-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" value="" vertex="1">
           <mxGeometry height="930" width="920" x="20" y="10" as="geometry" />
         </mxCell>
-        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" value="Activity Diagram — Sistem Deteksi Spam Komentar YouTube (Production Mode)" vertex="1">
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="Activity Diagram — Sistem Deteksi Spam Komentar YouTube (Production Mode)" vertex="1">
           <mxGeometry height="30" width="880" x="40" y="20" as="geometry" />
         </mxCell>
-        <mxCell id="sw_user" parent="1" style="swimlane;startSize=40;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontSize=12;fontStyle=1;" value="Pengguna YouTube" vertex="1">
+        <mxCell id="sw_user" parent="1" style="swimlane;startSize=40;fontSize=12;fontStyle=1;" value="Pengguna YouTube" vertex="1">
           <mxGeometry height="860" width="280" x="40" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="init" parent="sw_user" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+        <mxCell id="init" parent="sw_user" style="ellipse;fillColor=light-dark(#000000,#EDEDED);fontSize=12;" value="" vertex="1">
           <mxGeometry height="30" width="30" x="120" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="p1" parent="sw_user" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" value="Membuka &amp; Menggulir&#xa;Halaman Video YouTube" vertex="1">
+        <mxCell id="p1" parent="sw_user" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Membuka &amp;amp; Menggulir&#xa;Halaman Video YouTube" vertex="1">
           <mxGeometry height="50" width="150" x="60" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="p_show" parent="sw_user" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Biarkan Komentar&#xa;Tampil Normal" vertex="1">
+        <mxCell id="p_show" parent="sw_user" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Biarkan Komentar&#xa;Tampil Normal" vertex="1">
           <mxGeometry height="50" width="150" x="110" y="600" as="geometry" />
         </mxCell>
-        <mxCell id="a1" edge="1" parent="sw_user" source="init" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="p1">
+        <mxCell id="a1" edge="1" parent="sw_user" source="init" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="p1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a16" edge="1" parent="sw_user" source="p_show" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="final">
+        <mxCell id="a16" edge="1" parent="sw_user" source="p_show" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="final">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="8QelEOphbjsbJdaB8w3s-1" connectable="0" parent="sw_user" style="group" value="" vertex="1">
+        <mxCell id="8QelEOphbjsbJdaB8w3s-1" connectable="0" parent="sw_user" style="group;fontSize=12;" value="" vertex="1">
           <mxGeometry height="30" width="30" x="60" y="880" as="geometry" />
         </mxCell>
-        <mxCell id="p_hide" parent="sw_user" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Sembunyikan Komentar&#xa;(CSS: display: none)" vertex="1">
+        <mxCell id="p_hide" parent="sw_user" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Sembunyikan Komentar&#xa;(CSS: display: none)" vertex="1">
           <mxGeometry height="50" width="150" x="110" y="770" as="geometry" />
         </mxCell>
-        <mxCell id="a15" edge="1" parent="sw_user" source="p_hide" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="final">
+        <mxCell id="a15" edge="1" parent="sw_user" source="p_hide" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="final">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="final" parent="sw_user" style="ellipse;fillColor=#000000;strokeColor=#000000;strokeWidth=3;" value="" vertex="1">
+        <mxCell id="final" parent="sw_user" style="ellipse;strokeWidth=3;fontSize=12;" value="" vertex="1">
           <mxGeometry height="30" width="30" x="30" y="780" as="geometry" />
         </mxCell>
-        <mxCell id="final_inner" parent="sw_user" style="ellipse;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+        <mxCell id="final_inner" parent="sw_user" style="ellipse;fillColor=light-dark(#000000,#EDEDED);fontSize=12;" value="" vertex="1">
           <mxGeometry height="14" width="14" x="38" y="788" as="geometry" />
         </mxCell>
-        <mxCell id="sw_ext" parent="1" style="swimlane;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;fontStyle=1;" value="Ekstensi Chrome" vertex="1">
+        <mxCell id="sw_ext" parent="1" style="swimlane;startSize=40;fontSize=12;fontStyle=1;" value="Ekstensi Chrome" vertex="1">
           <mxGeometry height="860" width="320" x="320" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="e1" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Mendeteksi Elemen&#xa;Komentar Baru (MutationObserver)" vertex="1">
+        <mxCell id="e1" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Mendeteksi Elemen&#xa;Komentar Baru (MutationObserver)" vertex="1">
           <mxGeometry height="50" width="200" x="60" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="d_weak" parent="sw_ext" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Teks sudah ada&#xa;di WeakSet?" vertex="1">
+        <mxCell id="d_weak" parent="sw_ext" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" value="Teks sudah ada&#xa;di WeakSet?" vertex="1">
           <mxGeometry height="60" width="150" x="85" y="200" as="geometry" />
         </mxCell>
-        <mxCell id="e_skip" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" value="Abaikan&#xa;(Duplikat)" vertex="1">
+        <mxCell id="e_skip" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Abaikan&#xa;(Duplikat)" vertex="1">
           <mxGeometry height="50" width="100" x="180" y="320" as="geometry" />
         </mxCell>
-        <mxCell id="e2" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Simpan ke WeakSet&#xa;&amp; Kemas JSON Batch" vertex="1">
+        <mxCell id="e2" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Simpan ke WeakSet&#xa;&amp;amp; Kemas JSON Batch" vertex="1">
           <mxGeometry height="50" width="140" x="10" y="330" as="geometry" />
         </mxCell>
-        <mxCell id="e3" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Kirim HTTP POST&#xa;ke /predict/batch" vertex="1">
+        <mxCell id="e3" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Kirim HTTP POST&#xa;ke /predict/batch" vertex="1">
           <mxGeometry height="50" width="140" x="10" y="410" as="geometry" />
         </mxCell>
-        <mxCell id="e4" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Terima Hasil Prediksi" vertex="1">
+        <mxCell id="e4" parent="sw_ext" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Terima Hasil Prediksi" vertex="1">
           <mxGeometry height="50" width="140" x="70" y="570" as="geometry" />
         </mxCell>
-        <mxCell id="d_spam" parent="sw_ext" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Spam &amp; Confidence&#xa;&gt;= threshold?" vertex="1">
+        <mxCell id="d_spam" parent="sw_ext" style="rhombus;whiteSpace=wrap;html=1;fontSize=12;" value="Spam &amp;amp; Confidence&#xa;&amp;gt;= threshold?" vertex="1">
           <mxGeometry height="60" width="160" x="60" y="690" as="geometry" />
         </mxCell>
-        <mxCell id="a3" edge="1" parent="sw_ext" source="e1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="d_weak">
+        <mxCell id="a3" edge="1" parent="sw_ext" source="e1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="d_weak">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a4" edge="1" parent="sw_ext" source="d_weak" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="e_skip" value="Ya">
+        <mxCell id="a4" edge="1" parent="sw_ext" source="d_weak" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="e_skip" value="Ya">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a5" edge="1" parent="sw_ext" source="d_weak" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="e2" value="Tidak">
+        <mxCell id="a5" edge="1" parent="sw_ext" source="d_weak" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fontSize=12;" target="e2" value="Tidak">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="80" y="230" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="a6" edge="1" parent="sw_ext" source="e2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="e3">
+        <mxCell id="a6" edge="1" parent="sw_ext" source="e2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="e3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a12" edge="1" parent="sw_ext" source="e4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="d_spam">
+        <mxCell id="a12" edge="1" parent="sw_ext" source="e4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="d_spam">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a17" edge="1" parent="sw_ext" source="e_skip" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="e1" value="kembali pantau">
+        <mxCell id="a17" edge="1" parent="sw_ext" source="e_skip" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;" target="e1" value="kembali pantau">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="300" y="345" />
@@ -94,39 +94,39 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="sw_server" parent="1" style="swimlane;startSize=40;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;fontSize=12;fontStyle=1;" value="Server API (VPS)" vertex="1">
+        <mxCell id="sw_server" parent="1" style="swimlane;startSize=40;fontSize=12;fontStyle=1;" value="Server API (VPS)" vertex="1">
           <mxGeometry height="860" width="280" x="640" y="60" as="geometry">
             <mxRectangle height="40" width="130" x="640" y="60" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="s1" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Terima Request&#xa;/predict/batch" vertex="1">
+        <mxCell id="s1" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Terima Request&#xa;/predict/batch" vertex="1">
           <mxGeometry height="50" width="160" x="60" y="410" as="geometry" />
         </mxCell>
-        <mxCell id="s2" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Prapemrosesan Teks&#xa;(7 tahap clean_text)" vertex="1">
+        <mxCell id="s2" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Prapemrosesan Teks&#xa;(7 tahap clean_text)" vertex="1">
           <mxGeometry height="50" width="160" x="60" y="500" as="geometry" />
         </mxCell>
-        <mxCell id="s3" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Ekstraksi Fitur TF-IDF&#xa;&amp; Klasifikasi SVM" vertex="1">
+        <mxCell id="s3" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Ekstraksi Fitur TF-IDF&#xa;&amp;amp; Klasifikasi SVM" vertex="1">
           <mxGeometry height="50" width="160" x="60" y="590" as="geometry" />
         </mxCell>
-        <mxCell id="s4" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Kembalikan&#xa;Response JSON" vertex="1">
+        <mxCell id="s4" parent="sw_server" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;" value="Kembalikan&#xa;Response JSON" vertex="1">
           <mxGeometry height="50" width="160" x="60" y="680" as="geometry" />
         </mxCell>
-        <mxCell id="a8" edge="1" parent="sw_server" source="s1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="s2">
+        <mxCell id="a8" edge="1" parent="sw_server" source="s1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="s2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a9" edge="1" parent="sw_server" source="s2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="s3">
+        <mxCell id="a9" edge="1" parent="sw_server" source="s2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="s3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a10" edge="1" parent="sw_server" source="s3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="s4">
+        <mxCell id="a10" edge="1" parent="sw_server" source="s3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="s4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a2" edge="1" parent="1" source="p1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="e1">
+        <mxCell id="a2" edge="1" parent="1" source="p1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="e1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a7" edge="1" parent="1" source="e3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="s1">
+        <mxCell id="a7" edge="1" parent="1" source="e3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="s1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a11" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="e4">
+        <mxCell id="a11" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;" target="e4">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="600" y="765" />
@@ -134,10 +134,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="a14" edge="1" parent="1" source="d_spam" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="p_show" value="Tidak">
+        <mxCell id="a14" edge="1" parent="1" source="d_spam" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;" target="p_show" value="Tidak">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="a13" edge="1" parent="1" source="d_spam" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="p_hide" value="Ya">
+        <mxCell id="a13" edge="1" parent="1" source="d_spam" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;" target="p_hide" value="Ya">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
