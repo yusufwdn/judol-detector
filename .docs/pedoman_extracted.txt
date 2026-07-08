@@ -1,0 +1,2467 @@
+--- PAGE 1 ---
+1 
+ 
+PEDOMAN  
+PENULISAN SKRIPSI 
+SEMESTER GENAP  
+TAHUN AKADEMIK 2021/2022 
+ 
+ 
+ 
+FAKULTAS TEKNOLOGI 
+ 
+PROGRAM STUDI TEKNIK INFORMATIKA 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+INSTITUT TEKNOLOGI DAN BISNIS 
+S W A D H A R M A 
+2022 
+
+--- PAGE 2 ---
+2 
+ 
+Lembar Pengesahan 
+ 
+Buku Pedoman  Penulisan  Skripsi 
+Institut Teknologi Dan Bisnis 
+ Swadharma 
+ 
+Buku pedoman  ini dibuat  agar setiap mahasiswa  peserta  matakuliah  Skripsi dan 
+pembimbing bersangkutan dapat terpandu   dengan baik, sehingga hasil tulisan yang 
+dibuat  dapat memenuhi standar  penulisan  Skripsi Program  Studi Teknik Informatika  
+ITB Swadharma 
+ 
+Ditetapkan dan disahkan di Jakarta 
+Pada tanggal, 14 Maret 2022 
+ 
+Mengetahui,       
+ 
+ 
+ 
+ 
+ 
+Tedi Rochendi, SE., MM    Lela Nurlaela ST., M.Kom 
+Wakil Rektor I Dekan Fakultas Teknologi ITB Swadharma 
+ Ketua Program Studi Teknik Informatika 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+--- PAGE 3 ---
+3 
+ 
+BAB I  
+PENDAHULUAN 
+ 
+ 
+ 
+ 
+1.1. Pengertian 
+Skripsi  merupakan  suatu  karya  ilmiah  yang  disusun  berdasarkan  suatu  
+hasil penelitian. Skripsi merupakan salah satu syarat untuk memperoleh gelar 
+kesarjanaan  dengan  bobot  6  (enam)  sks  dan  hanya  dapat  dilakukan  
+oleh mahasiswa yang telah menempuh 110 sks. 
+ 
+Skripsi pada Program Studi Teknik Informatika ITB Swadharma  lebih 
+diarahkan kepada penelitian yang berorientasi produk. Skripsi yang disusun 
+harus memiliki kriteria sebagai berikut: 
+1. Berdasarkan kepada permasalahan (troubleshooting). 
+Pengembangan sistem didasarkan kepada permasalahan yang t erdapat 
+pada sist em berjalan. Permasalahan umumnya ditunjukkan dengan 
+adanya ketidak puasan user atas keakuratan, ketepatan waktu, ekonomi, 
+efisiensi, reliabilitas, d an kegunaan. Disamping itu  juga dimungkinkan 
+kerena adanya keinginan untuk  meraih kesempatan kemanfaatan 
+sistem  yang lebih besar dalam  h al cakupan modul d an j angkauan 
+sistem user. 
+2.   Mengandung unsur yang baru dan bermanfaat. 
+Sistem yang dik embangkan harus memiliki unsur penyempurnaan dan 
+peningkatan kemanfaatan dari sistem yang t elah dikembangkan 
+sebelumnya. Hal ini akan ditunjukkan dari pembahasan pada Bab II 
+skripsi tentang Studi Penelitian T erdahulu d an Persyaratan Sistem 
+Konseptual. 
+3.  Memenuhi unsur kaidah ilmiah. 
+ Kegiatan ilmiah mempunyai ciri-ciri, diantaranya sist ematik, terencana,   
+dan berdasar atas sejumlah data 
+4.   Dituangkan dalam bentuk laporan dengan format tertentu dan 
+dipertanggung jawabkan. 
+ 
+ 
+ 
+1.2. Tujuan 
+Skripsi bertujuan untuk melatih mahasiswa untuk melaksanakan penelitian 
+secarautuh, mul ai d ari m engenal d an m erumuskan masalah, m erumuskan 
+tujuan penelitian dan melaksanakan penelitian dan menulis laporan penelitian 
+dan mempertanggung jawabkan hasilnya secara akademik. Dengan kegiatan 
+skripsi diharapkan mahasiswa memiliki: 
+1.   Cara berpikir sistematik dengan logika yang benar 
+2.   Sikap mental rajin, jujur, konsisten, paham aturan, ulet dan sabar 
+3.   Kemampuan bekerja sama dan berkomunikasi 
+Dengan orientasi skripsi yang di arahkan kepada perancangan sistem 
+diharapkan mahasiswa mendapatkan latihan menerapkan teori praktik yang 
+telah didapatnya selama perkuliahan untuk menghasilkan produk Informatika 
+yang sesuai dengan kondisi nyata. 
+ 
+
+--- PAGE 4 ---
+4 
+ 
+ 
+ 
+1.3. Produk Informatika yang Dapat Dijadikan Objek Penelitian 
+Produk Informatika  yang dapat dijadikan objek penelitian mempunyai 
+kriteria sebagai berikut : 
+1.   Pengguna (User) 
+Sistem yang dikembangkan diharapkan dapat memanjakan user dari 
+segi tampilan dan/atau kemengertian user tentang aplikasi yang dibuat 
+2.   Jaringan: 
+a.   Kestabilan jaringan 
+Rancangan jaringan yang dibu at stabil dan dapat mengurangi 
+komunikasi data yang terlalu padat (aturan prioritas) 
+b.   Keamanan jaringan 
+Keamanan jaringan yang baik, sehingga komunikasi data dapat 
+tesalurkan dengan aman. Pekerjaan ini dapat dibuktikan   
+dengan simulasi 
+3.   Multimedia: 
+a.   Rancangan gambar 
+Rancangan gambar dibuat dengan menyebutkan raw image yang 
+diakhiri dengan berupa kompresi gambar JPEG 
+b.   Ergonomis 
+Rancangan multimedia yang dibuat memperhatikan segi 
+ergonomic, jika perlu dibuktikan dengan alat ukur simulasi yang 
+biasa digunakan 
+4.   Database (jika ada) 
+Memiliki database yang m emungkinkan untuk  mengimplementasikan 
+teori yang telah did apat s elama perkuliahan, seperti m emiliki t abel 
+transaksi. 
+5.   Manfaat untuk perusahaan 
+Memberikan manfaat bagi perusahaan dari s egi efisiensi atau 
+keunggulan kompetitif. 
+ 
+ 
+ 
+ 
+1.4. Kelayakan Skripsi 
+Hal-hal yang menjadi pertimbangan kelayakan skripsi antara lain: 
+1.   Keaslian 
+Tidak mengandung unsur plagiat, baik dari segi penjabaran ide, metode 
+pengembangan, maupun dasar teori. Pengutipan teori dengan cara yang 
+baik dan menunjukkan sumbernya tidak merupakan plagiat. 
+2.   Kemutakhiran 
+Kemutakhiran atau kebaruan berkaitan dengan ide dan teknologi yang 
+menjadi dasar pengembangan sistem informasi. Ide yang sama dengan 
+objek penelitian dan penyajian yang berbeda merupakan suatu hal yang 
+baru. 
+3.   Kandungan ilmiah 
+Tingkat keteraturan prosedur dan keandalan dan sumber data yang 
+digunakan s ebagai  dasar  p engembangan  sistem.  Keandalan  data  
+
+--- PAGE 5 ---
+5 
+ 
+perlu  ditunjukkan d engan   metode   p engumpulan   data,   seperti   
+responden   dan   rancangan kuesioner. 
+4.   Daya tarik permasalahan 
+Menunjukkan d aya tarik yang memadai, b aik dari segi ide  maupun 
+teknologi. 
+5.   Tingkat kesulitan/kompleksitas 
+Mempunyai kompleksitas permasalahan yang memadai.  
+
+--- PAGE 6 ---
+ 
+ 
+ 
+ 
+BAB II 
+PEMBIMBING DAN PROSES BIMBINGAN 
+ 
+ 
+2.1. Penetapan Pembimbing Skripsi 
+Dalam melaksanakan penelitian dan penyusunan laporan 
+penelitian yang dituangkan dalambentuk skripsi seorang mahasiswa 
+harus dibimbing oleh tim pembimbing dengan kriteria sebagai berikut: 
+1. Tim  pembimbing  beranggotakan  dua  orang  yang  terdiri  atas  
+Pembimbing  I  dan Pembimbing II: 
+2. Jumlah d an komposisi p embimbing dapat disesuaikan d engan 
+memperhatikan rasio antara m ahasiswa yang h arus dibimbing d engan 
+jumlah dosen yang memenuhi kriteria sebagai pembimbing. 
+ 
+2.1.1.   Persyaratan Pembimbing 
+1. Pembimbing adalah tenaga pengajar atau dosen tetap ITB Swadharma  
+yang berada di Jurusan atau Program studi Teknik Informatika. 
+2.  Pembimbing I serendah-rendahnya memiliki jabatan akademik Lektor 
+atau asisten ahli d engan m emiliki ij azah S-2 atau b ergelar  
+master/magister atau yang sederajat. 
+3.  Pembimbing II serendah-rendahnya memiliki m emiliki ij azah S-1 
+atau yang sederajat. 
+4. Apabila tenaga pengajar atau dosen tetap Program Studi  Teknik 
+Informatika yang memenuhi persyaratan seperti pada butir (2) dan (3) di 
+atas tidak ada atau jumlahnya tid ak mencukupi, maka P rogram studi 
+dapat  menunjuk tenaga pengajar/dosen tetap pada prodi lain atau dosen 
+tidak tetap ITB Swadharma. 
+ 
+2.1.2.   Penentuan Pembimbing 
+1. Penentuan penyesuaian pembimbing sesuai butir 2.1. dan 2.1.1 
+ditetapkan oleh Dekan fakultas teknologi ITB Swadharma   atas   usul   
+dari  Ketua Program Studi. 
+2. Dekan Fakultas Teknologi  ITB Swadharma menetapkan Pembimbing 
+Utama dan Pembimbing Pendamping atas usul Ketua Program Studi. 
+3. Ketua  Program  Studi  mempertimbangkan  usulan  mahasiswa  yang  
+diajukan melalui Panitia. 
+ 
+2.1.3.   Penggantian Pembimbing 
+Apabila terjadi halangan yang tetap, yaitu tidak dapat 
+melanjutkan fungsi bimbingan pada semester yang bersangkutan, 
+pembimbing d apat melapor kepada Ketua Program Studi. Selanjutnya 
+Ketua Program Studi mengusulkan kepada Dekan Fakultas Teknologi  
+ITB Swadharma  untuk s eterusnya akan m embuat SK p enggantian 
+pembimbing. 
+Apabila t erjadi masalah yang menghambat penyelesaian skripsi, maka 
+penyelesaian ditangani oleh Ketua Program Studi dan apabila belum bisa 
+diselesaikan, maka dilimp ahkan k epada Dekan Fakultas Teknologi  ITB 
+Swadharma. 
+ 
+
+--- PAGE 7 ---
+7 
+ 
+ 
+ 
+2.2. Tugas dan Kewajiban Pembimbing Skripsi 
+Tugas dan kewajiban Pembimbing Utama dan Pendamping adalah: 
+1. Membimbing mahasiswa dalam merumuskan proposal penelitian 
+yang dijadikan dasar pembuatan skripsi. 
+2. Mengarahkan m ahasiswa dalam p elaksanaan p enelitian d an 
+penulisan hasil penelitian. 
+3. Memonitor kegiatan mahasiswa dalam pelaksanaan penelitian dan 
+penyusunanskripsi. 
+4. Membimbing mahasiswa mempersiapkan di ri m engadapi sid ang 
+skripsi. 
+ 
+Gambaran kontribusi dosen dan mahasiswa dalam kegiatan skripsi. 
+ 
+ 
+Kegiatan Skripsi Kontribusi 
+Dosen Pembimbing Mahasiswa 
+Penentuan Topik dan Tema 20 - 100 % 0 - 80 % 
+Perencanaan Penelitian 20 - 80 % 20 - 80 % 
+Pelaksanaan Penelitian 0 - 30 % 70 - 100% 
+Penyusunan Laporan 10 - 30 % 70 - 90 % 
+Presentasi 20 - 30 % 70 - 80 % 
+ 
+ 
+ 
+2.3. Proses Bimbingan Skripsi 
+Tim pembimbing diharapkan dapat secara terus menerus melakukan 
+pembimbingan dengan menggunakan Kartu Bimbingan Skripsi. Hal ini 
+dilakukan, agar tim pembimbing d apat m engetahui perkembangan dan 
+kemajuan mahasiswa bimbing annya secara m endalam dalam proses 
+penelitian dan penyusunan skripsi. 
+ 
+Adapun  langkah-langkah  yang  perlu  dilakukan  oleh  tim 
+pembimbing  dan  mahasiswa bimbingan adalah sebagai berikut : 
+ 
+1. Penelitian hanya dapat dijalankan apabila Proposal Skripsi telah 
+disetujui oleh kedua Pembimbing. 
+2. Mahasiswa wajib m embawa Kartu Bimbingan p ada saat k egiatan 
+bimbingan. 
+3. Pembimbing h anya dapat membimbing m ahasiswa, apabila Kartu 
+Bimbingan telah distempel nama Pembimbing dan lunas pembiayaan. 
+4. Kegiatan bimbing an d engan satu Pembimbing maksimal dua  
+kali dalam seminggu. 
+5. Bimbingan dilakukan per bab, satu pertemuan maksimum membahas 2 
+bab. 
+6. Untuk dapat sidang, kegiatan bimbingan dengan masing-masing 
+Pembimbing minimum lima kali. 
+7. Pembimbing dapat menolak mahasiswa bimbingan apabila mahasiswa 
+yang bersangkutan tidak   membawa   Kartu   Bimbingan,   di   luar   
+waktu   yang   t elah   dijadwalkan   oleh Pembimbing, atau 
+
+--- PAGE 8 ---
+8 
+ 
+ 
+pembimbing s edang m elakukan pekerjaan/kegiatan yang tid ak dapat 
+ditinggalkan. 
+8. Bagi skripsi yang tid ak dapat diselesaikan dalam satu semester, 
+dimana skripsi dip rogramkan,   m ahasiswa harus memprogramkan 
+kembali dengan cara mencantumkan skripsi p ada KRS semester 
+berikutnya. 
+9. Perpanjangan skripsi dengan judul yang sama dan Pembimbing yang 
+sama hanya dapat diperbolehkan dengan syarat: 
+a. Mahasiswa mengusulkan kembali Pembimbing yang sama.  
+b. Proses bimbingan telah memasuki Bab IV. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 9 ---
+9 
+ 
+ 
+BAB III  
+SISTEMATIKA PENULISAN 
+ 
+3.1.   Sistematika Penulisan Proposal Skripsi 
+ 
+1.   Halaman Sampul 
+Halaman  Sampul  memuat:  Judul  Skripsi  (tentatif),  Program  Studi,  
+Lambang  ITB  Swadharma, Nama dan NIM, Institusi Penyelenggara, dan 
+Tahun Pengajuan Proposal Skripsi (contoh pada lampiran, L-1). 
+Lembar Persetujuan 
+Halaman ini menunjukkan bahwa naskah proposal skripsi telah disetujui 
+oleh Pembimbing untuk dilanjutkan ke tahap penelitian. Halaman ini 
+memuat: Judul skripsi, Nama dan NIM, Nama Pembimbing 1 (satu) dan 2 
+(dua), dan Tanggal persetujuan. (contoh pada lampiran, L- 2). 
+2.   Daftar Isi 
+Berisi  judul  judul  bab  dan  sub  bab  beserta  halamannya  (contoh  pada  
+lampiran,  L-3). 
+Halaman untuk poin 1 dan 2 di atas diberi nomor halaman dengan 
+menggunakan angka romawi, p eletakkannya di b awah d an di t engah 
+halaman. 
+3.   Bab I. Pendahuluan  
+a.   Latar Belakang 
+Pada  bagian  ini  diuraikan  argumentasi  atau  justifikasi  perlunya  
+masalah  ini  diteliti. 
+Disinggung pula  penelitian sejenis yang p ernah dilakukan serta 
+perbedaannnya dengan penelitian sekarang. Uraian dimulai dari hal-hal 
+yang b ersifat umum menuju hal yang b erhubungan dengan topik  yang 
+dibahas. 
+b.  Perumusan Masalahan 
+Pada  bagian  ini  menunjukkan  inti  masalah  yang  hendak  diteliti.  
+Biasanya  masalah dirumuskan dalam sebuah kalimat pertanyaan. 
+c.   Tujuan dan Kegunaan Hasil Penelitian 
+Tujuan  penelitian  berkenaan  dengan  tujuan  yang  hendak  dicapai  
+dengan  melakukan penelitian. Tujuan penelitian berkaitan erat dengan 
+perumusan masalah. 
+Kegunaan hasil penelitian merupakan dampak perbaikan yang dapat 
+diperoleh setelah tercapainya tujuan. 
+d.  Batasan Sistem 
+(1)  Cakupan modul 
+Menerangkan modul apa saja yang dapat terbentuk dari rancangan 
+yang akan dibuat 
+(2)  Cakupan user 
+Menerangkan si apa saja yang dapat m engoperasikan rancangan 
+yang akan dibuat. 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 10 ---
+10 
+ 
+ 
+4.   Bab II. Tinjauan Pustaka 
+a.   Tinjauan Teoritis 
+Pada bagian ini diuraikan teori-teori yang b erkaitan erat dengan topik 
+bahasan penelitian. T eori yang dik aji m enyangkut sist em yang akan 
+dikembangkan. Sebagai contoh, untuk usul an skripsi dengan tema 
+kemanan jaringan hanya menyajikan teori tentang sistem jaringan. Target 
+yang didapat dari tinjauan teori ini adalah batasan sistem yang akan 
+dikembangkan berdasarka teori yang ada. 
+b.  Studi Penelitian Terdahulu 
+Pada bagian ini dibahas hasil-hasil penelitian tentang pengembangan 
+sistem yang relevan dengan sistem yang diteliti. Hasil penelitian 
+terdahulu yang dikaji minimum 2 (dua) penelitian dengan tahun 
+publikasi tidak lebih lama dari 5 tahun yang lalu (misalnya untuk tahun 
+penyusunan skripsi 2011, hasil penelitian yang di kaji tahun 2006 atau 
+yang lebih muda). 
+c.   Persyaratan Sistem Konseptual 
+Bagian ini berisi persyaratan sistem  yang akan  dikembangkan 
+berdasarkan teori dan penyempurnaan d ari studi penelitian t erdahulu. 
+Persyaratan akan menjadi asumsi bagi perancangan sistem yang akan 
+dibahas, yaitu berkaitan dengan output atau informasi yang  akan  
+dihasilkan  dan  batasan-batasan  teoritis  yang  akan  menjadi  dasar  
+studi kelayakan sistem secara hukum. 
+ 
+5.   Bab III. Metode Penelitian 
+Bahasan   ini   difokuskan   kepada   metode   pengumpulan   data.   Untuk   
+skripsi   dengan pembahasan mengarah  kepada pengembangan  sistem  
+dengan  pola tailor-made  (memiliki obj ek perusahaan) umumnya akan 
+menggunakan metode studi lapangan, dengan alternatif t eknik  
+pengumpulan  data  observasi,  wawancara,  dan/atau  kuesioner.  
+Sedangkan  untuk p engembangan sist em t anpa objek p erusahaan, metode 
+yang digunakan adalah studi pust aka. U raian tentang metode studi 
+lapangan harus menjelaskan teknik pengumpulan data yang di gunakan,   
+objek   (unit   kerja)   dan/atau   jabatan   responden   dan   bagaimana   
+cara m elaksanakannya. Untuk observasi perlu dijelaskan apa yang 
+diobservasi dan hasil observasi yang ingin didapat, untuk wawancara perlu 
+dilengkapi dengan daftar pertanyaan (question list ),  sedangkan  untuk  
+kuesioner  perlu  dilengkapi  dengan  form  kueisoner  yang  akan 
+digunakan. 
+Pada  studi  pustaka  p erlu  dijelaskan  sumber  pustaka  yang  akan  
+digunakan  dan  target in formasi apa yang i ngin didapat dari pustaka 
+tersebut. Sumber pustaka sangat dianjurkan b erupa jurnal h asil p enelitian 
+dan/atau deskripsi produk sistem sejenis. 
+ 
+6.   Rencana Kegiatan 
+Rencana kegiatan dituangkan dalam bentuk gantt chart. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 11 ---
+11 
+ 
+ 
+3.2.   Sistematika Penulisan Skripsi 
+Format dari penulisan skripsi adalah terdiri dari tiga bagian yaitu 
+bagian awal, bagian isi, dan bagian akhir. 
+ 
+1.   Bagian Awal 
+Pada  bagian  ini  halaman  diberi  nomor  halaman  dengan  menggunakan  
+angka  romawi, 
+peletakkannya di bawah dan di tengah halaman. 
+a. Halaman Sampul 
+Halaman Sampul memuat: Judul Skripsi, Maksud Skripsi (diajukan 
+sebagai salah satu 
+syarat   mendapatkan   gelar   Sarjana   Strata   I),   Program   Studi,   
+Lambang   ITB Swadharma, Nama dan NIM, Institusi Penyelenggara, 
+dan Tahun Penyelesaian Skripsi. Di cetak pada sampul luar buku karya 
+tulis (contoh terlampir, L-4). 
+b. Halaman Judul 
+Halaman ini b erisi s ama dengan h alaman s ampul, t etapi diketik 
+diatas kertas putih. 
+Halaman Persetujuan Dosen Pembimbing 
+Halaman ini menunjukkan bahwa naskah skripsi telah disetujui oleh 
+Pembimbing untuk 
+diajukan pada Sidang Skripsi. Halaman ini memuat: Judul skripsi, Nama 
+dan NIM, Nama 
+Pembimbing 1 (satu) dan 2 (dua), d an Tanggal p engesahan. 
+(contoh terlampir, L-5) 
+c. Halaman Pengesahan 
+Halaman ini menunjukkan bahwa naskah skripsi telah disetujui oleh 
+Pembimbing sebagai 
+hasil final skripsi. Halaman ini memuat: Judul skripsi, Nama dan NIM, 
+Tanggal Sidang, n ama tim penguji, d an Pengesahan Ketua Jurusan. 
+(contoh terlampir, L-6) 
+d. Halaman Pernyataan Keaslian Karya Tulis 
+Halaman ini memuat pernyataan penulis, yang menerangkan bahwa 
+karya tulis yang 
+dibuat bukan hasil plagiat atau dengan kata lain karya tulis adalah karya 
+asli dari penulis. Kemudian agar kekuatan hukumnya menjadi sempurna, 
+penulis wajib menandatangani Lembar Pernyataan Keaslian Karya Tulis 
+di atas materai Rp. 6.000,- (enam ribu rupiah). (contoh pada lampiran, L-
+7) 
+e. Halaman Motto dan Persembahan (bila ada). (contoh terlampir, L-8) 
+f. Halaman Kata Pengantar 
+Kata pengantar berisi antara lain ucapan syukur kepada Tuhan YME, 
+objek dan waktu 
+penelitian, dan ucapan terima kasih pada pihak-pihak yang di anggap 
+sangat berjasa dan berhubungan langsung dalam penyusunan skripsi 
+dengan urutan : Rektor ITB Swadharma, Ketua Jurusan/Program Studi, 
+pembimbing, p enasehat akademik, p ersonil di t empat p enelitian, d an 
+pihak-pihak lainnya. (contoh terlampir, L-9) 
+ 
+
+--- PAGE 12 ---
+12 
+ 
+ 
+g. Halaman Daftar Isi 
+Berisi judul judul bab dan sub bab beserta halaman dimana bab atau 
+subbab diletakkan (contoh terlampir, L-10). 
+h. Halaman Daftar Tabel 
+Berisi judul judul tabel beserta halaman dimana tabel diletakkan (contoh 
+terlampir, L-11). 
+Daftar tabel dibu at h anya jika diperlukan atau jika  ada tabel t abel di 
+dalamnya 
+i. Halaman Daftar Gambar 
+Berisi judul judul gambar beserta halaman dimana gambar diletakkan 
+(contoh terlampir, 
+L-12). Daftar gambar dibuat hanya jika diperlukan atau  jika  ada 
+gambar gambar di dalamnya 
+j. Halaman Daftar Lampiran 
+Berisi  judul  judul  lampiran  beserta  halaman  dimana  lampiran  
+diletakkan,  biasanya 
+lampiran  diletakkan  di  h alaman  khusus  l ampiran  (contoh  terlampir,  
+L-13).  Daftar l ampiran dibu at h anya jika diperlukan atau jika  ada 
+lampiran lapiran di dalamnya 
+k. Arti Lambang dan Singkatan (bila diperlukan) 
+Lambang dan singkatan yang dijelaskan terutama berkaitan dengan 
+notasi-notasi peda toos perancangan sistem informasi. (contoh terlampir, 
+L-14) 
+l. Abstrak 
+Merupakan  uraian  singkat  tetapi  lengkap  mengenai  masalah  atau  
+tujuan  penelitian, metode penelitian, dan hasil penelitian. Abstrak 
+diketik 1 spasi, ditulis d alam Bahasa Indonesia diu raikan dalam 1 
+halaman yang terdiri atas 200-250 kata dan diberi kata kunci maksimal 5 
+kata kunci, jumlah halaman, dan tahun pustaka. (contoh terlampir, L-15) 
+ 
+2.   Bagian Utama 
+a.   Bab I Pendahuluan 
+Bab  I  memuat  Latar  Belakang,  Perumusan  Masalah,  Tujuan  dan  
+Kegunaan  Hasil Penelitian, dan Metode Penelitian.  
+(1) Latar Belakang 
+Pada b agian ini diuraikan argumentasi atau justifikasi perlunya 
+masalah ini diteliti. Dising gung  pula  penelitian  sejenis  yang  
+pernah  dilakukan  serta  perbedaannnya dengan penelitian sekarang. 
+Uraian dimulai dari hal-hal yang b ersifat umum menuju h al yang 
+berhubungan dengan topik yang dibahas. 
+(2) Perumusan Masalah 
+Pada bagian ini menunjukkan inti masalah yang hendak diteliti. 
+Biasanya masalah dirumuskan dalam sebuah kalimat pertanyaan. 
+(3) Tujuan dan Kegunaan Hasil Penelitian 
+Tujuan p enelitian b erkenaan d engan tuju an yang h endak di capai 
+dengan melakukan p enelitian. Tujuan p enelitian b erkaitan erat 
+dengan perumusan masalah. 
+
+--- PAGE 13 ---
+13 
+ 
+ 
+Kegunaan hasil penelitian merupakan dampak perbaikan yang dapat 
+diperoleh setelah tercapainya tujuan. 
+(4) Metode Penelitian 
+Bahasan ini difokuskan kepada m etode p engmpulan data. Untuk 
+skripsi dengan pembahasan mengarah kepada pengembangan sistem 
+dengan pola tailor-made (memiliki objek perusahaan) umumnya akan 
+menggunakan metode studi  lapangan, d engan alternatif teknik 
+pengumpulan data ob servasi, wawancara, dan/atau kuesioner. 
+Sedangkan untuk p engembangan sist em t anpa objek p erusahaan, 
+metode yang digunakan adalah studi pustaka. 
+Uraian tentang m etode studi lapangan harus menjelaskan teknik 
+pengumpulan data yang d igunakan, objek (unit kerja) dan/atau 
+jabatan responden dan bagaimana cara m elaksanakannya. Unt uk 
+obseravsi perlu dij elaskan apa yang diobservasi d an hasil obs ervasi 
+yang ingin didapat, untuk wawancara perlu dilengkapi dengan daftar 
+pertanyaar (question list), sedangkan untuk kuesioner p erlu 
+dilengkapi denga form kueisoner yang akan digunakan. 
+Pada studi pustaka perlu dijelaskan sumber pustaka yang akan 
+digunakan dan target informasi apa yang ingin didapat dari pustaka 
+tersebut. Sumber pustaka sangat di anjurkan b erupa jurnal hasil 
+penelitian dan/atau deskripsi produk sistem sejenis. 
+ 
+b.  Bab II Landasan Teori 
+Dalam bab ini diuraikan tinjauan teoritis, studi penelitian terdahulu, 
+dan persyaratan 
+sistem konseptual. 
+(1) Tinjauan Teoritis 
+Pada bagian ini diuraikan teori-teori yang berkaitan erat dengan topik 
+bahasan penelitian. Teori yang dikaji menyangkut sist em informasi, 
+perancangan sist em in formasi, peralatan perancangan sistem 
+informasi, dan materi yang b erkaitan dengan subjek sistem yang 
+akan dikembangkan. Jumlah literatur yang diacu minimum 15 (lima 
+belas) dengan tahun penerbitan tidak lebih lama d ari 10 tahun 
+(misalnya untuk t ahun  p enyusunan  sk ripsi  202 1,  lit eratur  yang  
+diacu  tahun  2011  atau  yang lebih muda). Penjelasan rinci tentang 
+sumber literatur dan cara kutipnya disajikan pada Bab V. 
+(2) Studi Penelitian Terdahulu 
+Pada bagian ini dibahas hasil-hasil penelitian tentang pengembangan 
+sistem yang relevan dengan sistem yang dit eliti. Hasil penelitian 
+terdahulu yang di kaji minimum 2 (dua) penelitian  d engan  tahun  
+publikasi  tid ak  l ebih  l ama dari  5  tahun  yang  l alu (misalnya 
+untuk tahun penyusunan skripsi 2021, hasil penelitian yang dikaji 
+tahun 2016 atau yang lebih muda). 
+(3) Persyaratan Sistem Konseptual 
+Bagian ini berisi persyaratan sistem yang akan dikembangkan 
+berdasarkan teori dan penyempurnaan dari studi penelitian terdahulu. 
+Persyaratan akan menjadi asumsi bagi perancangan sistem yang akan 
+dibahas, yaitu b erkaitan d engan output  atau informasi yang akan 
+
+--- PAGE 14 ---
+14 
+ 
+ 
+dihasilkan dan batasan-batasan teoritis yang akan menjadi  d asar 
+studi kelayakan sistem secara hukum. 
+ 
+c.   Bab III. Sistem Berjalan/Objek Penelitian 
+A.  Objek Penelitian difokuskan pada Perusahaan 
+Bab ini berisi antara lain: 
+1. Tinjauan Umum perusahaan, menguraikan tentang: 
+a.   Sejarah Singkat dan Kegiatan Bisnis Perusahaan 
+Bagian ini berisi penjelasan umum tentang perusahaan yang 
+menjadi objek p enelitian yang m eliputi sejarah, kegiatan 
+bisnis, dan penjelasan umum lain yang dianggap perlu. 
+b.   Struktur Organisasi Perusahaan 
+Menggambarkan struktur organisasi perusahaan atau bagian 
+perusahaan yang m enjadi  objek  penelitian.  Hal  penting  
+untuk  digambarkan  adalah  posisi sist em in formasi yang 
+akan diteliti dan unit-unit organisasi yang terkait. 
+c.   Wewenang dan Tanggung Jawab 
+Berisi penjelasan tentang wewenang d an tanggung j awab 
+masing-masing elemen organisasi sesuai struktur organisasi. 
+2. Sistem Berjalan 
+a.   Tinjauan Umum 
+Menguraikan tentang gambaran umum sistem in formasi 
+yang b erjalan (e xcisting  system)  yang  dijadikan  objek  
+penelitian  dan  uraian  singkat p roses p elaksanaan sist em 
+informasi tersebut. 
+b.   Batasan Sistem 
+(1) Konsentrasi  Multimedia 
+1.   Deskripsi Sistem 
+Menjelaskan sistem informasi yang berjalan secara 
+menyeluruh, yaitu p roses-proses yang di laksanakan, 
+input, output, pengguna, dan simp anan d ata. 
+Dianjurkan d eskripsi sist em m enggunakan Work 
+Flow Diagram (gunakan aplikasi Visio)  dan atau 
+Diagram Arus Dokumen. 
+2.   Deskripsi Database (bila sistem berjalan telah 
+terkomputerisasi dan memiliki database dinamik) 
+Menjelaskan seluruh tabel database yang t erdapat 
+pada sistem sesuai dengan Diagram Level 0 pada 
+DFD gambaran sistem. Masing-masing t abel 
+database input digambarkan dengan Kamus Data. 
+(2) Konsentrasi jaringan 
+Menjelaskan seluruh jarigan yang ada, berikut dengan 
+cara kerjanya, gunakan gambar (Network Diagram) 
+untuk menjelaskan seluruh sistem n etworking yang 
+serdang berjalan. 
+ 
+ 
+ 
+
+--- PAGE 15 ---
+15 
+ 
+ 
+c.   Permasalahan Sistem Secara Umum 
+Permasalahan sistem yang dit eliti diuraikan dengan 
+menggunakan prosedur yang t elah dibakukan, alternatif 
+metode yang dianjurkan adalah sebagai berikut: 
+(1) Frame Work PIECES (Performance, Information, 
+Economics, Control, Efficiency, dan Service), 
+(2) SWOT (Strength, Weakness, Oppo rtunity, dan T hreats), 
+atau 
+(3) Karakteristik   Informasi   (Relevansi,   Keakuratan,   
+Ketepatan   Waktu, Ekonomi, Efisiensi, Reliabilitas, dan 
+Kegunaan). 
+B.  Objek Penelitian difokuskan bukan pada Perusahaan 
+Bab ini berisi antara lain: 
+1. Tinjauan Umum Objek Penelitian (OP), menguraikan tentang: 
+a.   Behaviour atau tingkah laku dari Objek Penelitiannya 
+Bagian ini berisi penjelasan umum tentang objek penelitian, 
+yang meliputi respon apa yang dapat mempengaruhi tingkah 
+lakunya (bagaimana OP tersebut bekerja), apa kelebihan dan 
+kekurangan dari OP, serta p enjelasan umum l ain yang 
+dianggap perlu. 
+b.   Struktur/Kategori dari OP 
+Menggambarkan struktur/kategori dari OP. Bagian ini berisi 
+hal penting dari OP  yang  akan  diteliti.  Menunjukkan  
+pada  kategori  mana  OP  yang  akan dibuat, struktur apa 
+yang digunakan dalam membuat penelitian tersebut sehingga 
+penulis akan jauh lebih mudah dalam penanganan atau solusi 
+perancangannya. 
+ 
+2. Permasalahan Sistem Secara Umum 
+Permasalahan sistem yang dit eliti diuraikan dengan 
+menggunakan prosedur yang t elah dibakukan, alternatif 
+metode yang dianjurkan adalah sebagai berikut: 
+(1)  Frame Work PIECES (Performance, Information, 
+Economics, Control, Efficiency, dan Service), 
+(2)  SWOT (Strength, Weakness, Opportunity, dan Threats), 
+atau 
+(3)  Karakteristik   Informasi   (Relevansi,   Keakuratan,   
+Ketepatan   Waktu, Ekonomi, Efisiensi, Reliabilitas, 
+dan Kegunaan). 
+ 
+ 
+d.  Bab IV Perancangan Dan Implementasi Sistem 
+A.  Pendekatan Terstruktur 
+1.   Analisis Kebutuhan Informasi/Jaringan 
+Menguraikan output/ informasi yang di perlukan dan akan 
+disajikan oleh aplikasi yang dibu at. Misalnya laporan-laporan 
+atau output lainnya berdasarkan hasil p engumpulan data dari 
+
+--- PAGE 16 ---
+16 
+ 
+ 
+perusahaan atau objek penelitian. Atau jika tulis an berupa 
+rancangan  j aringan  m aka harus  diu raikan  k ebutuhan  
+kebutuhan  dari  OP  akan jaringan Komputer. 
+ 
+2.   Deskripsi Sistem Usulan 
+a.   Deskripsi Sistem Menyeluruh/Global (overview) 
+Rancangan sistem yang diusulkan digambarkan dalam bentuk 
+diagram. Kons entrasi Multim edia dapat m enggunakan 
+Conceptual Web Site, Story Board Diagram, atau Flow 
+Chart. Sedang untuk  konsentrasi Jaringan dapat 
+menggunakan Detailed Network Di agram, O ffice Layout, 
+Active Directory, Rack Di agram, atau Basic Network 
+Diagram. 
+b.   Fungsi/Aktivitas Sistem 
+Menggambarkan interaksi antara p engguna d engan sistem. 
+Gambaran ini dis ajikan d engan Di agram Use Case dan 
+Activity Diagram. 
+c.   Spesifikasi Proses 
+Spesifikasi  p roses  digambarkan  untuk  m enjelaskan  
+bagaimana sistem  atau p roses m enjalankan k egiatannya. 
+Gambaran ini  disajikan d engan Flowchart atau Di agram 
+Aktivitas (Activity Diagram). 
+d.   Rancangan Database (jika diperlukan) 
+Pada b agian ini dijelaskan secara detil rancangan-rancangan 
+basis data. Rancangan ini memuat: 
+a. Entity Relationship Diagram (ERD) 
+b. Transformasi dari E RD ke Logical Record Structure 
+(LRS) 
+c. Logical Record Structure  
+d. Normalisasi 
+e. Spesifikasi Basis Data 
+f. Rancangan Kode 
+g. Basis d ata yang digunakan untuk di sh are (khusus 
+konsentrasi Jaringan) 
+3.   Multimedia:  
+a.   Rancangan Story Board 
+Pada  bagian  dijelaskan  secara  detil  rancangan     d ari  
+actor  actor  yang di gunakan. Gunakan Macro media untuk  
+menjelaskan bagian ini. Sebutkan s ecara berurutan siapa 
+(actor) yang akan keluar pada waktu yang telah ditentukan.  
+Minimum  ada  5  aktor  yang  t erlibat  di  dalamnya  dan  
+masing m asing m ewakili dari multimedia (text, video, 
+animasi, Music, voice, dan image) 
+ 
+
+--- PAGE 17 ---
+17 
+ 
+ 
+b.   Spesifikasi Modul 
+Pembuatan flowchart dengan mengacu kepada modul-modul 
+yang terdapat pada bagan terstruktur. 
+c.   Rancangan Tampilan 
+i.  Struktur Tampilan 
+Berisi struktur hirarki dari semua tampilan yang dirancang  
+ii. Rancangan Layar 
+Berisi semua rancangan layar yang dibuat 
+ 
+4.   Jaringan: 
+a.   Rancangan Pemetaan Jaringan 
+Bagian ini menjelaskan secara detil dimana sebuah hardware 
+yang terhubung d engan j aringan dil etakkan di  dalam ruang. 
+Pemetaan h arus disertakan dengan ukuran sebenarnya dari 
+peta gedung tersebut. Jika gedung lebih dari satu atau gedung 
+merupakan gedung bertingkat, maka harus digambarkan 
+per lantai atau per gedung. 
+b.  Rancangan Hardware & Software 
+Menjelaskan   s ecara  detil   h ardware  dan   so ftware   apa   
+yang  digunakan kaitannya dengan jaringan yang dibu at. 
+Buat alasan mengapa hw/sw tersebut digunakan. 
+c.   Rancangan IP Address 
+Menjelaskan secara detil IP Address yang digunakan, kaitkan 
+dengan peng- class-an yang b erlaku pada IP Address serta 
+sebutkan pula subnetting yang digunakan beserta alasannya 
+d.  Rancangan Routing 
+Menjelaskan secara rinci proses pemilihan j alur yang akan 
+dilalui oleh t raffic d ata p ada j aringan komunikasi data. 
+Gunakan gambar untuk menjelaskan Routing tersebut 
+e.   Rancangan Security 
+Menjelaskan rancangan security yang digunakan, buat trustee 
+directory agar tampak jelas penggambaran rancangan security-
+nya. Sebutkan software apa saja yang mendukung/digunakan 
+pada rancangan jaringan  yang dibuat 
+f.   Rancangan Access List 
+Menjelaskan tentang pengelompokkan packet data 
+berdasarkan kategori dim ana k ategori tersebut ditolak atau 
+diizinkan, sehingga access list menjadi tool pilih an untuk 
+mengatur IP Traffic dan Filtering IP 
+ 
+ 
+ 
+
+--- PAGE 18 ---
+18 
+ 
+ 
+5.   Rancangan Implementasi 
+a.   Rencana (Analisis) Kebutuhan 
+(1) Analisis Kebutuhan Perangkat Lunak 
+Menguraikan k ebutuhan perangkat lunak yang akan 
+digunakan d alam p engimplementasian aplikasi. U raian ini  
+dilengkapi dasar pemilihan perangkat lunak tersebut. 
+(2) Analisis Kebutuhan Perangkat Keras 
+Menguraikan   kebutuhan   p erangkat   keras   un tuk   
+pengimplementasian sist em  yang  diusulkan.  Kebutuhan  
+perangkat  keras  yang  dij elaskan m eliputi perangkat keras 
+yang dibutuhkan pada saat pembuatan program dan pada saat 
+program di implementasikan pada objek penelitian. Hal ini 
+terutama berkaitan  d engan spesifikasi komputer  yang 
+digunakan untuk membuat program serta sp esifikasi dan 
+jumlah komputer untuk impl ementasi (spesifikasi minimal 
+yang dibutu hkan untuk menjalankan p rogram berdasarkan 
+rekomendasi dari perangkat lunak yang akan di gunakan).  
+Spesifikasi  ini  menyangkut  prosesor,  RAM,  dan  harddisk, 
+serta Grafic Adaptor apabila menggunakan aplikasi grafis di 
+atas standar. 
+(3) Analisis Kebutuhan Pengguna 
+Menguraikan kebutuhan akan pengguna untuk  
+mengoperasikan program aplikasi yang sudah dibuat. Seperti 
+administrator dan operator serta pihak yang terlibat pada saat 
+implementasi. 
+ 
+b.  Analisis Kelayakan Sistem 
+(1) Kelayakan Teknologi 
+Menjelaskan bahwa secara teknologi sistem yang diusulk an 
+layak untuk dit erapkan. Dalam hal ini digambarkan bahwa 
+perusahaan obj ek penelitian m emungkinkan untuk 
+menyediakan hardware, software dan prasarana p endukung 
+lainnya. 
+(2) Kelayakan Operasional 
+Menjelaskan bahwa p erusahaan objek penelitian 
+memungkinkan untuk m enyediakan kesiapan sumber d aya 
+manusia jika sistem benar-benar di implementasikan. 
+(3) Kelayakan Hukum 
+Menjelaskan  bahwa  secara  hukum  d an/atau  t eori  yang 
+berlaku,  sistem yang diusulk an l ayak untuk dit erapkan, 
+terutama   berkaitan dengan prosedur menghasilkan informasi 
+dan kandungan informasi yang dihasilkan. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 19 ---
+19 
+ 
+ 
+B.  Orientasi Objek (hanya untuk konsentrasi Multimedia) 
+1.   Functional Design (Rancangan Fungsional) 
+Rancangan fungsional digunakan untuk m engkomunikasikan 
+rancangan system k epada user atau stakeholder. Rancangan 
+fungsional yang dipersyaratkan menggunakan Diagram Aktivitas 
+(Activity Diagram) dan Diagram Use Case (Use Case Diagram). 
+a.   Activity diagram 
+Diagram ini digunakan untuk menggambarkan menjelaskan 
+business process, procedural logic, dan work flow. 
+b.   Use case diagram 
+Diagram  ini  digunakan  untuk  menggambarkan  interaksi  
+antara  pengguna dengan sistem.  
+2.   Structural Design (Rancangan Struktural) 
+Rancangan ini m enggambarkan sistem d engan menunjukkan 
+kelas-kelasnya dan hubungan m ereka. Penggambaran 
+menggunakan Di agram Class (Class D iagram). Di agram ini 
+menggambarkan hubu ngan apa yang t erjadi, bukan apa  yang 
+terjadi jika mereka berhubungan.  
+3.   Behavioral Design 
+Rancangan behavioral menggambarkan interaksi user dengan 
+komputer d an b agaimana proses kerja sistem aplikasi yang 
+dibuat. Rancangan ini digambarkan dengan m enggunakan 
+Sequence Diagram dan/atau State Chart Diagram. 
+a.   Sequence diagram 
+Diagram sequence merupakan salah satu diagram interaksi 
+yang menjelaskan bagaimana suatu operasi itu dilakukan.   
+b .  State chart diagram 
+Diagram  State  Chart  menunjukan  kemungkinan  dari  
+keadaan  obyek  dan p roses yang menyebabkan p erubahan 
+pada keadaannya. 
+4.   Rancangan Basis Data (jika diperlukan) 
+Pada   bagian   ini   dijelaskan   secara   detil   rancangan-
+rancangan   basis   data. Rancangan ini memuat: 
+a.   Entity Relationship Diagram (ERD) 
+b.   Transformasi dari ERD ke Logical Record Structure (LRS) 
+c.   Logical Record Structure d.   Normalisasi 
+e.   Spesifikasi Basis Data 
+f.   Rancangan Kode 
+5.   Rancangan Story Board 
+Pada bagian dijelaskan secara detil rancangan  dari actor actor 
+yang digun akan. Gun akan Macro media untuk menjelaskan 
+bagian ini. Sebutkan secara b erurutan si apa (actor) yang akan 
+keluar pada waktu yang telah ditentukan. Minimum ada 5 aktor 
+
+--- PAGE 20 ---
+20 
+ 
+ 
+yang terlibat di dalamnya dan masing masing mewakili dari 
+multimedia (text, video, animasi, musik, voice, dan image) 
+6.   Rancangan Tampilan 
+a.   Struktur Tampilan 
+Berisi struktur hirarki dari semua tampilan yang dirancang  
+b.   Rancangan Layar 
+Berisi semua rancangan layar yang dibuat 
+7.   Rancangan Implementasi 
+a.   Rencana (Analisis) Kebutuhan 
+(1) Analisis Kebutuhan Perangkat Lunak 
+Menguraikan k ebutuhan perangkat lunak yang akan 
+digunakan dalam pengimplementasian aplikasi. Uraian ini 
+dilengkapi dasar pemilihan perangkat lunak tersebut. 
+(2) Analisis Kebutuhan Perangkat Keras 
+Menguraikan   kebutuhan   p erangkat   keras   un tuk   
+pengimplementasian sistem  yang  diusulkan.  Kebutuhan  
+perangkat  keras  yang  dij elaskan meliputi perangkat 
+keras yang dibutuhkan pada saat pembuatan program dan 
+pada saat program di implementasikan pada objek 
+penelitian. Hal ini terutama berkaitan  dengan spesifikasi 
+komputer  yang digunakan untuk m embuat program 
+serta sp esifikasi dan jumlah komputer untuk 
+implementasi (spesifikasi minimal yang dibutuhkan untuk 
+menjalankan p rogram berdasarkan rekomendasi dari 
+perangkat lunak yang akan di gunakan).  Spesifikasi  ini  
+menyangkut  prosesor,  RAM,  dan  harddisk, serta VGA 
+apabila menggunakan apliaksi grafis di atas standar. 
+(3) Analisis Kebutuhan Pengguna 
+Menguraikan kebutuhan akan pengguna untuk 
+mengoperasikan program aplikasi yang sudah dibuat. 
+Seperti administrator dan operator serta pihak yang terlibat 
+pada saat implementasi. 
+b.   Analisis Kelayakan Sistem 
+(1) Kelayakan Teknologi 
+Menjelaskan bahwa secara teknologi sistem yang 
+diusulkan layak untuk dit erapkan. Dalam hal ini 
+digambarkan bahwa perusahaan obj ek penelitian 
+memungkinkan untuk menyediakan hardware, software 
+dan prasarana pendukung lainnya. 
+(2) Kelayakan Operasional 
+Menjelaskan bahwa p erusahaan objek penelitian 
+memungkinkan untuk m enyediakan kesiapan sumber 
+daya manusia ji ka sist em benar-benar di 
+implementasikan. 
+(3) Kelayakan Hukum 
+Menjelaskan  bahwa  secara  hukum  dan/atau  teori  yang 
+berlaku,  sistem yang diusulk an l ayak untuk dit erapkan, 
+
+--- PAGE 21 ---
+21 
+ 
+ 
+terutama   berkaitan dengan p rosedur m enghasilkan 
+informasi dan kandungan informasi yang dihasilkan. 
+ 
+ 
+ 
+c. Bab V Kesimpulan dan Saran 
+1. Kesimpulan 
+Kesimpulan merupakan ringkasan dari pembahasan yang dis ajikan 
+pada pembahasan skripsi. K esimpulan analisis d an p erancangan 
+sistem berisi hasil analisis d an p erancangan yang dibu at. Penulis 
+tidak diperkenankan membuat kesimpulan yang tidak terdapat dalam 
+hasil pembahasan. Kesimpulan merupakan gambaran tujuan yang 
+telah tercapai dalam penelitian. 
+ 
+2. Saran 
+Saran merupakan manifestasi dari penulis untuk dil aksanakan 
+(sesuatu yang belum ditempuh dan layak untuk dilaksanakan). Saran 
+dibuat berdasarkan hasil temuan penelitian yang dimaksudkan untuk 
+mengembangkan, menindaklanjuti atau menerapkan hasil penelitian 
+baik bersifat teoritis dan praktis. 
+ 
+3.   Bagian Akhir 
+a.   Daftar Pustaka 
+Daftar pustaka memuat semua pustaka yang dijadikan acuan dalam 
+penulisan skripsi yaitu semua sumber yang dikutip. Daftar ini 
+berguna untuk membantu pembaca yang ingin mencocokkan kutipan-
+kutipan yang terdapat dalam skripsi. Penyusun diurutkan secara alfabetis 
+berdasarkan nama penulis tanpa gelar kesarjanaan. 
+Pustaka  yang  dikutip  dapat  berupa  buku,  jurnal,  majalah,  surat  
+kabar,  atau int ernet. Semua uns ur dalam pustaka harus dicantumkan 
+dalam daftar pustaka. Jarak p enulisan antar buku 2  (dua) sp asi, dalam 
+buku 1 (satu) spasi. Contoh penulisan daftar pustaka disajikan pada Bab 
+IV. 
+b.   Lampiran  
+Terdapat keterangan atau informasi yang dip erlukan pada bagian isi 
+skripsi, misalnya kuesioner, format tabel data, form isian data, dan listing 
+program. Lampiran sifatnya m elengkapi isi skripsi. Halaman lampiran 
+diberi tanda L di depannya. Contoh: L-1, L-2, L-3, …, dil etakkan di 
+tengah bawah halaman. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 22 ---
+22 
+ 
+ 
+3.3.   Sistematika Penulisan Jurnal 
+Jurnal ditulis dalam bentuk 2 kolom, terdapat 2 (dua) jenis penulisan jurnal, 
+diantaranya : 
+a. JRIS :  Jurnal Rekayasa Informasi Swadharma 
+Jurnal ini mempublikasikan karya ilmiah hasil penelitian   dengan 
+topik Big Data, Sistem Informasi Berbasis Komputer, Data Mining, 
+Data Scientists, Enterprise Architecture, En terprise Resource Planning 
+(ERP), Tata Kelola Teknologi, Information Retrieval System, Audit 
+Sistem Informasi, Manajemen Pengetahuan Berbasis Sistem Informasi, 
+Sistem Informasi Manajemen, Manajemen Proyek, Proses Bisnis, Smart 
+City, Sosial Media, Sistem Penunjang Keputusan, Kecerdasan Bisnis.  
+b. JEIS :  Jurnal Elektro dan Informatika Swadharma 
+Jurnal ini berisi tentang karya ilmiah hasil penelitian   dengan topik 
+Elektronika, Robotika, Otomasi, Kecerdasan Buatan, Teknologi 
+Blockchain,  Komputasi Awan, Arsitektur Komputer, Computer Vision, 
+Teknologi dan Sistem Multimedia, Deep Learning, Interaksi Manusia 
+dan Komputer, Digital Forensic, Internet of Things, IT Security, 
+Machine Learning, Jaringan Komputer, Semantic Web, Sistem 
+Terdistribusi, Wireless Network. 
+Format dari penulisan jurnal adalah terdiri dari tiga bagian yaitu bagian 
+awal, bagian isi, dan bagian akhir. 
+ 
+A. Bagian Awal 
+1. Judul Artikel 
+Judul Artikel, Maksimum 14 Kata Times New Roman 14, spasi 1, spacing 
+after 12 pt 
+2. Penulis 1, 2 dan 3 
+Nama ditulis lengkap tanpa menyebutkan gelar, Center, Times New Roman , 
+Font 12, spasi 1 . Penulis 1 dan 2 adalah dosen pembimbing, sedangkan 
+Penulis 3 adalah mahasiswa. 
+3. Nama Program Studi, Fakultas, Nama Perguruan Tinggi 
+Times New Roman 12, spasi 1, spacing after 12 pt  
+
+--- PAGE 23 ---
+23 
+ 
+ 
+4. Abstrak 
+Abstrak memuat uraian singkat mengenai masalah dan tujuan penelitian, 
+metode yang digunakan , dan hasil yang diperoleh. Abstrak ditulis dalam 
+Bahasa Inggris dan Bahasa Indonesia, minimal 150 kata dan maksimal 300 
+kata. Abstrak ditulis dengan spasi tunggal dengan margin kanan dan kiri 
+lebih sempit dari teks utama dalam satu paragraf. Baris awal tidak ditulis 
+menjorok ( indented), tetapi kata kunci ditulis  miring ( italic) langsung di 
+bawah mengikuti paragraf dan menjorok ke dalam (indented). Dalam bahasa 
+Inggris, abstrak ditulis dalam bentuk past tense, kecuali simpulan atau 
+rekomendasi. Tulis kepanjangan singkatan atau akronim. Cantumkan 3 -5 
+kata-kata kunci yang dapat berupa kata tunggal atau frasa, yang 
+menggambarkan masalah atau isi.  Kata kunci tid ak diakhiri dengan tanda 
+baca titik.  
+Kata Kunci: isi, format, artikel 
+(Times New Roman 12, spacing after 6 pt) 
+ 
+B. Bagian Isi 
+1. Pendahuluan 
+Bagian pendahuluan terutama berisi: latar belakang  permasalahan yang 
+diselesaikan, isu-isu yang terkait dengan masalah yang diselesaikan, ulasan 
+penelitan yang pernah dilakukan sebelumnya oleh peneliti lain y ang relevan 
+dengan penelitian yang dilakukan. 
+Pendahuluan berisi urgensi dan latar belakang masalah penelitian yang 
+diuraikan dengan metode  piramida terbalik mulai dari tingkat global, 
+nasional dan lokal. Mencantumkan referensi (pustaka  atau hasil penelitian 
+relevan didalam kurung atau pada akhir kalimat). Tiap paragraf diawali 
+dengan kata yang menjorok ke dalam, Bagian akhir pendahuluan harus 
+mengemukakan tujuan penelitian. 
+Template untuk format artik el ini dibuat dalam MS Word 2003 , Batang 
+tubuh teks menggunakan font: Times New  Roman 12, regular, spasi 1. 
+Panjang bagian pendahuluan sekitar 2 -3 halaman.  Penulisan bagian 
+pendahuluan ini tanpa sub judul. 
+
+--- PAGE 24 ---
+24 
+ 
+ 
+2. Metode Penelitian 
+Bagian ini menjelaskan tentang jenis penelitian, lokasi dan waktu penelitian, 
+populasi dan sampel, teknik sampling, teknik pengumpulan data, analisis 
+data, dan penyajian data.  Penelitian yang menggunakan alat dan bahan, 
+perlu menuliskan spesifikasi al at dan bahan yang digunakan.  Penelitian 
+kualitatif seperti studi kasus, fenomenologi, etnografi, dan lain – lain, perlu 
+menambahkan uraian mengenai pengecekan keabsahan hasil penelitian.  
+3. Hasil dan Pembahasan 
+Bagian hasil menguraikan tentang karakteristik subjek penelitian, analisis 
+univariat, analisis bivariat dan analisis multivariat (jika ada). Pada bagian ini 
+DIPERBOLEHKAN memasukkan tabel, grafik dan gambar dengan 
+ketentuan setelah Sub judul harus ada kalimat, tidak boleh langsung tabel, 
+grafik, gambar  dan selalu diantara tulisan atau rujukan yang jelas. 
+Interpretasi hasil penelitian dibuat dalam bentuk naratif. 
+Singkatan dan Akronim  
+Singkatan yang sudah umum seperti seperti ILO, Unicef, Asean, tidak perlu 
+diberi keterangan kepanjangannya. Akan tetapi, akronim yang tidak terlalu 
+dikenal atau akronim buatan penulis perlu diberi keterangan 
+kepanjangannya. Sebagai contoh: RPS (Rencana Pembelajaran Semester)  
+dapat digunakan untuk melatihkan penguasaa n keterampilan pemecahan 
+masalah. Jangan gunakan singkatan atau akronim pada judul artikel, kecuali 
+tidak bisa dihindari. 
+Satuan 
+Penulisan satuan di dalam artikel memperhatikan aturan sebagai berikut: 
+a) Gunakan SI (MKS= the metre -kilogram-seconds ) atau CGS (The 
+centimeter-gram-seconds) sebagai satuan utama, dengan satuan sistem SI 
+lebih diharapkan.  
+b) Hindari penggabungan satuan SI dan CGS, karena dapat menimbulkan 
+kerancuan, karena dimensi persamaan bisa menjadi tidak setara.  
+c) Jangan mencampur singkatan satua n dengan satuan lengkap. Misalnya, 
+gunakan satuan “Wb/m2” or “webers per meter  persegi”, jangan 
+“webers/m2”.   
+
+--- PAGE 25 ---
+25 
+ 
+ 
+Disarankan untuk menggunakan fitur text 
+box pada MS Word untuk menampung 
+gambar atau grafik, karena hasilnya 
+cenderung stabil terhadap perubahan 
+format dan pergeseran halaman dibanding 
+insert gambar secara langsung. 
+ 
+Persamaan 
+ Penuliskan persamaan dalam  font T imes New Roman atau font Symbol. 
+Jika terdapat beberapa persamaan, beri nomor persamaan. Nomor 
+persamaan seharusnya berurutan, letakkan pada bagian paling kanan, yakni 
+(1), (2), dan seterusnya. Gunakan tanda agar penulisan persamaan lebih 
+ringkas. Gunakan font italic untuk variabel, huruf tebal untuk vektor. 
+ 
+ 
+Gambar dan Tabel 
+ Tempatkan nama tabel di atas tabel, sedangkan nama gambar di bawah 
+gambar. Tuliskan tabel tertentu secara spesifik, misalnya Tabel 1, saat 
+merujuk suatu tabel. Contoh penulisan tabel dan keterangan gambar adalah 
+sebagai berikut: 
+Tabel 1. Format Tabel 
+Kepala 
+Baris 
+Tabel 
+Kepala Kolom Tabel 
+Sub-kepala Kolom Sub-kepala Kolom 
+Isi Isi tabel Isi tabel 
+ 
+ 
+ 
+ 
+ 
+ 
+Gambar 1. Contoh Keterangan Gambar 
+ 
+Kutipan dan Acuan 
+Salah satu ciri artikel ilmiah adalah menyajikan gagasan orang lain untuk 
+memperkuat dan memperkaya gagasan penulisnya. Gagasan yang telah 
+lebih dulu diungkapkan orang lain ini diacu (dirujuk), dan sumber acuannya 
+dimasukkan dalam daftar pustaka.  Daftar pustaka harus lengkap dan sesuai 
+
+--- PAGE 26 ---
+26 
+ 
+ 
+dengan acuan yang disajikan dalam batang tubuh artikel. Artinya, sumber 
+yang ditulis dalam daftar pustaka benar -benar dirujuk dalam tubuh artikel. 
+Sebaliknya, semua acuan yang telah disebutkan dalam artikel harus 
+dicantumkan dalam daftar pustaka. Untuk menunjukkan kaulitas artikel 
+ilmiah, daftar yang dimasukkan dalam daftar pustaka harus cukup banyak. 
+Daftar p ustaka disusun secara alfabetis dan cara penulisannya disesuaikan 
+dengan aturan yang telah ditentukan. Kaidah penulisan kutipan, acuan, dan 
+daftar pustaka mengikuti template artikel ini. Acuan adalah penyebutan 
+sumber gagasan yang dituliskan di dalam teks sebagai (1) pengakuan 
+kepada pemilik gagasan bahwa penulis telah melakukan “peminjaman” 
+bukan penjiplakan, dan (2) pemb eritahuan kepada pembacanya siapa dan 
+darimana gagasan tersebut diambil. Acuan memuat nama pengarang yang 
+pendapatnya dikutip, tahun sumber informasi ditulis, dan/tanpa nomor 
+halaman tempat informasi yang dirujuk diambil. Nama pengarang yang 
+digunakan dalam acuan hanya nama akhir. Acuan dapat dituliskan di tengah 
+kalimat atau di akhir kalimat kutipan. 
+ Acuan ditulis dan dipisahkan dari kalimat kutipan dengan kurung buka dan 
+kurung tutup (periksa contoh -contoh di bawah). Acuan yang dituliskan di 
+tengah kalim at dipisahkan dengan kata yang mendahului dan kata yang 
+mengikutinya dengan jarak. Acuan yang dituliskan di  akhir kalimat 
+dipisahkan dari kata terakhir kalimat kutipan dengan diberi jarak, namun 
+tidak dipisahkan dengan titik. Nama pengarang ditulis tanpa j arak setelah 
+tanda kurung pembuka dan diikuti koma. Tahun penerbitan dituliskan 
+setelah koma dan diberi jarak. Halaman buku atau artikel setelah tahun 
+penerbitan, dipisahkan dengan tanda titik dua tanpa jarak, dan ditutup 
+dengan kurung tanpa jarak. Sebagai contoh: karya tulis ilmiah adalah tulisan 
+faktual yang digunakan penulisnya untuk memberikan suatu 
+pengetahuan/informasi kepada orang lain (Riebel, 1978). 
+ Apabila nama pengarang telah disebutkan di dalam teks, tahun penerbitan 
+sumber informasi dituliskan  segera setelah nama penulisnya. Atau, apabila 
+nama pengarang tetap ingin disebutkan, acuan ini dituliskan di akhir teks.  
+Contohnya: menurut Riebel (1978), karya tulis ilmiah adalah tulisan faktual 
+
+--- PAGE 27 ---
+27 
+ 
+ 
+yang digunakan penulisnya untuk memberikan suatu pengetahu an/ 
+informasi kepada orang lain. 
+ Nama dua pengarang dalam karya yang sama disambung dengan kata 
+‘dan’. Titik koma (;) digunakan untuk dua pengarang atau lebih dari dua 
+pengarang dengan karya yang berbeda. Contohnya: karya tulis ilmiah adalah 
+tulisan faktu al yang digunakan penulisnya untuk memberikan suatu 
+pengetahuan/ informasi kepada orang lain (Riebel dan Roger, 1980).  Jika 
+melibatkan d ua pengarang dalam dua karya yang berbeda , contoh 
+penulisannya: k arya tulis ilmiah adalah tulisan faktual yang digunakan  
+penulisnya untuk memberikan suatu pengetahuan/informasu kepada orang 
+lain (Riebel, 1978; Roger, 1981). 
+ Apabila pengarang lebih dari dua orang, hanya nama pengarang pertama 
+yang dituliskan. Nama pengarang selebihnya digantikan dengan ‘dkk’ (dan 
+kawan-kawan). Tulisan ‘dkk’ dipisahkan dari nama pengarang, yang 
+disebutkan dengan jarak, diikuti titik, dan diakhiri dengan koma.  
+Contohnya: m embaca adalah kegiatan interakasi antara pembaca dan 
+penulis yang kehadirannya diwakili oleh teks (Susanto dkk., 1994). 
+Penulisan Daftar Pustaka 
+Daftar p ustaka merupakan daftar karya tulis yang dibaca penulis dalam 
+mempersiapkan artikelnya dan kemudian digunakan sebagai acuan  
+penulisan artikelnya. Dalam artikel ilmiah, Daftar pustaka harus ada sebagai 
+pelengkap acuan dan pe tunjuk sumber acuan.  Penulisan d aftar pustaka 
+mengikuti aturan dalam template artikel ini. 
+4. Penutup 
+Penutup berisi simpulan dan saran yang masing-masing ditulis sebagai sub 
+judul. Pada bagian ini kadang-kadang juga dimuat ucapan terimakasih. 
+Simpulan 
+Simpulan menyajikan ringkasan dari uraian hasil dan pembahasan, mengacu 
+pada permasalahan mitra. Berdasarkan kedua hal tersebut, uraikan faktor 
+pendukung dan penghambat kegiatan. 
+ 
+
+--- PAGE 28 ---
+28 
+ 
+ 
+Ucapan Terima Kasih 
+Jika perlu berterima kasih kepada pihak tertentu, misalny a sponsor 
+penelitian, nyatakan dengan jelas dan sin gkat, hindari pernyataan 
+terimakasih yang berlebihan. 
+ 
+C. Bagian Akhir 
+DAFTAR PUSTAKA 
+ 
+  
+
+--- PAGE 29 ---
+29 
+ 
+ 
+BAB IV  
+TEKNIK PENULISAN 
+ 
+ 
+ 
+Teknik   dan   sistematika   penulisan   skripsi   yang   m eliputi:   media   
+penulisan,   pengetikan, penomoran, daftar tabel dan gambar, bahasa, penulisan 
+tanda baca, kutipan, penulisan nama, dan penulisan sumber. 
+ 
+4.1. MediaPenulisan 
+1. Naskah 
+Naskah sk ripsi dik etik di atas k ertas HVS berwarna putih 70 gr/m2, 
+ukuran A4 (210mm x 297mm) dan tidak bolak-balik. 
+2. Sampul 
+Sampul skripsi berupa hardcover. Tulisan yang dicetak dalam 
+sampul sama dengan 
+tulisan pada h alaman judul dengan menggunakan tinta emas. Sampul 
+skripsi berwarna merah untuk Program Studi Teknik Informatika, atau 
+sesuai yang telah ditentukan oleh Program Studi ITB Swadharma 
+ 
+4.2.  Pengetikan 
+1. Jenis Huruf 
+Seluruh bagian naskah skripsi (kecuali sampul dan halaman judul) 
+menggunakan huruf 
+Times New Roman dengan ukuran huruf 12. Lambang huruf atau tanda-
+tanda lain yang tid ak dapat diketik, harus ditulis dengan rapi 
+menggunakan tinta hitam. Tulisan diatur rata k anan-kiri (justify), 
+kecuali untuk persamaan, tabel, gambar, sub judul, atau hal-hal khusus 
+lainnya. 
+2. Bilangan dan Satuan 
+a. Bilangan dalam kalimat diketik dengan angka, kecuali pada permulaan 
+kalimat harusditulis dengan ejaan huruf. 
+b. Bilangan desimal ditandai dengan tanda koma (,) bukan tanda titik (.) 
+c. Satuan di nyatakan d engan sin gkatan resminya dan diakhiri 
+tanpa tanda titik (.). 
+3. Jarak Baris 
+Jarak antara 2 baris dibuat 2 (dua) spasi. Kecuali untuk hal berikut, jarak 
+pengetikan 1 (satu): abstrak, kutip an langsung, judul d aftar (tabel) dan 
+gambar yang lebih dari satu baris dan daftar pustaka. 
+4. Batas Tepi Pengetikan 
+a.   Tepi atas  : 3cm 
+b.   Tepi bawah  : 3cm  
+c.   Tepi kiri  : 4cm 
+d.   Tepi kanan  : 3cm 
+5. Alinea Baru 
+Pengetikan alinea baru diawali dari ketikan ke 6 dari batas tepi sisi kiri. 
+6. Judul Bab, Sub-Bab, Anak  Sub-Bab, Sub  Anak  Sub-Bab. 
+a. Judul bab harus seluruhnya menggunakan huruf kapital, 
+menggunakan ukuran huruf 14, di atur simetris p ada posisi t engah 
+(center), dan tanpa diakhiri tanda titik. 
+
+--- PAGE 30 ---
+30 
+ 
+ 
+b. Sub judul diketik di batas tepi kiri dengan. Setiap kata diawali 
+huruf kapital, kecuali kata  p enghubung  (seperti:  dan)  atau  kata  
+depan  (seperti:  di,  ke,  dari,  dalam, terhadap), tanpa diakhiri titik. 
+Kalimat pertama setelah sub judul dimulai dengan alinea baru. 
+c. Anak sub judul diketik di batas tepi kiri, lurus dengan kata 
+pertama sub judul, dengan  hu ruf pertama  berupa huruf kapital  
+tanpa diakhiri  d engan  titik.  K alimat p ertama sesudah anak s ub 
+judul dimulai dengan alinea baru. 
+d. Sub anak sub judul diketik di batas tepi kiri pada ketikan ke-6 
+diikuti dengan titik d an dik etik d engan hu ruf miring. Kalimat 
+pertama yang menyusul kemudian diketik terus ke belakang dalam 
+satu baris sub anak sub judul. Sub anak sub judul dapat juga ditulis 
+langsung b erupa kalimat, tetapi yang b erfungsi sebagai sub anak 
+sub judul ditempatkan paling depan dan diberi garis bawah. 
+7. Letak Simetris 
+Gambar, tabel (daftar), persamaan, dan judul ditulis simetris pada posisi 
+tengah pengetikan. 
+8. Rincian ke Bawah 
+Jika pada penulisan n askah ada rincian yang harus disusun ke  bawah, 
+gunakanlah nomor  urut d engan angka atau huruf (numbering) sesuai 
+dengan d erajat rincian. Penggunaan t anda-tanda lain (bullet) di d epan 
+rincian, tidak dibenarkan. 
+9. Penggunaan Huruf Cetak Miring (italic) 
+Penggunaan hu ruf cetak miring (italic) , dip akai apabila menggunakan 
+istilah, k ata, atau singkatan yang berasal dari k ata asing. Contoh: 
+efficiency, operating system, CBIS, dan lain-lain. 
+ 
+4.3. Penomoran 
+Pada bagian ini dib agi m enjadi p enomoran antara lain: h alaman, t abel 
+(daftar), gambar, dan persamaan. 
+1. Halaman 
+a. Bagian awal laporan, mulai halaman judul sampai abstrak 
+penelitian, diberi nomor 
+halaman dengan angka romawi kecil (i, ii,iii, dst). 
+b. Bagian utama dan bagian akhir, mulai dari pendahuluan hingga 
+halaman terakhir 
+(lampiran), m emakai angka Arab (1, 2, 3, …dst )sebagai nomor  
+halaman. 
+c. Nomor h alaman ditempatkan di sebelah kanan atas, kecuali kalau 
+ada jud ul atau bab pada bagian atas h alaman itu p enomoran 
+halaman ditulis di sebelah kanan bawah. 
+d. Penomoran h alaman daftar pustaka langsung menyambung ke 
+halaman lampiran. 
+e. Nomor halaman diketik dengan jarak 3 cm dari tepi kanan 1,5 cm 
+dari tepi atas dan tepi bawah. 
+2. Tabel (daftar) dan Gambar 
+Tabel (daftar) menggunakan penomoran dengan angka Arab. 
+Gambar menggunakan penomoran dengan angka Arab. 
+ 
+
+--- PAGE 31 ---
+31 
+ 
+ 
+5.    Daftar Tabel dan Gambar 
+1. Tabel (daftar) 
+a. Judul tabel (berupa nomor dan nama tabel) ditempatkan simetris di 
+atas tabel (daftar) tanpa diakhiri dengan tanda titik. Nama tabel 
+ditulis dengan menggunakan huruf k apital p ada setiap awal kata 
+(kecuali kata penghubung). 
+b. Tabel (daftar) tidak boleh dipenggal, kecuali kalau memang 
+panjang, sehingga tidak m emungkinkan untuk d iketik d alam satu 
+halaman. Jika tabel lebih dari satu halaman, maka judul tabel harus 
+diulang pada halaman berikutnya. 
+c.   Kolom-kolom diberi nama dan dijaga agar pemisahan antara yang 
+satu dengan yang lainnya cukup tegas. 
+d.   Ap abila tabel (daftar) lebih besar dari ukuran lebar kertas 
+sehingga harus dibuat m emanjang kertas, maka bagian atas t abel 
+harus diletakkan di sebelah kiri kertas. 
+e.   Di  atas dan di bawah tabel (daftar) dipasang garis batas, agar 
+terpisah dari uraian pokok masalah. 
+f.   Tabel (daftar) diketik simetris. 
+g. Tabel (daftar) yang lebih dari 2 (dua) halaman atau yang harus 
+dilipat sebaiknya ditempatkan pada lampiran. 
+2. Gambar 
+a. Bagan,  grafik,  peta,  diagram,  dan  foto  semuanya  disebut  
+sebagai  gambar (tidak dibedakan). 
+b. Judul  gambar  (berupa  nomor  dan  nama  gambar)  diletakkan  
+simetris  di  bawah gambar tanpa diakhiri dengan titik. 
+c. Gambar tidak boleh dipenggal. 
+d. Setiap gambar/rumus harus diberi keterangan, jaraknya 1 (satu) 
+spasi. Keterangan gambar dituliskan pada tempat-tempat yang 
+lowong di dalam gambar dan jangan pada halaman lain. Hal ini 
+bisa menyulitkan pembaca gambar tersebut. 
+e. Apabila gambar dilukis melebar sepanjang tinggi kertas, maka 
+bagian atas gambar harus diletakkan di sebelah kiri kertas. 
+f. Ukuran gambar (lebar dan tingginya) diusahakan agar wajar (jangan 
+terlalu “gemuk” 
+atau terlalu “kurus” / proporsional). 
+g. Skala pada grafik harus dibuat agar mudah dipakai untuk 
+mengadakan interpolasi dan ekstrapolasi. 
+h. Bagan dan grafik dibuat dengan hasil cetakan printer (gunakan 
+Excell atau aplikasi lain untuk menggambar bagan atau grafik) 
+i. Letak gambar diatur supaya simetris. 
+ 
+6.    Bahasa 
+1. Bahasa 
+Bahasa  yang dipakai adalah bahasa Indonesia baku (berpola subjek- 
+predikat) dan supaya  lebih  sempurna  ditambah  dengan  objek-  
+keterangan,  dengan  aturan-aturan sesuai d engan Ej aan yang 
+Disempurnakan. 
+ 
+
+--- PAGE 32 ---
+32 
+ 
+ 
+2. Kata Ganti Orang 
+Dalam penulisan skripsi tidak boleh menggunakan kata ganti orang 
+seperti penulis, saya, 
+kita, anda, dan sebagainya. Maksud serupa disusun dalam kalimat 
+pasif. Penyebutan kata penulis hanya dilakukan pada Kata Pengantar. 
+3. Kata Penghubung, Kata Depan dan Awalan 
+a. Kata penghubung seperti sehingga dan sedangkan tidak boleh 
+dipakai sebagai kata di permulaan kalimat. 
+b. Kata  depan  seperti  di-  dan  ke-  harus  dibedakan  dengan  kata  
+depan  ke  dan  di. Misalnya: kehendak, disusun berbeda dengan ke 
+kanan, di atas. 
+c. Kata dimana dan dari kerapkali kurang t epat pemakaiannya, dan 
+diperlakukan tepat s eperti kata where dan of   dalam bahasa 
+Inggris. Dalam bahasa Indonesia bentuk yang demikian tid ak 
+merupakan susunan kalimat yang baku. 
+4. Tanda Baca 
+Penggunaan tanda baca. Tanda baca titik untuk mengakhiri kalimat, 
+harus ditulis rapat dengan kata terakhirnya. Begitu juga dengan tanda 
+koma, kata pertama kalimat berikutnya harus diberi spasi dengan tanda 
+baca sebelumnya. Penggunaan tanda b aca ‘-‘ (strip) ditulis rapat 
+dengan kata sebelum dan sesudahnya, kecuali jika diartikan dengan 
+‘dikurangi.’ Contoh : sia-sia, di kantor-kantor, 8 - 7, dan sebagainya. 
+ 
+ 
+ 
+7.    Kutipan 
+1. Kutipan langsung 
+a. Kutipan l angsung dilakukan apabila penulis m enulis s ecara 
+persis sama semua pernyataan yang ada di dalam sumber. 
+b. Untuk kutip an l angsung, penulis w ajib m enuliskan h alaman 
+sumber yang dikutip. c.   Kutipan langsung yang kurang dari 40 
+kata, dituliskan langsung di dalam kalimat. d.   Kutip an langsung 
+yang lebih dari 40 k ata, dituliskan dalam model paragraf dengan 
+spasi 1. 
+ 
+2. Kutipan dalam kalimat (parenthetical citation) 
+Kutipan d alam k alimat di nyatakan d engan 
+bentuk sebagai berikut: 
+a. ………………….. (penulis_buku, tahun) 
+b. Penulis_buku (tahun) menyatakan b ahwa 
+……………………………… 
+ 
+8.    Penulisan Sumber 
+Buku buku yang dikutip pada Landasan Teori (Bab II) dijadikan satu 
+pada sebuah bagian yang dis ebut sebagai Daftar Pustaka. Buku 
+buku/referensi yang ditulis /digunakan dalam D aftar Pustaka ini  minimum 
+berjumlah15 buku dan tahun penerbitannya tidak boleh berusia di atas 10 
+tahun dari t ahun p enulisan T ugas Akhir/Skripsi t ersebut. Penulisan 
+buku/referensi pada Daftar Pustaka ini adalah buku buku yang mempunyai 
+ISDN dan jika ada kutipan yang diambil dari sebuah website, maka tulisan 
+
+--- PAGE 33 ---
+33 
+ 
+ 
+tersebut harus berada pada website w ebsite b erbasis k eilmuan (Wikipedia 
+atau website yang dimiliki sebuah kampus). 
+ 
+Untuk kutip an yang diambil d ari s ebuah buku, m aka cara penulisan pada 
+daftar pustakannya sebagai b erikut: N ama pengarang (tahun terbit). Judul. 
+Kota diterbitkan. Penerbit:…. 
+Contoh: 
+Jogiyanto, H.M., (2017) “Analisis dan Desain (Sistem Informasi Pendekatan 
+Terstruktur Teoridan Praktek Aplikasi Bisn is)”, Yogyakarta, Penerbit 
+Andi. 
+Iwan Sofana, (201 5), “Membangun Jaringan Komputer Dasar”, Bandung, 
+Penerbit Informatika. 
+Iwan Sofana, (2017), “Jaringan Komputer Berbasis Mikrotik”, Bandung, 
+Penerbit Informatika 
+Winarno & Theta (2015), “Jaringan Komputer dengan TCP/IP”, Edisi 
+Pertama, Bandung, Penerbit Informatika. 
+ 
+Untuk Kutipan yang diambil dari sebuah Website, maka cara penulisannya 
+sebagai berikut: Nama pengarang (tahun terbit). Judul. dari alamat 
+website (sampai paling akhir), tanggal terbit: 
+Contoh: 
+Albarda (2004). Strategi Implementasi TI untuk Tata Kelola Organisasi (IT 
+Governance). dari 
+http://rachdian.com/index2.php?option=com_docman&task=doc_view&gid=27&It
+emid=30, 3 
+August 2008 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+--- PAGE 34 ---
+34 
+ 
+ 
+LAMPIRAN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+--- PAGE 35 ---
+ 
+ 
+ 
+ 
+Proposal Skripsi 
+ 
+PERANCANGAN .......................................................... 
+ 
+FAKULTAS TEKNOLOGI 
+PROGRAM STUDI TEKNIK INFORMATIKA  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Di susun oleh: 
+ 
+     Nama :  ......................... 
+NIM  :  ......................... 
+ 
+ 
+ 
+ 
+ 
+INSTITUT TEKNOLOGI DAN BISNIS 
+SWADHARMA 
+  
+2022 
+L-1 
+
+--- PAGE 36 ---
+ii 
+ 
+ 
+Lembar Persetujuan Proposal Skripsi 
+ 
+ 
+PERANCANGAN .............................................  
+ 
+ 
+ 
+Nama : ............................. 
+NIM  : ............................. 
+ 
+ 
+ 
+Proposal Skripsi ini telah disetujui oleh: 
+ 
+ 
+ 
+ 
+ 
+(..............................................).                                                (.......................................). 
+Pembimbing I                                                                                Pembimbing II 
+ 
+ 
+ 
+ 
+Pada Tanggal: …………………………. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-2 
+
+--- PAGE 37 ---
+iii 
+ 
+ 
+Daftar Isi 
+ 
+ 
+LembarPersetujuan ........................................................................................................  i 
+Bab I:Pendahuluan ....................................................................................................  1 
+1.1 LatarBelakang .........................................................................................................  1 
+1.2 Perumusan Masalah ............................................................................................  2 
+1.3 Tujuan dan Kegunaan Hasil Penelitian ..............................................................  3 
+1.4 Batasan Sistem .............................................................................................................  4 
+1.4.1   Cakupan Modul .......................................................................................  4 
+1.4.2   Cakupan User ..........................................................................................  5 
+Bab II Tinjauan Pustaka ............................................................................................  6 
+2.1 Tinjauan Teoritis ................................................................................................  6 
+2.2 Studi Penelitian Terdahulu .....................................................................................  8 
+2.3 Persyaratan Sistem Konseptual ..........................................................................  10 
+Bab III Metode Penelitian .............................................................................................  11 
+3.1 Studi Lapangan ...................................................................................................  11 
+3.2 Wawancara ..............................................................................................................  12 
+Rencana Kegiatan .......................................................................................................  12 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-3 
+
+--- PAGE 38 ---
+ 
+ 
+ 
+ 
+ JUDUL SKRIPSI DITULIS DENGAN HURUF KAPITAL 
+FONT STYLE : TIME NEW ROMAN, BOLD, UKURAN 14, 
+POSISI : CENTER, SPASI SINGLE 
+ 
+ 
+ 
+Diajukan sebagai salah satu syarat untuk memperoleh 
+Gelar Sarjana Strata Satu (S1) 
+ 
+ 
+FAKULTAS TEKNOLOGI 
+PROGRAM STUDI TEKNIK INFORMATIKA 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Di susun oleh:  
+Nama : ..........................................  
+NIM  : .......................... 
+ 
+ 
+ 
+ 
+ 
+ 
+INSTITUT TEKNOLOGI DAN BISNIS 
+SWADHARMA 
+JAKARTA 
+2021 
+( Cover tidak di beri nomor ) 
+ 
+3 Cm 
+4 Cm 3 Cm 
+3 Cm 
+L-4 
+Time New Roman  
+ukuran 12, Center dan 
+spasi 1 
+ 
+Time New Roman  
+ukuran 14 
+Center 
+Logo harus jelas  
+(tidak blur) dan  
+bukan 3D 
+Time New Roman  
+ukuran 14,bold, Center 
+dan spasi 1 
+ 
+Time New Roman  
+ukuran 16, Center dan 
+spasi 1 
+ 
+Time New Roman  
+ukuran 20, Center dan 
+spasi 1 
+ 
+Time New Roman  
+ukuran 16, Center dan 
+spasi 1 
+ 
+2021 
+
+--- PAGE 39 ---
+ii 
+ 
+ 
+ITB SWADHARMA 
+FAKULTAS TEKNOLOGI 
+PROGRAM STUDI TEKNIK INFORMATIKA 
+ 
+LEMBAR PERSETUJUAN DOSEN PEMBIMBING 
+ 
+Telah diperiksa dan disetujui sebuah skripsi untuk diajukan pada sidang skripsi,  
+atas nama:  
+     Nama               : .............................................  
+     NIM                            : ............................................   
+     Program Studi            : Teknik Informatika 
+     Jenjang Pendidikan    : Strata Satu (S1) 
+     Judul Skripsi              : ..................................................................... ............ 
+          ................................................................................... 
+ 
+ 
+ 
+Jakarta, ..................................... 
+ 
+ 
+ 
+ 
+Dosen Pembimbing 
+ 
+ 
+ 
+ 
+ 
+(..................................................)                                  ( ....................................................)         
+Pembimbing I                                                               Pembimbing II
+ 
+4 Cm 
+3 Cm 
+3 Cm 
+3 Cm 
+L-5 
+Time New Roman  
+ukuran 12 jarak spasi 
+1,5  
+ 
+Time New Roman  
+ukuran 14,  jarak 
+spasi 1  
+ 
+Time New Roman  
+ukuran 12 dan jarak spasi 
+1,5  
+ 
+Tanggal, bulan, tahun 
+saat di acc sidang 
+
+
+--- PAGE 40 ---
+ 
+iii 
+ 
+ITB SWADHARMA 
+FAKULTAS TEKNOLOGI 
+PROGRAM STUDI TEKNIK INFORMATIKA 
+ 
+LEMBAR PENGESAHAN  SKRIPSI 
+Pada tangal ........................... telah dipresentasikan Skripsi dihadapan p ara 
+penguji untuk diuji/disidangkan atas: 
+Nama                          : ............................................ 
+NIM                            : ........................................... 
+Program Studi            : Teknik Informatika 
+Jenjang Pendidikan    : Strata Satu (S1) 
+Judul Skripsi              : ........................................................................................... 
+ ........................................................................................... 
+ 
+Jakarta, .............................. 
+Dosen Penguji 
+ 
+ 
+ 
+(........................................)                                         ( .........................................) 
+Penguji 1                                                                    Penguji 2 
+ 
+ 
+ 
+(........................................)             (..........................................) 
+Penguji 3      Penguji 4 
+ 
+Program Studi  Teknik Informatika 
+ 
+ 
+ 
+(Lela Nurlaela, S.T., M.Kom.)  
+Ketua Program Studi 
+L-6 
+Time New Roman  
+ukuran 14, dan jarak 
+spasi 1 
+ 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5  
+ 
+Time New Roman  
+ukuran 12, Center dan 
+jarak spasi 1,5  
+ 
+Tanggal, bulan, 
+dan tahun sidang 
+Ditulis nama penguji sesuai 
+lembar perbaikan sidang 
+
+
+--- PAGE 41 ---
+ 
+iv 
+ 
+LEMBAR PERNYATAAN 
+  KEASLIAN SKRIPSI 
+ 
+Yang bertanda tangan di bawah ini, Saya  
+ 
+Nama                          :  . . . . . . . . . . . . . . . . . . . . . . . 
+NIM                            :  .........................................  
+Program Studi            :   Teknik  Informatika 
+Judul Skripsi              :  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+   ...................................................................................... 
+ 
+Menyatakan sesungguhnya; 
+Skipsi  yang dibuat dengan judul di atas merupakan karya asli (bukan hasil 
+plagiat) dari Saya. Bagian- bagian tertentu dalam penulisan skripsi ini yang saya 
+kutip dari hasil karya orang lain telah dituliskan sumbernya secara jelas sesuai 
+norma, kaidah, dan etika penulisan ilmiah. Apabila dikemudian  hari ada pihak 
+yang berkeberatan karena karya tulisnya mirip / sama dengan skripsi saya, atau 
+ada pihak yang mengetahui bahwa skripsi Saya mirip dengan karya tulis orang 
+lain dan orang itumenggugat kepada Saya, Saya bersedia b ertanggung jawab 
+untuk melindungi hasil tulisan Saya, serta jika  ternyata  benar  bahwa  tulisan  
+saya  adalah  hasil  dari  plagiat,  maka  Saya  bersedia ITB Swadharma 
+membatalkan gelar akademik yang Saya peroleh. 
+Demikian Lembar Pernyataan ini Saya buat dengan sebenar-benarnya dan tanpa 
+paksaan dari pihak manapun 
+ 
+ 
+ 
+Jakarta, ............................ 
+Yang memberi pernyataan 
+ 
+         
+                 Materai Rp. 10.000,- 
+ 
+( ............................. ) 
+L-7 
+Time New Roman  
+ukuran 14 dan jarak 
+spasi 1 
+ 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5 
+ 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5 
+ 
+Tanggal, bulan, 
+dan tahun sidang 
+
+
+--- PAGE 42 ---
+ 
+v 
+ 
+LEMBAR PERSEMBAHAN DAN MOTO 
+ 
+ 
+Persembahan: 
+ 
+Tulisan kupersembahkan untuk kedua Orang Tuaku, Saudara saudaraku, dan Kakek 
+Nenekku, yang telah banyak berkorban baik moral maupun materil demi selesainya 
+tulisan ini. Tiada kata kata yang dapat kuucapkan selain terima kasih yang setulus 
+tulusnya kepada Allah SWT dan kepada keluargaku. 
+ 
+ 
+ 
+Moto:  
+ 
+Mulailah dari diri sendiri, mulailah dari yang 
+kecil, dan mulailah saat ini
+L-8 
+Time New Roman  
+ukuran 14, Bold 
+ 
+
+--- PAGE 43 ---
+ 
+vi 
+ 
+KATA PENGANTAR 
+ 
+Puji syukur kehadirat Allah SWT t ak henti hentinya diucapkan, karena 
+atas rahmat dan hid ayah-NYA skripsi ini dapat selesai dengan baik. Banyak 
+hambatan dan rintangan yang terjadi s elama menyusun skripsi ini. Walaupun 
+demikian itu semua merupakan tantangan yang h arus dih adapi. Skripsi yang 
+berjudul   “Perancangan..........................................................................................” 
+dibuat sebagai salah satu syarat untuk mendapat gelar Sarjana Strata Satu di 
+ITB Swadharma. 
+Meskipun penyusunan skripsi ini t elah selesai, tetap disadari skripsi ini 
+masih jauh dari s empurna,  baik  dari  segi  materi,  penyajian  maupun  
+bahasannya.  Oleh  karena  itu  sangat diharapkan adanya kritik dan saran yang 
+sifatnya membangun guna kesempurnaan skripsi ini. 
+Akhir kata, perkenankanlah untuk menyampaikan rasa hormat dan terima 
+kasih kepada pihak-pihak yang telah membantu didalam penyusunan skripsi ini, 
+baik secara langsung maupun tidak langsung. Khususnya kepada : 
+1. Bapak Tedi Rochendi, SE., MM  selaku Wakil Rektor I  
+2. Lela Nurlaela, S.T., M.Kom , selaku Dekan Fakultas Teknologi  ITB 
+Swadharma dan Ka. Prodi Teknik Informatika. 
+3. Bapak ............................................ selaku dosen Pembimbing I. 
+4. Ibu ............................................ selaku dosen Pembimbing II. 
+5. Seluruh Staff  ITB Swadharma yang tidak bisa disebut satu persatu. 
+6. Seluruh keluargaku tercinta. 
+7. Serta teman-teman yang telah memberikan dorongan semangat. 
+Akhir k ata dengan kerendahan hati, semoga sk ripsi dapat bermanfaat dan 
+menambah wawasan bagi para pembaca dan semua pihak yang berkepentingan. 
+Semoga Allah SWT memberikan pahalanya kepada semua pihak yang telah 
+memberikan bantuan dan bimbingannya. 
+ 
+Jakarta............................ 
+      
+     Penulis 
+L-9 
+Time New Roman  
+ukuran 14, Bold 
+ 
+
+--- PAGE 44 ---
+ 
+vii 
+ 
+ 
+ 
+DAFTAR ISI 
+ 
+Lembar Persetujuan Dosen Pembimbing ............................................................  ii  
+Lembar Pengesahan Skripsi .............................................................................  iii  
+Lembar Pernyataan Keaslian Karya Tulis ........................................................  iv  
+Lembar Persembahan dan Moto ..........................................................................  v  
+Kata Pengantar .................................................................................................  vi  
+Daftar Isi ...........................................................................................................  vii 
+Daftar Tabel .....................................................................................................  viii  
+Daftar Gambar ..................................................................................................  ix 
+Daftar Lampiran ...............................................................................................  x  
+Daftar arti Lambang .............................................................................................  xi 
+Abstrakxii 
+Bab I: Pendahuluan ........................................................................................  1 
+1.1 Latar Belakang .............................................................................................  1 
+1.2 Perumusan Masalah .................................................................................  2 
+1.3 Tujuan dan Kegunaan Hasil Penelitian ....................................................  3 
+1.4 Metode Penelitian ........................................................................................  4 
+ 
+Bab II Tinjauan Pustaka .................................................................................  6 
+2.1 Tinjauan Teoritis ......................................................................................  6 
+2.2 Studi Penelitian Terdahulu ..........................................................................  8 
+2.3 Persyaratan Sistem Konseptual ................................................................  10 
+ 
+Bab III Objek Penelitian ....................................................................................  11 
+3.1 Tinjauan Umum Perusahaan ....................................................................  11 
+3.1.1 Sejarah Singkat ...............................................................................  12 
+3.1.2 Struktur Organisasi .........................................................................  13 
+3.1.3 Wewenang dan Tanggungjawab .....................................................  14 
+L-10 Time New Roman  
+ukuran 14, Bold 
+ 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5 
+ 
+
+--- PAGE 45 ---
+ 
+viii 
+ 
+3.2 Sistem Berjalan ........................................................................................  16 
+3.2.1 Tinjauan Umum .....................................................................................  16 
+3.2.2 Batasan Sistem .......................................................................................  18 
+3.2.3 Permasalahan system .............................................................................  21 
+ 
+Bab IV Perancangan Sistem ..................................................................................  24 
+4.1 Analisis Kebutuhan Informasi .................................................................  24 
+4.2 Deskripsi Sistem Usulan .............................................................................  30 
+4.2.1 Deskripsi Sistem Menyeluruh .........................................................  31 
+4.2.1 Fungsi Sistem .........................................................................................  32 
+4.2.1 Spesifikasi Proses ...............................................................................  40 
+4.3 Rancangan Modul ....................................................................................  50 
+4.4 Rancangan Tampilan ...............................................................................  55 
+4.5 Rancangan Implementasi .........................................................................   60 
+ 
+Bab V Kesimpulan dan Saran ........................................................................  70 
+5.1 Kesimpulan ..............................................................................................  70 
+5.2 Saran .............................................................................................................  71 
+ 
+Daftar Pustaka
+L-11 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5 
+ 
+
+--- PAGE 46 ---
+ 
+ix 
+ 
+DAFTAR TABEL 
+ 
+4.2.1.13.1 Tabel . ........................................................................................................  63 
+4.2.1.13.2 Tabel . ........................................................................................................  64 
+4.2.1.13.3 Tabel . ........................................................................................................  64 
+4.2.1.13.4 Tabel . ........................................................................................................  64 
+4.2.1.13.5 Tabel . ........................................................................................................  65 
+4.2.1.13.6 Tabel . ........................................................................................................  65 
+4.2.1.13.7 Tabel . ........................................................................................................  66 
+4.2.1.14.1 Tabel . ........................................................................................................  66 
+4.2.1.14.2 Tabel . ........................................................................................................  67 
+4.2.1.14.3 Tabel . ........................................................................................................  67 
+4.2.1.14.4 Tabel . ........................................................................................................  68 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-12 
+Time New Roman  
+ukuran 14, Bold 
+ 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5 
+ 
+
+--- PAGE 47 ---
+ 
+x 
+ 
+DAFTAR GAMBAR 
+ 
+3.2.2.1.1Gambar .............................. ................................................................  42 
+3.2.2.1.2 Gambar .... .........................................................................................  43 
+4.2.1.1  Gambar ........ .......................................................................................  53 
+4.2.2 Gambar . ..................................................................................................  70 
+4.3.1 Gambar . ..................................................................................................  74 
+4.4 Gambar . .....................................................................................................  77 
+4.6.1Gambar . ...................................................................................................  79 
+4.6.2Gambar . ...................................................................................................  80 
+4.6.3Gambar .  ..................................................................................................  88 
+4.6.4 Gambar . ..................................................................................................  89 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-13 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5 
+ 
+
+--- PAGE 48 ---
+ 
+xi 
+ 
+DAFTAR LAMPIRAN 
+ 
+Listing Program ..............................................................................................  L-1 
+Lampiran  .......................................................................................................  L-71 
+Lampiran ........................................................................................................  L-72 
+Lampiran ........................................................................................................  L-73 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-14 
+Time New Roman  
+ukuran 14, Bold 
+ 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 1,5 
+ 
+
+--- PAGE 49 ---
+ 
+xii 
+ 
+DAFTAR ARTI LAMBANG 
+ 
+Sim
+bol 
+Arti 
+Simbo
+l/lamb
+ang 
+α Alpha = Penentuan variable awal 
+∑ Sumasi = penjumlahan total 
+µ Miu = jumlah pembelajaran 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-15 Time New Roman  
+ukuran 14, Bold 
+ 
+
+--- PAGE 50 ---
+ 
+xiii 
+ 
+ABSTRAK 
+ 
+JUDUL DITULIS MENGGUNAKAN HURUF KAPITAL FONT STYLE : 
+TIME NEW ROMAN, UKURAN: 12, POSISI : CENTER, SPASI: SINGLE 
+ 
+Nama Pembimbing I , Nama Pembimbing II, Nama Mahasiswa (NIM) 
+Skripsi, Program Studi Teknik Informatika, 2022 
+Kata Kunci, ............., ..............., .............., .............,................ 
+(xiii+100 halaman + 10 lampiran) 
+ 
+Pada  paragraf  pertama  diungkapkan  latar  belakang  masalah  
+dan menyebutkan tempat kerja praktik/magang 
+Paragraf  kedua  disebutkan  metodologi  yang  digunakan  dan 
+dikemukakan permasalahannya 
+Paragraf ketiga dikemukakan hasil pembahasan (ringkasan dari  bab 4) 
+Paragraf keempat mengungkapkan kesimpulan dan saran 
+ 
+DaftarPustaka ( 2012 - 2022) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-16 
+Time New Roman, 12, 
+spasi 1, justified 
+Time New Roman  
+ukuran 14, Bold 
+ 
+Time New Roman  
+ukuran 12, huruf 
+kapital, posisi : center 
+ 
+
+--- PAGE 51 ---
+ 
+ 
+1 
+ 
+BAB I 
+ 
+PENDAHULUAN 
+ 
+1.1. Latar Belakang 
+Padaperusahaan.................................................................................. 
+............................................................................................ 
+Kegiatan di internal  perusahaan PT X sistem pengolahan data  pemesanan  
+barang  dilakukan  dengan  cara 
+....................................................................................................................... 
+.............................................................................................................................
+.................................................................................................. 
+1.2. Perumusan Masalah 
+Berdasarkan permasalahan yang t elah diuraikan tersebut di atas maka 
+dirumuskan masalahnya; Bagaimana rancangan sistem................................? 
+1.3. Tujuan dan Kegunaan Hasil Penelitian 
+Adapun tuju an d ari penelitian ini adalah menganalisis m engapa waktu 
+pengolahan data pemesanan......................................................... 
+Kegunaan dari peneltian ini untuk mengetahui dan mencari solusi untuk 
+menyelesaikan permasalahan ...................................... 
+1.4. Metode Penelitian 
+1. Interview  
+................................................................................................................ 
+2. Observasi 
+....................................................................................................................................  
+ 
+3 Cm 
+3 Cm 
+4 Cm 
+3 Cm 
+ 
+L-17 
+Time New Roman  
+ukuran 14, Bold, spasi 
+: double, posisi: center 
+ 
+penomoran pada setiap BAB  posisi 
+nomor ada  di tengah  bawah 
+ 
+
+--- PAGE 52 ---
+2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-18 
+(penomoran selanjutnya  posisi 
+nomor ada di kanan atas) 
+ 
+
+--- PAGE 53 ---
+ 
+ 
+ 
+ 
+DAFTAR PUSTAKA 
+ 
+Anugerah, I. (2017) “Pembangunan Sistem Informasi Supply Chain Management 
+Di Cv . Cihanjuang Inti Teknik Teknik Informatika – Universitas Komputer 
+Indonesia.” 
+Didik Tristianto, (2020), “Keamanan Jaringan Komputer”, Penerbit: Manggu. 
+Jogiyanto, H.M., (2017) “Analisis dan Desain (Sistem Informasi Pendekatan 
+Terstruktur Teori  dan Praktek Aplikasi Bisnis)”, Yogyakarta, Penerbit : 
+Andi. 
+Iwan Sofana, (2015), “Membangun Jaringan Komputer Dasar”, Bandung, 
+Penerbit : Informatika. 
+Iwan Sofana, (2017), “Jaringan Komputer Berbasis Mikrotik”, Bandung, Penerbit 
+Informatika 
+Priyanto, dkk (2016), “Pemrograman Web”, Bandung, Penerbit : Informatika 
+Winarno & Theta (2015), “Jaringan Komputer dengan TCP/IP”, Edisi Pert ama, 
+Bandung, Penerbit : Informatika. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+L-19 
+Time New Roman  
+ukuran 14, Bold 
+ 
+Daftar pustaka tidak diberi 
+nomor halaman 
+ 
+Time New Roman  
+ukuran 12 dan jarak 
+spasi 2 
+ 
+
+--- PAGE 54 ---
+ 
+ 
+ 
+ 
+Berkas Pengiriman Pengajuan Sidang : 
+No Keterangan Format 
+1 Proposal Skripsi Docx 
+2 Full Skripsi Docx 
+3 Aplikasi & Database ZIP/RAR 
+4 Power Point  PPT 
+5 Jurnal Skripsi Docx 
+ 
+ 
+ 
+ 
+Berkas Pengiriman Setelah Sidang : 
+No Keterangan Format 
+1 Proposal Skripsi Docx 
+2 Full Skripsi  yang ada tandatangan dari 
+penguji dan pembimbing 
+Docx 
+3 Full Skripsi yang ada tandatangan dari 
+penguji dan pembimbing 
+PDF 
+4 Aplikasi & Database ZIP/RAR 
+5 Power Point  PPT 
+6 Jurnal Skripsi Docx 
+7 Jurnal Skripsi PDF 
+ 
+ 
+

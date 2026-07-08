@@ -22,3 +22,5 @@ Thumbs.db
 
 # --- Reports (commit PNG outputs so thesis advisor can see them) ---
 # reports/*.png are intentionally NOT ignored
+
+.docs/*temp*
