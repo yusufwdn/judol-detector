@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Title -->
+    <mxCell id="title" value="Sequence Diagram — Sistem Deteksi Spam Komentar YouTube" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="150" y="20" width="1000" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- ===== LIFELINE BOXES ===== -->
+
+    <!-- 1. Pengguna -->
+    <mxCell id="l1" value="Pengguna" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="70" width="120" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- 2. Popup UI -->
+    <mxCell id="l2" value="Popup UI" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="270" y="70" width="120" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- 3. Content Script -->
+    <mxCell id="l3" value="Content Script" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="500" y="70" width="140" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- 4. Server API -->
+    <mxCell id="l4" value="Server API (VPS)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="760" y="70" width="140" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- 5. DOM YouTube -->
+    <mxCell id="l5" value="DOM YouTube" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1020" y="70" width="130" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- ===== LIFELINES ===== -->
+    <mxCell id="ll1" style="endArrow=none;html=1;strokeColor=#666666;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="120" y="110" x2="120" y2="1080" as="geometry" />
+    </mxCell>
+    <mxCell id="ll2" style="endArrow=none;html=1;strokeColor=#9673a6;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="330" y="110" x2="330" y2="1080" as="geometry" />
+    </mxCell>
+    <mxCell id="ll3" style="endArrow=none;html=1;strokeColor=#6c8ebf;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="570" y="110" x2="570" y2="1080" as="geometry" />
+    </mxCell>
+    <mxCell id="ll4" style="endArrow=none;html=1;strokeColor=#82b366;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="830" y="110" x2="830" y2="1080" as="geometry" />
+    </mxCell>
+    <mxCell id="ll5" style="endArrow=none;html=1;strokeColor=#d6b656;strokeWidth=1.5;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="1085" y="110" x2="1085" y2="1080" as="geometry" />
+    </mxCell>
+
+    <!-- ===== SECTION 1: INISIASI & HEALTH CHECK ===== -->
+    <mxCell id="s1bg" value="1. Inisiasi &amp; Health Check" style="text;html=1;strokeColor=#aaaaaa;fillColor=#f0f0f0;align=left;fontSize=11;fontStyle=1;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="125" width="220" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- msg 1: Pengguna → Popup: buka popup -->
+    <mxCell id="m1" value="1. Membuka popup ekstensi" style="endArrow=block;endFill=1;html=1;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="l1" target="l2" parent="1">
+      <mxGeometry x="120" y="160" x2="330" y2="160" as="geometry" />
+    </mxCell>
+
+    <!-- msg 2: Popup → Server: GET /health -->
+    <mxCell id="m2" value="2. GET /health" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="330" y="190" x2="830" y2="190" as="geometry" />
+    </mxCell>
+
+    <!-- Activation bar Server /health -->
+    <mxCell id="act1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="824" y="195" width="12" height="30" as="geometry" />
+    </mxCell>
+
+    <!-- msg 3: Server → Popup: status ready -->
+    <mxCell id="m3" value="3. 200 OK {status: ready, model_loaded: true}" style="endArrow=open;endFill=0;html=1;fontSize=10;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="830" y="230" x2="330" y2="230" as="geometry" />
+    </mxCell>
+
+    <!-- ===== SECTION 2: KONFIGURASI ===== -->
+    <mxCell id="s2bg" value="2. Konfigurasi Pengguna" style="text;html=1;strokeColor=#aaaaaa;fillColor=#f0f0f0;align=left;fontSize=11;fontStyle=1;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="255" width="220" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- msg 4: Pengguna → Popup: atur threshold & mode -->
+    <mxCell id="m4" value="4. Atur confidence threshold &amp; mode (Redupkan/Hilangkan)" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="120" y="290" x2="330" y2="290" as="geometry" />
+    </mxCell>
+
+    <!-- msg 5: Popup → Content Script: simpan ke chrome.storage -->
+    <mxCell id="m5" value="5. Simpan pengaturan (chrome.storage)" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="330" y="320" x2="570" y2="320" as="geometry" />
+    </mxCell>
+
+    <!-- ===== SECTION 3: DETEKSI KOMENTAR ===== -->
+    <mxCell id="s3bg" value="3. Deteksi Komentar Baru" style="text;html=1;strokeColor=#aaaaaa;fillColor=#f0f0f0;align=left;fontSize=11;fontStyle=1;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="350" width="220" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- msg 6: Pengguna → DOM: buka & gulir halaman -->
+    <mxCell id="m6" value="6. Membuka &amp; menggulir halaman video" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="120" y="385" x2="1085" y2="385" as="geometry" />
+    </mxCell>
+
+    <!-- msg 7: DOM → Content Script: MutationObserver deteksi komentar baru -->
+    <mxCell id="m7" value="7. MutationObserver: komentar baru terdeteksi" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="1085" y="415" x2="570" y2="415" as="geometry" />
+    </mxCell>
+
+    <!-- Content Script internal: cek WeakSet -->
+    <mxCell id="int1" value="[Cek WeakSet — teks unik?]" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="500" y="432" width="140" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- ===== SECTION 4: KLASIFIKASI ===== -->
+    <mxCell id="s4bg" value="4. Pengiriman &amp; Klasifikasi" style="text;html=1;strokeColor=#aaaaaa;fillColor=#f0f0f0;align=left;fontSize=11;fontStyle=1;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="465" width="220" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- msg 8: Content Script → Server: POST /predict/batch -->
+    <mxCell id="m8" value="8. POST /predict/batch {texts: [&quot;teks1&quot;, &quot;teks2&quot;, ...]}" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="570" y="500" x2="830" y2="500" as="geometry" />
+    </mxCell>
+
+    <!-- Activation bar Server /predict/batch -->
+    <mxCell id="act2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+      <mxGeometry x="824" y="505" width="12" height="120" as="geometry" />
+    </mxCell>
+
+    <!-- Server internal: preprocessing -->
+    <mxCell id="int2" value="[Preprocessing teks — 7 tahap]" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="760" y="525" width="180" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- Server internal: TF-IDF -->
+    <mxCell id="int3" value="[Ekstraksi fitur TF-IDF]" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="760" y="555" width="180" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- Server internal: SVM predict -->
+    <mxCell id="int4" value="[Klasifikasi SVM — prediksi label]" style="text;html=1;strokeColor=#82b366;fillColor=#d5e8d4;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="760" y="585" width="180" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- msg 10: Server → Content Script: hasil klasifikasi -->
+    <mxCell id="m10" value="10. 200 OK {results: [{label: spam, confidence: 0.94}, ...]}" style="endArrow=open;endFill=0;html=1;fontSize=10;dashed=1;" edge="1" parent="1">
+      <mxGeometry x="830" y="635" x2="570" y2="635" as="geometry" />
+    </mxCell>
+
+    <!-- ===== SECTION 5: MANIPULASI DOM ===== -->
+    <mxCell id="s5bg" value="5. Evaluasi &amp; Manipulasi DOM" style="text;html=1;strokeColor=#aaaaaa;fillColor=#f0f0f0;align=left;fontSize=11;fontStyle=1;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="660" width="220" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- Content Script internal: evaluasi threshold -->
+    <mxCell id="int5" value="[Evaluasi: confidence &gt;= threshold?]" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="500" y="695" width="140" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- msg 11: Content Script → DOM: dim mode -->
+    <mxCell id="m11a" value="11a. [Mode: Redupkan] Inject opacity 15% + badge confidence" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="570" y="730" x2="1085" y2="730" as="geometry" />
+    </mxCell>
+
+    <!-- msg 11b: Content Script → DOM: remove mode -->
+    <mxCell id="m11b" value="11b. [Mode: Hilangkan] Inject CSS display: none" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="570" y="760" x2="1085" y2="760" as="geometry" />
+    </mxCell>
+
+    <!-- Alt box for two modes -->
+    <mxCell id="altbox" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#aaaaaa;strokeDasharray=6 3;" vertex="1" parent="1">
+      <mxGeometry x="555" y="718" width="545" height="58" as="geometry" />
+    </mxCell>
+    <mxCell id="altlabel" value="alt" style="text;html=1;strokeColor=#aaaaaa;fillColor=#f0f0f0;align=center;fontSize=10;fontStyle=1;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="555" y="718" width="30" height="18" as="geometry" />
+    </mxCell>
+
+    <!-- ===== SECTION 6: UPDATE STATISTIK ===== -->
+    <mxCell id="s6bg" value="6. Update Statistik" style="text;html=1;strokeColor=#aaaaaa;fillColor=#f0f0f0;align=left;fontSize=11;fontStyle=1;rounded=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="795" width="220" height="22" as="geometry" />
+    </mxCell>
+
+    <!-- Content Script → Popup: update stats -->
+    <mxCell id="m12" value="12. Update statistik (chrome.storage: scanned, hidden)" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="570" y="830" x2="330" y2="830" as="geometry" />
+    </mxCell>
+
+    <!-- Popup → Pengguna: tampilkan stats -->
+    <mxCell id="m13" value="13. Tampilkan: Dipindai: N | Disembunyikan: M" style="endArrow=block;endFill=1;html=1;fontSize=10;" edge="1" parent="1">
+      <mxGeometry x="330" y="860" x2="120" y2="860" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

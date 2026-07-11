@@ -4,38 +4,38 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="6m5BXYgKb--BA2J52B3j-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="710" width="1090" x="30" y="30" as="geometry" />
+        <mxCell id="6m5BXYgKb--BA2J52B3j-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="660" width="860" x="30" y="30" as="geometry" />
         </mxCell>
-        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" value="Tahapan Metode Waterfall" vertex="1">
-          <mxGeometry height="30" width="400" x="370" y="40" as="geometry" />
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="Tahapan Metode Waterfall" vertex="1">
+          <mxGeometry height="30" width="400" x="260" y="40" as="geometry" />
         </mxCell>
-        <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;" value="1. Analisis Kebutuhan&#xa;(Requirements Analysis)&#xa;&#xa;Identifikasi kebutuhan fungsional&#xa;dan non-fungsional sistem" vertex="1">
+        <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;verticalAlign=middle;" value="1. Analisis Kebutuhan&#xa;(Requirements Analysis)&#xa;&#xa;Identifikasi kebutuhan fungsional&#xa;dan non-fungsional sistem" vertex="1">
           <mxGeometry height="100" width="200" x="50" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="e1" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="s2">
+        <mxCell id="e1" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="s2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;" value="2. Perancangan Sistem&#xa;(System Design)&#xa;&#xa;Perancangan arsitektur, alur kerja,&#xa;dan antarmuka sistem" vertex="1">
-          <mxGeometry height="100" width="200" x="260" y="190" as="geometry" />
+        <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;verticalAlign=middle;" value="2. Perancangan Sistem&#xa;(System Design)&#xa;&#xa;Perancangan arsitektur, alur kerja,&#xa;dan antarmuka sistem" vertex="1">
+          <mxGeometry height="100" width="200" x="200" y="200" as="geometry" />
         </mxCell>
-        <mxCell id="e2" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="s3">
+        <mxCell id="e2" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="s3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="s3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalAlign=middle;" value="3. Implementasi&#xa;(Implementation)&#xa;&#xa;Penerjemahan rancangan&#xa;ke dalam kode program" vertex="1">
-          <mxGeometry height="100" width="200" x="470" y="320" as="geometry" />
+        <mxCell id="s3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;verticalAlign=middle;" value="3. Implementasi&#xa;(Implementation)&#xa;&#xa;Penerjemahan rancangan&#xa;ke dalam kode program" vertex="1">
+          <mxGeometry height="100" width="200" x="350" y="320" as="geometry" />
         </mxCell>
-        <mxCell id="e3" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="s4">
+        <mxCell id="e3" edge="1" parent="1" source="s3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="s4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="s4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=middle;" value="4. Pengujian&#xa;(Testing)&#xa;&#xa;Evaluasi sistem untuk memastikan&#xa;tidak ada kesalahan" vertex="1">
-          <mxGeometry height="100" width="200" x="680" y="454" as="geometry" />
+        <mxCell id="s4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;verticalAlign=middle;" value="4. Pengujian&#xa;(Testing)&#xa;&#xa;Evaluasi sistem untuk memastikan&#xa;tidak ada kesalahan" vertex="1">
+          <mxGeometry height="100" width="200" x="500" y="440" as="geometry" />
         </mxCell>
-        <mxCell id="e4" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;" target="s5">
+        <mxCell id="e4" edge="1" parent="1" source="s4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;endFill=1;fontSize=12;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="s5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="s5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;verticalAlign=middle;" value="5. Pemeliharaan&#xa;(Maintenance)&#xa;&#xa;Perbaikan dan pengembangan&#xa;lanjutan sistem" vertex="1">
-          <mxGeometry height="100" width="200" x="890" y="610" as="geometry" />
+        <mxCell id="s5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;verticalAlign=middle;" value="5. Pemeliharaan&#xa;(Maintenance)&#xa;&#xa;Perbaikan dan pengembangan&#xa;lanjutan sistem" vertex="1">
+          <mxGeometry height="100" width="200" x="650" y="560" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

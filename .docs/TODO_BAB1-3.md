@@ -69,6 +69,13 @@ Tambahkan kalimat kesimpulan di akhir tiap sub-bab (variasikan pembukanya, janga
   - [ ] Update Daftar Gambar & referensi silang karena penomoran gambar BAB III bergeser (org chart = 3.1, flowchart = 3.2).
   - [ ] Opsional: kalau dosen mau, pisahkan "Wewenang dan Tanggung Jawab" jadi sub-bab sendiri (sekarang digabung ke deskripsi divisi). Urutan 3.1.3/3.1.4 juga bisa dipindah ke depan kalau dosen mau profil perusahaan tampil duluan.
 
+## Reframe "web scraping" → YouTube Data API (akurasi vs kode)
+
+- [x] 2.11 BAB II — judul jadi "Pengumpulan Data Komentar dan Analisis Heuristik", isi direframe ke YouTube Data API v3. SUDAH di `BAB_2_FULL.md`.
+- [ ] 1.4.2 BAB I — ganti dengan teks revisi (ada di chat). Judul jadi "Observasi dan Pengumpulan Data (YouTube Data API)".
+- [ ] 4.3.1 BAB IV — ganti 2 paragraf pertama dengan teks revisi (ada di chat). Buang "Chrome Extension"/"DOM", tambah Pass 2 brand rescue.
+- [ ] Cek istilah "web scraping"/"scraping" di bagian lain (judul, abstrak nanti, kata kunci) — pastikan konsisten dengan framing API.
+
 ## Berlaku ke semua bab (I-III) — perlu cek manual, tidak bisa diverifikasi otomatis
 
 - [ ] 9. **Italic untuk istilah asing** — ekstraksi teks PDF menghilangkan info font style, jadi tidak bisa dicek otomatis. Cek manual tiap istilah seperti *Machine Learning*, *Support Vector Machine*, *Chrome Extension*, *FastAPI*, *DOM*, *REST API*, dll — pastikan semua miring (dosen poin 2).
