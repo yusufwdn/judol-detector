@@ -72,9 +72,17 @@ Tambahkan kalimat kesimpulan di akhir tiap sub-bab (variasikan pembukanya, janga
 ## Reframe "web scraping" → YouTube Data API (akurasi vs kode)
 
 - [x] 2.11 BAB II — judul jadi "Pengumpulan Data Komentar dan Analisis Heuristik", isi direframe ke YouTube Data API v3. SUDAH di `BAB_2_FULL.md`.
-- [ ] 1.4.2 BAB I — ganti dengan teks revisi (ada di chat). Judul jadi "Observasi dan Pengumpulan Data (YouTube Data API)".
-- [ ] 4.3.1 BAB IV — ganti 2 paragraf pertama dengan teks revisi (ada di chat). Buang "Chrome Extension"/"DOM", tambah Pass 2 brand rescue.
+- [ ] 1.4.2 BAB I — ganti dengan teks revisi di `BAB_1_DAN_4_PATCH.md`. Judul jadi "Observasi dan Pengumpulan Data (YouTube Data API)".
+- [ ] 4.3.1 BAB IV — ganti 2 paragraf pertama dengan teks revisi di `BAB_1_DAN_4_PATCH.md`. Buang "Chrome Extension"/"DOM", tambah Pass 2 brand rescue.
 - [ ] Cek istilah "web scraping"/"scraping" di bagian lain (judul, abstrak nanti, kata kunci) — pastikan konsisten dengan framing API.
+
+## BAB IV — poin dosen yang belum direalisasikan (poin 9 & 11)
+
+> Draft ada di `.docs/BAB_4_AWAL_PATCH.md`.
+
+- [x] 9. Paragraf solusi/PIECES di awal BAB IV — SUDAH DITULIS, disisipkan antara heading "BAB IV PERANCANGAN SISTEM" dan "4.1 Analisis Kebutuhan Sistem". Mengaitkan solusi ke Tabel 3.1 PIECES di BAB III biar dua bab nyambung.
+- [x] 11. Narasi use case formal (Aktor/Prakondisi/Pascakondisi/Alur) — SUDAH DITULIS untuk kelima use case yang sudah ada di 4.7 draft (Menyaring Komentar Spam, Mengklasifikasikan Teks, Mengatur Confidence Threshold, Memantau Statistik Deteksi, Melaporkan Kesalahan Klasifikasi). Konten berbasis deskripsi yang sudah ada di draft, bukan use case baru.
+  - [ ] Format tabel di atas pakai Markdown — sesuaikan ke format tabel Word saat ditempel.
 
 ## Berlaku ke semua bab (I-III) — perlu cek manual, tidak bisa diverifikasi otomatis
 
