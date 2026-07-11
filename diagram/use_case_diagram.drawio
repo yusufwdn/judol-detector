@@ -1,16 +1,16 @@
 <mxfile host="app.diagrams.net">
   <diagram id="YGvUT4EfcJbLWUWeWlpf" name="Halaman-1">
-    <mxGraphModel dx="1178" dy="686" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1414" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="teD9v6N19ibNU75xPK_h-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
-          <mxGeometry height="520" width="810" x="100" y="10" as="geometry" />
+        <mxCell id="teD9v6N19ibNU75xPK_h-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=12;" value="" vertex="1">
+          <mxGeometry height="520" width="750" x="160" y="10" as="geometry" />
         </mxCell>
-        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" value="Use Case Diagram — Sistem Deteksi Spam Komentar YouTube" vertex="1">
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Use Case Diagram — Sistem Deteksi Spam Komentar YouTube&lt;/font&gt;" vertex="1">
           <mxGeometry height="30" width="700" x="200" y="20" as="geometry" />
         </mxCell>
-        <mxCell id="boundary" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;strokeWidth=1.5;strokeDasharray=8 4;fontSize=12;fontStyle=1;verticalAlign=top;" value="Sistem Ekstensi Chrome" vertex="1">
+        <mxCell id="boundary" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=1.5;strokeDasharray=8 4;fontSize=12;fontStyle=1;verticalAlign=top;" value="Sistem Ekstensi Chrome" vertex="1">
           <mxGeometry height="430" width="490" x="300" y="70" as="geometry" />
         </mxCell>
         <mxCell id="actor_user_body" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" value="">
@@ -37,19 +37,19 @@
         <mxCell id="actor_server_rleg" edge="1" parent="1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.5;" value="">
           <mxGeometry x="950" x2="975" y="350" y2="380" as="geometry" />
         </mxCell>
-        <mxCell id="uc1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Menyaring Komentar Spam" vertex="1">
+        <mxCell id="uc1" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" value="Menyaring Komentar Spam" vertex="1">
           <mxGeometry height="60" width="190" x="480" y="130" as="geometry" />
         </mxCell>
-        <mxCell id="uc2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" value="Mengklasifikasikan Teks" vertex="1">
+        <mxCell id="uc2" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" value="Mengklasifikasikan Teks" vertex="1">
           <mxGeometry height="60" width="170" x="600" y="290" as="geometry" />
         </mxCell>
-        <mxCell id="uc3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Mengatur&#xa;Confidence Threshold" vertex="1">
+        <mxCell id="uc3" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" value="Mengatur&#xa;Confidence Threshold" vertex="1">
           <mxGeometry height="60" width="170" x="310" y="190" as="geometry" />
         </mxCell>
-        <mxCell id="uc4" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" value="Memantau Statistik&#xa;Deteksi" vertex="1">
+        <mxCell id="uc4" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" value="Memantau Statistik&#xa;Deteksi" vertex="1">
           <mxGeometry height="60" width="170" x="330" y="300" as="geometry" />
         </mxCell>
-        <mxCell id="uc5" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" value="Melaporkan Kesalahan&#xa;Klasifikasi" vertex="1">
+        <mxCell id="uc5" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontSize=12;" value="Melaporkan Kesalahan&#xa;Klasifikasi" vertex="1">
           <mxGeometry height="60" width="190" x="440" y="414" as="geometry" />
         </mxCell>
         <mxCell id="e_u_uc1" edge="1" parent="1" source="actor_user_body" style="endArrow=none;html=1;strokeColor=#000000;" target="uc1">
@@ -59,65 +59,32 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_u_uc3" edge="1" parent="1" source="teD9v6N19ibNU75xPK_h-1" style="endArrow=none;html=1;strokeColor=#000000;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;" target="uc3">
+        <mxCell id="e_u_uc3" edge="1" parent="1" source="teD9v6N19ibNU75xPK_h-1" style="endArrow=none;html=1;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=12;" target="uc3">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="200" y="330" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_u_uc4" edge="1" parent="1" source="teD9v6N19ibNU75xPK_h-1" style="endArrow=none;html=1;strokeColor=#000000;" target="uc4">
+        <mxCell id="e_u_uc4" edge="1" parent="1" source="teD9v6N19ibNU75xPK_h-1" style="endArrow=none;html=1;fontSize=12;" target="uc4">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="125.12820512820508" y="275" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_s_uc2" edge="1" parent="1" source="teD9v6N19ibNU75xPK_h-2" style="endArrow=none;html=1;strokeColor=#000000;" target="uc2">
+        <mxCell id="e_s_uc2" edge="1" parent="1" source="teD9v6N19ibNU75xPK_h-2" style="endArrow=none;html=1;fontSize=12;" target="uc2">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="921.6666666666665" y="385" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="r_inc_uc2" edge="1" parent="1" source="uc1" style="endArrow=open;endFill=0;html=1;strokeColor=#000000;dashed=1;fontSize=10;" target="uc2" value="«include»">
+        <mxCell id="r_inc_uc2" edge="1" parent="1" source="uc1" style="endArrow=open;endFill=0;html=1;dashed=1;fontSize=12;" target="uc2" value="«include»">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="r_ext_uc5" edge="1" parent="1" source="uc5" style="endArrow=open;endFill=0;html=1;strokeColor=#000000;dashed=1;fontSize=10;" target="uc1" value="«extend»">
+        <mxCell id="r_ext_uc5" edge="1" parent="1" source="uc5" style="endArrow=open;endFill=0;html=1;dashed=1;fontSize=12;" target="uc1" value="«extend»">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="teD9v6N19ibNU75xPK_h-1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Pengguna" vertex="1">
+        <mxCell id="teD9v6N19ibNU75xPK_h-1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=12;" value="Pengguna" vertex="1">
           <mxGeometry height="60" width="30" x="200" y="280" as="geometry" />
         </mxCell>
-        <mxCell id="teD9v6N19ibNU75xPK_h-2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="&lt;span style=&quot;font-size: 11px;&quot;&gt;Server API (VPS)&lt;/span&gt;" vertex="1">
+        <mxCell id="teD9v6N19ibNU75xPK_h-2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=12;" value="&lt;span&gt;Server API (VPS)&lt;/span&gt;" vertex="1">
           <mxGeometry height="60" width="30" x="830" y="290" as="geometry" />
-        </mxCell>
-        <mxCell id="teD9v6N19ibNU75xPK_h-7" connectable="0" parent="1" style="group" value="" vertex="1">
-          <mxGeometry height="120" width="170" x="120" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_bg" parent="teD9v6N19ibNU75xPK_h-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" value="" vertex="1">
-          <mxGeometry height="120" width="150" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_title" parent="teD9v6N19ibNU75xPK_h-7" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;fontStyle=1;" value="Keterangan" vertex="1">
-          <mxGeometry height="16" width="160" x="10" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_blue" parent="teD9v6N19ibNU75xPK_h-7" style="ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
-          <mxGeometry height="14" width="20" x="10" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_blue_txt" parent="teD9v6N19ibNU75xPK_h-7" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" value="Use case utama" vertex="1">
-          <mxGeometry height="14" width="94" x="36" y="30" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_green" parent="teD9v6N19ibNU75xPK_h-7" style="ellipse;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
-          <mxGeometry height="14" width="20" x="10" y="50" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_green_txt" parent="teD9v6N19ibNU75xPK_h-7" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" value="Use case popup" vertex="1">
-          <mxGeometry height="14" width="84" x="36" y="50" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_yellow" parent="teD9v6N19ibNU75xPK_h-7" style="ellipse;fillColor=#fff2cc;strokeColor=#d6b656;" value="" vertex="1">
-          <mxGeometry height="14" width="20" x="10" y="70" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_yellow_txt" parent="teD9v6N19ibNU75xPK_h-7" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" value="Use case dev mode" vertex="1">
-          <mxGeometry height="14" width="94" x="36" y="70" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_dash" parent="teD9v6N19ibNU75xPK_h-7" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" value="- - - - -►" vertex="1">
-          <mxGeometry height="14" width="80" x="10" y="90" as="geometry" />
-        </mxCell>
-        <mxCell id="legend_dash_txt" parent="teD9v6N19ibNU75xPK_h-7" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;" value="include / extend" vertex="1">
-          <mxGeometry height="14" width="69" x="61" y="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
