@@ -24,7 +24,7 @@ const hideModeRemoveBtn = document.getElementById("hideModeRemoveBtn");
  * Check the health of the Python API server and update the status indicator.
  */
 async function checkServer() {
-  setStatus("loading", "Checking server...", "localhost:8000");
+  setStatus("loading", "Checking server...", "Please wait while we check the server status");
 
   try {
     const res = await fetch(`${API_BASE}/health`, {
@@ -42,7 +42,7 @@ async function checkServer() {
       );
     }
   } catch {
-    setStatus("offline", "Server unavailable", "Run: python src/server.py");
+    setStatus("offline", "Server unavailable", "The server is currently offline; please try again later");
   }
 }
 
