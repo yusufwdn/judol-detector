@@ -81,8 +81,28 @@ Tambahkan kalimat kesimpulan di akhir tiap sub-bab (variasikan pembukanya, janga
 > Draft ada di `.docs/BAB_4_AWAL_PATCH.md`.
 
 - [x] 9. Paragraf solusi/PIECES di awal BAB IV — SUDAH DITULIS, disisipkan antara heading "BAB IV PERANCANGAN SISTEM" dan "4.1 Analisis Kebutuhan Sistem". Mengaitkan solusi ke Tabel 3.1 PIECES di BAB III biar dua bab nyambung.
-- [x] 11. Narasi use case formal (Aktor/Prakondisi/Pascakondisi/Alur) — SUDAH DITULIS untuk kelima use case yang sudah ada di 4.7 draft (Menyaring Komentar Spam, Mengklasifikasikan Teks, Mengatur Confidence Threshold, Memantau Statistik Deteksi, Melaporkan Kesalahan Klasifikasi). Konten berbasis deskripsi yang sudah ada di draft, bukan use case baru.
-  - [ ] Format tabel di atas pakai Markdown — sesuaikan ke format tabel Word saat ditempel.
+- [x] 11. Use Case Narrative (Use Case Id, Actor Action/System Response) — SUDAH DITULIS untuk kelima use case, format persis contoh referensi (Rosa & Shalahuddin).
+  - [ ] Format tabel markdown → sesuaikan ke format tabel Word saat ditempel (kolom "Typical Course of Events" jadi sub-tabel 2 kolom).
+- [ ] **PENTING — perbaiki Gambar 4.4 (Use Case Diagram)** sebelum copas narrative: boundary diperlebar jadi "Sistem Deteksi Spam Komentar YouTube" (bukan cuma "Sistem Ekstensi Chrome"), **hapus aktor "Server API (VPS)"** — server itu bagian dari sistem yang dibangun sendiri (sesuai 3.1.2 & 4.6), bukan aktor eksternal. Cuma "Pengguna" yang jadi aktor. Detail lengkap + paragraf pengganti di `BAB_4_AWAL_PATCH.md` bagian B0.
+
+## BAB V — Kesimpulan dan Saran (SEBELUMNYA TIDAK ADA SAMA SEKALI)
+
+> Draft lengkap sudah ada di `.docs/BAB_5_FULL.md`. Ini bab yang paling kritis karena sebelumnya hilang total dari draft (bahkan dari Daftar Isi).
+
+- [x] 5.1 Kesimpulan — DIREVISI 2026-07-11 sesuai catatan dosen: dibuka dengan rangkuman masalah sistem berjalan (PIECES dari BAB III), baru masuk ke 7 poin hasil solusi/pengujian, ditutup paragraf yang eksplisit mengaitkan solusi ke tiap kelemahan PIECES. Semua angka bersumber dari 4.11 yang sudah diverifikasi ke kode.
+- [x] 5.2 Saran — 6 poin, berbasis keterbatasan nyata yang ditemukan selama audit (dataset statis, endpoint /report belum ada approval queue, ketergantungan struktur DOM YouTube, dll) — bukan saran generik template.
+- [ ] Tambahkan "BAB V Kesimpulan dan Saran" ke Daftar Isi (saat ini benar-benar tidak tercantum).
+- [ ] Update Daftar Pustaka jika ada — BAB V tidak memerlukan sitasi baru (kesimpulan tidak boleh memuat temuan baru per pedoman).
+
+## ABSTRAK (SEBELUMNYA KOSONG)
+
+> Draft lengkap sudah ada di `.docs/ABSTRAK_FULL.md`. 234 kata (memenuhi syarat pedoman 200-250 kata), 4 paragraf wajib (latar belakang → metode & rumusan masalah → hasil → kesimpulan & saran).
+
+- [x] Draft abstrak — SELESAI, terverifikasi 234 kata, format sesuai Lampiran L-15/16 pedoman.
+- [ ] ⚠️ **Konfirmasi ejaan nama Pembimbing II** — "Septiana Ningtyas" (Lembar Persetujuan) vs "Septiani Ningtyas" (Kata Pengantar) BEDA di draft asli. Cari mana yang benar, lalu SAMAKAN di semua halaman (sampul, lembar persetujuan, kata pengantar, abstrak).
+- [ ] Isi placeholder "(xiii+XX halaman+YY lampiran)" setelah dokumen final dan halaman sudah dihitung ulang (BAB V baru ditambahkan, jumlah halaman total akan berubah).
+- [ ] Tambahkan halaman ABSTRAK ke Daftar Isi (cek apakah sudah tercantum).
+- [ ] Verifikasi rentang tahun Daftar Pustaka "(2018-2026)" — cocokkan ke tahun tertua/termuda yang benar-benar dipakai setelah semua sitasi baru (Géron dkk.) difinalisasi.
 
 ## Berlaku ke semua bab (I-III) — perlu cek manual, tidak bisa diverifikasi otomatis
 
