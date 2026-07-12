@@ -1,476 +1,151 @@
-# TODO & Roadmap — Judol Spam Detector
+# Status & Roadmap — Judol Spam Detector
 
-> Dokumen ini adalah peta jalan pengembangan proyek, ditulis supaya kamu (sebagai
-> pemilik proyek) tahu **apa yang harus dikerjakan, kenapa itu penting, dan
-> urutannya gimana**. Setiap fase punya tujuan, alasan, dan saran konkret.
->
-> Cara pakai: kerjakan dari Fase 0 ke bawah secara berurutan. Tiap selesai satu
-> item, centang `[x]`. Tidak semua fase wajib — ada yang opsional tergantung
-> waktu dan target skripsi kamu (lihat catatan prioritas di tiap fase).
+Checklist perkembangan proyek per fase. Item selesai ditandai `[x]`, yang
+ditunda ke "Future Work" ditandai jelas kenapa.
 
 ---
 
 ## Daftar Isi
 
-- [Fase 0 — Housekeeping (Quick Wins, lakukan duluan)](#fase-0--housekeeping-quick-wins-lakukan-duluan)
-- [Fase 1 — Kualitas Dataset](#fase-1--kualitas-dataset-prioritas-tertinggi)
-- [Fase 2 — Evaluasi Model yang Lebih Jujur](#fase-2--evaluasi-model-yang-lebih-jujur)
+- [Fase 0 — Housekeeping](#fase-0--housekeeping)
+- [Fase 1 — Kualitas Dataset](#fase-1--kualitas-dataset)
+- [Fase 2 — Evaluasi Model](#fase-2--evaluasi-model)
 - [Fase 3 — Preprocessing & Eksperimen Model](#fase-3--preprocessing--eksperimen-model)
 - [Fase 4 — Robustness Extension](#fase-4--robustness-extension)
-- [Fase 5 — Deployment (Opsional)](#fase-5--deployment-opsional)
-- [Future Work — Belum Dikerjakan (Ditunda Pasca-Riset)](#future-work--belum-dikerjakan-ditunda-pasca-riset)
-- [Fase 6 — Penulisan Skripsi](#fase-6--penulisan-skripsi)
-- [Tips Belajar & Cara Kerja untuk Junior](#tips-belajar--cara-kerja-untuk-junior)
-- [Pertanyaan untuk Diskusi Lanjut](#pertanyaan-untuk-diskusi-lanjut)
+- [Future Work](#future-work)
+- [Fase 5 — Penulisan Skripsi](#fase-5--penulisan-skripsi)
 
 ---
 
-## Fase 0 — Housekeeping (Quick Wins, lakukan duluan)
+## Fase 0 — Housekeeping
 
-**Tujuan:** Bikin proyek ini "aman" dan rapi secara administratif sebelum kamu
-mulai bereksperimen lebih jauh. Ini bukan kerjaan AI/ML, tapi penting supaya
-kerja kerasmu tidak hilang.
-
-- [✅] **Inisialisasi Git repository.**
-  Saat ini proyek **belum** di-track oleh Git. Artinya kalau ada file
-  ke-overwrite atau ke-hapus tidak sengaja (misalnya `data/comments.csv` atau
-  `model/svm_model.joblib` setelah re-training), kamu tidak punya cara untuk
-  kembali ke versi sebelumnya.
-  ```bash
-  git init
-  git add <file-file penting>
-  git commit -m "initial commit"
-  ```
-
-- [✅] **Buat `.gitignore`.**
-  Beberapa folder/file sebaiknya TIDAK di-commit:
-  - `env/` — virtual environment Python (ribuan file, besar banget, bisa
-    di-generate ulang dari `requirements.txt`)
-  - `__pycache__/`, `*.pyc`
-  - `node_modules/` (kalau nanti `npm install` di folder `scraper/`)
-  - `.env` (berisi API key — **jangan pernah** ikut ter-commit)
-
-  Contoh isi `.gitignore`:
-  ```
-  env/
-  __pycache__/
-  *.pyc
-  node_modules/
-  .env
-  ```
-
-- [✅] **Putuskan: `model/svm_model.joblib` dan `data/comments.csv` masuk Git
-  atau tidak?**
-  Dua pendapat:
-  - **Masuk Git** → reviewer (dosen) bisa langsung clone dan jalankan tanpa
-    perlu re-generate dataset/model. Cocok untuk skripsi.
-  - **Tidak masuk Git** (di-`.gitignore`) → repo tetap kecil, tapi orang lain
-    harus jalankan `prepare_dataset.py` + `train.py` dulu.
-
-  **Saran:** untuk skripsi, masukkan saja keduanya — ukurannya kecil (model
-  ~165 KB, dataset ~1800 baris) dan memudahkan reproduksi.
-
-- [✅] **Cek `.env` scraper tidak ke-expose.**
-  File `.env` berisi `YOUTUBE_API_KEY`. Pastikan file ini ada di `.gitignore`
-  SEBELUM commit pertama. Kalau API key sudah pernah ke-push ke remote
-  (GitHub dll), segera regenerate key tersebut di Google Cloud Console.
+- [x] Inisialisasi Git repository, `.gitignore` (env/, __pycache__, node_modules, .env)
+- [x] `model/svm_model.joblib` dan `data/comments.csv` ikut masuk Git — supaya
+  dosen bisa clone dan langsung jalankan tanpa re-generate dataset/model
+- [x] `.env` scraper (`YOUTUBE_API_KEY`) dipastikan tidak ke-commit
 
 ---
 
-## Fase 1 — Kualitas Dataset (Prioritas Tertinggi)
+## Fase 1 — Kualitas Dataset
 
-**Tujuan:** Dataset adalah fondasi seluruh sistem. Model SVM sehebat apapun
-tidak akan berguna kalau datanya tidak representatif. Ini adalah area dengan
-**ROI (return on investment) tertinggi** untuk skripsimu — perbaikan di sini
-akan terlihat langsung di hasil evaluasi.
-
-- [✅] **Kumpulkan komentar non-spam ASLI dari YouTube** (bukan sintetis).
-  Saat ini 700 sampel non-spam dibuat dari template (`NON_SPAM_TEMPLATES` di
-  `prepare_dataset.py`). Ini "kompromi pragmatis", bukan ideal.
-
-  **Scraper sudah mendukung mode non_spam** — tinggal jalankan dan integrasikan:
-  1. Scrape komentar non-spam dari beberapa video dengan perintah:
-     ```bash
-     node scraper/index.js <VIDEO_ID> video non_spam
-     ```
-  2. Agregasikan dengan `node scraper/filter.js` → hasilnya di `scraper/final_non_spam.json`.
-  3. **Review manual** sebagian untuk memastikan memang bukan spam.
-  4. Modifikasi `prepare_dataset.py`: ganti/lengkapi `generate_non_spam_data()`
-     dengan loader yang membaca `scraper/final_non_spam.json`.
-
-  **Kenapa ini penting?** Distribusi kalimat sintetis (template) cenderung
-  "terlalu bersih" — pola kalimatnya seragam. Model bisa jadi belajar
-  membedakan "gaya template" vs "gaya spam", bukan "spam vs bukan spam" yang
-  sesungguhnya. Ini bisa membuat performa di real-world lebih buruk dari yang
-  ditunjukkan test set.
-
-- [✅] **Scrape lebih banyak video untuk variasi spam.**
-  Variasi video (gaming, berita, musik, podcast, edukasi) akan menangkap gaya
-  spam yang berbeda-beda. Jalankan:
-  ```bash
-  node scraper/index.js <VIDEO_ID> video spam
-  ```
-  pada beberapa video populer Indonesia dari kategori berbeda. Setelah selesai,
-  jalankan `node scraper/filter.js` untuk mengagregasi ke `scraper/final_spam.json`.
-
-- [✅] **Kumpulkan "hard examples" / kasus ambigu secara manual.**
-  141 komentar dari dua video YouTube bertema judi online:
-  - `kM99uBssHvQ` — 70 non_spam (kritik, cerita rugi, permintaan blokir)
-  - `pzE8S6N0vwo` — 71 non_spam (diskusi anti-judol di video finansial)
-  Review manual mengkonfirmasi semuanya bukan spam promosi.
-  → File: `data/hard_test_set.csv` (141 entri, kolom: text, label, source_video, note)
-
-- [✅] **Dokumentasikan jumlah data setiap kali dataset diperbarui.**
-  Catat di README atau di file log sederhana: tanggal, jumlah spam, jumlah
-  non-spam, sumber video. Ini berguna untuk bab metodologi skripsi (perlu
-  menjelaskan "dataset versi berapa yang dipakai untuk hasil X").
-  → Lihat [DATASET_LOG.md](DATASET_LOG.md)
-
-- [x] **`data/comments.csv` di-rebuild ulang (2026-06-30).**
-  Ditemukan saat audit dokumentasi: `comments.csv` yang ter-commit sedikit
-  "stale" dibanding hasil rebuild murni dari `prepare_dataset.py` (selisih 3
-  baris kategori, kemungkinan dari entry yang masuk lewat endpoint
-  `POST /report` tanpa full rebuild). Sudah dijalankan ulang
-  `python src/prepare_dataset.py && python src/train.py` — dataset sekarang
-  **2271 spam / 2861 non-spam = 5132**, model di-retrain (97.57% accuracy,
-  F1-macro 0.9752), dan semua angka di README/PENJELASAN_TEKNIS sudah
-  disinkronkan ke hasil rebuild ini.
-
-- [x] **Insiden kontaminasi data ditemukan & diperbaiki (2026-06-30).**
-  61 komentar spam tersamar (Unicode dekoratif/leet speak — kampanye
-  Mantulhoki/Hoki777/4rabet/Anru33) lolos heuristik scraper dan ter-label
-  `non_spam`, termasuk 8 yang sudah ada di pool sejak sebelum sesi ini.
-  Direlabel ke `spam` lewat `manual_overrides.csv`, model di-retrain.
-  Detail lengkap di
-  [PENJELASAN_TEKNIS.md §35](PENJELASAN_TEKNIS.md#35-insiden-kontaminasi-data--spam-tersamar-yang-lolos-heuristik-scraper)
-  dan [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30).
-
-- [x] **Perbaiki root cause di `scraper/index.js` (2026-07-03).**
-  NFKC sudah ada sejak awal, tapi homoglyph translation dan leet-speak
-  normalization (yang jadi penyebab sebenarnya Mantulhoki/Hoki777 lolos)
-  belum ada. Ditambahkan `applyHomoglyphMap()` (port dari `HOMOGLYPH_MAP` di
-  `preprocessing.py`) dan `normalizeLeetSpeak()` (port dari Step 5b-i),
-  dipasang di `analyzeSpamScore()` sebelum semua regex signal dicek.
-  Diverifikasi manual: `H0KI777` sekarang match `brand_pattern` (sebelumnya
-  digit `0` memutus rangkaian huruf sehingga regex tidak match), dan
-  Cyrillic homoglyph `dаftаr` sekarang ternormalisasi jadi `daftar`. Repo
-  scraper terpisah dari proyek ini (`scraper-judol-yt-comment`), belum
-  di-commit — cek `git status` di sana sebelum lanjut.
-
-- [x] **Scraper "dead zone" — komentar skor 10-29 sekarang disimpan, tidak
-  dibuang (2026-07-03).**
-  Ditemukan saat menelusuri kasus FN "PBB4D" (lihat
-  [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30)) — komentar
-  kritik/korban yang menyebut brand ALL-CAPS+digit memicu `brand_pattern`
-  cukup untuk lewat dari threshold non-spam (`<10`) tapi tidak cukup untuk
-  masuk threshold spam (`>=30`), lalu dibuang scraper tanpa jejak.
-  Ditambahkan `isBorderlineComment()` di `scraper/index.js` — skor 10-29
-  sekarang disimpan ke `result/borderline_video_*.json` /
-  `result/borderline_livechat_*.json` dengan `label: "borderline"` (belum
-  berlabel final, wajib direview manual). `filter.js` diupdate supaya bisa
-  mengagregasi semua file `borderline_*.json` jadi satu
-  `final_borderline.json` untuk memudahkan review — kemungkinan besar berisi
-  banyak contoh "kritik + sebut brand" yang justru paling dibutuhkan untuk
-  mengatasi limitasi di [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
-  **Belum dikerjakan** — dipindah ke [Future Work](#future-work--belum-dikerjakan-ditunda-pasca-riset).
+- [x] Kumpulkan komentar non-spam asli dari YouTube (bukan template sintetis)
+  lewat `scraper/index.js` mode `non_spam`, diagregasi via `scraper/filter.js`
+  ke `scraper/final_non_spam.json`, direview manual.
+- [x] Scrape lebih banyak video (gaming, berita, musik, podcast, edukasi)
+  untuk variasi gaya spam.
+- [x] Kumpulkan 141 hard examples manual dari dua video bertema judi online
+  (`kM99uBssHvQ`, `pzE8S6N0vwo`) → `data/hard_test_set.csv`.
+- [x] Log setiap perubahan dataset (tanggal, jumlah spam/non-spam, sumber) →
+  [DATASET_LOG.md](DATASET_LOG.md).
+- [x] Rebuild dataset (2026-06-30) setelah ditemukan drift kecil antara
+  `comments.csv` ter-commit dan hasil rebuild murni — sekarang 2271 spam /
+  2861 non-spam = 5132, model di-retrain (97.57% accuracy, F1-macro 0.9752).
+- [x] Insiden kontaminasi data (2026-06-30): 61 komentar spam tersamar
+  (Unicode dekoratif/leet speak — Mantulhoki/Hoki777/4rabet/Anru33) lolos
+  heuristik scraper dan salah ter-label non-spam. Direlabel via
+  `manual_overrides.csv`, model di-retrain. Detail:
+  [PENJELASAN_TEKNIS.md §35](PENJELASAN_TEKNIS.md#35-insiden-kontaminasi-data--spam-tersamar-yang-lolos-heuristik-scraper),
+  [DATASET_LOG.md Versi 11](DATASET_LOG.md#versi-11--2026-06-30).
+- [x] Root cause diperbaiki di `scraper/index.js` (2026-07-03): ditambahkan
+  `applyHomoglyphMap()` dan `normalizeLeetSpeak()` sebelum signal regex
+  dicek, supaya kontaminasi serupa tidak terulang di scraping berikutnya.
+- [x] Scraper "dead zone" diperbaiki (2026-07-03): komentar skor 10-29
+  sekarang disimpan (`isBorderlineComment()`) ke
+  `result/borderline_*.json` alih-alih dibuang tanpa jejak. Data
+  borderline-nya sendiri belum direview → [Future Work](#future-work).
 
 ---
 
-## Fase 2 — Evaluasi Model yang Lebih Jujur
+## Fase 2 — Evaluasi Model
 
-**Tujuan:** Membuat evaluasi lebih kredibel untuk sidang — bukan hanya satu angka akurasi dari satu split.
-→ Lihat penjelasan lengkap di [PENJELASAN_TEKNIS.md §16](PENJELASAN_TEKNIS.md#16-evaluasi-model-yang-lebih-jujur-fase-2)
-→ Hasil tercatat di [DATASET_LOG.md](DATASET_LOG.md)
+→ Detail: [PENJELASAN_TEKNIS.md §16](PENJELASAN_TEKNIS.md#16-evaluasi-model-yang-lebih-jujur-fase-2), [DATASET_LOG.md](DATASET_LOG.md)
 
-- [✅] **Buat "hard test set" terpisah** dari hasil Fase 1 (kasus ambigu).
-  Selesai. Hasil evaluasi: accuracy 75.71%, 17 FP dari 70 non_spam hard examples.
-  Hybrid Rule A menyelamatkan 35 komentar yang tanpanya akan jadi FP.
-  → Script: `src/evaluate_hard_set.py`
-  → Laporan: `reports/hard_set_evaluation.txt`
-  → Penjelasan: `PENJELASAN_TEKNIS.md §29`
-
-- [✅] **Tambahkan k-fold cross-validation** sebagai pelengkap train-test split.
-  Sudah diimplementasikan di `src/train.py`. Dijalankan otomatis setiap
-  `python src/train.py`. Hasil (Versi 12, 2026-07-03): **F1-macro 97.41% ±
-  0.30%** di 5 fold. Sejak 2026-07-03 hasil ini juga divisualisasikan
-  otomatis ke `reports/cv_5fold_scores.png` (bar chart per-fold + pita
-  mean±std) — siap tempel ke draft skripsi, tidak perlu buat manual.
-
-- [✅] **Hyperparameter tuning sistematis** (bukan coba-coba manual).
-  `GridSearchCV` dengan `C ∈ [0.01, 0.1, 1, 10, 100]` sudah berjalan di
-  `src/train.py`. Hasil (Versi 12, 2026-07-03): **C=1 terpilih** (F1-macro CV
-  0.9728) — sekarang ada justifikasi empiris, bukan sekadar default. Sejak
-  2026-07-03 kurva pencarian C juga divisualisasikan otomatis ke
-  `reports/gridsearch_c_sweep.png`.
-
-- [✅] **Bandingkan SVM dengan baseline lain** (sebagai pembanding, bukan
-  pengganti). Diimplementasikan di `src/compare_baselines.py` (bukan
-  `train.py`). Hasil (Versi 12, 2026-07-03):
-  - SVM: accuracy 97.53%, F1-macro 0.9726 ✓
-  - Naive Bayes: accuracy 93.95%, F1-macro 0.9313
-  - Logistic Regression: accuracy 97.09%, F1-macro 0.9675
-
-- [✅] **Visualisasikan confusion matrix** dengan `matplotlib`/`seaborn`.
-  Tersimpan otomatis ke `reports/` setiap run training:
-  - `reports/confusion_matrix_svm.png`
-  - `reports/confusion_matrix_naive_bayes_multinomialnb.png`
-  - `reports/confusion_matrix_logistic_regression.png`
-
-- [✅] **Ablation study: SVM murni vs SVM + Hybrid Rules (2026-06-30).**
-  Dibuat `src/evaluate_hybrid_ablation.py` — hasil tersimpan di
-  `reports/hybrid_ablation.txt`. Temuan: hybrid rule yang sebelumnya dianggap
-  membantu (lihat `PENJELASAN_TEKNIS.md §22/§26/§32`) ternyata **menurunkan**
-  accuracy 6–13 poin persentase setelah model dilatih ulang dengan dataset
-  yang lebih besar — SVM murni menang di train-test split (97.57% vs 91.33%)
-  **dan** di hard test set (92.91% vs 80.14%). Rule B (non_spam→spam) gagal
-  100% (0 benar dari 27× nyala). Hybrid rule dinonaktifkan via
-  `ENABLE_HYBRID_RULES = False` di `src/server.py` (kode dipertahankan,
-  bukan dihapus). Detail lengkap + kalimat siap kutip untuk sidang di
+- [x] Hard test set terpisah — accuracy 75.71% murni SVM, 17 FP dari 70
+  non_spam hard examples. Script: `src/evaluate_hard_set.py`.
+- [x] 5-fold cross-validation di `src/train.py`, otomatis tiap run. Hasil
+  (Versi 12): F1-macro 97.41% ± 0.30%. Visualisasi: `reports/cv_5fold_scores.png`.
+- [x] GridSearchCV untuk C (`0.01`–`100`) di `src/train.py`. C=1 terpilih
+  (F1-macro CV 0.9728). Visualisasi: `reports/gridsearch_c_sweep.png`.
+- [x] Baseline comparison (`src/compare_baselines.py`): SVM 97.53%/0.9726,
+  Naive Bayes 93.95%/0.9313, Logistic Regression 97.09%/0.9675.
+- [x] Confusion matrix per model, tersimpan otomatis ke `reports/`.
+- [x] Ablation study hybrid rules vs SVM murni (2026-06-30):
+  `src/evaluate_hybrid_ablation.py` menunjukkan hybrid rules **menurunkan**
+  accuracy 6–13 poin setelah dataset diperbesar — SVM murni menang di
+  train-test split (97.57% vs 91.33%) dan hard test set (92.91% vs 80.14%).
+  Rule B gagal total (0/27). Dinonaktifkan
+  (`ENABLE_HYBRID_RULES = False` di `src/server.py`), kode dipertahankan
+  sebagai bukti eksperimen. Detail:
   [PENJELASAN_TEKNIS.md §33](PENJELASAN_TEKNIS.md#33-ablation-study-hybrid-rules--kenapa-akhirnya-dimatikan).
 
 ---
 
 ## Fase 3 — Preprocessing & Eksperimen Model
 
-**Tujuan:** Setelah dataset dan evaluasi lebih solid, ini saatnya
-bereksperimen meningkatkan kualitas model itu sendiri.
+> Aturan: setiap kali `src/preprocessing.py` diubah, jalankan ulang
+> `prepare_dataset.py` lalu `train.py` — kalau tidak, terjadi
+> *training-serving skew* ([PENJELASAN_TEKNIS.md §11](PENJELASAN_TEKNIS.md)).
 
-> ⚠️ **Aturan wajib:** Setiap kali `src/preprocessing.py` diubah, kamu HARUS
-> jalankan ulang `prepare_dataset.py` lalu `train.py`. Kalau tidak, terjadi
-> *training-serving skew* (sudah dijelaskan lengkap di
-> [`PENJELASAN_TEKNIS.md`](PENJELASAN_TEKNIS.md) bagian 11).
-
-- [✅] **Coba stemming dengan Sastrawi.**
-  Dieksperimen di `src/experiment_stemming.py`. Hasil lama (dataset ~5132
-  baris, single 80/20 split): perbedaan F1-macro +0.0002 — tidak signifikan,
-  model produksi tetap tanpa stemming.
-
-  **Diverifikasi ulang 2026-07-03 di dataset Versi 12 (6690 baris).** Single
-  80/20 split sempat menunjukkan delta naik ke +0.0025 (12x lebih besar,
-  sempat terlihat mengkhawatirkan). Tapi setelah ditambahkan **perbandingan
-  5-fold CV berpasangan + paired t-test** (fitur baru di
-  `experiment_stemming.py`, karena fold assignment identik untuk kedua
-  varian saat cv=5 dan urutan data sama, jadi delta per-fold valid
-  dibandingkan langsung) — hasilnya **kebalikannya**: mean delta
-  **−0.0006** (stemming sedikit lebih **buruk**, bukan lebih baik), 4 dari 5
-  fold menunjukkan stemming kalah, **p=0.3575** (jauh dari signifikan).
-  Kesimpulan: delta +0.0025 di single-split murni kebetulan komposisi
-  split, bukan efek stemming yang nyata. **Keputusan awal (tidak pakai
-  stemming) terbukti tetap benar**, sekarang dengan bukti yang lebih kuat
-  (uji statistik, bukan cuma satu angka). Grafik:
-  `reports/experiment_stemming_cv.png`. Narasi di
-  [PENJELASAN_TEKNIS.md §18](PENJELASAN_TEKNIS.md#18-eksperimen-stemming--apakah-stemming-membantu)
-  **sudah ditulis ulang** (§18.6–18.8) memakai temuan CV + paired t-test ini,
-  termasuk kalimat siap kutip untuk sidang. Tidak ada lagi yang menggantung
-  di item ini.
-
-- [ ] **Tambah stopwords domain-spesifik** — dipindah ke
-  [Future Work](#future-work--belum-dikerjakan-ditunda-pasca-riset).
-
-- [✅] **Inspeksi fitur paling berpengaruh (support vectors / koefisien).**
-  Diimplementasikan di `src/inspect_features.py`. Jalankan setelah training:
-  `python src/inspect_features.py`. Output tersimpan di `reports/`:
-  - `top_features.png` — bar chart dua panel siap pakai di skripsi
-  - `feature_weights.csv` — seluruh ~4000 fitur dan bobotnya
-  → Penjelasan lengkap (termasuk kalimat untuk bab metodologi) di
-  [PENJELASAN_TEKNIS.md §17](PENJELASAN_TEKNIS.md#17-inspeksi-fitur--apa-yang-dipelajari-model)
-
-- [✅] **Eksperimen `max_features` dan `ngram_range`.**
-  Dieksperimen di `src/experiment_features.py`. Hasil utama:
-  - Unigram saja (1,1) sedikit lebih baik (+0.0034) — tidak signifikan secara praktis
-  - Trigram tidak membantu sama sekali
-  - max_features tidak relevan: vocabulary aktual hanya 4.056, jauh di bawah batas
-  - Konfigurasi baseline dipertahankan
-  → Penjelasan + kalimat siap kutip di
-  [PENJELASAN_TEKNIS.md §19](PENJELASAN_TEKNIS.md#19-eksperimen-konfigurasi-tf-idf--ngram-dan-max_features)
+- [x] Eksperimen stemming Sastrawi (`src/experiment_stemming.py`). Hasil
+  akhir setelah 5-fold CV berpasangan + paired t-test (2026-07-03, dataset
+  Versi 12): mean delta F1-macro **−0.0006**, p=0.3575 — stemming tidak
+  membantu secara statistik. Keputusan awal (tanpa stemming) dipertahankan.
+  Grafik: `reports/experiment_stemming_cv.png`. Detail:
+  [PENJELASAN_TEKNIS.md §18](PENJELASAN_TEKNIS.md#18-eksperimen-stemming--apakah-stemming-membantu).
+- [x] Inspeksi fitur (`src/inspect_features.py`) → `reports/top_features.png`,
+  `reports/feature_weights.csv`. Detail:
+  [PENJELASAN_TEKNIS.md §17](PENJELASAN_TEKNIS.md#17-inspeksi-fitur--apa-yang-dipelajari-model).
+- [x] Eksperimen `max_features`/`ngram_range` (`src/experiment_features.py`):
+  unigram-only sedikit lebih baik (+0.0034, tidak signifikan), trigram tidak
+  membantu, konfigurasi baseline dipertahankan. Detail:
+  [PENJELASAN_TEKNIS.md §19](PENJELASAN_TEKNIS.md#19-eksperimen-konfigurasi-tf-idf--ngram-dan-max_features).
+- [ ] Stopwords domain-spesifik — dipindah ke [Future Work](#future-work).
 
 ---
 
 ## Fase 4 — Robustness Extension
 
-**Tujuan:** Pastikan extension benar-benar bekerja di kondisi nyata, bukan
-hanya secara teori.
-
-- [✅] **Uji coba langsung di YouTube** (load unpacked extension, scroll
-  komentar, cek console log, screenshot hasil deteksi).
-  Diuji pada video `pzE8S6N0vwo` (finansial/anti-judol). Temuan:
-  - Komentar korban/diskusi anti-judol awalnya banyak yang ter-flag → diperbaiki
-    dengan menghapus `slot` dan `deposit` dari HARD_SPAM_SIGNALS (Versi 8)
-  - `H0KI777` (leet speak dengan digit `0`) tidak terdeteksi → diperbaiki
-    dengan tambah Step 5b-i normalisasi leet di preprocessing
-
-- [x] **~~Cek selector Instagram~~ — di luar scope, diabaikan.**
-  Judul skripsi ("...DETEKSI KOMENTAR SPAM JUDI ONLINE PADA YOUTUBE BERBASIS
-  CHROME EXTENSION") secara eksplisit hanya menyebut YouTube. Selector
-  Instagram di `content.js` (`ul._a9ym li`, `span._aacl`) dibiarkan apa
-  adanya sebagai kode tambahan yang tidak diverifikasi/tidak diklaim — kalau
-  ditanya saat sidang, jawab bahwa scope proyek memang dibatasi ke YouTube
-  sesuai judul, Instagram bukan bagian dari kontribusi yang diuji.
-
-- [✅] **Buat threshold confidence bisa diatur dari popup.**
-  Slider ditambahkan di `popup.html` (range 50%–95%, step 5%). Nilai disimpan
-  ke `chrome.storage` dan dibaca oleh `content.js` saat init. Perubahan slider
-  langsung aktif di tab yang sedang buka (tanpa perlu reload) via
-  `chrome.storage.onChanged` listener.
-
-- [✅] **Tambahkan `scannedCount` yang sebenarnya.**
-  Bug diperbaiki di `content.js`: `scannedCount` sekarang diincrement di
-  `scanComments()` dan disimpan ke `chrome.storage` via `persistStats()`.
-  Popup sekarang menampilkan angka yang akurat.
-
-- [✅] **Tangani kasus server mati di tengah sesi.**
-  `predictBatch()` sekarang memanggil `checkServerHealth()` saat terjadi
-  network error. Ini memperbarui `isServerAvailable = false` sehingga scan
-  berikutnya tidak lagi mencoba hit server yang sudah mati.
+- [x] Uji langsung di YouTube (video `pzE8S6N0vwo`). Ditemukan & diperbaiki:
+  `slot`/`deposit` dihapus dari HARD_SPAM_SIGNALS (Versi 8, salah flag
+  komentar korban/anti-judol), leet speak `H0KI777` diperbaiki via Step 5b-i.
+- [x] Selector Instagram dibiarkan tidak diverifikasi — di luar scope judul
+  ("...PADA YOUTUBE BERBASIS CHROME EXTENSION").
+- [x] Threshold confidence bisa diatur dari popup (slider 50%–95%, tersimpan
+  di `chrome.storage`, aktif langsung tanpa reload).
+- [x] `scannedCount` diperbaiki — sekarang benar-benar diincrement per scan.
+- [x] Server-down handling — `predictBatch()` memicu `checkServerHealth()`
+  saat network error, supaya scan berikutnya tidak retry ke server mati.
 
 ---
 
-## Fase 5 — Deployment (Opsional)
+## Future Work
 
-**Tujuan:** Membuat sistem lebih mudah dipakai orang lain (di luar konteks
-skripsi murni). **Fase ini opsional** — kerjakan hanya jika Fase 1–4 sudah
-solid dan kamu masih punya waktu/energi.
+Item yang sengaja ditunda, tidak menghalangi penulisan skripsi — semua
+metrik/klaim di README, DATASET_LOG, dan PENJELASAN_TEKNIS sudah valid dan
+reproducible tanpa item-item ini.
 
-Semua item di fase ini dipindah ke
-[Future Work](#future-work--belum-dikerjakan-ditunda-pasca-riset) — sifatnya
-sama-sama "nice to have di luar scope inti skripsi", jadi dikonsolidasikan
-di satu tempat.
-
----
-
-## Future Work — Belum Dikerjakan (Ditunda Pasca-Riset)
-
-**Konteks:** Per 2026-07-05, riset teknis proyek ini dihentikan sementara
-untuk fokus ke penulisan skripsi (Fase 6 di bawah). Ini daftar item yang
-**sengaja tidak dikerjakan**, dikonsolidasikan dari berbagai fase di atas
-supaya jelas mana yang murni "future work" (boleh disebut di Bab
-Keterbatasan & Saran) vs mana yang masih jadi pekerjaan aktif. Tidak ada
-satupun di bawah ini yang menghalangi penulisan — semua metrik dan klaim
-yang sudah ada di dokumentasi (README, DATASET_LOG, PENJELASAN_TEKNIS) valid
-dan reproducible tanpa perlu menyelesaikan item-item ini terlebih dahulu.
-
-- [ ] **Scraping ulang untuk mengisi `final_borderline.json` + review manual.**
-  (Dari Fase 1.) Kode `isBorderlineComment()` sudah ditambahkan ke
-  `scraper/index.js` (2026-07-03) supaya komentar berskor 10-29 tidak lagi
-  dibuang tanpa jejak, tapi **belum pernah dijalankan** — dicek langsung ke
-  repo scraper (`scraper-judol-yt-comment`), tidak ada satupun file
-  `result/borderline_*.json` atau `final_borderline.json` yang ada. Kalau
-  dikerjakan, ini kemungkinan sumber terbaik untuk menambah contoh "kritik +
-  sebut brand" yang jadi limitasi terdokumentasi di
+- [ ] Review manual `final_borderline.json` (belum pernah dijalankan sejak
+  `isBorderlineComment()` ditambahkan 2026-07-03) — kandidat terbaik untuk
+  menambah contoh "kritik + sebut brand", limitasi yang dibahas di
   [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
-  Aman dijadikan future work — §34 sudah membahas limitasi ini secara jujur
-  tanpa perlu data tambahan ini untuk skripsi selesai.
-
-- [ ] **Tambah stopwords domain-spesifik** ("kak", "bang", "min",
-  "subscribe", "like", "video", "nonton", dll) ke `STOPWORDS_ID`. (Dari Fase
-  3.) ⚠️ Dari hasil inspeksi fitur
-  ([PENJELASAN_TEKNIS.md §17](PENJELASAN_TEKNIS.md#17-inspeksi-fitur--apa-yang-dipelajari-model)),
-  `bang` dan `dok` justru jadi sinyal non-spam kuat (bobot -1.55 dan -1.39)
-  — kebalikan dari asumsi stopword biasa. Hasil eksperimen sudah bisa
-  diprediksi dari data ini (kemungkinan performa turun kalau dihapus), jadi
-  prioritasnya rendah — aman ditunda tanpa risiko.
-
-- [ ] **Packaging server jadi executable** (misal `PyInstaller`) supaya
-  pengguna awam tidak perlu install Python + dependencies manual. (Dari Fase
-  5, opsional, di luar scope inti skripsi.)
-
-- [ ] **Auto-start server** — launcher yang menjalankan server di background
-  saat Chrome dibuka (kompleks, butuh native messaging/installer terpisah).
-  (Dari Fase 5, opsional.)
-
-- [ ] *(Eksplorasi jangka panjang)* Riset konversi model ke ONNX Runtime Web
-  / TensorFlow.js agar prediksi berjalan langsung di browser tanpa server
-  Python. Sudah disebut di FAQ dokumentasi sebagai "di luar scope skripsi" —
-  realistis untuk disebut sebagai future work di Bab Keterbatasan & Saran.
+- [ ] Stopwords domain-spesifik ("kak", "bang", "min", dll) — prioritas
+  rendah, inspeksi fitur menunjukkan `bang`/`dok` justru sinyal non-spam kuat
+  (bobot −1.55/−1.39), jadi kemungkinan performa turun kalau dihapus.
+- [ ] Packaging server jadi executable (PyInstaller), auto-start launcher —
+  di luar scope inti skripsi.
+- [ ] Riset konversi model ke ONNX Runtime Web / TensorFlow.js agar prediksi
+  jalan langsung di browser tanpa server Python.
 
 ---
 
-## Fase 6 — Penulisan Skripsi
+## Fase 5 — Penulisan Skripsi
 
-**Tujuan:** Menerjemahkan seluruh kerja teknis menjadi narasi akademis yang
-koheren.
-
-- [ ] **Bab Metodologi:** Jelaskan alur Fase 0–3 di atas sebagai metodologi
-  penelitian — pengumpulan data (scraper + heuristik scoring), pembersihan
-  data (two-pass filter), preprocessing (7 layer), pemodelan (TF-IDF + SVM),
-  evaluasi (cross-validation, hyperparameter tuning).
-
-- [ ] **Bab Hasil & Pembahasan:** Sajikan hasil dari Fase 2 — termasuk hasil
-  pada hard test set (jangan hanya tampilkan angka 100% dari test set biasa).
-  Bahas *kenapa* model bisa salah pada kasus tertentu (analisis error/error
-  analysis).
-
-- [ ] **Bab Implementasi:** Jelaskan arsitektur sistem (extension + server),
-  bisa langsung adaptasi dari diagram di `README.md` dan
-  `PENJELASAN_TEKNIS.md`.
-
-- [ ] **Bab Keterbatasan & Saran:** Tulis jujur — dependency server lokal,
-  data non-spam sintetis (jika belum sempat diganti), selector extension yang
-  rapuh terhadap perubahan UI platform, dll. Penguji **menghargai** kejujuran
-  soal limitasi dibanding klaim berlebihan. Dua keterbatasan yang sudah diuji
-  empiris dan siap dikutip langsung:
-  - **Generalisasi ke brand judol baru** — diuji pakai brand fiktif, model
-    robust untuk brand bersuffix pola dikenal (digit/QQ) atau yang disertai
-    kalimat promosi jelas, tapi confidence anjlok untuk brand+suffix
-    benar-benar baru tanpa konteks promosi. Mitigasinya operasional (pipeline
-    scraping-retraining), bukan perbaikan kode. Detail di
-    [PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti).
-  - **Generalisasi pola "kritik + sebut brand"** — SVM/TF-IDF belajar di
-    level token spesifik, bukan pola linguistik abstrak; lihat eksperimen di
-    [DATASET_LOG.md Versi 9](DATASET_LOG.md#versi-9--2026-06-30).
-
-- [ ] **Siapkan demo live** — extension + server jalan saat sidang, dengan
-  beberapa video YouTube yang sudah diketahui mengandung komentar spam.
-
----
-
-## Tips Belajar & Cara Kerja untuk Junior
-
-Karena kamu bilang masih banyak yang belum paham di sisi AI — ini wajar,
-proyek ini menyentuh banyak konsep sekaligus (NLP, Unicode, ML klasik, sistem
-terdistribusi sederhana). Beberapa saran cara kerja:
-
-1. **Jangan coba pahami semuanya sekaligus.** Pakai dokumen
-   [`PENJELASAN_TEKNIS.md`](PENJELASAN_TEKNIS.md) sebagai kamus rujukan —
-   buka per bagian sesuai fase yang sedang kamu kerjakan, bukan dibaca habis
-   sekaligus dari awal.
-
-2. **Setiap eksperimen, catat hasilnya.** Buat file sederhana, misal
-   `EXPERIMENTS.md`, isinya tabel: tanggal, perubahan apa (misal "tambah
-   stemming"), hasil F1-score sebelum/sesudah. Ini sangat membantu saat
-   menulis skripsi DAN membantu kamu melihat progres.
-
-3. **Selalu jalankan ulang pipeline lengkap setelah perubahan apapun di
-   `preprocessing.py`** — `prepare_dataset.py` → `train.py`. Lupakan ini =
-   sumber bug paling membingungkan (model "tidak berubah" padahal kode sudah
-   diubah).
-
-4. **Manfaatkan `http://localhost:8000/docs`** (Swagger UI otomatis dari
-   FastAPI) untuk testing API tanpa perlu extension — sangat membantu saat
-   debugging model secara terpisah dari extension.
-
-5. **Kalau bingung dengan suatu konsep (TF-IDF, SVM, NFKC, dll), tanya saja
-   di sesi berikutnya** — minta penjelasan dengan analogi atau contoh konkret
-   dari proyek ini sendiri. Lebih efektif belajar dari kode yang sudah jalan
-   daripada dari teori abstrak duluan.
-
-6. **Prioritaskan Fase 1 dan 2 dulu.** Fase 3–5 itu "nice to have" yang
-   meningkatkan kualitas, tapi Fase 1–2 adalah yang paling sering ditanyakan
-   penguji ("dari mana datanya?", "kok akurasinya 100%, yakin?").
-
----
-
-## Pertanyaan untuk Diskusi Lanjut
-
-Supaya sesi berikutnya lebih terarah, coba pikirkan dulu:
-
-1. **Kapan target sidang/deadline skripsi kamu?** Ini menentukan seberapa
-   jauh kita bisa masuk ke Fase 3–5.
-2. **Apakah kamu (atau ada anggota tim lain) yang akan melakukan scraping
-   dan review manual data non-spam asli?** Ini kerjaan yang butuh waktu
-   manual, bukan murni coding.
-3. **Apakah dosen pembimbing punya concern spesifik** (misal soal akurasi
-   100%, soal data sintetis, soal arsitektur server lokal) yang sudah pernah
-   disampaikan? Kalau ada, itu bisa langsung jadi prioritas utama.
-4. **Mau mulai dari mana di sesi berikutnya** — Fase 0 (housekeeping/git),
-   atau langsung loncat ke Fase 1/2 (dataset & evaluasi)?
+- [ ] Bab Metodologi — alur Fase 0–3 sebagai metodologi penelitian
+- [ ] Bab Hasil & Pembahasan — hasil Fase 2, termasuk hard test set dan
+  analisis error, bukan hanya angka test-set biasa
+- [ ] Bab Implementasi — arsitektur extension + server
+- [ ] Bab Keterbatasan & Saran — dependency server lokal, generalisasi ke
+  brand baru ([PENJELASAN_TEKNIS.md §34](PENJELASAN_TEKNIS.md#34-generalisasi-ke-brand-judol-baru--sejauh-mana-model-bisa-mengikuti)),
+  generalisasi pola "kritik + sebut brand"
+  ([DATASET_LOG.md Versi 9](DATASET_LOG.md#versi-9--2026-06-30))
+- [ ] Demo live untuk sidang
