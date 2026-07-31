@@ -1,4 +1,5 @@
---- PAGE 1 ---
+
+===== PEDOMAN PAGE 1 =====
 1 
  
 PEDOMAN  
@@ -39,8 +40,7 @@ PROGRAM STUDI TEKNIK INFORMATIKA
 INSTITUT TEKNOLOGI DAN BISNIS 
 S W A D H A R M A 
 2022 
-
---- PAGE 2 ---
+===== PEDOMAN PAGE 2 =====
 2 
  
 Lembar Pengesahan 
@@ -73,8 +73,7 @@ Wakil Rektor I Dekan Fakultas Teknologi ITB Swadharma
  
  
   
-
---- PAGE 3 ---
+===== PEDOMAN PAGE 3 =====
 3 
  
 BAB I  
@@ -128,8 +127,7 @@ diharapkan mahasiswa mendapatkan latihan menerapkan teori praktik yang
 telah didapatnya selama perkuliahan untuk menghasilkan produk Informatika 
 yang sesuai dengan kondisi nyata. 
  
-
---- PAGE 4 ---
+===== PEDOMAN PAGE 4 =====
 4 
  
  
@@ -181,8 +179,7 @@ baru.
 3.   Kandungan ilmiah 
 Tingkat keteraturan prosedur dan keandalan dan sumber data yang 
 digunakan s ebagai  dasar  p engembangan  sistem.  Keandalan  data  
-
---- PAGE 5 ---
+===== PEDOMAN PAGE 5 =====
 5 
  
 perlu  ditunjukkan d engan   metode   p engumpulan   data,   seperti   
@@ -192,8 +189,7 @@ Menunjukkan d aya tarik yang memadai, b aik dari segi ide  maupun
 teknologi. 
 5.   Tingkat kesulitan/kompleksitas 
 Mempunyai kompleksitas permasalahan yang memadai.  
-
---- PAGE 6 ---
+===== PEDOMAN PAGE 6 =====
  
  
  
@@ -247,8 +243,7 @@ penyelesaian ditangani oleh Ketua Program Studi dan apabila belum bisa
 diselesaikan, maka dilimp ahkan k epada Dekan Fakultas Teknologi  ITB 
 Swadharma. 
  
-
---- PAGE 7 ---
+===== PEDOMAN PAGE 7 =====
 7 
  
  
@@ -302,8 +297,7 @@ Pembimbing minimum lima kali.
 7. Pembimbing dapat menolak mahasiswa bimbingan apabila mahasiswa 
 yang bersangkutan tidak   membawa   Kartu   Bimbingan,   di   luar   
 waktu   yang   t elah   dijadwalkan   oleh Pembimbing, atau 
-
---- PAGE 8 ---
+===== PEDOMAN PAGE 8 =====
 8 
  
  
@@ -355,8 +349,7 @@ b. Proses bimbingan telah memasuki Bab IV.
  
  
  
-
---- PAGE 9 ---
+===== PEDOMAN PAGE 9 =====
 9 
  
  
@@ -409,8 +402,7 @@ yang akan dibuat.
  
  
  
-
---- PAGE 10 ---
+===== PEDOMAN PAGE 10 =====
 10 
  
  
@@ -465,8 +457,7 @@ Rencana kegiatan dituangkan dalam bentuk gantt chart.
  
  
  
-
---- PAGE 11 ---
+===== PEDOMAN PAGE 11 =====
 11 
  
  
@@ -519,8 +510,7 @@ dengan urutan : Rektor ITB Swadharma, Ketua Jurusan/Program Studi,
 pembimbing, p enasehat akademik, p ersonil di t empat p enelitian, d an 
 pihak-pihak lainnya. (contoh terlampir, L-9) 
  
-
---- PAGE 12 ---
+===== PEDOMAN PAGE 12 =====
 12 
  
  
@@ -571,8 +561,7 @@ Biasanya masalah dirumuskan dalam sebuah kalimat pertanyaan.
 Tujuan p enelitian b erkenaan d engan tuju an yang h endak di capai 
 dengan melakukan p enelitian. Tujuan p enelitian b erkaitan erat 
 dengan perumusan masalah. 
-
---- PAGE 13 ---
+===== PEDOMAN PAGE 13 =====
 13 
  
  
@@ -624,8 +613,7 @@ Bagian ini berisi persyaratan sistem yang akan dikembangkan
 berdasarkan teori dan penyempurnaan dari studi penelitian terdahulu. 
 Persyaratan akan menjadi asumsi bagi perancangan sistem yang akan 
 dibahas, yaitu b erkaitan d engan output  atau informasi yang akan 
-
---- PAGE 14 ---
+===== PEDOMAN PAGE 14 =====
 14 
  
  
@@ -677,8 +665,7 @@ serdang berjalan.
  
  
  
-
---- PAGE 15 ---
+===== PEDOMAN PAGE 15 =====
 15 
  
  
@@ -729,8 +716,7 @@ A.  Pendekatan Terstruktur
 Menguraikan output/ informasi yang di perlukan dan akan 
 disajikan oleh aplikasi yang dibu at. Misalnya laporan-laporan 
 atau output lainnya berdasarkan hasil p engumpulan data dari 
-
---- PAGE 16 ---
+===== PEDOMAN PAGE 16 =====
 16 
  
  
@@ -778,8 +764,7 @@ Minimum  ada  5  aktor  yang  t erlibat  di  dalamnya  dan
 masing m asing m ewakili dari multimedia (text, video, 
 animasi, Music, voice, dan image) 
  
-
---- PAGE 17 ---
+===== PEDOMAN PAGE 17 =====
 17 
  
  
@@ -825,8 +810,7 @@ mengatur IP Traffic dan Filtering IP
  
  
  
-
---- PAGE 18 ---
+===== PEDOMAN PAGE 18 =====
 18 
  
  
@@ -880,8 +864,7 @@ dan kandungan informasi yang dihasilkan.
  
  
  
-
---- PAGE 19 ---
+===== PEDOMAN PAGE 19 =====
 19 
  
  
@@ -928,8 +911,7 @@ Pada bagian dijelaskan secara detil rancangan  dari actor actor
 yang digun akan. Gun akan Macro media untuk menjelaskan 
 bagian ini. Sebutkan secara b erurutan si apa (actor) yang akan 
 keluar pada waktu yang telah ditentukan. Minimum ada 5 aktor 
-
---- PAGE 20 ---
+===== PEDOMAN PAGE 20 =====
 20 
  
  
@@ -980,8 +962,7 @@ implementasikan.
 (3) Kelayakan Hukum 
 Menjelaskan  bahwa  secara  hukum  dan/atau  teori  yang 
 berlaku,  sistem yang diusulk an l ayak untuk dit erapkan, 
-
---- PAGE 21 ---
+===== PEDOMAN PAGE 21 =====
 21 
  
  
@@ -1031,8 +1012,7 @@ tengah bawah halaman.
  
  
  
-
---- PAGE 22 ---
+===== PEDOMAN PAGE 22 =====
 22 
  
  
@@ -1068,8 +1048,7 @@ Font 12, spasi 1 . Penulis 1 dan 2 adalah dosen pembimbing, sedangkan
 Penulis 3 adalah mahasiswa. 
 3. Nama Program Studi, Fakultas, Nama Perguruan Tinggi 
 Times New Roman 12, spasi 1, spacing after 12 pt  
-
---- PAGE 23 ---
+===== PEDOMAN PAGE 23 =====
 23 
  
  
@@ -1105,8 +1084,7 @@ Template untuk format artik el ini dibuat dalam MS Word 2003 , Batang
 tubuh teks menggunakan font: Times New  Roman 12, regular, spasi 1. 
 Panjang bagian pendahuluan sekitar 2 -3 halaman.  Penulisan bagian 
 pendahuluan ini tanpa sub judul. 
-
---- PAGE 24 ---
+===== PEDOMAN PAGE 24 =====
 24 
  
  
@@ -1142,8 +1120,7 @@ kerancuan, karena dimensi persamaan bisa menjadi tidak setara.
 c) Jangan mencampur singkatan satua n dengan satuan lengkap. Misalnya, 
 gunakan satuan “Wb/m2” or “webers per meter  persegi”, jangan 
 “webers/m2”.   
-
---- PAGE 25 ---
+===== PEDOMAN PAGE 25 =====
 25 
  
  
@@ -1187,8 +1164,7 @@ Salah satu ciri artikel ilmiah adalah menyajikan gagasan orang lain untuk
 memperkuat dan memperkaya gagasan penulisnya. Gagasan yang telah 
 lebih dulu diungkapkan orang lain ini diacu (dirujuk), dan sumber acuannya 
 dimasukkan dalam daftar pustaka.  Daftar pustaka harus lengkap dan sesuai 
-
---- PAGE 26 ---
+===== PEDOMAN PAGE 26 =====
 26 
  
  
@@ -1224,8 +1200,7 @@ pengetahuan/informasi kepada orang lain (Riebel, 1978).
 sumber informasi dituliskan  segera setelah nama penulisnya. Atau, apabila 
 nama pengarang tetap ingin disebutkan, acuan ini dituliskan di akhir teks.  
 Contohnya: menurut Riebel (1978), karya tulis ilmiah adalah tulisan faktual 
-
---- PAGE 27 ---
+===== PEDOMAN PAGE 27 =====
 27 
  
  
@@ -1260,8 +1235,7 @@ Simpulan menyajikan ringkasan dari uraian hasil dan pembahasan, mengacu
 pada permasalahan mitra. Berdasarkan kedua hal tersebut, uraikan faktor 
 pendukung dan penghambat kegiatan. 
  
-
---- PAGE 28 ---
+===== PEDOMAN PAGE 28 =====
 28 
  
  
@@ -1274,8 +1248,7 @@ C. Bagian Akhir
 DAFTAR PUSTAKA 
  
   
-
---- PAGE 29 ---
+===== PEDOMAN PAGE 29 =====
 29 
  
  
@@ -1329,8 +1302,7 @@ Pengetikan alinea baru diawali dari ketikan ke 6 dari batas tepi sisi kiri.
 a. Judul bab harus seluruhnya menggunakan huruf kapital, 
 menggunakan ukuran huruf 14, di atur simetris p ada posisi t engah 
 (center), dan tanpa diakhiri tanda titik. 
-
---- PAGE 30 ---
+===== PEDOMAN PAGE 30 =====
 30 
  
  
@@ -1383,8 +1355,7 @@ dari tepi atas dan tepi bawah.
 Tabel (daftar) menggunakan penomoran dengan angka Arab. 
 Gambar menggunakan penomoran dengan angka Arab. 
  
-
---- PAGE 31 ---
+===== PEDOMAN PAGE 31 =====
 31 
  
  
@@ -1436,8 +1407,7 @@ predikat) dan supaya  lebih  sempurna  ditambah  dengan  objek-
 keterangan,  dengan  aturan-aturan sesuai d engan Ej aan yang 
 Disempurnakan. 
  
-
---- PAGE 32 ---
+===== PEDOMAN PAGE 32 =====
 32 
  
  
@@ -1491,8 +1461,7 @@ berjumlah15 buku dan tahun penerbitannya tidak boleh berusia di atas 10
 tahun dari t ahun p enulisan T ugas Akhir/Skripsi t ersebut. Penulisan 
 buku/referensi pada Daftar Pustaka ini adalah buku buku yang mempunyai 
 ISDN dan jika ada kutipan yang diambil dari sebuah website, maka tulisan 
-
---- PAGE 33 ---
+===== PEDOMAN PAGE 33 =====
 33 
  
  
@@ -1532,8 +1501,7 @@ August 2008
  
  
   
-
---- PAGE 34 ---
+===== PEDOMAN PAGE 34 =====
 34 
  
  
@@ -1566,8 +1534,7 @@ LAMPIRAN
  
  
  
-
---- PAGE 35 ---
+===== PEDOMAN PAGE 35 =====
  
  
  
@@ -1604,8 +1571,7 @@ SWADHARMA
   
 2022 
 L-1 
-
---- PAGE 36 ---
+===== PEDOMAN PAGE 36 =====
 ii 
  
  
@@ -1644,8 +1610,7 @@ Pada Tanggal: ………………………….
  
  
 L-2 
-
---- PAGE 37 ---
+===== PEDOMAN PAGE 37 =====
 iii 
  
  
@@ -1683,8 +1648,7 @@ Rencana Kegiatan ...............................................................
  
  
 L-3 
-
---- PAGE 38 ---
+===== PEDOMAN PAGE 38 =====
  
  
  
@@ -1757,8 +1721,7 @@ ukuran 16, Center dan
 spasi 1 
  
 2021 
-
---- PAGE 39 ---
+===== PEDOMAN PAGE 39 =====
 ii 
  
  
@@ -1813,8 +1776,7 @@ ukuran 12 dan jarak spasi
 Tanggal, bulan, tahun 
 saat di acc sidang 
 
-
---- PAGE 40 ---
+===== PEDOMAN PAGE 40 =====
  
 iii 
  
@@ -1869,8 +1831,7 @@ dan tahun sidang
 Ditulis nama penguji sesuai 
 lembar perbaikan sidang 
 
-
---- PAGE 41 ---
+===== PEDOMAN PAGE 41 =====
  
 iv 
  
@@ -1924,8 +1885,7 @@ spasi 1,5
 Tanggal, bulan, 
 dan tahun sidang 
 
-
---- PAGE 42 ---
+===== PEDOMAN PAGE 42 =====
  
 v 
  
@@ -1949,8 +1909,7 @@ L-8
 Time New Roman  
 ukuran 14, Bold 
  
-
---- PAGE 43 ---
+===== PEDOMAN PAGE 43 =====
  
 vi 
  
@@ -1990,8 +1949,7 @@ L-9
 Time New Roman  
 ukuran 14, Bold 
  
-
---- PAGE 44 ---
+===== PEDOMAN PAGE 44 =====
  
 vii 
  
@@ -2033,8 +1991,7 @@ Time New Roman
 ukuran 12 dan jarak 
 spasi 1,5 
  
-
---- PAGE 45 ---
+===== PEDOMAN PAGE 45 =====
  
 viii 
  
@@ -2063,8 +2020,7 @@ Time New Roman
 ukuran 12 dan jarak 
 spasi 1,5 
  
-
---- PAGE 46 ---
+===== PEDOMAN PAGE 46 =====
  
 ix 
  
@@ -2109,8 +2065,7 @@ Time New Roman
 ukuran 12 dan jarak 
 spasi 1,5 
  
-
---- PAGE 47 ---
+===== PEDOMAN PAGE 47 =====
  
 x 
  
@@ -2151,8 +2106,7 @@ Time New Roman
 ukuran 12 dan jarak 
 spasi 1,5 
  
-
---- PAGE 48 ---
+===== PEDOMAN PAGE 48 =====
  
 xi 
  
@@ -2196,8 +2150,7 @@ Time New Roman
 ukuran 12 dan jarak 
 spasi 1,5 
  
-
---- PAGE 49 ---
+===== PEDOMAN PAGE 49 =====
  
 xii 
  
@@ -2242,8 +2195,7 @@ ang
 L-15 Time New Roman  
 ukuran 14, Bold 
  
-
---- PAGE 50 ---
+===== PEDOMAN PAGE 50 =====
  
 xiii 
  
@@ -2301,8 +2253,7 @@ Time New Roman
 ukuran 12, huruf 
 kapital, posisi : center 
  
-
---- PAGE 51 ---
+===== PEDOMAN PAGE 51 =====
  
  
 1 
@@ -2346,8 +2297,7 @@ ukuran 14, Bold, spasi
 penomoran pada setiap BAB  posisi 
 nomor ada  di tengah  bawah 
  
-
---- PAGE 52 ---
+===== PEDOMAN PAGE 52 =====
 2 
  
  
@@ -2388,8 +2338,7 @@ L-18
 (penomoran selanjutnya  posisi 
 nomor ada di kanan atas) 
  
-
---- PAGE 53 ---
+===== PEDOMAN PAGE 53 =====
  
  
  
@@ -2432,8 +2381,7 @@ Time New Roman
 ukuran 12 dan jarak 
 spasi 2 
  
-
---- PAGE 54 ---
+===== PEDOMAN PAGE 54 =====
  
  
  
@@ -2464,4 +2412,3 @@ PDF
 7 Jurnal Skripsi PDF 
  
  
-
