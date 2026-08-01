@@ -528,3 +528,129 @@ Ini yang paling makan waktu di antara semua temuan (± 26 sisipan), tapi paling 
 ---
 
 **Kesimpulan saya:** substansi skripsi ini kuat dan datanya bersih — itu bagian yang paling susah, dan sudah beres. Yang tersisa murni kerapian editorial. Kalau Tahap 1 dan 2 dikerjakan, draft ini siap disubmit dengan percaya diri.
+
+---
+
+# EVALUASI ULANG MENYELURUH — 1 Agustus 2026 (sebelum penyusunan PPT sidang)
+
+Audit dijalankan ulang dari nol terhadap `Skripsi/1-AKTIF/[DRAFT] 221232017.docx`, bukan sekadar mengecek daftar temuan lama. Seluruh angka empiris dihitung ulang dari `data/comments.csv`.
+
+## A. Angka empiris — SEMUA COCOK PERSIS
+
+`data/comments.csv` tidak berubah sejak 30 Juni. Pipeline dijalankan ulang penuh:
+
+| Klaim skripsi | Hasil hitung ulang | Status |
+|---|---|---|
+| 6.690 baris (2.332 spam / 4.358 non-spam) | idem | cocok |
+| Latih 5.352 / uji 1.338 | idem | cocok |
+| Akurasi 97,53% · F1-macro 0,9726 | 0,9753 / 0,9726 | cocok |
+| Confusion matrix 863 / 9 / 24 / 442 | idem | cocok |
+| Presisi spam 0,98 · recall 0,95 (Tabel 4.10) | 0,9800 / 0,9485 | cocok (pembulatan 2 desimal) |
+| CV 5-fold 0,9741 ± 0,0030 | idem | cocok |
+| C terbaik = 1 (GridSearchCV) | idem | cocok |
+| LogReg 97,09% / 0,9675 · MultinomialNB 93,95% / 0,9313 | idem | cocok |
+| Hard set 135 kasus, 98,52%, 2 FP, 0 FN | idem | cocok |
+| Ablasi hibrida −7,32 / −16,30 poin | idem | cocok |
+
+## B. Temuan baru
+
+| # | Prioritas | Temuan |
+|---|---|---|
+| **E1** | KRITIS | Abstrak menulis **"(xiii + 11 halaman + 0 lampiran)"**. Badan skripsi bernomor 1–110 (PDF hal. 14–123), jadi seharusnya **110 halaman**. Angka "110" terpotong jadi "11". `xiii` sendiri sudah benar (front matter PDF 1–13). |
+| **E2** | KRITIS | Kode masih `localhost:8000` di 7 tempat sementara skripsi mengklaim *deploy* VPS. Penulis menyatakan akan benar-benar deploy — harus tuntas sebelum sidang, kalau tidak demo berjalan lokal sementara dokumen mengklaim VPS. |
+| **E3** | PENTING | **23 dari 38 gambar/tabel tidak pernah disebut nomornya di badan teks** (melanggar arahan lisan dosen soal kalimat pengantar). |
+| **E4** | PENTING | **2 sub-bab BAB II tanpa kalimat penutup sintesis**: **2.15 UML** (berakhir pada definisi Sequence Diagram + caption) dan **2.18 Persyaratan Sistem Konseptual** (berakhir pada butir daftar "Pengembangan (Improvement): …"). Temuan P7 lama menyebut 5 sub-bab — 2.9, 2.10, 2.11, 2.14, 2.16 kini **sudah** punya sintesis, jadi P7 menyusut jadi 2. |
+| **E5** | PENTING | **5 gambar masih berwarna** padahal dosen meminta hitam-putih: **2.2** (hyperplane), **4.7** (heatmap confusion matrix), **4.8** (F1 per fold), **4.10** (perbandingan stemming), **4.13** (mockup popup). 4.7/4.8/4.10 dihasilkan matplotlib di `src/train.py` → bisa diregenerasi dengan `cmap="Greys"`. Gambar 4.14/4.15 berwarna tetapi berupa tangkapan layar, masih bisa dipertahankan. |
+| **E6** | SEDANG | Halaman **L-1 kosong** masih ada (PDF hal. 127) sementara abstrak menyatakan "0 lampiran". |
+| **E7** | KOSMETIK | Cetak miring tercampur pada 3 istilah, masing-masing hanya 1 kemunculan tegak: *stemming* (1 dari 22), *dataset* (1 dari 40), *real-time* (1 dari 20). `margin` konsisten tegak 6× — keputusan penulis. |
+| **E8** | KOSMETIK | Ada paragraf **Heading 1 kosong** tepat sebelum BAB V (par 904). Tidak bernomor sehingga tidak merusak penomoran bab maupun Daftar Isi, tetapi menyisakan baris kosong berukuran heading. |
+
+## C. Yang sudah bersih (diverifikasi ulang, bukan diasumsikan)
+
+- **Rujukan silang**: 11 rujukan "Sub-bab X.Y" semuanya resolve; 0 rujukan Gambar/Tabel menggantung.
+- **Caption**: 38 caption, 0 nilai `SEQ` tersimpan yang salah, penempatan 100% benar (tabel di atas, gambar di bawah), tidak ada yang diakhiri titik.
+- **Daftar Pustaka**: 30 entri, 2018–2026 (≤10 tahun), 0 entri tidak dikutip, 0 sitasi tanpa entri, 0 "et al.".
+- **Bahasa**: 0 "dimana", 0 kalimat diawali "Sehingga"/"Sedangkan", 0 desimal bertitik, 0 bullet. Kata "saya"/"penulis" hanya di Lembar Pernyataan dan Kata Pengantar — keduanya diizinkan pedoman 4.6.2.
+- **Abstrak**: 234 kata (pedoman 200–250), 5 kata kunci, 4 paragraf sesuai template L-15, baris "Daftar Pustaka (2018-2026)" **ada dan akurat**.
+- **Penomoran halaman**: sec2–sec6 (BAB I–V) semua benar — nomor kanan atas pada halaman lanjutan, bawah-tengah pada halaman pembuka BAB, tanpa restart. Daftar Pustaka tanpa nomor (sesuai keputusan penulis), Lampiran memakai `L-n`.
+
+## D. Tindak lanjut E1–E8 — 1 Agustus 2026
+
+| # | Status | Tindakan |
+|---|---|---|
+| E1 | SELESAI (oleh penulis) | Abstrak kini `(xiii + 110 halaman + 0 lampiran)` |
+| E2 | TERTUNDA | Deploy VPS menyusul; kode masih `localhost:8000` |
+| E3 | SELESAI | 22 kalimat pengantar ditambahkan; **0 dari 38** gambar/tabel kini tanpa rujukan (Gambar 4.11 dan 4.12 dirujuk dalam satu kalimat) |
+| E4 | SELESAI | Penutup sintesis ditambahkan pada **2.15 UML** dan **2.18 Persyaratan Sistem Konseptual** |
+| E5 | **BUKAN MASALAH** | Lihat catatan di bawah |
+| E6 | SELESAI | Dua section lampiran kosong dihapus; pengaturan section Daftar Pustaka dipindah ke level body. Section 10 → 8, dokumen berakhir pada entri pustaka terakhir |
+| E7 | SELESAI | 21 kemunculan istilah asing dimiringkan (*stemming*, *dataset*, *real-time*, *recall*, *accuracy*, *linear*, *server*, *online*, *slider*, *p-value*, *N-gram*, *hard test set*) |
+| E8 | SELESAI (dengan koreksi) | Paragraf tersebut **memuat `sectPr` yang memulai BAB V** — menghapusnya akan merusak penomoran halaman. Gaya diturunkan Heading 1 → Normal, section break dipertahankan |
+
+### Koreksi E5 — laporan sebelumnya keliru
+
+Analisis pertama menyebut Gambar 2.2 dan 3.2 "dark mode" (kecerahan rata-rata 64,8 dan 37,5). **Itu artefak pengukuran**: kedua PNG punya latar transparan, dan `Image.convert('L')` menjadikan piksel transparan hitam. Setelah transparansi dikomposit ke putih seperti kondisi cetak sebenarnya, kecerahannya 240,8 dan 248,5 — keduanya berlatar terang.
+
+Kelima gambar berwarna (2.2, 4.7, 4.8, 4.10, 4.13) juga dirender ulang ke grayscale dan diperiksa secara visual: **semuanya tetap terbaca**. Titik biru dan hijau pada Gambar 2.2 menjadi abu gelap dan abu terang yang masih kontras; angka pada heatmap 4.7 tetap jelas; batang pada 4.8 dan 4.10 tetap terbeda; mockup 4.13 tetap terbaca. **Tidak ada gambar yang perlu diubah.**
+
+### Sisa keputusan cetak miring (penulis)
+
+Istilah berikut konsisten tegak di badan teks dan perlu keputusan apakah termasuk serapan KBBI: `margin` (7×), `label` (16×), `file` (9×), `input` (6×), `output` (5×), `token` (3×), `link` (1×). Juga `spam` (104× tegak, 2× miring), `web`, `bot`, `ham` — kemungkinan besar sudah serapan sehingga tegak sudah benar; yang perlu diseragamkan hanya beberapa kemunculan miring yang tersisa.
+
+### Keputusan cetak miring lanjutan (1 Agustus 2026)
+
+Penulis memutuskan `margin`, `token`, dan `link` bukan serapan KBBI sehingga harus dimiringkan. Diterapkan: **`margin` 7× dan `token` 3×** di badan teks.
+
+`link` **tidak** dimiringkan. Satu-satunya kemunculannya ada di dalam kutipan contoh komentar spam — `"link slot paling gacor hari ini"` — yang seluruhnya ditulis tegak sebagai data mentah. Memiringkan satu kata di dalam kutipan verbatim akan tidak konsisten dengan contoh komentar lainnya.
+
+Caption dan judul sengaja dilewati (Gambar 2.2 masih memuat kata "Margin" tegak pada judulnya), mengikuti kelaziman bahwa judul gambar/tabel tidak dimiringkan per istilah.
+
+## E. Verifikasi 30 rujukan — 1 Agustus 2026 (SELESAI)
+
+Ke-30 entri Daftar Pustaka diverifikasi satu per satu lewat Crossref API dan halaman penerbit. **Semua rujukan nyata — tidak ada yang halusinasi**, tetapi ditemukan **6 kesalahan data**, dua di antaranya berupa daftar penulis yang keliru sepenuhnya.
+
+| # | Entri | Kesalahan | Koreksi | Lokasi |
+|---|---|---|---|---|
+| R1 | ~~Apricia dkk. (2024)~~ | **Daftar penulis salah total.** Judul, jurnal, volume, dan halaman benar | **Azzahra, F. N., Rohana, T., Rahmat, R., & Juwita, A. R.** | Daftar Pustaka + sitasi di **Sub-bab 2.7.1** |
+| R2 | ~~Maulana (2025)~~ | **Maulana adalah penulis ketiga**, bukan pertama; volume salah | **Firizkiansah, A., Muhammad, A., & Maulana, I. R.** — JIKOMTI **2(1), 29–36** | Daftar Pustaka + sitasi di **Sub-bab 2.7.2** |
+| R3 | Anis dkk. (2024) | Nomor terbitan, halaman, dan DOI salah | **6(2), 329–338**, DOI `10.47233/jteksis.v6i2.1351` | Daftar Pustaka |
+| R4 | Azhari (2022) | Halaman salah | **58–65** (bukan 80–87) | Daftar Pustaka |
+| R5 | Iriananda dkk. (2024) | Halaman salah | **743–752** (bukan 835–846) | Daftar Pustaka |
+| R6 | Ardiansyah dkk. (2025) | Memakai URL OJS, bukan DOI | DOI `10.60076/indotech.v3i3.1762` | Daftar Pustaka |
+
+Sitasi dalam teks ikut diperbarui: `(Apricia dkk., 2024)` → `(Azzahra dkk., 2024)`, `(Maulana, 2025)` → `(Firizkiansah dkk., 2025)`. Urutan alfabetis disesuaikan (Azzahra setelah Azhari, Firizkiansah setelah Efrizoni). Hasil akhir: **30 entri, alfabetis, 0 yatim dua arah, media file identik.**
+
+**Terverifikasi benar tanpa perubahan:** Abdillah, Airlangga 2024a/b, Angelo, Arrayyan (22(2), 2066–2075), Chua, Efrizoni, Helmiyah, Herawati, Kaddoura (e830), Khairunnisa, Khan, Koprawi, Nanda, Oktavia, Pratama, Putri, Ramadhan, Sari & Asmendri, Sinaga, serta empat sumber buku/web (Géron, Sugiyono, Rosa & Shalahuddin, Wikipedia).
+
+### Pemeriksaan salah ketik
+
+Bersih: tidak ada kata ganda, tidak ada titik tanpa spasi, tidak ada desimal bertitik. Tiga "spasi ganda" berada di blok identitas (`Nama   :` / `NIM     :`) yang memang sengaja diratakan. Pola seperti `maka . Nilai .` adalah rumus inline OMML yang tidak terbaca python-docx, **bukan** salah ketik.
+
+Inkonsistensi ringan yang dibiarkan (keputusan penulis): `Ekstensi Chrome` (2×) vs `ekstensi Chrome` (4×); `peladen` (21×) vs `server` (58×); `kata kunci` (22×) vs `keyword` (5×); `peramban` (34×) vs `browser` (2×); satu `daring` di antara 57 `online`.
+
+### Pelengkapan DOI (1 Agustus 2026)
+
+Empat DOI ditemukan lewat pencarian Crossref (`api.crossref.org/works?query.bibliographic=…`) dan ditambahkan sebagai hyperlink asli bergaya `Hyperlink` agar seragam dengan entri lain.
+
+| Entri | DOI |
+|---|---|
+| Abdillah dkk. (2021) | `10.46772/intech.v3i02.556` |
+| Azzahra dkk. (2024) | `10.47065/josh.v5i3.5070` (menggantikan URL OJS) |
+| Khan (2018) | `10.54692/ijeci.2018.020425` |
+| Nanda dkk. (2022) | `10.32672/jnkti.v5i2.4193` |
+
+**Temuan ke-7 (R7):** verifikasi DOI Khan menunjukkan artikel tersebut terbit pada **Volume 2, Issue 4**, bukan 2(2) seperti tertulis. Sudah diperbaiki.
+
+Oktavia dkk. ditambahi URL artikel. **Tujuh entri sisanya memang tidak punya DOI dan itu wajar**: tiga buku (Géron, Rosa & Shalahuddin, Sugiyono), satu laman web (Wikipedia), serta tiga jurnal yang tidak terdaftar Crossref (Firizkiansah/JIKOMTI, Putri/JEISBI, Oktavia/BIIKMA) — ketiganya sudah mencantumkan URL artikel sesuai APA.
+
+### Bekal menghadapi pertanyaan sumber buku
+
+Tiga buku hanya menyangga klaim yang sangat spesifik, sehingga yang perlu dikuasai adalah klaimnya, bukan keseluruhan isi buku.
+
+| Buku | Lokasi | Klaim yang disitasi | Pendukung |
+|---|---|---|---|
+| Géron (2022) | Sub-bab 2.6.1 | *Platt Scaling*: keluaran fungsi keputusan SVM dipetakan ke probabilitas lewat sigmoid; parameter A dan B diestimasi via *cross-validation* internal terpisah dari pembentukan *hyperplane* | **Terverifikasi di kode**: `src/train.py:240`, `:339` (`probability=True`), `src/server.py:307` (`predict_proba`) |
+| Rosa & Shalahuddin (2019) | Sub-bab 2.15 | Definisi UML sebagai bahasa pemodelan grafis untuk identifikasi kebutuhan, perancangan arsitektur, dan dokumentasi spesifikasi berorientasi objek | Alasan pemilihan tiga diagram sudah tertulis di kalimat penutup 2.15 |
+| Sugiyono (2022) | Sub-bab 1.4 dan 1.4.2 | Definisi metode penelitian (rasional, empiris, sistematis) dan definisi observasi | — |
+
+Klaim Géron adalah yang paling teknis sekaligus paling mudah dipertahankan karena dapat ditunjukkan langsung pada kode. Nomor halaman buku sengaja tidak dicantumkan di sini — sebaiknya diverifikasi sendiri dari PDF bukunya daripada mengarang.

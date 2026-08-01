@@ -184,6 +184,8 @@ User menemukan via review manual satu komentar di video `1eNUtmfTckk` yang jelas
 
 **Keputusan:** diterima sebagai keterbatasan terdokumentasi, bukan dikejar lebih jauh untuk saat ini. Satu contoh satu-satunya yang ditemukan tetap tersimpan benar di dataset (akan punya peluang masuk training di rebuild berikutnya kalau komposisi data berubah). Untuk benar-benar menutup celah "dead zone" scraper secara sistematis, dibutuhkan baik (a) perbaikan permanen di scraper untuk menyimpan rentang skor 10–29 ke kategori terpisah untuk direview manual, maupun (b) lebih banyak video sumber baru — bukan menggali lebih dalam di video yang sudah ada.
 
+> **Perkembangan setelah entri ini ditulis:** poin (a) sudah dikerjakan pada 2026-07-03 — `isBorderlineComment()` ditambahkan ke `scraper/index.js`, sehingga komentar skor 10–29 kini disimpan ke `result/borderline_*.json` dan diagregasi jadi `final_borderline.json`, tidak lagi dibuang tanpa jejak. Data borderline hasil mekanisme baru ini sendiri belum pernah direview (scraper belum dijalankan lagi sejak perubahan tersebut) — lihat [TODO.md Fase 1](TODO.md#fase-1--kualitas-dataset). Poin (b) masih terbuka.
+
 ---
 
 ## Versi 12 — 2026-06-30

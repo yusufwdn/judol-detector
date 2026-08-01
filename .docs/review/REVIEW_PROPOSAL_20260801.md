@@ -436,3 +436,113 @@ Prioritas rendah — tapi kalau mau persis template, keluarkan jadi bagian terse
 4. **Gantt chart-nya bagus** — periodenya April–Agustus, dan realisasi sidang 11 Agustus 2026 masih masuk kolom terakhir "Persiapan sidang & PPT". Konsisten.
 
 5. **Jumlah referensi** — proposal punya 20 entri. Setelah 5 yatim dihapus jadi **15**, pas di batas minimum pedoman. Kalau mau aman, tambahkan beberapa sumber dari Daftar Pustaka skripsi yang memang relevan dengan teori di proposal (misalnya Kaddoura dkk. 2022 untuk heuristik, atau Koprawi & Putra 2023 untuk pengumpulan data).
+
+---
+
+# AUDIT DAFTAR PUSTAKA — 1 Agustus 2026 (SELESAI)
+
+Pemicu: format Daftar Pustaka proposal terlihat berbeda dari skripsi. Dicek di level XML, plus verifikasi validitas ke-17 rujukan lewat Crossref API dan halaman penerbit.
+
+## A. Temuan format (proposal)
+
+| | Skripsi | Proposal (sebelum) |
+|---|---|---|
+| Hanging indent | `w:ind left=540 hanging=540` di **31/31** entri | **tidak ada sama sekali**, 0/17 |
+| Run kosong sisa | – | 18 run kosong (sebagian ber-flag italic) |
+
+Akar masalahnya: saat sinkronisasi isi 1 Agustus, Daftar Pustaka proposal ditulis ulang sebagai paragraf polos tanpa menyalin `pPr` dari entri skripsi. Sudah diperbaiki — 17/17 entri kini memakai indent yang identik dengan skripsi.
+
+## B. Temuan validitas rujukan (kena SKRIPSI dan PROPOSAL)
+
+Semua 17 rujukan proposal **terbukti nyata** — tidak ada yang halusinasi. Tetapi 6 entri punya data yang salah atau tidak lengkap:
+
+| # | Entri | Masalah | Sumber verifikasi |
+|---|---|---|---|
+| V1 | Kinanti & Indriyanti (2021) | **Nama penulis salah.** Penulis pertama adalah *Nanda Kinanti Amelia **Putri*** → APA-nya `Putri, N. K. A.` Judul juga terpotong, dan halaman tertulis 1–7 padahal **78–84** | halaman artikel JEISBI 39730 |
+| V2 | Oktavia (2024) | Ditulis penulis tunggal, aslinya **5 penulis** (Oktavia, Iqbal, Saputra, Zulfikar, Saifudin) | halaman artikel BIIKMA 1093 |
+| V3 | Abdillah dkk. (2021) | Halaman tidak ada → **160–170** | jurnal.umus.ac.id/intech/556 |
+| V4 | Ramadhan & Fauzan (2023) | Nama prosiding keliru (SENATEK adalah nama acara, bukan terbitan) → **Proceedings Series on Physical & Formal Sciences**; halaman **192–199** hilang | Crossref 10.30595/pspfs.v6i.869 |
+| V5 | Chua dkk. (2024) | DOI hilang → `10.37934/araset.60.2.153164` | Crossref |
+| V6 | Sari & Asmendri (2020) | DOI hilang → `10.15548/nsc.v6i1.1555` | ejournal.uinib.ac.id |
+
+Rujukan yang dicek dan **sudah benar apa adanya**: Airlangga 2024a/2024b, Angelo dkk. 2025, Ardiansyah dkk. 2025, Herawati dkk. 2025, Khairunnisa dkk. 2021, Khan 2018, Nanda dkk. 2022, Pratama 2026 (JITET 14(1), terbit 17 Januari 2026 — nyata), Rosa & Shalahuddin 2019, Sugiyono 2022.
+
+## C. Temuan tambahan di SKRIPSI
+
+| # | Masalah |
+|---|---|
+| V7 | Entri **Arrayyan dkk. (2025) terbelah jadi 2 paragraf** — sisa dari penyisipan K5. Paragraf kedua bahkan indent-nya beda (`left=400050`, tanpa hanging), jadi tampil rusak. Sudah digabung. Jumlah entri sebenarnya **30**, bukan 31. |
+| V8 | `Angelo, Robet & Hendrik (2025)` masih tersisa di daftar Studi Penelitian Terdahulu (Bab II) — bentuk yang sudah diseragamkan jadi `dkk.` di tempat lain. Ada di **dua-duanya**. Sudah jadi `Angelo dkk. (2025)`. |
+
+## D. Status akhir (terverifikasi)
+
+| | Skripsi | Proposal |
+|---|---|---|
+| Jumlah entri | 30 | 17 (min. pedoman 15) |
+| Urutan alfabetis | OK | OK |
+| Hanging indent | 30/30 | 17/17 |
+| Entri terbelah | 0 | 0 |
+| Entri tidak dikutip | 0 | 0 |
+| Sitasi tanpa entri | 0 | 0 |
+| `et al.` | 0 | 0 |
+| Integritas file | 66 part / 26 gambar / 5.185.122 byte — identik | 47 part / 11 gambar / 711.655 byte — identik |
+
+Cadangan: `Skripsi/2-RIWAYAT/backup/… (BACKUP sebelum fix daftar pustaka).docx` (dua-duanya).
+
+**Sisa pekerjaan manual:** karena entri Kinanti berubah jadi Putri dan urutannya bergeser, Daftar Isi tidak terpengaruh — tapi kalau Daftar Pustaka pernah dijadikan field/bibliography otomatis, refresh dulu. Nomor halaman Daftar Pustaka skripsi (P1) masih belum diberi nomor.
+
+---
+
+# PERBAIKAN LANJUTAN PROPOSAL — 1 Agustus 2026 (SELESAI)
+
+## E. Penomoran halaman — 3 bug struktural
+
+Pola yang benar (diambil dari skripsi): **satu section per BAB**, `titlePg` aktif, halaman pertama BAB memakai `first_page_footer` (nomor di bawah-tengah), halaman berikutnya memakai `header` (nomor di kanan atas).
+
+| # | Bug | Perbaikan |
+|---|---|---|
+| N1 | Header **BAB II kosong** (`PAGE=False`) → nomor hilang di halaman ke-2 dst. | Isi header disalin dari BAB I |
+| N2 | BAB III punya `<w:pgNumType w:start="1"/>` → **penomoran restart**. Terlihat di Daftar Isi: `BAB III METODE PENELITIAN … 1` | Elemen `pgNumType` dihapus, penomoran mengalir |
+| N3 | Ada section break liar sebelum 3.1.3 + 3 paragraf kosong (sisa penghapusan sub-bab wawancara). Karena `titlePg` aktif, halaman itu tampil bergaya "halaman pembuka BAB" di tengah bab. | Break + paragraf kosong dihapus → BAB III jadi satu section |
+| N4 | DAFTAR PUSTAKA menumpang di section BAB III sehingga ikut bernomor. | Dibuatkan section sendiri dengan header/footer kosong (meniru sec7 skripsi). Entri di Daftar Isi dipertahankan. |
+| N5 | Header LAMPIRAN masih menampilkan nomor biasa di kanan atas padahal footer sudah `L-n`. | Header LAMPIRAN dikosongkan |
+
+Hasil akhir: sec2/sec3/sec4 (BAB I/II/III) `hdr=True ftr1=True start=None`; sec5 (Daftar Pustaka) semua `False`; sec6 (Lampiran) hanya footer `L-n`.
+
+## F. Wording BAB II & III — 6 rujukan nyasar sisa copy-paste
+
+Semua akibat penyalinan isi dari skripsi tanpa penyesuaian konteks proposal.
+
+| Lokasi | Sebelum | Sesudah |
+|---|---|---|
+| 2.1.2 | "diuraikan lebih lanjut pada **Bab IV**" | "menjadi bagian dari rancangan sistem yang diusulkan dalam penelitian ini" |
+| 2.1.11 | "kelemahan sistem berjalan pada **Bab III** … solusi pada **Bab IV**" | "kelemahan sistem yang berjalan saat ini … solusi yang diusulkan dalam penelitian ini" |
+| 3.2 | "telah diuraikan pada **sub-bab 2.9**" (penomoran skripsi; proposal **tidak punya teori Waterfall**) | diganti definisi ringkas Waterfall + sitasi Rosa & Shalahuddin (2019) |
+| 3.2 | "diuraikan pada **sub-bab 4.1**" | dihapus, kalimat disambung |
+| 3.2 | "pada **sub-bab perancangan sistem** di bab ini" | "sebagaimana dijelaskan pada Sub-bab 2.1.7 sampai dengan 2.1.10" |
+| 3.2 | "pada **sub-bab pengujian sistem** di bab ini" | "akan dilaporkan secara lengkap dalam laporan skripsi" |
+
+Verifikasi: 0 kemunculan `Bab III/IV/V` maupun `sub-bab X.Y` yang menggantung.
+
+## G. Keselarasan data dengan project
+
+- **Dataset**: proposal menargetkan 5.000 komentar; `data/comments.csv` berisi **6.690** (2.332 spam / 4.358 non-spam). Atas keputusan penulis, angka disamakan jadi 6.690 lengkap dengan komposisi kelasnya.
+- **Sudah cocok tanpa perubahan**: YouTube Data API v3 + scraper Node.js, Manifest V3, FastAPI + Scikit-learn, tiga algoritma pembanding (Linear SVM / Multinomial NB / Logistic Regression), eksperimen N-gram & stemming.
+- **VPS**: klaim *deploy* ke VPS di 3.2 dipertahankan — penulis menyatakan akan benar-benar melakukan deployment. Konsisten dengan skripsi (K6).
+
+## H. Rujukan gambar
+
+Keempat gambar BAB II sebelumnya **tidak pernah disebut nomornya** di badan teks (melanggar arahan lisan dosen soal kalimat pengantar). Ditambahkan kalimat pengantar untuk semuanya.
+
+Selain itu nilai `SEQ` yang tersimpan di caption masih warisan skripsi (2, 4, 5, 6). Nilai tersimpan ditulis ulang jadi 1, 2, 3, 4 sehingga caption sudah benar **bahkan sebelum** field di-*update*, dan tetap benar sesudahnya.
+
+| Caption sekarang | Dirujuk di |
+|---|---|
+| Gambar 2.1 Ilustrasi Hyperplane dan Margin pada Algoritma Linear SVM | paragraf baru sebelum gambar |
+| Gambar 2.2 Simbol-Simbol Use Case Diagram | akhir 2.1.8 |
+| Gambar 2.3 Simbol-Simbol Activity Diagram | akhir 2.1.9 |
+| Gambar 2.4 Simbol-Simbol Sequence Diagram | akhir 2.1.10 |
+| Tabel 2.1 Aspek-Aspek Analisis PIECES | sudah dirujuk sejak awal |
+
+Integritas file: 7 gambar / 696.953 byte, identik dengan cadangan.
+Cadangan: `… (BACKUP sebelum fix nomor halaman).docx` dan `… (BACKUP sebelum rujukan gambar).docx`.
