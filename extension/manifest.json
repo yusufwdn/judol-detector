@@ -3,6 +3,7 @@
   "name": "Judol Spam Detector",
   "version": "1.0.0",
   "description": "Otomatis mendeteksi dan menyembunyikan komentar spam promosi judi online menggunakan AI (SVM).",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvs6eliRbB7eAROs5FBdNTu/lDf8tbgErhfgI7V2sTXM1cdDbipz8nxkT6OIaIZMt4vjdo3Z7bBxKxUddkfhdePxFNebZuN7dMjrU+Ysgo89AktHUyaBfeW3fEGtYUgIJRipUl4Jo2ki7vrxbzvsmbEMkIN0j4QR2KAMWozLhBLZSDM217rob/vqXB304dYuraPF47umXX3XP+8Fo8q9/sqQwowjP6RRBEaE6t9+19A19kvFg1jIt2GR1jTUBxSb8BFIpl2GsehwX7tmVy5Rg2YoW9YQ180WJ5omSzMnc+9xYC9y0Jg5cf+6rg/HbX2v1hwKjdFhMu9kZ6V4qVKe9YQIDAQAB",
 
   "permissions": [
     "storage",
@@ -10,7 +11,7 @@
   ],
 
   "host_permissions": [
-    "http://localhost:8000/*",
+    "https://api-svm.cupsky.my.id/*",
     "https://www.youtube.com/*",
     "https://www.instagram.com/*"
   ],

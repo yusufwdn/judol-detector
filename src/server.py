@@ -30,7 +30,7 @@ import os
 import sys
 import joblib
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, field_validator
 
@@ -52,15 +52,13 @@ app = FastAPI(
 
 # CORS (Cross-Origin Resource Sharing)
 # ---------------------------------------------------------------------------
-# Required so the browser extension can communicate with the local server.
-# Without this header, browsers block cross-origin requests.
-#
-# SECURITY NOTE: In production (hosted server), restrict this to the
-# specific extension ID:
-#   allow_origins=["chrome-extension://YOUR_EXTENSION_ID"]
+# Required so the browser extension can communicate with the server.
+# Restricted to this extension's ID (pinned via the "key" field in
+# manifest.json, so it stays the same across devices/paths) — anyone else's
+# page cannot call this API directly from a browser.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["chrome-extension://digamkbgoiiallgimhmhmgkaddliaafg"],
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
@@ -74,6 +72,14 @@ app.add_middleware(
 MODEL_PATH           = os.path.join(BASE_DIR, "model", "svm_model.joblib")
 DATA_PATH            = os.path.join(BASE_DIR, "data", "comments.csv")
 MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
+
+# Shared secret required on /report so it can't be hit by anonymous scripts
+# once the server is public. This does NOT hide the token from a determined
+# attacker (it also lives in the extension's client-side content.js, which
+# anyone can unpack and read) — the goal is only to stop casual/automated
+# spam of the training dataset, not to fully secure the endpoint.
+REPORT_TOKEN = os.environ.get("REPORT_TOKEN", "3c0c7c4ecb995b550cd603b8e4b3f336")
+
 model = None
 
 
@@ -389,18 +395,20 @@ def predict_batch(request: BatchPredictRequest):
 
 
 @app.post("/report", response_model=ReportResponse)
-def report_false_positive(request: ReportRequest):
+def report_false_positive(request: ReportRequest, x_report_token: str = Header(default=None)):
     """
-    [DEV MODE] Append a comment directly to the training dataset.
+    Append a comment directly to the training dataset.
 
     Called by the extension when a user clicks "Bukan spam?" on a hidden
-    comment. Only intended for use during development — in production this
-    endpoint should sit behind an approval queue so random users cannot
-    inject arbitrary data into the training set.
+    comment. Requires the X-Report-Token header (see REPORT_TOKEN above) so
+    random requests cannot inject arbitrary data into the training set.
 
     Deduplication: if the exact text already exists in the CSV, the request
     is rejected to prevent duplicate entries from inflating the dataset.
     """
+    if x_report_token != REPORT_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid or missing X-Report-Token header")
+
     # Deduplicate — cek di comments.csv DAN manual_overrides.csv
     for check_path in (DATA_PATH, MANUAL_OVERRIDES_CSV):
         if os.path.exists(check_path):

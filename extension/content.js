@@ -26,8 +26,12 @@
 // CONFIGURATION
 // ---------------------------------------------------------------------------
 
-const API_URL = "http://localhost:8000/predict";
-const BATCH_API_URL = "http://localhost:8000/predict/batch";
+const API_BASE = "https://api-svm.cupsky.my.id";
+const API_URL = `${API_BASE}/predict`;
+const BATCH_API_URL = `${API_BASE}/predict/batch`;
+// Must match REPORT_TOKEN in src/server.py — only prevents casual/automated
+// abuse of /report, not a real secret (this file is client-side JS).
+const REPORT_TOKEN = "3c0c7c4ecb995b550cd603b8e4b3f336";
 
 // Default threshold — will be overridden by value from chrome.storage on init.
 // Users can change this via the slider in the popup.
@@ -91,7 +95,7 @@ let isServerAvailable = false;
  */
 async function checkServerHealth() {
   try {
-    const response = await fetch("http://localhost:8000/health", {
+    const response = await fetch(`${API_BASE}/health`, {
       method: "GET",
       signal: AbortSignal.timeout(2000),
     });
@@ -105,10 +109,7 @@ async function checkServerHealth() {
     }
   } catch {
     isServerAvailable = false;
-    console.warn("[Judol Detector] API server not found at localhost:8000");
-    console.warn(
-      "[Judol Detector] Start the server with: python src/server.py",
-    );
+    console.warn(`[Judol Detector] API server not found at ${API_BASE}`);
   }
 
   // Sync server status to storage so the popup can reflect it
@@ -232,9 +233,12 @@ async function reportFalsePositive(text, reportBtn) {
   reportBtn.style.pointerEvents = "none";
 
   try {
-    const res = await fetch("http://localhost:8000/report", {
+    const res = await fetch(`${API_BASE}/report`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-Report-Token": REPORT_TOKEN,
+      },
       body: JSON.stringify({ text, label: "non_spam" }),
       signal: AbortSignal.timeout(5000),
     });

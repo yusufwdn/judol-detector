@@ -5,7 +5,7 @@
  * The popup appears when the user clicks the extension icon in the browser toolbar.
  */
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://api-svm.cupsky.my.id";
 
 // DOM element references
 const statusDot = document.getElementById("statusDot");
