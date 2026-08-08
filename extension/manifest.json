@@ -12,15 +12,13 @@
 
   "host_permissions": [
     "https://api-svm.cupsky.my.id/*",
-    "https://www.youtube.com/*",
-    "https://www.instagram.com/*"
+    "https://www.youtube.com/*"
   ],
 
   "content_scripts": [
     {
       "matches": [
-        "https://www.youtube.com/*",
-        "https://www.instagram.com/*"
+        "https://www.youtube.com/*"
       ],
       "js": ["content.js"],
       "run_at": "document_idle"

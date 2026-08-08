@@ -1,6 +1,6 @@
 # Judol Spam Detector — Dokumentasi Lengkap
 
-> Proyek machine learning untuk mendeteksi dan menyembunyikan komentar spam promosi judi online di YouTube/Instagram menggunakan algoritma **SVM (Support Vector Machine)**.
+> Proyek machine learning untuk mendeteksi dan menyembunyikan komentar spam promosi judi online di YouTube menggunakan algoritma **SVM (Support Vector Machine)**.
 
 > **Dokumen lain yang berkaitan:**
 > - [JOURNEY.md](JOURNEY.md) — cerita & alasan kenapa proyek ini dibangun dengan urutan dan keputusan seperti ini (cocok dibaca duluan kalau kamu masih bingung "kenapa begini")
@@ -30,7 +30,7 @@
 
 ### Masalah yang diselesaikan
 
-Komentar spam promosi judi online sangat marak di platform seperti YouTube dan Instagram. Memblokir secara manual tidak efisien. Proyek ini membangun sebuah sistem otomatis yang:
+Komentar spam promosi judi online sangat marak di platform seperti YouTube. Memblokir secara manual tidak efisien. Proyek ini membangun sebuah sistem otomatis yang:
 
 1. **Mendeteksi** komentar spam menggunakan model AI yang sudah dilatih
 2. **Menyembunyikan** komentar tersebut langsung dari halaman browser secara real-time
@@ -41,7 +41,7 @@ Komentar spam promosi judi online sangat marak di platform seperti YouTube dan I
 ┌─────────────────────────────────────────────────────────┐
 │                     BROWSER (Chrome)                    │
 │                                                         │
-│  YouTube / Instagram          Extension (content.js)    │
+│  YouTube                      Extension (content.js)    │
 │  ┌─────────────────┐    scan  ┌───────────────────┐     │
 │  │ Komentar muncul │ ──────►  │ Baca teks komentar│     │
 │  │ saat scroll     │          │ Kirim ke API       │     │
@@ -195,7 +195,7 @@ Server akan berjalan di `http://localhost:8000`. Buka URL tersebut di browser un
 5. Pilih folder `extension/` di dalam proyek ini
 6. Extension akan muncul di toolbar Chrome
 
-> **Catatan:** Server Python **harus berjalan** agar extension berfungsi. Jalankan server dulu sebelum membuka YouTube/Instagram.
+> **Catatan:** Server Python **harus berjalan** agar extension berfungsi. Jalankan server dulu sebelum membuka YouTube.
 
 ---
 
@@ -796,7 +796,7 @@ Izin penting yang diminta:
 
 ### `extension/content.js`
 
-Script yang di-inject Chrome ke dalam halaman YouTube/Instagram. Ini adalah "mata" dari extension.
+Script yang di-inject Chrome ke dalam halaman YouTube. Ini adalah "mata" dari extension.
 
 Cara kerjanya:
 
@@ -819,7 +819,7 @@ Cara kerjanya:
 
 **Apa itu MutationObserver?**
 
-YouTube dan Instagram tidak memuat semua komentar sekaligus — komentar muncul secara bertahap saat pengguna scroll ke bawah. MutationObserver adalah API JavaScript yang "mengawasi" perubahan pada halaman. Setiap kali ada elemen baru ditambahkan ke halaman (termasuk komentar baru), observer ini memicu scan ulang.
+YouTube tidak memuat semua komentar sekaligus — komentar muncul secara bertahap saat pengguna scroll ke bawah. MutationObserver adalah API JavaScript yang "mengawasi" perubahan pada halaman. Setiap kali ada elemen baru ditambahkan ke halaman (termasuk komentar baru), observer ini memicu scan ulang.
 
 **Apa itu WeakSet?**
 

@@ -1,7 +1,7 @@
 /**
  * content.js
  * ==========
- * Injected into YouTube/Instagram pages.
+ * Injected into YouTube pages.
  * Finds comment elements, sends them to the API, and hides spam results.
  *
  * WHAT IS A CONTENT SCRIPT?
@@ -60,17 +60,11 @@ function devLog(...args) {
   if (DEV_MODE) console.log(...args);
 }
 
-// CSS selectors for comment elements on each supported platform.
-// These are the most likely to break when platforms update their UI.
+// CSS selectors for comment elements on YouTube.
+// Most likely to break when YouTube updates its UI.
 const SELECTORS = {
-  youtube: {
-    commentContainer: "ytd-comment-thread-renderer", // One full comment thread
-    commentText: "#content-text", // The comment text node
-  },
-  instagram: {
-    commentContainer: "ul._a9ym li", // May change with Instagram UI updates
-    commentText: "span._aacl",
-  },
+  commentContainer: "ytd-comment-thread-renderer", // One full comment thread
+  commentText: "#content-text", // The comment text node
 };
 
 // ---------------------------------------------------------------------------
@@ -351,17 +345,13 @@ function persistStats() {}
 async function scanComments() {
   if (!isServerAvailable) return;
 
-  const platform = detectPlatform();
-  if (!platform) return;
-
-  const selector = SELECTORS[platform];
-  const commentElements = document.querySelectorAll(selector.commentContainer);
+  const commentElements = document.querySelectorAll(SELECTORS.commentContainer);
 
   // Collect elements that haven't been processed yet
   const toProcess = [];
   commentElements.forEach((el) => {
     if (!processedComments.has(el)) {
-      const textEl = el.querySelector(selector.commentText);
+      const textEl = el.querySelector(SELECTORS.commentText);
       if (textEl && textEl.textContent.trim().length > 0) {
         toProcess.push({ element: el, text: textEl.textContent.trim() });
         processedComments.add(el); // Mark as seen immediately so re-scans skip it
@@ -395,18 +385,6 @@ async function scanComments() {
       }
     });
   }
-}
-
-/**
- * Detect the current platform based on the page hostname.
- *
- * @returns {"youtube" | "instagram" | null}
- */
-function detectPlatform() {
-  const url = window.location.hostname;
-  if (url.includes("youtube.com")) return "youtube";
-  if (url.includes("instagram.com")) return "instagram";
-  return null;
 }
 
 // ---------------------------------------------------------------------------
@@ -494,7 +472,7 @@ if (
 // ---------------------------------------------------------------------------
 
 /**
- * YouTube and Instagram load comments lazily as the user scrolls.
+ * YouTube loads comments lazily as the user scrolls.
  * MutationObserver fires whenever new nodes are added to the DOM,
  * triggering a fresh scan for unprocessed comments.
  *

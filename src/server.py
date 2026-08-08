@@ -10,8 +10,8 @@ The solution is a lightweight HTTP server that acts as a bridge:
 
   JS Extension  ->  POST /predict  ->  Python Server  ->  returns JSON prediction
 
-When the extension finds a comment on YouTube/Instagram:
-  1. It sends the raw comment text to localhost:8000/predict
+When the extension finds a comment on YouTube:
+  1. It sends the raw comment text to POST /predict
   2. The server runs the preprocessing pipeline + SVM prediction
   3. The server returns {"label": "spam", "confidence": 0.94, "is_spam": true}
   4. The extension hides the comment if is_spam == true and confidence >= 0.75
@@ -46,7 +46,7 @@ from src.preprocessing import clean_text
 
 app = FastAPI(
     title="Judol Spam Detector API",
-    description="Detects online gambling spam comments in YouTube/Instagram using SVM",
+    description="Detects online gambling spam comments in YouTube using SVM",
     version="1.0.0"
 )
 
@@ -54,22 +54,21 @@ app = FastAPI(
 # ---------------------------------------------------------------------------
 # Required so the browser extension can communicate with the server.
 #
-# Three allowed origins, not one:
+# Two allowed origins, not one:
 # - chrome-extension://<ID>: requests from popup.js (runs in the extension's
 #   own context, pinned via the "key" field in manifest.json).
-# - https://www.youtube.com / https://www.instagram.com: requests from
-#   content.js. Content scripts execute inside the host page's context, so
-#   fetch() from them carries the PAGE's origin, not the extension's — this
-#   is a browser-level quirk, not something we can change from content.js.
+# - https://www.youtube.com: requests from content.js. Content scripts
+#   execute inside the host page's context, so fetch() from them carries
+#   the PAGE's origin, not the extension's — this is a browser-level quirk,
+#   not something we can change from content.js.
 #
 # This still blocks arbitrary third-party sites from calling the API; it's
-# scoped to the same two domains already declared in host_permissions.
+# scoped to the same domain already declared in host_permissions.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "chrome-extension://digamkbgoiiallgimhmhmgkaddliaafg",
         "https://www.youtube.com",
-        "https://www.instagram.com",
     ],
     allow_methods=["POST", "GET"],
     allow_headers=["*"],

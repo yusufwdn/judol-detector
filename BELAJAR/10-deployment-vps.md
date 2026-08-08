@@ -29,7 +29,7 @@ Server API (`src/server.py`) di-deploy ke VPS Sumopod (Ubuntu 24.04 LTS, 2 vCPU,
 
 ### Kenapa harus HTTPS, tidak bisa HTTP + IP saja?
 
-YouTube dan Instagram berjalan di `https://`. Kalau ekstensi men-*fetch* ke `http://` (bukan `https://`), Chrome memblokirnya sebagai **mixed content** — halaman aman (HTTPS) tidak boleh memuat resource tidak aman (HTTP). Ini alasan kenapa domain (bukan cuma IP) dan sertifikat SSL itu wajib, bukan sekadar bagus-bagusan.
+YouTube berjalan di `https://`. Kalau ekstensi men-*fetch* ke `http://` (bukan `https://`), Chrome memblokirnya sebagai **mixed content** — halaman aman (HTTPS) tidak boleh memuat resource tidak aman (HTTP). Ini alasan kenapa domain (bukan cuma IP) dan sertifikat SSL itu wajib, bukan sekadar bagus-bagusan.
 
 ### Kenapa Origin *pinned* di `manifest.json`?
 
@@ -39,18 +39,17 @@ Ini berbahaya untuk sidang: kalau demo memakai laptop lain, ID ekstensi berubah,
 
 Solusinya: field `"key"` di `manifest.json` — sebuah public key RSA yang membuat Chrome menghitung ID secara **deterministik** dari key itu, bukan dari path. Selama file `manifest.json` yang dipakai sama, ID-nya selalu sama: `digamkbgoiiallgimhmhmgkaddliaafg`, di device manapun.
 
-### CORS: kenapa tiga origin, bukan satu?
+### CORS: kenapa dua origin, bukan satu?
 
 Awalnya CORS cuma diizinkan untuk `chrome-extension://<ID>` — logikanya "yang boleh akses cuma ekstensi ini". Tapi begitu dites langsung di YouTube, request dari `content.js` malah kena CORS block, padahal `popup.js` baik-baik saja.
 
-**Penyebabnya:** `content.js` disuntikkan (*injected*) ke dalam halaman YouTube/Instagram, sehingga *fetch*-nya membawa header `Origin` milik halaman itu (`https://www.youtube.com`), **bukan** `chrome-extension://<ID>`. Ini kuirk level browser, bukan bug di kode — `popup.js` beda karena dia jalan di context ekstensi sendiri (bukan halaman web), jadi Origin-nya memang `chrome-extension://...`.
+**Penyebabnya:** `content.js` disuntikkan (*injected*) ke dalam halaman YouTube, sehingga *fetch*-nya membawa header `Origin` milik halaman itu (`https://www.youtube.com`), **bukan** `chrome-extension://<ID>`. Ini kuirk level browser, bukan bug di kode — `popup.js` beda karena dia jalan di context ekstensi sendiri (bukan halaman web), jadi Origin-nya memang `chrome-extension://...`.
 
-Solusi finalnya membatasi CORS ke tiga origin, konsisten dengan `host_permissions` yang memang cuma dua domain itu:
+Solusi finalnya membatasi CORS ke dua origin, konsisten dengan `host_permissions` yang memang cuma satu domain itu:
 ```python
 allow_origins=[
     "chrome-extension://digamkbgoiiallgimhmhmgkaddliaafg",  # popup.js
     "https://www.youtube.com",                               # content.js di YouTube
-    "https://www.instagram.com",                              # content.js di Instagram
 ]
 ```
 
@@ -101,7 +100,7 @@ Semua angka spek itu sekarang **sesuai VPS yang beneran jalan** — tidak perlu 
 > "Nginx menerima trafik HTTPS dari internet dan meneruskannya ke aplikasi Python yang jalan di port internal. Ini memisahkan urusan sertifikat SSL dari logika aplikasi, dan aplikasi Python-nya sendiri tidak pernah langsung terekspos ke internet."
 
 **"Kenapa CORS dibatasi, bukan `*` (semua origin) saja?"**
-> "Kalau `allow_origins` dibiarkan `*`, situs web mana pun bisa memanggil API ini langsung dari browser pengunjungnya. Saya batasi ke domain ekstensi ini plus YouTube dan Instagram — sesuai `host_permissions` yang memang cuma dua situs itu yang didukung ekstensinya."
+> "Kalau `allow_origins` dibiarkan `*`, situs web mana pun bisa memanggil API ini langsung dari browser pengunjungnya. Saya batasi ke domain ekstensi ini plus YouTube — sesuai `host_permissions` yang memang cuma situs itu yang didukung ekstensinya."
 
 **"Bagaimana kalau server di VPS mati pas sidang?"**
 > "Prosesnya dikelola `systemd` dengan `Restart=on-failure`, jadi kalau crash dia otomatis nyala lagi. Tapi kalau memang seluruh VPS atau koneksi internet ruangan bermasalah, saya juga tetap bisa menjalankan server yang sama secara lokal sebagai cadangan — arsitekturnya identik, cuma beda alamat."
@@ -116,7 +115,7 @@ Semua angka spek itu sekarang **sesuai VPS yang beneran jalan** — tidak perlu 
 | Gejala | Kemungkinan penyebab | Solusi |
 |---|---|---|
 | Ekstensi tidak connect ke server | VPS mati / systemd berhenti | SSH masuk, `sudo systemctl status judol-api` |
-| Galat CORS di konsol browser, sumbernya `content.js` | Origin dari content script itu URL halaman (`youtube.com`), bukan `chrome-extension://` | Pastikan `allow_origins` di `server.py` juga memuat `https://www.youtube.com` dan `https://www.instagram.com`, bukan cuma ID ekstensi |
+| Galat CORS di konsol browser, sumbernya `content.js` | Origin dari content script itu URL halaman (`youtube.com`), bukan `chrome-extension://` | Pastikan `allow_origins` di `server.py` juga memuat `https://www.youtube.com`, bukan cuma ID ekstensi |
 | Sertifikat HTTPS expired | Certbot renewal gagal jalan | `sudo certbot renew --dry-run` untuk cek, lalu `sudo certbot renew` |
 | ID ekstensi berubah setelah reinstall di device lain | Field `"key"` hilang dari `manifest.json` yang dipakai | Pastikan `manifest.json` yang dimuat masih punya field `key` yang sama |
 | `/report` selalu balas 401 | Token di `content.js` dan `server.py` tidak sama | Bandingkan `REPORT_TOKEN` di kedua file, harus identik |

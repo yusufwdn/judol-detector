@@ -92,7 +92,7 @@ async function loadStats() {
 
   chrome.tabs.sendMessage(tab.id, { type: "getStats" }, (response) => {
     // chrome.runtime.lastError fires when content.js isn't injected on this
-    // tab (e.g. not a YouTube/Instagram page) — just show zero in that case.
+    // tab (e.g. not a YouTube page) — just show zero in that case.
     if (chrome.runtime.lastError || !response) {
       hiddenCount.textContent = 0;
       scannedCount.textContent = 0;

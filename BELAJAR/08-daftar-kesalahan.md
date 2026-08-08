@@ -94,7 +94,9 @@ Ini satu-satunya temuan yang masih **bisa** kamu perbaiki tanpa menyentuh naskah
 
 ---
 
-## ② Ekstensi mendukung Instagram, naskah bilang Instagram itu saran penelitian lanjutan
+## ② ~~Ekstensi mendukung Instagram, naskah bilang Instagram itu saran penelitian lanjutan~~ ✅ SELESAI
+
+> **Update:** Semua referensi Instagram sudah dihapus dari kode — `manifest.json` (`host_permissions` dan `content_scripts`), `content.js` (selektor dan deteksi platform), `popup.html`, dan CORS di `server.py`. Ekstensi sekarang murni YouTube-only, 100% konsisten dengan naskah. Bagian di bawah dibiarkan sebagai catatan riwayat.
 
 ### Apa yang tertulis di naskah
 
@@ -297,7 +299,7 @@ Cetak bagian ini saja kalau perlu.
 | # | Temuan | Risiko | Bisa diperbaiki sebelum Rabu? |
 |---|---|---|---|
 | ① | ~~Naskah bilang server di VPS, demo pakai `localhost:8000`~~ | ✅ **SELESAI** | Sudah live di `api-svm.cupsky.my.id`, lihat `10-deployment-vps.md` |
-| ② | Ekstensi mendukung Instagram, naskah bilang itu saran — **terlihat di popup** | 🔴 Tinggi | ✅ Ya, ~5 menit rapikan kode |
+| ② | ~~Ekstensi mendukung Instagram, naskah bilang itu saran~~ | ✅ **SELESAI** | Instagram sudah dihapus total dari kode |
 | ③ | Gambar 4.1: "Web Scraping via Node.js" | 🟠 Sedang | ⚠️ Gambar sudah tercetak |
 | ④ | Gambar 4.3: "Ekstraksi komentar via YouTube DOM" | 🟠 Sedang | ⚠️ Gambar sudah tercetak |
 | ⑤ | Gambar 4.3: slider "0–100%" & izin "scripting" | 🟠 Sedang | ⚠️ Gambar sudah tercetak |
@@ -309,9 +311,7 @@ Cetak bagian ini saja kalau perlu.
 
 ## Yang perlu kamu putuskan sekarang
 
-**Untuk ①** — sudah beres, server live di VPS.
-
-**Untuk ②** — menyangkut **kode**, bukan naskah. Kode belum dikumpulkan dalam bentuk cetak, jadi masih bisa disesuaikan.
+**Untuk ① dan ②** — sudah beres. Server live di VPS, dan Instagram sudah dihapus total dari kode.
 
 **Untuk ③, ④, ⑤** — gambarnya sudah ada di naskah cetak. Yang masih bisa diselamatkan: **versi di PPT**. Slide 13 dan 15 memakai gambar yang sama. Kalau gambarnya diperbaiki di PPT, setidaknya yang diproyeksikan besar-besar di layar sudah benar, dan kamu bisa menyebutnya sendiri:
 

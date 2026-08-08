@@ -147,34 +147,12 @@ Ini justru punya keuntungan yang layak disebut: **tidak membebani peladen YouTub
 
 ---
 
-## ⚠️ Temuan yang perlu kamu tahu sebelum sidang
+## ✅ Temuan yang sudah diselesaikan: Instagram
 
-Berkas `extension/manifest.json` mencantumkan **Instagram**, padahal skripsimu khusus membahas YouTube:
+Dulu `extension/manifest.json` mencantumkan **Instagram** di `host_permissions` dan `content_scripts`, padahal skripsi khusus membahas YouTube. Ini sudah **diambil Pilihan A** — semua referensi Instagram dihapus dari kode (`manifest.json`, `content.js`, `popup.js`/`popup.html`, CORS di `server.py`). Ekstensi sekarang murni YouTube-only, 100% konsisten dengan judul skripsi.
 
-```json
-"host_permissions": [
-    "http://localhost:8000/*",
-    "https://www.youtube.com/*",
-    "https://www.instagram.com/*"      ← ini
-],
-"content_scripts": [{
-    "matches": [
-        "https://www.youtube.com/*",
-        "https://www.instagram.com/*"  ← dan ini
-    ], ...
-}]
-```
-
-Kalau penguji membuka berkas ini, dia bisa bertanya *"katanya cuma YouTube, kenapa ada Instagram?"*
-
-**Dua pilihan, pilih salah satu sebelum sidang:**
-
-**Pilihan A — hapus Instagram dari manifest.** Paling aman dan konsisten dengan skripsi. Cukup hapus dua baris itu, muat ulang ekstensinya, selesai.
-
-**Pilihan B — pertahankan dan siapkan jawaban.** Kalau memang ingin menunjukkan potensi perluasan:
-> "Izin untuk Instagram sudah disiapkan sebagai jalur perluasan, Pak, tapi ruang lingkup penelitian ini dibatasi pada YouTube. Pengujian dan evaluasi seluruhnya dilakukan pada komentar YouTube. Adaptasi ke platform lain saya cantumkan sebagai saran pengembangan lanjutan di Bab V."
-
-Pilihan B sebenarnya sejalan dengan saran di Bab V skripsimu yang menyebut Instagram dan TikTok. **Tapi jangan sampai kamu baru sadar ada baris itu saat penguji yang menunjukkannya.**
+Instagram (dan TikTok) tetap disebut di Bab V sebagai **saran pengembangan lanjutan** — itu tidak masalah, karena sekarang benar-benar hanya berupa saran, bukan sesuatu yang sudah aktif di kode. Kalau ditanya:
+> "Penelitian ini fokus penuh pada YouTube, Pak, sesuai judul. Adaptasi ke platform lain seperti Instagram atau TikTok saya cantumkan sebagai saran pengembangan lanjutan di Bab V, bukan bagian dari implementasi yang diuji di penelitian ini."
 
 ---
 

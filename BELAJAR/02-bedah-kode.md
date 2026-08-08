@@ -366,7 +366,7 @@ element.style.opacity = "0.15";        // mode Redupkan
 
 🔍 **Prinsip izin minimal itu layak disebut** kalau ditanya soal keamanan: ekstensi ini tidak meminta izin membaca seluruh riwayat peramban atau data di situs lain.
 
-⚠️ Ingat ada entri **Instagram** di berkas ini — lihat `04-kenapa-a-bukan-b.md` bagian 7 untuk keputusannya.
+✅ Entri Instagram yang dulu ada di `host_permissions`/`content_scripts` sudah dihapus — ekstensi ini sekarang murni YouTube-only, konsisten dengan judul skripsi. Lihat `04-kenapa-a-bukan-b.md` bagian 7 untuk riwayat keputusannya.
 
 ---
 

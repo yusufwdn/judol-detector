@@ -251,9 +251,9 @@ Jujur soal ini jauh lebih aman. Sistem yang berjalan lokal tetap sah untuk penel
 
 ---
 
-## 🟡 E5. "Kenapa ada izin Instagram di manifest padahal penelitiannya YouTube?"
+## 🟡 E5. "Kenapa penelitian ini dibatasi pada YouTube, bukan platform lain?"
 
-> "Izin itu disiapkan sebagai jalur perluasan, Pak, tapi ruang lingkup penelitian ini dibatasi pada YouTube. Seluruh pengujian dan evaluasi dilakukan pada komentar YouTube. Adaptasi ke platform lain saya cantumkan sebagai saran pengembangan lanjutan di Bab V."
+> "Ruang lingkup penelitian ini memang dibatasi pada YouTube, Pak, sesuai judul. Seluruh pengujian dan evaluasi — dataset, akurasi, hard test set — dilakukan pada komentar YouTube. Adaptasi ke platform lain seperti Instagram atau TikTok saya cantumkan sebagai saran pengembangan lanjutan di Bab V, dan ekstensinya sendiri sekarang hanya meminta izin akses ke YouTube, konsisten dengan itu."
 
 Atau hapus saja barisnya sebelum sidang — lihat `04-kenapa-a-bukan-b.md` bagian 7.
 
