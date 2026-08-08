@@ -1,0 +1,15 @@
+[Unit]
+Description=Judol Spam Detector API (FastAPI/Uvicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/home/deploy/svm-judol-spam
+Environment="PATH=/home/deploy/svm-judol-spam/venv/bin"
+ExecStart=/home/deploy/svm-judol-spam/venv/bin/uvicorn src.server:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

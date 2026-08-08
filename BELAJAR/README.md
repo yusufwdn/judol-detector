@@ -41,6 +41,8 @@ Dokumen disusun berdasarkan **risiko saat sidang**, bukan urutan bab skripsi. Ya
 | 4 | `07-baca-gambar.md` | Cara membaca tiap gambar & asal nilainya | 1,5 jam |
 | 6 | `04-kenapa-a-bukan-b.md` | Justifikasi tiap keputusan teknis | 3 jam |
 | 7 | `06-bank-pertanyaan.md` | Latihan tanya jawab | 3 jam |
+| — | `08-daftar-kesalahan.md` | ⚠️ **Baca sebelum sidang.** Ketidakcocokan yang sudah terlanjur tersubmit + cara menjawabnya | 45 menit |
+| — | `09-naskah-presentasi.md` | 🎤 Naskah presentasi 10 menit per slide + anggaran waktu + peta lampiran | latih 3× |
 
 Kapan saja (butuh waktu luang panjang): `LAB-praktik.md` — 3 sesi praktik, masing-masing 1–2 jam.
 
