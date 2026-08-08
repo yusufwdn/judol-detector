@@ -53,12 +53,24 @@ app = FastAPI(
 # CORS (Cross-Origin Resource Sharing)
 # ---------------------------------------------------------------------------
 # Required so the browser extension can communicate with the server.
-# Restricted to this extension's ID (pinned via the "key" field in
-# manifest.json, so it stays the same across devices/paths) — anyone else's
-# page cannot call this API directly from a browser.
+#
+# Three allowed origins, not one:
+# - chrome-extension://<ID>: requests from popup.js (runs in the extension's
+#   own context, pinned via the "key" field in manifest.json).
+# - https://www.youtube.com / https://www.instagram.com: requests from
+#   content.js. Content scripts execute inside the host page's context, so
+#   fetch() from them carries the PAGE's origin, not the extension's — this
+#   is a browser-level quirk, not something we can change from content.js.
+#
+# This still blocks arbitrary third-party sites from calling the API; it's
+# scoped to the same two domains already declared in host_permissions.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["chrome-extension://digamkbgoiiallgimhmhmgkaddliaafg"],
+    allow_origins=[
+        "chrome-extension://digamkbgoiiallgimhmhmgkaddliaafg",
+        "https://www.youtube.com",
+        "https://www.instagram.com",
+    ],
     allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
