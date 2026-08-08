@@ -27,7 +27,11 @@ Dua temuan ini paling berisiko karena **penguji tidak perlu membaca apa pun untu
 
 ---
 
-## ① Naskah menyatakan server sudah di VPS, padahal demo jalan di localhost
+## ① ~~Naskah menyatakan server sudah di VPS, padahal demo jalan di localhost~~ ✅ SELESAI
+
+> **Update:** Temuan ini sudah **tuntas diperbaiki**, bukan lagi sekadar jawaban andalan. Server sudah benar-benar di-deploy ke VPS Sumopod (Ubuntu 24.04 LTS, 2 vCPU, RAM 2 GB, 40 GB SSD, Jakarta), diakses lewat `https://api-svm.cupsky.my.id` dengan HTTPS asli. Ekstensi sudah diarahkan ke domain itu, bukan `localhost:8000`. Detail lengkap arsitekturnya ada di `10-deployment-vps.md`.
+>
+> Bagian di bawah ini **dibiarkan apa adanya** sebagai catatan kondisi *sebelum* diperbaiki — kalau penguji menyinggung soal ini, jawabannya sekarang cukup: "Sudah di-deploy, Pak, ini alamatnya" sambil menunjukkan `https://api-svm.cupsky.my.id/docs`. Tidak perlu lagi jawaban mengelak di bagian ❓ di bawah.
 
 ### Apa yang tertulis di naskah
 
@@ -292,7 +296,7 @@ Cetak bagian ini saja kalau perlu.
 
 | # | Temuan | Risiko | Bisa diperbaiki sebelum Rabu? |
 |---|---|---|---|
-| ① | Naskah bilang server di VPS, demo pakai `localhost:8000` — **terlihat di popup** | 🔴 Tinggi | ✅ Ya, kalau sempat deploy |
+| ① | ~~Naskah bilang server di VPS, demo pakai `localhost:8000`~~ | ✅ **SELESAI** | Sudah live di `api-svm.cupsky.my.id`, lihat `10-deployment-vps.md` |
 | ② | Ekstensi mendukung Instagram, naskah bilang itu saran — **terlihat di popup** | 🔴 Tinggi | ✅ Ya, ~5 menit rapikan kode |
 | ③ | Gambar 4.1: "Web Scraping via Node.js" | 🟠 Sedang | ⚠️ Gambar sudah tercetak |
 | ④ | Gambar 4.3: "Ekstraksi komentar via YouTube DOM" | 🟠 Sedang | ⚠️ Gambar sudah tercetak |
@@ -305,7 +309,9 @@ Cetak bagian ini saja kalau perlu.
 
 ## Yang perlu kamu putuskan sekarang
 
-**Untuk ① dan ②** — dua-duanya menyangkut **kode**, bukan naskah. Kode belum dikumpulkan dalam bentuk cetak, jadi masih bisa disesuaikan. Ini kesempatan terakhir menghilangkan dua temuan paling berisiko.
+**Untuk ①** — sudah beres, server live di VPS.
+
+**Untuk ②** — menyangkut **kode**, bukan naskah. Kode belum dikumpulkan dalam bentuk cetak, jadi masih bisa disesuaikan.
 
 **Untuk ③, ④, ⑤** — gambarnya sudah ada di naskah cetak. Yang masih bisa diselamatkan: **versi di PPT**. Slide 13 dan 15 memakai gambar yang sama. Kalau gambarnya diperbaiki di PPT, setidaknya yang diproyeksikan besar-besar di layar sudah benar, dan kamu bisa menyebutnya sendiri:
 

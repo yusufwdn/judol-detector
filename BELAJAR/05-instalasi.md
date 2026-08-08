@@ -85,6 +85,8 @@ Ini sering ditanya. Isi `requirements.txt`:
 
 ## Langkah 2 — Menjalankan server
 
+> 🌐 **Update:** Server sekarang juga sudah live 24 jam di VPS (`https://api-svm.cupsky.my.id`), dikelola `systemd` — **tidak perlu dijalankan manual untuk demo sidang**, ekstensi sudah diarahkan ke situ langsung. Langkah di bawah tetap berguna untuk pengembangan lokal atau sebagai cadangan kalau internet ruangan sidang bermasalah. Detail arsitektur deployment-nya ada di `10-deployment-vps.md`.
+
 ```bash
 python src/server.py
 ```
