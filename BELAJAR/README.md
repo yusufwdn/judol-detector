@@ -44,6 +44,7 @@ Dokumen disusun berdasarkan **risiko saat sidang**, bukan urutan bab skripsi. Ya
 | — | `08-daftar-kesalahan.md` | ⚠️ **Baca sebelum sidang.** Ketidakcocokan yang sudah terlanjur tersubmit + cara menjawabnya | 45 menit |
 | — | `09-naskah-presentasi.md` | 🎤 Naskah presentasi 10 menit per slide + anggaran waktu + peta lampiran | latih 3× |
 | — | `11-alur-kerja-sistem.md` | 🔧 Enam alur sistem berurutan + perhitungan riil di baliknya + panel "kalau mau A ubah B" | 2,5 jam |
+| — | `12-referensi-src.md` | 📖 Kamus tiap fungsi di `src/` + cara baca kode Python buat orang JS. Buka saat bingung baca berkas | rujukan |
 | — | `10-deployment-vps.md` | 🌐 Sistem sekarang live di VPS beneran — arsitektur deployment, CORS, keamanan, dan Q&A-nya | 45 menit |
 
 Kapan saja (butuh waktu luang panjang): `LAB-praktik.md` — 3 sesi praktik, masing-masing 1–2 jam.
