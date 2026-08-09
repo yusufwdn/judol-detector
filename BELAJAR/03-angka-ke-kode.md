@@ -61,7 +61,16 @@ Keluaran: `6690`, lalu `non_spam 4358`, `spam 2332`.
 ## 5.352 data latih · 1.338 data uji
 
 📄 **Di skripsi:** Sub-bab 4.10.1
-📍 **Di kode:** `src/train.py:197–201`
+📍 **Di kode:** `src/train.py:197`
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,        # 6.690 x 0,2 = 1.338 data uji
+    random_state=42,      # pengacakan tetap -> bisa direproduksi
+    stratify=y            # proporsi spam:non-spam dijaga sama
+)
+```
 
 ```python
 X_train, X_test, y_train, y_test = train_test_split(
@@ -89,7 +98,15 @@ Tiga pengaturan yang perlu kamu bisa jelaskan:
 ## Akurasi 97,53%
 
 📄 **Di skripsi:** Sub-bab 4.10.1, Tabel 4.10, abstrak
-📍 **Di kode:** `src/train.py:409` → `accuracy_score(y_test, y_pred)`
+📍 **Di kode:** `src/train.py:409`
+
+```python
+y_pred = pipeline.predict(X_test)                       # baris 403
+
+acc = accuracy_score(y_test, y_pred)                    # baris 409  → 0,9753
+f1_macro = f1_score(y_test, y_pred, average="macro")    # baris 410  → 0,9726
+print(f"\nOverall Accuracy : {acc:.2%}")
+```
 
 🔍 **Rumus dan perhitungannya:**
 
@@ -111,7 +128,16 @@ Artinya: dari 1.338 komentar uji, **1.305 ditebak benar** dan 33 salah.
 ## Confusion matrix 863 / 9 / 24 / 442
 
 📄 **Di skripsi:** Tabel 4.11, Gambar 4.7
-📍 **Di kode:** `src/train.py:418` → `confusion_matrix(y_test, y_pred, labels=labels)`
+📍 **Di kode:** `src/train.py:418`
+
+```python
+labels = ["non_spam", "spam"]                            # baris 417
+cm = confusion_matrix(y_test, y_pred, labels=labels)     # baris 418
+print(f"{'Aktual non_spam':20} {cm[0][0]:>18} {cm[0][1]:>14}")
+print(f"{'Aktual spam':20} {cm[1][0]:>18} {cm[1][1]:>14}")
+```
+
+📌 `labels=["non_spam", "spam"]` itu **wajib**. Tanpa itu sklearn mengurutkan kelas sesuai abjad, dan posisi TN/FP/FN/TP di matriksnya bisa tertukar tanpa peringatan.
 
 |  | Ditebak non-spam | Ditebak spam |
 |---|---|---|
@@ -171,6 +197,20 @@ Dipakai macro, bukan weighted, supaya kelas spam yang jumlahnya lebih sedikit te
 📍 **Di kode:** `src/train.py:128`
 
 ```python
+pipeline = Pipeline([
+    ("tfidf", TfidfVectorizer(**TFIDF_PARAMS)),
+    ("svm", SVC(kernel="linear", class_weight="balanced", random_state=42))
+])
+
+scores = cross_val_score(pipeline, X, y, cv=5,
+                         scoring="f1_macro", n_jobs=-1)   # baris 128
+print(f"    Mean  : {scores.mean():.4f}")                 # → 0,9741
+print(f"    Std   : {scores.std():.4f}")                  # → 0,0030
+```
+
+📌 Perhatikan argumennya `X, y` — **seluruh** 6.690 data, bukan `X_train`. Validasi silang memang sengaja dijalankan sebelum pembagian data, karena tujuannya menguji kestabilan model secara umum, bukan mengukur performa akhir.
+
+```python
 scores = cross_val_score(pipeline, X, y, cv=5, scoring="f1_macro", n_jobs=-1)
 ```
 
@@ -188,6 +228,20 @@ Rata-rata **0,9741**, simpangan baku **0,0030**.
 
 📄 **Di skripsi:** Sub-bab 4.10.3, Gambar 4.9
 📍 **Di kode:** `src/train.py:233` (daftar kandidat) dan `:255` (pemenangnya)
+
+```python
+param_grid = {"svm__C": [0.01, 0.1, 1, 10, 100]}      # baris 233
+
+grid_search = GridSearchCV(
+    pipeline, param_grid, cv=5,
+    scoring="f1_macro", n_jobs=-1, verbose=0,
+)
+grid_search.fit(X_train, y_train)                     # baris 253
+
+best_C = grid_search.best_params_["svm__C"]           # baris 255  → 1
+```
+
+🎯 `X_train` di baris 253, **bukan** `X`. Ini pencegahan kebocoran data — kalau pencarian C melihat data uji, angka akhirnya jadi terlalu optimistis dan tidak sah.
 
 ```python
 param_grid = {"svm__C": [0.01, 0.1, 1, 10, 100]}
@@ -357,7 +411,18 @@ Batas 50 komentar per permintaan itu perlindungan standar API — mencegah satu 
 # 6. Angka konfigurasi TF-IDF
 
 📄 **Di skripsi:** Sub-bab 4.3
-📍 **Di kode:** `src/train.py:63–68`
+📍 **Di kode:** `src/train.py:63`
+
+```python
+TFIDF_PARAMS = dict(
+    max_features=10000,   # ambil 10.000 kata/bigram tersering
+    ngram_range=(1, 2),   # kata tunggal DAN pasangan kata
+    min_df=2,             # abaikan yang cuma muncul di 1 dokumen
+    sublinear_tf=True,    # pakai 1 + log(tf), bukan tf mentah
+)
+```
+
+🔍 **Bukti `ngram_range=(1,2)` berguna:** pada model terlatih, kata `slot` sendirian berbobot **−0,3800** (penanda non-spam), tapi bigram `slot machine` berbobot **+0,5223**. Tanpa bigram, model kehilangan kemampuan membedakan keduanya.
 
 | Pengaturan | Nilai | Alasan singkat |
 |---|---|---|

@@ -79,7 +79,41 @@ Sistem bobot berlapis:
 | Tersier | `emoji_spam` — 2+ emoji berurutan | +15 | 211 |
 | Tersier | `excessive_caps` — kapital > 50% | +10 | 221 |
 
-Skor dibatasi maksimum 100 📍 baris 248.
+**Seperti apa kodenya** — dua sinyal primer 📍 baris 149:
+
+```js
+// [+40] Pola brand judol: nama + angka khas
+const brandPattern =
+  /[a-z]{3,}(88|99|77|69|138|388|777|888|4d|toto|bet|win|qq)\b/i;
+if (brandPattern.test(lowerText)) {
+  score += 40;
+  activeSignals.push("brand_pattern");
+}
+
+// [+40] Link atau nomor kontak
+const contactPattern =
+  /(wa\.me|08[0-9]{8,11}|\+62[0-9]{9,12}|bit\.ly|s\.id|link\s?di|cek\s?profil|kunjungi|situs)/;
+if (contactPattern.test(lowerText)) {
+  score += 40;
+  activeSignals.push("contact_link");
+}
+```
+
+Delapan sinyal lainnya berpola sama: uji regex → tambah skor → catat nama sinyal.
+
+Yang dikembalikan 📍 baris 240:
+
+```js
+const hasPrimarySignal =
+  activeSignals.includes("brand_pattern") ||
+  activeSignals.includes("contact_link") ||
+  activeSignals.includes("soft_brand_testimonial");
+
+return { score: Math.min(score, 100), normalizedText,
+         activeSignals, hasPrimarySignal };
+```
+
+Skor dibatasi maksimum 100.
 
 ### Contoh perhitungan
 
@@ -202,6 +236,60 @@ data/comments.csv  →  6.690 baris  (2.332 spam · 4.358 non-spam)
 | 5b | Satukan nama brand | 294 | semua nama situs → `judolbrand` |
 | 6 | Buang URL, angka, simbol | 299 | sisakan huruf a–z dan spasi |
 | 7 | Rapikan, buang stopword | 306 | buang token 1 huruf |
+
+## Seperti apa kodenya
+
+Dibuang komentar panjangnya, inti ketujuh tahap itu cuma segini:
+
+```python
+# Tahap 1 — buang karakter tak terlihat          baris 205
+for char in zero_width_chars:
+    text = text.replace(char, "")
+
+# Tahap 2 — NFKC                                  baris 224
+text = unicodedata.normalize("NFKC", text)
+
+# Tahap 2b — buang diakritik gabungan             baris 237
+text = "".join(c for c in text if unicodedata.category(c) != "Mn")
+
+# Tahap 2c — buka pembungkus kurung               baris 249
+text = re.sub(r"[\[(\{]\s*(\w)\s*[\])\}]", r"\1", text)
+
+# Tahap 3 — homoglyph Cyrillic → Latin            baris 255
+text = text.translate(HOMOGLYPH_MAP)
+
+# Tahap 4 — emoji jadi kata                       baris 265
+text = emoji.demojize(text, language="en")
+text = re.sub(r":([a-zA-Z0-9_]+):", r" \1 ", text)
+
+# Tahap 5 — huruf kecil                           baris 269
+text = text.lower()
+
+# Tahap 5b-i — leet speak                         baris 292
+text = re.sub(r'\b[a-z0-9]*[0-9][a-z0-9]*\b', _normalize_leet, text)
+
+# Tahap 5b — satukan nama brand                   baris 297
+text = JUDOL_BRAND_PATTERN.sub("judolbrand", text)
+
+# Tahap 6 — buang URL, angka, simbol              baris 303
+text = re.sub(r"http\S+|www\.\S+", " ", text)
+text = re.sub(r"[^a-z\s]", " ", text)
+
+# Tahap 7 — rapikan + buang stopword              baris 307
+text = re.sub(r"\s+", " ", text).strip()
+tokens = [w for w in text.split()
+          if w not in STOPWORDS_ID and len(w) > 1]
+return " ".join(tokens)
+```
+
+⚠️ **Urutannya tidak boleh ditukar:**
+
+| Aturan | Kenapa |
+|---|---|
+| 5b **setelah** 5 | regex brand ditulis huruf kecil, teksnya harus sudah lowercase |
+| 5b **sebelum** 6 | kalau angka dibuang duluan, `roma4d` jadi `romad` — pola tidak cocok |
+| 2b **sebelum** 6 | kalau tidak, diakritik jadi spasi, tiap huruf jadi token tunggal, lalu terbuang |
+| 5b-i **sebelum** 5b | supaya brand ber-leet (`h0ki777`) ikut terdeteksi polanya |
 
 ## Telusuri satu teks melalui ketujuh tahap
 
@@ -492,7 +580,75 @@ from src.preprocessing import clean_text
 ❓ **Kalau ditanya "kenapa normalisasi di server, bukan di ekstensi?"**
 > "Supaya tidak ada dua versi logika, Pak. Kalau normalisasi ditulis ulang dalam JavaScript di sisi klien, suatu saat versi Python dan versi JavaScript bisa berbeda — dan model akan menerima masukan dengan format yang tidak sesuai pelatihannya. Itu namanya *training-serving skew*. Dengan mengimpor fungsi yang sama, masalah itu mustahil terjadi."
 
+## Langkah 3–4 — Pengiriman per batch 📍 `content.js:374`
+
+```js
+const BATCH_SIZE = 50;
+for (let i = 0; i < toProcess.length; i += BATCH_SIZE) {
+  const batch = toProcess.slice(i, i + BATCH_SIZE);
+  const texts = batch.map((item) => item.text);
+
+  const results = await predictBatch(texts);
+  if (!results) continue;
+
+  results.forEach((result, idx) => {
+    if (result.is_spam && result.confidence >= confidenceThreshold) {
+      hideSpamComment(batch[idx].element, result.confidence, batch[idx].text);
+    }
+  });
+}
+```
+
+📌 **Dua syarat harus terpenuhi** sebelum komentar disembunyikan: labelnya spam **dan** keyakinannya melewati ambang. Model bisa bilang "spam" dengan keyakinan 0,60 — dan itu tidak disembunyikan kalau ambangnya 0,75.
+
+📌 Angka 50 di sini harus cocok dengan batas di `server.py:367`. Kalau salah satu diubah tanpa yang lain, permintaannya ditolak galat 400.
+
+## Langkah 6–7 — Sisi server 📍 `server.py:365`
+
+```python
+if len(request.texts) > 50:
+    raise HTTPException(status_code=400,
+                        detail="Maximum 50 texts per request")
+
+results = []
+for text in request.texts:
+    cleaned = clean_text(text)          # ← fungsi yang SAMA
+
+    if not cleaned:
+        results.append(PredictResponse(label="non_spam",
+                                       confidence=0.5, is_spam=False))
+        continue
+
+    label = model.predict([cleaned])[0]
+    proba = model.predict_proba([cleaned])[0]
+    classes = model.classes_
+    label_idx = list(classes).index(label)
+    confidence = float(proba[label_idx])
+```
+
+🔍 **Penjaga `if not cleaned` itu penting.** Komentar yang isinya cuma emoji atau simbol bisa jadi string kosong setelah dibersihkan. Tanpa penjaga ini, model dipanggil dengan masukan kosong dan hasilnya tidak bisa diandalkan. Dikembalikan `confidence=0.5` — artinya "benar-benar tidak tahu".
+
 ## Langkah 9 — Dua mode penyembunyian 📍 baris 273
+
+```js
+function hideSpamComment(element, confidence, originalText) {
+  element.dataset.judolDetected = "spam";
+  element.dataset.judolConfidence = confidence.toFixed(2);
+  element.dataset.judolText = originalText;
+
+  if (hideMode === "remove") {
+    element.style.display = "none";
+    hiddenCount++;
+    return;
+  }
+
+  element.style.transition = "opacity 0.3s ease, max-height 0.5s ease";
+  element.style.opacity = "0.15";
+  element.style.border = "1px solid #ff4444";
+  ...
+}
+```
+
 
 | Mode | Yang dilakukan | Baris |
 |---|---|---|
@@ -505,7 +661,18 @@ Ini keputusan desain yang berpihak pada korban *false positive*, dan sejalan den
 
 ## Langkah 10 — MutationObserver 📍 baris 484
 
+```js
+let scanTimeout = null;
+
+const observer = new MutationObserver(() => {
+  clearTimeout(scanTimeout);
+  scanTimeout = setTimeout(scanComments, 1000);
+});
+```
+
 YouTube memuat komentar secara bertahap saat pengguna menggulir. `MutationObserver` memantau perubahan DOM dan memicu pemindaian ulang untuk komentar yang baru muncul.
+
+🔍 **Pola `clearTimeout` + `setTimeout` itu *debounce*.** YouTube mengubah DOM puluhan kali per detik saat menggulir. Tanpa debounce, `scanComments()` terpanggil puluhan kali dan membanjiri server. Dengan ini, pemindaian baru berjalan setelah DOM tenang selama 1 detik.
 
 ❓ **Kalau ditanya "bagaimana komentar yang baru muncul saat scroll?"** — jawabannya ini.
 
