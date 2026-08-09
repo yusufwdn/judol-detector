@@ -133,6 +133,8 @@ Jelaskan pelan, jangan buru-buru pakai istilah.
 >
 > Saat ada komentar baru, sistem menghitung komentar itu jatuh di sisi mana dari batas tersebut."
 
+💡 Ini jawaban versi lisan, cukup untuk pertanyaan basic. Kalau penguji lanjut nanya **"margin terlebar itu dihitung bagaimana, rumusnya apa?"** — itu ada di `01-kamus-ml.md` bagian "Margin dan support vector": `M = 2/||w||`, dan mencari margin terlebar setara dengan meminimalkan `||w||`, diselesaikan sebagai optimasi kuadratik. Itu juga persis rumus yang ada di BAB II skripsimu dan slide lampiran PPT "Rumus SVM Kernel Linear".
+
 ---
 
 ## 🔴 C3. "Apa itu TF-IDF? Kenapa tidak hitung frekuensi biasa?"

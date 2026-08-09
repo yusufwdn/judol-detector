@@ -130,6 +130,28 @@ Artinya: dari 1.338 komentar uji, **1.305 ditebak benar** dan 33 salah.
 📄 **Di skripsi:** Tabel 4.11, Gambar 4.7
 📍 **Di kode:** `src/train.py:418`
 
+### 🔍 Dari mana keempat angka ini sebenarnya berasal
+
+Ini **bukan** angka yang ditulis manual di kode. Ini hasil **membandingkan dua daftar** yang sama-sama panjangnya 1.338:
+
+```python
+y_pred = pipeline.predict(X_test)     # baris 403 — tebakan model
+```
+
+- `y_test` — jawaban **asli** tiap komentar (label yang sudah dilabeli manual, tersimpan di `data/comments.csv`, disisihkan `train_test_split` di baris 197)
+- `y_pred` — jawaban **tebakan model** untuk 1.338 komentar yang sama, dihasilkan `pipeline.predict(X_test)`
+
+Untuk **tiap satu dari 1.338 komentar**, dicek: labelnya asli apa, dan model nebak apa. Hasilnya jatuh ke salah satu dari empat kemungkinan:
+
+| Kondisi | Nama | Artinya |
+|---|---|---|
+| asli non-spam, ditebak non-spam | **TN** | benar |
+| asli non-spam, **ditebak spam** | **FP** | salah tuduh |
+| asli spam, **ditebak non-spam** | **FN** | lolos |
+| asli spam, ditebak spam | **TP** | benar |
+
+`confusion_matrix()` di scikit-learn otomatis menghitung **berapa banyak** dari 1.338 komentar itu jatuh ke tiap kotak. Itulah asal 863, 9, 24, 442 — bukan ditentukan, tapi **dihitung** dari hasil pembandingan.
+
 ```python
 labels = ["non_spam", "spam"]                            # baris 417
 cm = confusion_matrix(y_test, y_pred, labels=labels)     # baris 418
@@ -138,6 +160,9 @@ print(f"{'Aktual spam':20} {cm[1][0]:>18} {cm[1][1]:>14}")
 ```
 
 📌 `labels=["non_spam", "spam"]` itu **wajib**. Tanpa itu sklearn mengurutkan kelas sesuai abjad, dan posisi TN/FP/FN/TP di matriksnya bisa tertukar tanpa peringatan.
+
+❓ **Kalau ditanya "TN, FP, FN, TP itu dari mana asalnya?"**
+> "Dari membandingkan label asli dengan tebakan model pada 1.338 data uji, Pak — satu per satu, dihitung otomatis oleh fungsi `confusion_matrix()` di scikit-learn. Bukan angka yang saya tentukan sendiri, murni hasil pengujian model terhadap data yang belum pernah dilihatnya."
 
 |  | Ditebak non-spam | Ditebak spam |
 |---|---|---|

@@ -51,6 +51,8 @@ Di proyekmu, **tiap kata unik jadi satu kolom**. Dengan `max_features=10000`, ar
 
 Bedanya: JSON dirancang supaya bisa dikembalikan ke bentuk semula. Vektorisasi teks **tidak** — begitu jadi angka, urutan kata hilang sebagian. Itu konsekuensi yang diterima demi bisa menghitung.
 
+> 💬 **Istilah "vektor" itu sendiri:** dalam dokumen ini, vektor cuma berarti **satu array angka**. Contoh: `[0, 3, 0, 0.176, 0, ...]`. Tiap posisi di array itu mewakili satu kata (satu fitur), dan angkanya menunjukkan seberapa penting kata itu di komentar tersebut. Kalau nanti ketemu istilah "titik dalam ruang berdimensi banyak" — itu cuma cara lain menyebut array yang sama. Anggap saja tiap komentar adalah satu array angka sepanjang 10.000, dan "posisinya" di ruang ditentukan oleh isi array itu. Tidak ada gambar 3D yang perlu dibayangkan — ini murni cara bicara matematikawan untuk sesuatu yang sebenarnya cuma array.
+
 ---
 
 # Kelompok 2 — Mengubah teks jadi angka
@@ -75,6 +77,10 @@ Jadi IDF memberi **bobot besar untuk kata langka, bobot kecil untuk kata pasaran
 ```
 IDF(kata) = log( total_dokumen / jumlah_dokumen_yang_memuat_kata )
 ```
+
+> 💬 **Dua istilah asing di rumus itu:**
+> - **"Dokumen"** di sini cuma istilah baku statistik untuk **satu komentar**. Bukan berkas Word. Kalau membaca rumus TF-IDF di buku manapun dan ketemu kata "dokumen", ganti saja dalam kepalamu jadi "komentar" — di proyek ini artinya sama persis.
+> - **`log`** (logaritma) itu operasi matematika yang "meredam" angka besar. `log(1) = 0`, `log(10) = 1`, `log(100) = 2` — perhatikan, dikalikan 10 tapi hasilnya cuma nambah 1. Itulah gunanya di sini: kalau sebuah kata jadi 10× lebih langka, bobotnya tidak ikut melonjak 10×, cuma naik sedikit. Ini yang mencegah kata langka mendominasi secara berlebihan.
 
 Kalau sebuah kata muncul di **semua** dokumen, maka `total / jumlah = 1`, dan `log(1) = 0`. Bobotnya **nol**. Kata pasaran otomatis terbuang tanpa perlu daftar hitam.
 
@@ -163,9 +169,11 @@ Analogi SE: seperti **skala logaritmik pada grafik monitoring**. Kamu pakai log 
 
 🎯 **Intinya:** menarik garis pemisah terbaik antara dua kelompok.
 
-🔍 Setelah TF-IDF, tiap komentar jadi satu titik di ruang berdimensi banyak. Komentar spam berkumpul di satu wilayah, non-spam di wilayah lain. Tugas SVM: **menarik batas** di antara keduanya.
+🔍 Setelah TF-IDF, tiap komentar jadi satu titik di ruang berdimensi banyak — ingat catatan di bagian **Vektorisasi**: ini cuma istilah keren untuk "satu array angka". Komentar spam berkumpul di satu wilayah, non-spam di wilayah lain. Tugas SVM: **menarik batas** di antara keduanya.
 
 Kalau digambar 2 dimensi (lihat Gambar 2.2 di skripsimu): titik biru di kiri atas, titik hijau di kanan bawah, dan ada garis merah memisahkan.
+
+> 💬 **Apa itu "dimensi" di sini?** Satu dimensi = satu angka dalam array. Array `[x, y]` (2 angka) bisa digambar sebagai titik pada kertas — itu 2 dimensi, gampang divisualisasikan. Proyekmu punya array 10.000 angka (10.000 fitur TF-IDF), jadi "10.000 dimensi" — tidak bisa lagi digambar di kertas, tapi konsepnya identik: tetap sekadar titik yang posisinya ditentukan isi array-nya, cuma jumlah "sumbunya" jauh lebih banyak.
 
 Analogi SE: ini seperti *decision boundary* — pada dasarnya sebuah kondisi `if` raksasa, tapi disusun otomatis dari data dan melibatkan ribuan variabel sekaligus.
 
@@ -196,6 +204,31 @@ Analogi SE: seperti menaruh *threshold* di tengah-tengah zona aman, bukan mepet 
 
 Analogi SE: ini persis ***boundary test case***. Yang menentukan benar-tidaknya sebuah aturan adalah kasus-kasus di perbatasan, bukan kasus yang jelas-jelas aman.
 
+### 🔍 Rumus lebar margin — ini yang sering ditanya dan sering hilang dari kepala
+
+Ini bagian yang **ada di BAB II skripsimu**, jadi wajib nyambung kalau ditanya.
+
+Ingat rumus hyperplane: `w · x − b = 0`. Di kanan-kirinya ada dua garis batas margin, sejajar dengan hyperplane, masing-masing berjarak sama. **Lebar** ruang kosong di antara keduanya dihitung:
+
+```
+M = 2 / ||w||
+```
+
+> 💬 **Apa itu `||w||`?** Tanda garis-ganda-di-kiri-kanan itu dibaca **"norma"** — istilah matematika untuk **"panjang"** sebuah vektor (array angka). Bayangkan Pythagoras: kalau `w` cuma 2 angka `[3, 4]`, panjangnya `√(3² + 4²) = 5`. Untuk `w` yang isinya 10.000 angka, rumusnya sama, cuma dijumlahkan lebih banyak suku. Jadi `||w||` sekadar **satu angka** yang meringkas "seberapa besar" seluruh bobot `w` itu secara keseluruhan.
+
+`||w||` = panjang (norma) vektor bobot `w`. Semakin **kecil** `||w||`, semakin **lebar** marginnya — karena `w` ada di penyebut.
+
+**Ini kuncinya:** tugas SVM saat belajar adalah **mencari margin terlebar**. Tapi "margin terlebar" itu setara secara matematis dengan **"`||w||` sekecil mungkin"** — cuma dibalik posisinya. Jadi soal "cari garis pemisah paling lega" diterjemahkan jadi soal aljabar murni: **minimalkan `||w||`**.
+
+Soal minimalkan seperti itu, dengan syarat tiap titik tetap berada di sisi yang benar, punya bentuk baku dalam matematika — namanya **optimasi kuadratik** (*quadratic programming*). Itu sebabnya SVM bisa dipecahkan secara eksak oleh komputer, bukan diterka coba-coba.
+
+> 💬 **Kenapa "eksak" itu istimewa?** Bayangkan grafik berbentuk **mangkuk** (parabola) — itu gambaran kasar "bentuk kuadratik". Mangkuk cuma punya **satu titik paling rendah**, dan posisinya bisa dihitung langsung lewat rumus, tanpa perlu coba-coba menggeser-geser. Bandingkan dengan melatih neural network, yang bentuk masalahnya berbukit-bukit dengan banyak lembah — di situ komputer harus meraba turun pelan-pelan (*gradient descent*) dan bisa saja nyangkut di lembah yang bukan paling dalam. SVM tidak punya risiko itu: karena bentuknya mangkuk tunggal, jawaban yang ditemukan **pasti** jawaban terbaik, bukan sekadar "cukup baik".
+
+**Analogi SE:** ini seperti mengubah soal "cari solusi paling efisien" jadi soal "minimalkan fungsi biaya" — sama seperti *gradient descent* mencari titik minimum sebuah *loss function*. Bedanya, punya SVM ini punya bentuk yang sudah punya solusi pasti (bukan didekati bertahap seperti neural network).
+
+❓ **Kalau ditanya "bagaimana SVM menemukan margin terlebar secara matematis?"**
+> "Lebar margin dirumuskan `M = 2 / ||w||`, Pak — berbanding terbalik dengan panjang vektor bobot `w`. Karena itu, mencari margin terlebar sama saja dengan mencari `||w||` yang paling kecil. Soal minimalkan ini diselesaikan sebagai optimasi kuadratik, yang punya solusi eksak — bukan didekati coba-coba seperti pada beberapa algoritma lain."
+
 ❓ **Kalau ditanya "apa keunggulan SVM dibanding algoritma lain?"**
 > "SVM memilih pemisah dengan margin terlebar, bukan sekadar pemisah yang kebetulan berhasil. Itu membuatnya lebih tahan terhadap variasi data baru. Selain itu SVM kuat pada data berdimensi tinggi seperti teks — dalam penelitian ini ada 10.000 fitur — dan hanya bergantung pada *support vector*, bukan seluruh data."
 
@@ -206,6 +239,8 @@ Analogi SE: ini persis ***boundary test case***. Yang menentukan benar-tidaknya 
 🎯 **Intinya:** pemisahnya berupa garis lurus, bukan lengkung.
 
 🔍 SVM bisa memakai pemisah melengkung lewat *kernel* lain (RBF, polinomial). Kenapa proyekmu memilih yang lurus?
+
+> 💬 **Apa itu "kernel"?** Anggap kernel sebagai **pilihan bentuk garis pemisah**. "Linear" = garis/bidang lurus. "Polinomial" = garis melengkung sederhana (seperti kurva pangkat dua atau tiga). "RBF" (*Radial Basis Function*) = bentuknya bisa melengkung-lengkung rumit, meliuk mengikuti sebaran data. Yang lebih melengkung **bisa** lebih akurat kalau datanya memang tidak bisa dipisah garis lurus — tapi jauh lebih berat dihitung dan lebih rawan *overfitting* (menghafal, bukan memahami — lihat bagian Overfitting di bawah). Kamu tidak perlu hafal rumus RBF/polinomial; cukup tahu itu "opsi lain untuk bentuk pemisahnya" dan proyekmu memilih yang paling sederhana karena sudah cukup.
 
 Dua alasan:
 1. **Data teks berdimensi tinggi biasanya sudah bisa dipisahkan garis lurus.** Dengan 10.000 sumbu, ruangnya begitu longgar sehingga garis lurus umumnya cukup. Ini temuan umum dalam klasifikasi teks.
@@ -335,6 +370,8 @@ Recall tinggi = **jarang kecolongan**. Ini yang menjaga tujuan sistem.
 
 F1 adalah rata-rata harmonik keduanya. Dipakai rata-rata harmonik, bukan rata-rata biasa, karena rata-rata harmonik **menghukum ketimpangan**. Precision 1,0 dan recall 0,0 menghasilkan rata-rata biasa 0,5 (kelihatan lumayan), tapi F1-nya 0 (jujur: modelnya tidak berguna).
 
+> 💬 **Kenapa rumusnya `2×(P×R)/(P+R)`, bukan `(P+R)/2`?** Rata-rata biasa `(P+R)/2` cuma menjumlah lalu bagi dua — dia tidak peduli kalau salah satu angkanya nol, asal yang lain besar, hasilnya tetap kelihatan oke. Rata-rata harmonik ikut **mengalikan** P dan R di pembilang (`P×R`) — begitu salah satu dari keduanya mendekati nol, hasil kali itu ikut mendekati nol, dan seluruh rumus ambruk ke angka kecil. Itulah kenapa dia "jujur": tidak bisa dikelabui dengan cara jago di satu sisi saja.
+
 ---
 
 ## F1-macro vs F1-weighted
@@ -405,6 +442,8 @@ Tapi di ekstensimu ada tulisan "87% yakin spam". Dari mana?
 ```
 P(spam | x) = 1 / (1 + exp(A · f(x) + B))
 ```
+
+> 💬 **Bentuk rumus ini punya nama: fungsi sigmoid.** Kalau digambar, bentuknya seperti huruf **S** miring — di kiri jauh mendekati 0, di kanan jauh mendekati 1, dan di tengah naik curam melintasi 0,5. Fungsi ini **tidak peduli seberapa ekstrem** angka yang masuk (`f(x)` bisa −50 atau +50) — hasilnya dijamin selalu terjepit di antara 0 dan 1, pas untuk dibaca sebagai persentase. `exp` artinya *exponential* (angka `e ≈ 2,718` dipangkatkan) — kamu tidak perlu menghitungnya manual, cukup tahu itu bagian dari rumus baku sigmoid yang membuat bentuk S itu terjadi.
 
 `A` dan `B` bukan angka karangan — keduanya diperkirakan lewat cross-validation internal pada data latih, terpisah dari proses pembentukan hyperplane, supaya hasilnya tidak bias.
 
