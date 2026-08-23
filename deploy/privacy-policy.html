@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kebijakan Privasi — Judol Spam Detector</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { max-width: 44rem; margin: 0 auto; padding: 2rem 1.25rem 5rem;
+         font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h2 { font-size: 1.1rem; margin-top: 2rem; }
+  .meta { color: #666; font-size: .9rem; margin-top: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+  th, td { border: 1px solid #bbb; padding: .5rem .6rem; text-align: left; vertical-align: top; }
+  th { background: rgba(127,127,127,.12); }
+  code { background: rgba(127,127,127,.15); padding: .1rem .3rem; border-radius: 3px; }
+  .box { border-left: 4px solid #b21c1c; padding: .6rem 1rem; background: rgba(178,28,28,.07); }
+</style>
+</head>
+<body>
+
+<h1>Kebijakan Privasi — Judol Spam Detector</h1>
+<p class="meta">Berlaku sejak: 23 Agustus 2026 &middot; Versi ekstensi: 1.0.0</p>
+
+<p>
+  Judol Spam Detector adalah ekstensi Google Chrome yang mendeteksi dan menyembunyikan
+  komentar spam promosi judi online pada halaman YouTube. Dokumen ini menjelaskan
+  data apa yang diproses oleh ekstensi, untuk apa, dan apa yang <em>tidak</em> kami lakukan.
+</p>
+
+<div class="box">
+  <strong>Ringkasnya:</strong> ekstensi ini mengirim <em>teks komentar</em> yang tampil di
+  halaman YouTube ke server klasifikasi untuk dinilai spam atau bukan. Teks tersebut
+  diproses di memori dan <strong>tidak disimpan</strong>. Ekstensi tidak mengumpulkan
+  identitas, akun, email, maupun riwayat penelusuran Anda.
+</div>
+
+<h2>1. Data yang diproses</h2>
+<table>
+  <tr><th>Jenis data</th><th>Tujuan</th><th>Dikirim ke server?</th><th>Disimpan?</th></tr>
+  <tr>
+    <td>Teks komentar YouTube yang tampil di halaman</td>
+    <td>Diklasifikasikan oleh model machine learning (SVM) untuk menentukan spam / bukan spam</td>
+    <td>Ya — ke <code>https://api-svm.cupsky.my.id</code></td>
+    <td><strong>Tidak.</strong> Diproses di memori lalu dibuang setelah hasil dikembalikan.</td>
+  </tr>
+  <tr>
+    <td>Preferensi pengguna (ambang keyakinan, mode penyembunyian)</td>
+    <td>Menyimpan pengaturan Anda antar sesi</td>
+    <td>Tidak</td>
+    <td>Ya — hanya di perangkat Anda melalui <code>chrome.storage.local</code></td>
+  </tr>
+  <tr>
+    <td>Status ketersediaan server</td>
+    <td>Menampilkan indikator koneksi pada popup</td>
+    <td>Tidak</td>
+    <td>Ya — hanya di perangkat Anda</td>
+  </tr>
+</table>
+
+<h2>2. Data yang TIDAK dikumpulkan</h2>
+<ul>
+  <li>Identitas pribadi (nama, email, nomor telepon, alamat)</li>
+  <li>Kredensial atau informasi akun Google/YouTube</li>
+  <li>Riwayat penelusuran atau daftar situs yang Anda kunjungi</li>
+  <li>Lokasi, data keuangan, maupun data kesehatan</li>
+  <li>Nama pengguna atau identitas penulis komentar</li>
+</ul>
+<p>
+  Ekstensi hanya aktif pada <code>https://www.youtube.com/*</code> dan tidak membaca
+  halaman lain. Yang dikirim hanyalah <em>isi teks</em> komentar — bukan siapa penulisnya.
+</p>
+
+<h2>3. Penyimpanan dan retensi</h2>
+<p>
+  Endpoint klasifikasi (<code>/predict</code> dan <code>/predict/batch</code>) bersifat
+  <em>stateless</em>: teks yang masuk diproses di memori untuk menghasilkan label dan nilai
+  keyakinan, lalu dilepaskan. Tidak ada penulisan ke basis data maupun berkas log yang
+  memuat isi komentar. Karena tidak ada data yang disimpan, tidak ada periode retensi
+  dan tidak ada data yang dapat diminta untuk dihapus.
+</p>
+
+<h2>4. Berbagi data dengan pihak ketiga</h2>
+<p>
+  Tidak ada. Data tidak dijual, tidak disewakan, dan tidak dibagikan kepada pihak mana pun.
+  Ekstensi tidak memuat iklan, tidak memasang pelacak (tracker), dan tidak menggunakan
+  layanan analitik pihak ketiga.
+</p>
+
+<h2>5. Izin yang diminta dan alasannya</h2>
+<table>
+  <tr><th>Izin</th><th>Alasan</th></tr>
+  <tr><td><code>storage</code></td><td>Menyimpan preferensi pengguna secara lokal di perangkat.</td></tr>
+  <tr><td><code>https://www.youtube.com/*</code></td><td>Membaca komentar pada halaman YouTube dan menyembunyikan yang terdeteksi spam.</td></tr>
+  <tr><td><code>https://api-svm.cupsky.my.id/*</code></td><td>Mengirim teks komentar ke server klasifikasi dan menerima hasilnya.</td></tr>
+</table>
+
+<h2>6. Keamanan</h2>
+<p>
+  Seluruh komunikasi antara ekstensi dan server menggunakan HTTPS terenkripsi.
+  Server hanya menerima permintaan dari asal (origin) YouTube melalui kebijakan CORS
+  yang dibatasi.
+</p>
+
+<h2>7. Konteks penelitian</h2>
+<p>
+  Ekstensi ini dikembangkan sebagai bagian dari penelitian skripsi program studi
+  Teknik Informatika, Institut Teknologi dan Bisnis Swadharma. Pengumpulan data latih
+  model dilakukan secara terpisah melalui YouTube Data API v3 resmi pada tahap penelitian,
+  <strong>bukan</strong> dari pengguna ekstensi ini.
+</p>
+
+<h2>8. Perubahan kebijakan</h2>
+<p>
+  Perubahan pada kebijakan ini akan dipublikasikan di halaman ini disertai pembaruan
+  tanggal berlaku di bagian atas.
+</p>
+
+<h2>9. Kontak</h2>
+<p>
+  Pertanyaan mengenai kebijakan privasi ini dapat dikirim ke:
+  <a href="mailto:yusuf.wandana1@gmail.com">yusuf.wandana1@gmail.com</a>
+</p>
+
+</body>
+</html>
