@@ -32,6 +32,7 @@ import joblib
 import uvicorn
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, field_validator
 
 # Add project root to path so src.preprocessing can be imported
@@ -83,6 +84,7 @@ app.add_middleware(
 MODEL_PATH           = os.path.join(BASE_DIR, "model", "svm_model.joblib")
 DATA_PATH            = os.path.join(BASE_DIR, "data", "comments.csv")
 MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
+PRIVACY_HTML_PATH    = os.path.join(BASE_DIR, "deploy", "privacy-policy.html")
 
 # Shared secret required on /report so it can't be hit by anonymous scripts
 # once the server is public. This does NOT hide the token from a determined
@@ -291,6 +293,26 @@ def health():
         "status": "ok" if model is not None else "model_not_loaded",
         "model_loaded": model is not None
     }
+
+
+@app.get("/privacy", response_class=HTMLResponse)
+def privacy_policy():
+    """Serves the privacy policy page required for Chrome Web Store publication.
+
+    Google opens this URL during review, so it must be reachable publicly.
+    Serving it from FastAPI instead of Nginx keeps things simple: the app
+    already sits behind the `location /` proxy, so no extra Nginx block and
+    no /var/www directory are needed — the file lives with the code and is
+    deployed by the same git pull.
+    """
+    try:
+        with open(PRIVACY_HTML_PATH, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read(), status_code=200)
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="Privacy policy page not found on this server."
+        )
 
 
 @app.post("/predict", response_model=PredictResponse)
