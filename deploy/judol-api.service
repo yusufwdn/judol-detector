@@ -7,6 +7,19 @@ Type=simple
 User=deploy
 WorkingDirectory=/home/deploy/svm-judol-spam
 Environment="PATH=/home/deploy/svm-judol-spam/venv/bin"
+
+# REPORT_TOKEN dibaca dari berkas terpisah, bukan ditulis di sini, karena
+# berkas ini ikut masuk repositori. Buat /etc/judol-api.env berisi satu baris:
+#
+#     REPORT_TOKEN=<nilai acak>
+#
+# lalu: sudo chown root:root /etc/judol-api.env && sudo chmod 600 /etc/judol-api.env
+#
+# Awalan "-" membuat systemd tetap menjalankan layanan meskipun berkasnya tidak
+# ada. Tanpa berkas itu REPORT_TOKEN kosong dan endpoint /report otomatis
+# dinonaktifkan (503) — kondisi bawaan yang memang diinginkan, sebab /report
+# hanya diperlukan saat mengumpulkan koreksi secara manual.
+EnvironmentFile=-/etc/judol-api.env
 ExecStart=/home/deploy/svm-judol-spam/venv/bin/uvicorn src.server:app --host 127.0.0.1 --port 8000
 Restart=on-failure
 RestartSec=5

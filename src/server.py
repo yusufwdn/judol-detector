@@ -86,12 +86,20 @@ DATA_PATH            = os.path.join(BASE_DIR, "data", "comments.csv")
 MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
 PRIVACY_HTML_PATH    = os.path.join(BASE_DIR, "deploy", "privacy-policy.html")
 
-# Shared secret required on /report so it can't be hit by anonymous scripts
-# once the server is public. This does NOT hide the token from a determined
-# attacker (it also lives in the extension's client-side content.js, which
-# anyone can unpack and read) — the goal is only to stop casual/automated
-# spam of the training dataset, not to fully secure the endpoint.
-REPORT_TOKEN = os.environ.get("REPORT_TOKEN", "3c0c7c4ecb995b550cd603b8e4b3f336")
+# Shared secret required on /report, which appends straight into the training
+# dataset. Read from the environment only — there is deliberately no default.
+#
+# A hardcoded fallback would be worse than no token at all: the source is
+# handed to reviewers and published alongside the thesis, so anyone reading it
+# could append rows to the training data of the live server. With no default,
+# an unconfigured server simply refuses the endpoint (503 below) instead of
+# accepting a secret that everyone can read.
+#
+# /report is a development-only tool: the extension only ever calls it when
+# DEV_MODE is enabled in content.js, which ships as false. Set REPORT_TOKEN in
+# the environment (see deploy/judol-api.service) only on a machine where you
+# actually intend to collect corrections.
+REPORT_TOKEN = os.environ.get("REPORT_TOKEN")
 
 model = None
 
@@ -439,6 +447,14 @@ def report_false_positive(request: ReportRequest, x_report_token: str = Header(d
     Deduplication: if the exact text already exists in the CSV, the request
     is rejected to prevent duplicate entries from inflating the dataset.
     """
+    # No token configured means this server was not set up to collect
+    # corrections. Refuse outright rather than fall back to a shared default.
+    if not REPORT_TOKEN:
+        raise HTTPException(
+            status_code=503,
+            detail="Reporting is disabled on this server."
+        )
+
     if x_report_token != REPORT_TOKEN:
         raise HTTPException(status_code=401, detail="Invalid or missing X-Report-Token header")
 

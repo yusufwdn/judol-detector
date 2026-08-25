@@ -29,9 +29,14 @@
 const API_BASE = "https://api-svm.cupsky.my.id";
 const API_URL = `${API_BASE}/predict`;
 const BATCH_API_URL = `${API_BASE}/predict/batch`;
-// Must match REPORT_TOKEN in src/server.py — only prevents casual/automated
-// abuse of /report, not a real secret (this file is client-side JS).
-const REPORT_TOKEN = "3c0c7c4ecb995b550cd603b8e4b3f336";
+// Left empty on purpose. /report writes straight into the training dataset,
+// and this file ships to every user and is published with the thesis source —
+// a token written here is readable by anyone, which is no protection at all.
+//
+// The endpoint is only ever called when DEV_MODE below is true. When you do
+// want to collect corrections locally, paste the server's REPORT_TOKEN here in
+// your own working copy and flip DEV_MODE — just never commit either change.
+const REPORT_TOKEN = "";
 
 // Default threshold — will be overridden by value from chrome.storage on init.
 // Users can change this via the slider in the popup.

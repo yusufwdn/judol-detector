@@ -1,0 +1,3701 @@
+===== HAL PDF 1 =====
+ 
+ 
+PERANCANGAN DAN IMPLEMENTASI ALGORITMA 
+SUPPORT VECTOR MACHINE (SVM) DENGAN TEKNIK 
+STRING NORMALIZATION UNTUK DETEKSI KOMENTAR 
+SPAM JUDI ONLINE PADA YOUTUBE BERBASIS CHROME 
+EXTENSION  
+ 
+ Diajukan Sebagai Salah Satu Syarat Untuk Memperoleh  
+Gelar Sarjana Strata Satu (S1) 
+ 
+FAKULTAS TEKNOLOGI  
+PROGRAM STUDI TEKNIK INFORMATIKA  
+ 
+ 
+ 
+ 
+Disusun Oleh : 
+ Nama   : Yusuf Wandana 
+     NIM     : 221232017 
+ 
+ 
+ 
+ 
+ 
+ 
+INSTITUT TEKNOLOGI DAN BISNIS 
+SWADHARMA  
+JAKARTA 
+2026
+
+===== HAL PDF 2 =====
+ii 
+ 
+ITB SWADHARMA  
+FAKULTAS TEKNOLOGI 
+PROGRAM STUDI TEKNIK INFORMATIKA 
+ 
+ 
+LEMBAR PERSETUJUAN DOSEN PEMBIMBING 
+Telah diperiksa dan disetujui sebuah skripsi untuk diajukan pada sidang skripsi, atas 
+nama: 
+Nama : Y usuf Wandana 
+NIM : 221232017 
+Program Studi : Teknik Informatika 
+Jenjang Pendidikan : Strata Satu (S1) 
+Judul Skripsi : Perancangan dan Implementasi Algoritma Support 
+V ector Machine (SVM) dengan Teknik String 
+Normalization untuk Deteksi Komentar Spam Judi 
+Online Pada Y ouTube Berbasis Chrome Extension 
+ 
+ 
+Jakarta, 28 Juli 2026 
+ 
+ 
+Dosen Pembimbing 
+ 
+ 
+ 
+ 
+ 
+ 
+(Dr. Usanto S., S.Kom., M.Kom) 
+ Pembimbing I 
+(Septiana Ningtyas, S.Kom., M.Kom) 
+ Pembimbing II 
+ 
+  
+
+===== HAL PDF 3 =====
+iii 
+ 
+ITB SWADHARMA  
+FAKULTAS TEKNOLOGI 
+PROGRAM STUDI TEKNIK INFORMATIKA 
+               
+LEMBAR PENGESAHAN SKRIPSI 
+Pada hari Selasa, tanggal 11 Agustus 2026, telah dipresentasikan Skripsi dihadapan 
+para penguji untuk diuji/disidangkan atas nama : 
+ 
+Nama : Y usuf Wandana 
+NIM : 221232017 
+Program Studi : Teknik Informatika 
+Jenjang Pendidikan : Strata Satu (S1) 
+Judul Skripsi : Perancangan dan Implementasi Algoritma Support 
+V ector Machine (SVM) dengan Teknik String 
+Normalization untuk Deteksi Komentar Spam Judi 
+Online Pada Y ouTube Berbasis Chrome Extension 
+Dan dinyatakan Lulus oleh para penguji. 
+Jakarta, 11 Agustus 2026 
+Penguji 
+ 
+ 
+ 
+ 
+(……………………………) 
+Penguji 1 
+ 
+ 
+ 
+ 
+(……………………………) 
+Penguji 2 
+ 
+ 
+ 
+ 
+(Dr. Usanto S., S.Kom., M.Kom) 
+Penguji 3 
+ 
+ 
+ 
+ 
+(Septiana Ningtyas, S.Kom., M.Kom) 
+Penguji 4 
+ 
+Program Studi Teknik Informatika 
+ 
+ 
+ 
+(Dr. Adi Sopian, S.Kom., M.Kom) 
+Ketua Program Studi 
+
+===== HAL PDF 4 =====
+iv 
+ 
+LEMBAR PERNYATAAN  
+KEASLIAN SKRIPSI 
+ 
+ 
+Yang bertanda tangan di bawah ini, Saya: 
+Nama : Y usuf Wandana 
+NIM : 221232017 
+Program Studi : Teknik Informatika 
+Jenjang Pendidikan : Strata Satu (S1) 
+Judul Skripsi : Perancangan dan Implementasi Algoritma Support 
+V ector Machine (SVM) dengan Teknik String 
+Normalization untuk Deteksi Komentar Spam Judi 
+Online Pada Y ouTube Berbasis Chrome Extension 
+Menyatakan sesungguhnya: 
+Skripsi yang dibuat dengan judul diatas merupakan karya asli (bukan hasil plagiat) 
+dari Saya. Bagian-bagian tertentu dalam penulisan skripsi ini yang saya kutip dari 
+hasil karya orang lain telah dituliskan sumbernya secara jelas sesuai norma, kaidah, 
+dan etika penulisan ilmiah. Apabila dikemudian hari ada pihak yang berkeberatan 
+karena karya tulisnya mirip / sama dengan skripsi saya, atau ada pihak yang 
+mengetahui bahwa skripsi Saya mirip dengan karya tulis orang lain dan orang itu 
+menggugat kepada Saya, Saya bersedia bertanggung jawab untuk melindungi hasil 
+tulisan Saya, serta jika ternyata benar bahwa hasil tulisan saya adalah hasil dari 
+plagiat, maka Saya bersedia ITB Swadharma membatalkan gelar akademik yang 
+Saya peroleh.  
+Demikian Lembar Pernyataan ini Saya buat dengan sebenar -benarnya dan tanpa 
+paksaan dari pihak manapun. 
+ Jakarta, 11 Agustus 2026 
+Yang memberi pernyataan 
+ 
+ 
+ 
+Yusuf Wandana 
+
+===== HAL PDF 5 =====
+v 
+ 
+LEMBAR PERSEMBAHAN DAN MOTTO 
+ 
+ 
+Persembahan: 
+ 
+Selesainya tulisan ini adalah salah satu bukti keseriusanku dalam usahaku untuk 
+meraih mimpiku. Semua ini tidak akan berhasil tanpa adanya dukungan dari 
+semua orang hebat yang ada dibelakangku.  
+ 
+Terima kasih Ya Allah, terima kasih orang tua-ku, dan semua orang-orang dengan 
+peran baik dalam hidupku. 
+ 
+ 
+Moto: 
+ 
+Whatever happens, happens. 
+ 
+Sometimes, life doesn’t go according to our plans.  
+All we can do is learn, and accept it.  
+Remember, God has a different plan for us. 
+ 
+So. 
+Whatever happens, happens. 
+ 
+  
+===== HAL PDF 6 =====
+vi 
+ 
+KATA PENGANTAR 
+Puji dan syukur penulis panjatkan ke hadirat Tuhan Yang Maha Esa, karena atas 
+rahmat dan karunia -Nya, skripsi yang berjudul “Perancangan dan Implementasi 
+Algoritma Support Vector Machine  (SVM) dengan Teknik String Normalization  
+untuk Deteksi Komentar Spam Judi Online Pada Youtube Berbasis Chrome 
+Extension” dapat diselesaikan dengan baik. 
+Meskipun penyusunan ini telah selesai, tetap disadari skripsi ini masih memiliki 
+banyak aspek yang harus lebih dikembangkan lagi.  Baik itu dari sisi pemilihan 
+teknologi yang digunakan, performa yang seharusnya bisa lebih dioptimalkan, 
+hingga pemilihan kata dalam penulisan yang juga bisa ditingkatkan.  Oleh karena 
+itu, sangat diharapkan adanya pengembangan serta penelitian lebih lanjut yang 
+dapat memperbaiki kekurangan dari sistem saat ini. 
+Akhir kata, perkenankanlah untuk menyampaikan rasa hormat dan terima kasih 
+kepada pihak-pihak yang telah membantu di dalam penyusunan skripsi ini, baik 
+secara langsung maupun tidak langsung. Khususnya kepada: 
+1.  Bapak Dr. Usanto S., S.Kom., M.Kom., selaku Dekan Fakultas Teknologi dan 
+Dosen Pembimbing I 
+2. Bapak Dr. Adi Sopian, S.Kom., M.Kom selaku Ketua Program Studi Teknik 
+Informatika 
+3. Ibu Septiana Ningtyas, S.Kom., M.Kom., selaku Dosen Pembimbing II 
+4. Seluruh staff ITB Swadharma yang tidak bisa disebut satu per satu 
+5. Seluruh keluarga yang selalu mendukung disegala keadaan 
+6. Serta teman-teman yang senantiasa memberikan energi positif 
+Akhir kata dengan kerendahan hati, semoga skripsi ini dapat memberikan dampak 
+dan inspirasi yang positif, serta dapat dijadikan referensi untuk penelitian-penelitian 
+di masa yang akan datang. Semoga di penelitian selanjutnya, sistem kecil ini dapat 
+berkembang jauh lebih baik lagi dari segala aspek. 
+ 
+ 
+ Jakarta, 11 Agustus 2026 
+ 
+ 
+ 
+Penulis 
+ 
+===== HAL PDF 7 =====
+vii 
+ 
+DAFTAR ISI 
+ 
+LEMBAR PERSETUJUAN DOSEN PEMBIMBING ........................................ ii 
+LEMBAR PENGESAHAN SKRIPSI ................................................................. iii 
+LEMBAR PERNYATAAN  KEASLIAN SKRIPSI ............................................ iv 
+LEMBAR PERSEMBAHAN DAN MOTTO ...................................................... v 
+KATA PENGANTAR .......................................................................................... vi 
+DAFTAR ISI ....................................................................................................... vii 
+DAFTAR GAMBAR ........................................................................................... xi 
+DAFTAR TABEL ............................................................................................... xii 
+ABSTRAK ......................................................................................................... xiii 
+BAB I PENDAHULUAN ..................................................................................... 1 
+1.1 Latar Belakang .......................................................................................... 1 
+1.2 Rumusan Masalah ..................................................................................... 3 
+1.3 Tujuan dan Kegunaan Hasil Penelitian ..................................................... 4 
+1.3.1 Tujuan Penelitian .............................................................................. 4 
+1.3.2 Kegunaan Penelitian......................................................................... 4 
+1.4 Metode Penelitian...................................................................................... 6 
+1.4.1 Studi Pustaka (Literature Review) ................................................... 6 
+1.4.2 Observasi dan Pengumpulan Data (YouTube Data API) ................. 7 
+BAB II LANDASAN TEORI ............................................................................... 9 
+2.1 Pemrosesan Bahasa Alami (Natural Language Processing)...................... 9 
+2.2 Prapemrosesan Teks (Text Preprocessing) .............................................. 10 
+2.3 Stemming Bahasa Indonesia (Sastrawi) .................................................. 11 
+2.4 String Normalization dan Penanganan Obfuscation ............................... 12 
+2.5 Ekstraksi Fitur Term Frequency-Inverse Document Frequency ............. 14 
+2.5.1 N-gram ........................................................................................... 18 
+2.6 Algoritma Support Vector Machine (SVM) ............................................ 20 
+2.6.1 Estimasi Probabilitas pada SVM (Platt Scaling) ............................ 22 
+2.7 Algoritma Pembanding ........................................................................... 23 
+2.7.1 Multinomial Naive Bayes .............................................................. 24 
+===== HAL PDF 8 =====
+viii 
+ 
+2.7.2 Logistic Regression ........................................................................ 25 
+2.8 Evaluasi Model Klasifikasi ..................................................................... 25 
+2.9 Metode Pengembangan Perangkat Lunak (Waterfall) ............................ 28 
+2.10 Perbandingan Metode Machine Learning dan Deep Learning ............. 30 
+2.11 Pengumpulan Data melalui API dan Analisis Heuristik ........................ 31 
+2.12 Spam Komentar pada Media Sosial (YouTube) .................................... 32 
+2.13 Arsitektur Chrome Extension (Manifest V3) ........................................ 33 
+2.14 REST API dan Lingkungan FastAPI (Python) ...................................... 34 
+2.15 Unified Modeling Language (UML) ..................................................... 34 
+2.15.1 Use Case Diagram ........................................................................ 35 
+2.15.2 Activity Diagram .......................................................................... 36 
+2.15.3 Sequence Diagram ....................................................................... 37 
+2.16 Metode Analisis Sistem (PIECES) ........................................................ 38 
+2.17 Studi Penelitian Terdahulu .................................................................... 41 
+2.18 Persyaratan Sistem Konseptual ............................................................. 43 
+BAB III OBJEK PENELITIAN ......................................................................... 46 
+3.1 Tinjauan Umum Objek Penelitian ........................................................... 46 
+3.1.1 Behaviour Objek Penelitian ........................................................... 46 
+3.1.2 Struktur/Kategori Objek Penelitian ................................................ 48 
+3.1.3 Profil Perusahaan YouTube ............................................................ 49 
+3.1.4 Struktur Organisasi YouTube ......................................................... 50 
+3.2 Sistem Berjalan ....................................................................................... 52 
+3.2.1 Tinjauan Umum .............................................................................. 52 
+3.2.2 Analisis Proses Sistem Berjalan ..................................................... 52 
+3.2.3 Flowchart Sistem Berjalan ............................................................. 53 
+3.3 Permasalahan Sistem (PIECES) .............................................................. 55 
+BAB IV PERANCANGAN SISTEM................................................................. 60 
+4.1 Analisis Kebutuhan Sistem ..................................................................... 61 
+4.1.1 Kebutuhan Fungsional ................................................................... 61 
+4.1.2 Kebutuhan Non-Fungsional ........................................................... 62 
+4.1.3 Kebutuhan Perangkat Lunak .......................................................... 63 
+4.1.4 Kebutuhan Perangkat Keras ........................................................... 64 
+===== HAL PDF 9 =====
+ix 
+ 
+4.2 Metode Pengembangan Sistem ............................................................... 65 
+4.3 Rancangan Dataset.................................................................................. 67 
+4.3.1 Sumber dan Metode Pengumpulan Data ........................................ 67 
+4.3.2 Proses Pelabelan Data .................................................................... 68 
+4.3.3 Komposisi dan Pembagian Dataset ................................................ 69 
+4.4 Pipeline Sistem ....................................................................................... 70 
+4.4.1 Alur Pelatihan Model (Training Pipeline) ..................................... 70 
+4.4.2 Alur Inferensi Real-Time (Inference Pipeline) ............................... 74 
+4.5 Perancangan Model ................................................................................. 76 
+4.5.1 Konfigurasi Ekstraksi Fitur TF-IDF ............................................... 76 
+4.5.2 Konfigurasi Model Linear SVM .................................................... 77 
+4.5.3 Pencarian Nilai Parameter Terbaik (GridSearchCV) ..................... 77 
+4.5.4 Validasi Model (5-Fold Cross-Validation) ..................................... 78 
+4.5.5 Pertimbangan Stemming ................................................................. 78 
+4.5.6 Pertimbangan Pendekatan Hibrida ................................................. 79 
+4.6 Arsitektur Komponen Sistem .................................................................. 79 
+4.6.1 Komponen Scraper (Node.js) ......................................................... 80 
+4.6.2 Komponen Chrome Extension (Manifest V3) ................................ 80 
+4.6.3 Komponen Server FastAPI (Python) ............................................. 81 
+4.7 Diagram Use Case................................................................................... 82 
+4.7.1 Use Case Narrative Menyaring Komentar Spam ........................... 83 
+4.7.2 Use Case Narrative Mengklasifikasikan Teks ................................ 85 
+4.7.3 Use Case Narrative Mengatur Confidence Threshold ................... 87 
+4.7.4 Use Case Narrative Memantau Statistik Deteksi ........................... 88 
+4.7.5 Use Case Narrative Melaporkan Kesalahan Klasifikasi ................ 89 
+4.8 Activity Diagram ..................................................................................... 90 
+4.9 Sequence Diagram ................................................................................... 92 
+4.10 Pengujian Sistem ................................................................................... 94 
+4.10.1 Evaluasi pada Data Uji (Holdout) ................................................ 95 
+4.10.2 Validasi Silang (5-Fold Cross-Validation) ................................... 97 
+4.10.3 Pencarian Hiperparameter (GridSearchCV) ................................ 98 
+4.10.4 Perbandingan dengan Algoritma Baseline ................................... 99 
+===== HAL PDF 10 =====
+x 
+ 
+4.10.5 Evaluasi pada Hard Test Set ....................................................... 100 
+4.10.6 Ablation Study Pendekatan Hibrida ........................................... 100 
+4.10.7 Pengujian Pengaruh Stemming ................................................... 101 
+4.10.8 Ringkasan Hasil Pengujian ........................................................ 103 
+4.11 Rancangan Tampilan ........................................................................... 103 
+4.11.1 Struktur Tampilan ....................................................................... 104 
+4.11.2 Rancangan Layar ........................................................................ 105 
+4.12 Analisis Kelayakan Sistem .................................................................. 108 
+4.12.1 Kelayakan Teknologi.................................................................. 109 
+4.12.2 Kelayakan Operasional .............................................................. 109 
+4.12.3 Kelayakan Hukum ...................................................................... 109 
+BAB V KESIMPULAN DAN SARAN ............................................................ 111 
+5.1 Kesimpulan ............................................................................................ 111 
+5.2 Saran ...................................................................................................... 112 
+DAFTAR PUSTAKA 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+===== HAL PDF 11 =====
+xi 
+ 
+DAFTAR GAMBAR 
+Gambar 2.1 Contoh Matriks Bobot TF-IDF pada Komentar YouTube................. 17 
+Gambar 2.2 Ilustrasi Hyperplane dan Margin pada Algoritma Linear SVM ........ 21 
+Gambar 2.3 Tahapan Metode Waterfall ................................................................ 29 
+Gambar 2.4 Simbol-Simbol Use Case Diagram ................................................... 36 
+Gambar 2.5 Simbol-Simbol Activity Diagram ..................................................... 37 
+Gambar 2.6 Simbol-Simbol Sequence Diagram ................................................... 38 
+Gambar 3.1 Struktur Organisasi YouTube ............................................................ 51 
+Gambar 3.2 Flowchart Sistem Berjalan ................................................................ 54 
+Gambar 4.1 Alur Pelatihan Model (Training Pipeline) ......................................... 73 
+Gambar 4.2 Alur Inferensi Real-Time (Inference Pipeline) .................................. 75 
+Gambar 4.3 Diagram Arsitektur Komponen Sistem ............................................. 80 
+Gambar 4.4 Use Case Diagram Sistem Deteksi Spam Komentar YouTube ......... 83 
+Gambar 4.5 Activity Diagram Sistem Deteksi Spam Komentar YouTube ........... 90 
+Gambar 4.6 Sequence Diagram Sistem Deteksi Spam Komentar YouTube ......... 93 
+Gambar 4.7 Confusion Matrix Model SVM (visualisasi heatmap) ...................... 97 
+Gambar 4.8 Skor F1-macro per Fold pada 5-Fold Cross-Validation .................... 98 
+Gambar 4.9 Hasil GridSearchCV Pencarian Nilai C Terbaik ............................... 99 
+Gambar 4.10 Perbandingan F1-macro Tanpa vs Dengan Stemming .................. 103 
+Gambar 4.11 Antarmuka Chrome Extension ...................................................... 104 
+Gambar 4.12 Antarmuka Halaman YouTube dengan Chrome Extension ........... 105 
+Gambar 4.13 Rancangan Antarmuka Popup Ekstensi ........................................ 107 
+Gambar 4.14 Hasil Implementasi dengan Mode Redupkan ................................ 108 
+Gambar 4.15 Hasil Implementasi dengan Mode Hilangkan ............................... 108 
+  
+===== HAL PDF 12 =====
+xii 
+ 
+DAFTAR TABEL 
+Tabel 2.1 Aspek-Aspek Analisis PIECES ............................................................. 40 
+Tabel 3.1 Ringkasan Analisis PIECES Sistem Berjalan ....................................... 58 
+Tabel 4.1 Kebutuhan Perangkat Lunak ................................................................. 64 
+Tabel 4.2 Kebutuhan Perangkat Keras .................................................................. 64 
+Tabel 4.3 Skema Pembobotan Skor Heuristik (spam_score) ................................ 68 
+Tabel 4.4 Komposisi Dataset ................................................................................. 70 
+Tabel 4.5 Use Case Narrative Menyaring Komentar Spam .................................. 84 
+Tabel 4.6 Use Case Narrative Mengklasifikasikan Teks ....................................... 86 
+Tabel 4.7 Use Case Narrative Mengatur Confidence Threshold ........................... 87 
+Tabel 4.8 Use Case Narrative Memantau Statistik Deteksi .................................. 88 
+Tabel 4.9 Use Case Narrative Melaporkan Kesalahan Klasifikasi ....................... 89 
+Tabel 4.10 Hasil Evaluasi Model SVM pada Data Uji ......................................... 95 
+Tabel 4.11 Confusion Matrix Model SVM pada Data Uji .................................... 95 
+Tabel 4.12 Perbandingan Performa SVM dengan Algoritma Baseline ................. 99 
+Tabel 4.13 Perbandingan SVM Murni dengan SVM + Aturan Hibrida .............. 101 
+ 
+ 
+ 
+ 
+  
+===== HAL PDF 13 =====
+xiii 
+ 
+ABSTRAK 
+ 
+PERANCANGAN DAN IMPLEMENTASI ALGORITMA SUPPORT VECTOR 
+MACHINE (SVM) DENGAN TEKNIK STRING NORMALIZATION UNTUK 
+DETEKSI KOMENTAR SPAM JUDI ONLINE PADA YOUTUBE BERBASIS 
+CHROME EXTENSION 
+ 
+Dr. Usanto S., S.Kom., M.Kom., Septiana Ningtyas, S.Kom., M.Kom., Yusuf 
+Wandana (221232017)  
+Skripsi, Program Studi Teknik Informatika, 2026  
+Kata Kunci: Support Vector Machine, String Normalization, spam judi online, 
+Chrome Extension, YouTube (xiii + 113 halaman + 0 lampiran) 
+ 
+Penyebaran promosi judi online melalui kolom komentar YouTube telah 
+menjadi ancaman siber yang meresahkan di Indonesia. Penyebar spam 
+memanfaatkan teknik penyamaran teks ( obfuscation), seperti substitusi karakter 
+Unicode, penyisipan tanda diakritik, dan penggantian huruf dengan angka, sehingga 
+mampu meloloskan diri dari sistem filtrasi berbasis kata kunci statis yang 
+digunakan YouTube saat ini. 
+Penelitian ini merancang dan mengimplementasikan sebuah ekstensi Google 
+Chrome berbasis Manifest V3 yang mengombinasikan teknik String Normalization 
+dengan algoritma Support Vector Machine  (SVM) untuk mendeteksi dan 
+menyembunyikan komentar spam tersebut secara real-time di sisi klien. Data 
+komentar dikumpulkan melalui YouTube Data API v3, diberi label, kemudian 
+diproses melalui pipeline normalisasi teks dan diekstraksi fiturnya menggunakan 
+Term Frequency-Inverse Document Frequency (TF-IDF) sebelum diklasifikasikan 
+oleh model SVM ber-kernel linear. 
+Hasil pengujian pada 1.338 data uji menunjukkan model mencapai accuracy 
+97,53% dan F1-macro 0,9726, mengungguli algoritma pembanding Logistic 
+Regression (97,09%) dan Multinomial Naive Bayes (93,95%). Validasi 5-fold cross-
+validation menghasilkan F1-macro rata-rata 0,9741 dengan standar deviasi 
+±0,30%, menunjukkan performa yang konsisten. Pada hard test set  berisi 135 
+komentar ambigu, model mencapai accuracy 98,52% dengan hanya 2 false positive. 
+Eksperimen tambahan membuktikan bahwa pendekatan hibrida berbasis kata kunci 
+dan stemming Sastrawi tidak meningkatkan performa, sehingga tidak digunakan 
+pada sistem final. 
+Penelitian ini menyimpulkan bahwa kombinasi String Normalization dan SVM 
+efektif menutupi celah deteksi pada sistem filtrasi konvensional YouTube. Saran 
+bagi penelitian selanjutnya meliputi pembaruan dataset secara berkala, 
+pengembangan fitur rekayasa tambahan, serta pengujian pada platform media sosial 
+lain. 
+ 
+ 
+Daftar Pustaka (2018-2026)
+===== HAL PDF 14 =====
+1 
+ 
+BAB I 
+PENDAHULUAN  
+ 
+1.1 Latar Belakang 
+Perkembangan pesat teknologi informasi telah mengubah pola komunikasi dan 
+distribusi informasi secara fundamental. Media sosial dan platform berbagi video, 
+khususnya YouTube, kini tidak lagi sekadar menjadi sarana hiburan, melainkan 
+telah berevolusi menjad i ruang publik digital yang mewadahi interaksi jutaan 
+pengguna setiap harinya. Uraian interaksi tersebut umumnya terwujud dalam kolom 
+komentar, di mana pengguna dapat saling bertukar pandangan secara bebas. 
+Sayangnya, tingginya tingkat interaksi partisipat if ini membawa dampak negatif 
+berupa eksploitasi celah keamanan informasi oleh pihak -pihak yang tidak 
+bertanggung jawab. 
+Salah satu bentuk eksploitasi yang saat ini menjadi krisis siber di Indonesia 
+adalah penyebaran promosi judi online secara ilegal (Herawati dkk., 2025). 
+Penyebaran ini tidak dilakukan secara manual, melainkan dikoordinasikan 
+menggunakan jaringan bot yang mampu mengirimkan ribuan komentar spam secara 
+instan ke berbagai saluran YouTube yang memiliki tingkat kunjungan tinggi. 
+Promosi masif ini tidak hanya merusak kenyamanan pengguna dalam berinteraksi, 
+tetapi juga berpotensi besar menjerumuskan masyarakat ke dalam kejahatan 
+finansial dan kecanduan perjudian.  
+Penyedia layanan platform sebenarnya telah mengimplementasikan sistem 
+filtrasi berbasis kata kunci (keyword-based filtering) untuk menanggulangi konten 
+bermuatan spam dan ilegal. Namun, sistem konvensional tersebut terbukti memiliki 
+tingkat kerentanan yang tinggi. Khususnya di Indonesia, para penyebar spam 
+===== HAL PDF 15 =====
+2 
+ 
+ 
+ 
+memiliki pola linguistik yang sangat dinamis, sering kali memadukan kata -kata 
+tidak baku (slang/alay) dengan teknik penyamaran teks tingkat lanjut atau 
+obfuscation. Teknik ini dilakukan dengan memanipulasi karakter ( homoglyphs), 
+seperti penggunaan font Unicode khusus (contoh: 𝙎𝙇𝙊𝙏, 𝕊𝑳𝕆𝑻), penyisipan tanda 
+baca di tengah kata (contoh: J.u.d.i), hingga substitusi huruf dengan angka (contoh: 
+5L0T). Akibatnya, kombinasi karakter tersebut tidak terbaca sebagai kata terlarang 
+oleh mesin, sehingga lolos dari sistem penyaringan otomatis. (Angelo dkk., 2025). 
+Penelitian sejenis sebelumnya telah banyak mengeksplorasi penggunaan 
+Machine Learning untuk mendeteksi spam pada pesan elektronik maupun media 
+sosial X/Twitter (Chua dkk., 202 4). Namun, mayoritas penelitian tersebut 
+mengasumsikan bahwa data teks yang diproses berada dalam format standar. Ketika 
+dihadapkan pada teks dengan tingkat obfuscation tinggi atau tidak baku seperti pada 
+komentar YouTube saat ini, akurasi model klasifikasi konvensional akan menurun 
+drastis. Oleh karena itu, dibutuhkan tahap prapemrosesan teks yang kuat agar sistem 
+tidak menganggap karakter manipulatif tersebut sebagai k osakata baru yang tidak 
+memiliki makna (Khairunnisa dkk., 2021). 
+Untuk menjembatani celah kelemahan tersebut, diperlukan sebuah sistem 
+cerdas komprehensif yang memadukan tahap prapemrosesan teks yang kuat dengan 
+algoritma klasifikasi yang handal. Algoritma Support Vector Machine  (SVM) 
+dipilih karena merupakan sistem pembelajaran yang berupaya membentuk fungsi -
+fungsi linear dalam ruang fitur berdimensi tinggi. Algoritma ini memisahkan data 
+dengan mencari pembatas terbaik melalui nilai jarak (margin) terbesar antar kelas. 
+Agar kinerja SVM dapat maksimal, algoritma ini harus dikombinasikan dengan 
+teknik prapemrosesan pada tahap awal untuk membersihkan data teks dari faktor 
+===== HAL PDF 16 =====
+3 
+ 
+ 
+ 
+yang tidak diperlukan (Nanda dkk., 2022). Dalam konteks penelitian ini, 
+prapemrosesan difokuskan pada String Normalization  yang berfungsi untuk 
+membersihkan dan menormalkan kembali karakter -karakter Unicode manipulatif 
+menjadi format teks ASCII standar sebelum proses klasifikasi dilakukan. 
+Sejalan dengan orientasi pengembangan sistem yang menuntut adanya luaran 
+produk yang fungsional, integrasi model deteksi ini akan diimplementasikan ke 
+dalam sebuah Chrome Extension . Ekstensi web dapat berjalan di latar belakang 
+peramban dan memiliki kemampuan untuk memanipulasi elemen -elemen pada 
+halaman web yang sedang ditampilkan secara langsung, termasuk memodifikasi 
+atau mengganti teks. Pemilihan pendekatan berbasis klien (client-side) ini bertujuan 
+agar penapisan komentar spam dapat dieksekusi dengan memanfaatkan manipulasi 
+Document Object Model (DOM) yang diinjeksi pada halaman web (Ramadhan & 
+Fauzan, 2023). Dengan demikian, ekstensi dapat menyembunyikan komentar 
+terlarang secara mandiri tanpa harus mengubah struktur pangkalan data (database) 
+utama milik YouTube. 
+1.2 Rumusan Masalah 
+Berdasarkan identifikasi masalah pada latar belakang yang telah diuraikan, 
+maka perumusan masalah dalam penelitian ini adalah: Bagaimana merancang dan 
+mengimplementasikan algoritma Support Vector Machine  (SVM) yang 
+dikombinasikan dengan teknik String Normalization  ke dalam sebuah ekstensi 
+peramban Google Chrome berbasis arsitektur Manifest V3, guna mendeteksi dan 
+menyembunyikan komentar spam promosi judi online berbahasa Indonesia yang 
+menggunakan teknik penyamaran teks ( text obfuscation ) di platform YouTube 
+secara real-time? 
+===== HAL PDF 17 =====
+4 
+ 
+ 
+ 
+1.3 Tujuan dan Kegunaan Hasil Penelitian 
+1.3.1 Tujuan Penelitian 
+Sesuai dengan rumusan masalah yang telah ditetapkan, tujuan utama dari 
+penelitian ini adalah merancang dan mengimplementasikan algoritma Support 
+Vector Machine (SVM) yang dikombinasikan dengan teknik String Normalization 
+ke dalam sebuah ekstensi Google Chrome ( Chrome Extension) berbasis arsitektur 
+Manifest V3, yang mampu beroperasi di sisi klien ( client-side) secara real-time 
+guna mendeteksi dan menyembunyikan komentar spam promosi judi online tanpa 
+membebani server utama platform. Penerapan String Normalization  berfungsi 
+sebagai tahap prapemrosesan awal yang vital untuk membersihkan dan 
+menormalkan kembali karakter manipulatif ( obfuscation) seperti penggunaan 
+homoglyphs, penyisipan simbol, atau kombinasi alfanumerik menjadi format teks 
+ASCII standar agar dapat dikenali oleh mesin. Selanjutnya, performa algoritma 
+klasifikasi SVM dalam membedakan komentar normal dan komentar spam diukur, 
+dianalisis, dan divalidasi menggunakan parameter pengujian yang komprehensif 
+berdasarkan metrik akurasi ( accuracy), presisi ( precision), dan recall, guna 
+memastikan efektivitas dan keandalan sistem deteksi yang dibangun. 
+1.3.2 Kegunaan Penelitian 
+Hasil dari penelitian ini diharapkan tidak hanya menghasilkan luaran berupa 
+perangkat lunak yang fungsional, tetapi juga memberikan dampak yang bermanfaat 
+dan terukur. Kegunaan penelitian ini dibagi menjadi dua aspek utama, yaitu: 
+ 
+ 
+ 
+===== HAL PDF 18 =====
+5 
+ 
+ 
+ 
+1. Kegunaan Teoritis (Akademis). 
+a) Pengembangan Ilmu Pengetahuan 
+Menjadi kontribusi dan referensi keilmuan baru di bidang penambangan 
+teks (text mining) dan Machine Learning, khususnya yang berkaitan dengan 
+pemrosesan bahasa alami (NLP) pada data teks berbahasa Indonesia yang 
+bersifat dinamis dan tidak baku. 
+b) Uji Efektivitas Metode 
+Memberikan landasan empiris mengenai efektivitas penggabungan teknik 
+String Normalization  dengan algoritma SVM dalam menembus dan 
+mengatasi masalah manipulasi teks atau obfuscation yang semakin 
+kompleks pada ruang publik media sosial. 
+c) Referensi Penelitian Lanjutan 
+Menyediakan landasan teori, kerangka sistem, serta dataset yang dapat 
+dimanfaatkan oleh sivitas akademika Institut Teknologi dan Bisnis 
+Swadharma maupun peneliti lain untuk melakukan pengembangan lebih 
+lanjut, misalnya sebagai bahan komparasi dengan metode Deep Learning. 
+2. Kegunaan Praktis 
+a) Bagi Masyarakat Umum (Pengguna YouTube) 
+Memberikan solusi perangkat lunak yang dapat diinstal dan digunakan 
+secara langsung sebagai lapisan perlindungan tambahan secara mandiri. 
+Sistem ini secara otomatis akan meningkatkan kenyamanan berinteraksi 
+(user experience ) dan melindungi keamanan pengguna saat menelusuri 
+konten, agar terhindar dari paparan materi promosi perjudian ilegal yang 
+berpotensi merugikan. 
+===== HAL PDF 19 =====
+6 
+ 
+ 
+ 
+b) Bagi Pengembang Perangkat Lunak 
+Memberikan cetak biru ( blueprint) mengenai tata cara mengintegrasikan 
+model Machine Learning ke dalam ekosistem browser extension agar tetap 
+ringan dan responsif saat menyeleksi elemen Document Object Model  
+(DOM) secara dinamis. 
+1.4 Metode Penelitian 
+Metode penelitian pada dasarnya merupakan cara ilmiah untuk mendapatkan 
+data dengan tujuan dan kegunaan tertentu yang didasarkan pada ciri-ciri keilmuan, 
+yaitu rasional, empiris, dan sistematis (Sugiyono, 2022). Melalui pendekatan ilmiah 
+ini, sebuah penelitian tidak dilakukan secara kebetulan, melainkan mengikuti 
+langkah-langkah terstruktur untuk memecahkan suatu permasalahan yang spesifik. 
+Dalam konteks ilmu komputer dan rekayasa perangkat lunak, metode peneli tian 
+berfungsi sebagai kerangka kerja yang memandu seluruh tahapan analisis, 
+perancangan, hingga pengujian sistem agar berjalan secara terarah dan terukur. 
+1.4.1 Studi Pustaka (Literature Review) 
+Studi kepustakaan merupakan serangkaian kegiatan sistematis yang berkenaan 
+dengan metode pengumpulan data pustaka, membaca, mencatat, serta mengolah 
+bahan penelitian secara kritis (Sari & Asmendri, 2020). Pada tahap ini, 
+pengumpulan referensi teoritis dilakukan secara mendalam melalui pencarian 
+literatur yang relevan dengan topik penelitian. Sumber literatur utama difokuskan 
+pada kajian dari jurnal-jurnal akademik nasional, publikasi ilmiah, buku referensi, 
+serta dokumentasi teknis resmi ( official documentation ) dari pengembang 
+peramban. 
+===== HAL PDF 20 =====
+7 
+ 
+ 
+ 
+Tujuan utama dari studi pustaka ini adalah untuk membedah dan memahami 
+konsep dasar serta formulasi matematis dari algoritma Support Vector Machine  
+(SVM) dalam konteks klasifikasi teks. Selain itu, kajian ini juga menggali 
+efektivitas penerapan teknik String Normalization untuk menangani modifikasi teks 
+(text obfuscation ), serta mempelajari arsitektur dan kebijakan keamanan 
+pengembangan ekstensi peramban berbasis Manifest V3. Seluruh data teoritis yang 
+dihimpun menjadi landasan pijakan yang krusial dalam merancang bangun sistem 
+agar sesuai dengan standar komputasi dan kaidah keilmuan yang berlaku.  
+Target informasi yang ingin didapatkan dari studi pustaka ini meliputi: 
+1. Formulasi dan parameter optimal dalam melatih model Support Vector 
+Machine (SVM) untuk klasifikasi teks. 
+2. Metode String Normalization  yang paling efisien dalam menangkal 
+manipulasi karakter Unicode (obfuscation). 
+3. Arsitektur sistem komunikasi antara klien (ekstensi peramban) dengan 
+peladen (backend server) yang menampung model Machine Learning. 
+1.4.2 Observasi dan Pengumpulan Data (YouTube Data API) 
+Observasi merupakan teknik pengumpulan data empiris yang mengedepankan 
+pengamatan langsung terhadap objek, perilaku, dan kejadian pada situasi tertentu 
+untuk mendapatkan data primer yang akurat (Sugiyono, 2022).  
+Pengumpulan data teks pada penelitian ini diotomatisasi menggunakan 
+YouTube Data API v3, yaitu antarmuka pemrograman aplikasi resmi dari YouTube, 
+yang diakses melalui skrip berbasis Node.js. Pengambilan data difokuskan pada 
+sejumlah video YouTube yang memiliki kepadatan interaksi tinggi dan berpotensi 
+menjadi target penyebaran spam judi online. Proses pengambilan data ini 
+===== HAL PDF 21 =====
+8 
+ 
+ 
+ 
+dikombinasikan secara sistematis dengan metode analisis heuristik yang 
+memberikan pembobotan (scoring) awal pada setiap komentar yang masuk. 
+Pendekatan heuristik ini berfungsi untuk mengidentifikasi secara cepat indikasi 
+spam berdasarkan kepadatan karakter  manipulatif ( obfuscation) atau keyword 
+tertentu, sehingga memfasilitasi dan memvalidasi proses pengumpulan data latih 
+secara efisien. 
+Hasil pengumpulan data kemudian dikonversi ke dalam format CSV untuk 
+keperluan pelabelan. Pengumpulan data berbasis perangkat lunak ini bertujuan 
+untuk: 
+1. Mengidentifikasi pola obfuscation yang paling umum digunakan spammer 
+secara empiris, seperti penggunaan karakter Unicode khusus, penyisipan 
+tanda baca, dan substitusi huruf-angka. 
+2. Menentukan kanal atau video prioritas yang memiliki kepadatan komentar 
+spam tinggi sebagai sumber pengumpulan dataset. 
+3. Memastikan representativitas dataset yang dikumpulkan mencerminkan 
+kondisi nyata komentar spam judi online di YouTube saat ini. 
+ 
+ 
+ 
+===== HAL PDF 22 =====
+9 
+ 
+BAB II 
+LANDASAN TEORI  
+ 
+2.1 Pemrosesan Bahasa Alami (Natural Language Processing) 
+Natural Language Processing (NLP) merupakan cabang dari kecerdasan buatan 
+(Artificial Intelligence) yang secara spesifik berfokus pada interaksi antara sistem 
+komputer dan bahasa manusia. Teknologi ini dirancang agar komputer memiliki 
+kemampuan untuk mengolah, memahami, menginterpretasikan, hingga 
+menganalisis makna dari data teks atau bahasa alami sec ara efektif (Oktavia dkk., 
+2024). Melalui pendekatan NLP, pemrosesan informasi dari opini atau teks 
+masukan berskala besar dapat diekstraksi menjadi sebuah pengetahuan dan 
+kesimpulan yang valid untuk kebutuhan analisis lanjutan (Pratama, 2026). 
+Namun, tantangan terbesar dalam penerapan NLP pada data media sosial adalah 
+karakteristik teks yang sangat dinamis dan tidak terstruktur. Komentar pada 
+platform seperti YouTube sering kali dipenuhi dengan variasi bahasa yang tidak 
+baku, penggunaan slang (bahasa gaul), singkatan, hingga manipulasi teks 
+(obfuscation). Dalam kondisi ini, kualitas tahap prapemrosesan teks ( text 
+preprocessing) secara langsung memengaruhi tingkat akurasi klasifikasi. Tanpa 
+adanya prapemrosesan dan normalisasi yang memadai, sistem tidak akan mampu 
+mengenali karakter yang telah dimanipulasi oleh pengguna ( Khairunnisa dkk., 
+2021). 
+Tahapan prapemrosesan ini sangat krusial dalam mengubah data teks yang kotor 
+menjadi representasi numerik yang valid untuk diproses oleh algoritma Machine 
+Learning seperti Support Vector Machine (SVM). Oleh karena itu, penerapan teknik 
+NLP yang presisi menjadi fondasi mutlak dalam menangani dataset dengan tingkat 
+===== HAL PDF 23 =====
+10 
+ 
+ 
+ 
+noise yang tinggi, memastikan algoritma tidak gagal saat mengekstraksi fitur teks 
+dari komentar yang tidak baku. 
+Dengan demikian, Natural Language Processing  dapat dipahami sebagai 
+fondasi teoritis yang esensial dalam penelitian ini, karena kemampuannya 
+mengolah dan menginterpretasikan teks berbahasa alami menjadi dasar bagi seluruh 
+tahapan pemrosesan komentar YouTube yang bersifat dinamis, tidak baku, dan 
+rawan dimanipulasi, sebelum data tersebut dapat diklasifikasikan oleh algoritma 
+Machine Learning. 
+2.2 Prapemrosesan Teks (Text Preprocessing) 
+Prapemrosesan teks merupakan tahap awal yang krusial dalam pipeline Natural 
+Language Processing sebelum data teks dapat diproses oleh algoritma Machine 
+Learning. Tujuan utama dari tahap ini adalah mengubah teks mentah yang tidak 
+terstruktur dan penuh noise menjadi representasi yang bersih dan seragam sehingga 
+algoritma ekstraksi fitur dapat bekerja secara optimal (Khairunnisa dkk., 2021).  
+Tantangan prapemrosesan menjadi lebih kompleks pada data teks media sosial 
+seperti komentar YouTube, yang sering mengandung singkatan tidak standar, 
+bahasa gaul, dan manipulasi karakter yang disengaja untuk menghindari moderasi 
+otomatis. Kondisi ini mengha ruskan pipeline prapemrosesan yang lebih 
+komprehensif dibandingkan teks formal. 
+Tahapan prapemrosesan teks umumnya meliputi case folding  untuk 
+menyeragamkan kapitalisasi, normalisasi Unicode untuk mengonversi karakter 
+dekoratif atau manipulatif ke bentuk standar, konversi emoji menjadi token teks 
+yang informatif, penghapusan karakter tidak relevan seperti URL dan simbol, serta 
+penghapusan stopword untuk mereduksi kata-kata fungsional yang tidak memiliki 
+===== HAL PDF 24 =====
+11 
+ 
+ 
+ 
+nilai diskriminatif. Dalam konteks deteksi spam judi online, dua tahap tambahan 
+juga relevan: normalisasi leet speak yang mengonversi penggantian huruf dengan 
+angka seperti "s1tus" kembali menjadi "situs", dan kanonisasi nama brand yang 
+menyeragamkan pola penamaan situs judi online menjadi satu token representatif. 
+Hasil akhir dari seluruh tahapan ini adalah teks yang bersih dan siap diproses 
+pada tahap ekstraksi fitur. Penjelasan teknis mengenai implementasi setiap tahap 
+dibahas lebih lanjut pada Bab IV. 
+Uraian tersebut menegaskan bahwa tahap prapemrosesan teks merupakan 
+langkah yang tidak dapat diabaikan dalam pipeline klasifikasi, sebab kualitas 
+representasi teks yang dihasilkan pada tahap ini secara langsung menentukan 
+efektivitas algoritma ekstraksi fitur dan klasifikasi pada tahap berikutnya, terutama 
+ketika berhadapan dengan data komentar media sosial yang penuh noise dan 
+manipulasi karakter. 
+2.3 Stemming Bahasa Indonesia (Sastrawi) 
+Stemming adalah proses mengubah kata berimbuhan menjadi kata dasarnya 
+dengan menghilangkan imbuhan yang melekat, sehingga kata -kata yang secara 
+semantis sama namun berbeda bentuk morfologisnya dapat dikenali sebagai satu 
+entitas yang identik oleh model klasifikasi  (Sinaga & Nainggolan, 2023). Bahasa 
+Indonesia memiliki sistem afiksasi yang kompleks mencakup awalan, akhiran, 
+sisipan, dan kombinasi keduanya, sehingga dibutuhkan algoritma stemming yang 
+dirancang khusus untuk kaidah morfologi bahasa Indonesia. 
+Sastrawi adalah pustaka Python yang mengimplementasikan algoritma Nazief-
+Adriani dengan kamus kata dasar bahasa Indonesia. Algoritma ini secara iteratif 
+mencoba melepaskan imbuhan hingga ditemukan kata dasar yang valid, dan telah 
+===== HAL PDF 25 =====
+12 
+ 
+ 
+ 
+terbukti mencapai akurasi rata-rata 97,73% pada dokumen teks berbahasa Indonesia 
+(Sinaga & Nainggolan, 2023). Meskipun demikian, efektivitas stemming pada teks 
+komentar media sosial yang pendek dan informal tidak selalu menghasilkan 
+peningkatan performa yang signifikan dibandingkan teks formal. Pertimbangan 
+empiris mengenai penerapan stemming dalam penelitian ini dibahas pada Bab IV. 
+Merujuk pada penjelasan di atas, terlihat bahwa meskipun algoritma stemming 
+Nazief-Adriani melalui pustaka Sastrawi terbukti akurat pada dokumen teks formal 
+berbahasa Indonesia, efektivitasnya tidak dapat diasumsikan berlaku sama pada 
+teks komentar media sosial yang pendek dan informal, sehingga keputusan 
+penerapannya dalam penelitian ini perlu didasarkan pada pengujian empiris, bukan 
+sekadar asumsi teoritis. 
+2.4 String Normalization dan Penanganan Obfuscation 
+String Normalization  adalah teknik krusial dalam prapemrosesan teks yang 
+bertujuan untuk menangani anomali penulisan atau penyamaran teks (obfuscation). 
+Secara lengkap, obfuscation merupakan teknik penyamaran kata dengan cara 
+memodifikasi karakter, seperti penggantian huruf dengan angka atau simbol 
+(contohnya penggunaan homoglyphs atau variasi font Unicode khusus), yang 
+bertujuan untuk menghindari sistem deteksi otomatis. Teknik obfuscation seperti 
+substitusi karakter ini membuat sistem filtrasi berbasis kata kunci ( keyword-based 
+filtering) konvensional menjadi tidak efektif, khususnya dalam menangkal 
+penyebaran promosi judi online di platform YouTube (Angelo dkk., 2025). 
+Dalam pemrosesan klasifikasi berbasis Machine Learning , tingkat akurasi 
+sangat bergantung pada konsistensi kamus data (vocabulary). Apabila data mentah 
+dipenuhi dengan noise atau karakter manipulatif, algoritma akan mengalami 
+===== HAL PDF 26 =====
+13 
+ 
+ 
+ 
+penurunan performa secara drastis. Jika proses prapemrosesan dan normalisasi teks 
+tidak dilakukan secara maksimal, kinerja metode klasifikasi apa pun tidak akan 
+cukup kuat dalam menentukan kelas kata karena kamus sistem akan menganggap 
+karakter manipulatif  tersebut sebagai kosakata baru yang tidak memiliki makna 
+(Abdillah dkk., 2021). 
+Oleh karena itu, String Normalization berfungsi sebagai lapisan pembersih yang 
+menyetarakan dan memetakan kembali berbagai variasi karakter Unicode 
+manipulatif tersebut ke dalam bentuk teks ASCII standar. Melalui tahapan 
+normalisasi ini, karakter teks yang telah diobfuskasi dikembalikan ke bentuk 
+aslinya, sehingga mencegah kegagalan algoritma klasifikasi akibat 
+ketidakmampuan mesin dalam membaca teks spam yang dimanipulasi. 
+Salah satu fondasi dari proses normalisasi ini adalah standar Unicode 
+Normalization Form, khususnya bentuk NFKC (Normalization Form Compatibility 
+Composition). NFKC bekerja dengan mengurai karakter dekoratif atau varian 
+bentuk (seperti huruf dengan gaya bold, italic, atau lebar penuh/full-width) menjadi 
+karakter kanonik yang setara, lalu menyusunnya kembali ke bentuk baku. Dengan 
+standar ini, beragam variasi v isual dari sebuah huruf yang secara makna identik 
+dapat disatukan menjadi satu representasi standar, sehingga model tidak 
+memperlakukannya sebagai karakter yang berbeda-beda. 
+Secara umum, teknik obfuscation yang perlu ditangani oleh String 
+Normalization dapat dikelompokkan ke dalam beberapa kategori. Pertama, 
+substitusi karakter dengan bentuk serupa ( homoglyph substitution ), yaitu 
+penggantian huruf Latin dengan karakter dari blok Unicode lain yang secara visual 
+identik namun berbeda secara biner, seperti huruf Cyrillic atau Yunani. Kedua, 
+===== HAL PDF 27 =====
+14 
+ 
+ 
+ 
+penyisipan tanda diakritik gabungan (combining diacritical marks) di antara huruf-
+huruf sebuah kata untuk memecah pola pencocokan. Ketiga, pemisahan huruf 
+menggunakan tanda baca atau tanda kurung (character separation), yang memecah 
+satu kata menjadi rangkaian karakter tunggal yang terisolasi. Keempat, substitusi 
+huruf dengan angka yang memiliki kemiripan visual ( leet speak ), seperti 
+penggantian huruf "O" dengan angka "0". Kelima, variasi penamaan entitas atau 
+brand yang terus berganti untuk menghindari pencocokan kata kunci statis, yang 
+menuntut pendekatan kanonisasi ( canonicalization) agar seluruh variasi tersebut 
+dikenali sebagai satu entitas yang sama oleh model klasifikasi. 
+Dari pemaparan tersebut, dapat ditarik kesimpulan bahwa efektivitas String 
+Normalization sangat bergantung pada kemampuannya menangani beragam 
+kategori obfuscation tersebut secara berlapis, bukan hanya mengandalkan satu 
+metode normalisasi tunggal, mengingat setiap kategori memerlukan pendekatan 
+penanganan yang berbeda. Implementasi teknis dari setiap kategori pada sistem 
+yang dibangun diuraikan lebih lanjut pada Bab IV. 
+2.5 Ekstraksi Fitur Term Frequency-Inverse Document Frequency 
+Ekstraksi fitur merupakan salah satu tahapan krusial dalam klasifikasi teks yang 
+berfungsi untuk mengonversi data tekstual mentah menjadi bentuk representasi 
+vektor numerik. Data komentar YouTube yang telah melalui tahap prapemrosesan 
+dan normalisasi string tidak dapat diproses secara langsung oleh algoritma 
+komputasi berbasis Machine Learning , karena sistem tersebut membutuhkan 
+masukan ( input) berupa matriks angka. Salah satu metode ekstraksi fitur yang 
+umum digunakan dan terbukti efektif dalam klasifikasi teks berbahasa Indonesia 
+===== HAL PDF 28 =====
+15 
+ 
+ 
+ 
+adalah Term Frequency-Inverse Document Frequency  (TF-IDF) (Arrayyan dkk., 
+2025). 
+Metode TF-IDF bekerja dengan cara memberikan pembobotan statistik pada 
+setiap kata yang terdapat di dalam suatu dokumen atau komentar. Bobot ini dihitung 
+berdasarkan dua metrik utama, yaitu seberapa sering sebuah kata muncul di dalam 
+satu komentar spesifik  (Term Frequency), dan seberapa langka atau umum kata 
+tersebut jika dibandingkan dengan keseluruhan komentar yang ada di dalam 
+himpunan data (Inverse Document Frequency). Dibandingkan metode representasi 
+teks lain seperti Bag of Words (BoW), Doc2Vec, dan Word2Vec, TF-IDF secara 
+konsisten menunjukkan performa kompetitif ketika dikombinasikan dengan 
+algoritma machine learning seperti SVM (Efrizoni dkk., 2022). 
+Secara matematis, kalkulasi nilai TF -IDF diformulasikan dalam persamaan 
+berikut: 
+𝑊𝑡,𝑑 = 𝑡𝑓𝑡,𝑑 × 𝑖𝑑𝑓𝑡 
+Nilai 𝑖𝑑𝑓𝑡 sendiri didapatkan melalui perhitungan logaritmik dengan persamaan: 
+𝑖𝑑𝑓𝑡 = log ( 𝑁
+𝑑𝑓𝑡
+) 
+Keterangan variabel: 
+a) 𝑊𝑡,𝑑 (Bobot Akhir): Merupakan nilai metrik akhir dari sebuah kata (t) di 
+dalam satu komentar tertentu (d). Semakin tinggi nilai ini, berarti kata 
+tersebut semakin penting dan menjadi ciri khas kuat dari komentar tersebut. 
+b) 𝑡𝑓𝑡,𝑑 (Term Frequency): Merupakan jumlah atau frekuensi kemunculan kata 
+(t) di dalam satu komentar (d). Jika kata "slot" muncul 3 kali dalam satu 
+kalimat komentar, maka nilai (tf) untuk kata tersebut adalah 3. 
+===== HAL PDF 29 =====
+16 
+ 
+ 
+ 
+c) N (Total Dokumen): Merupakan jumlah keseluruhan komentar YouTube 
+yang ada di dalam dataset latih. 
+d) 𝑑𝑓𝑡 (Document Frequency ): Merupakan jumlah komentar (dari total N) 
+yang mengandung kata (t). Jika ada 10.000 komentar, dan kata "slot" 
+muncul di 500 komentar, maka nilai df adalah 500. 
+Sebagai ilustrasi bagaimana TF -IDF menyaring kata -kata spam perjudian, 
+asumsikan bahwa terdapat sebuah dataset mini yang hanya berisi 3 komentar 
+YouTube (N = 3): 
+a) Komentar 1 (𝑑1): "link slot paling gacor hari ini” 
+b) Komentar 2 (𝑑2): "video edukasi ini sangat bermanfaat" 
+c) Komentar 3 (𝑑3): "depo slot anti rungkad di sini" 
+Sistem akan menghitung bobot untuk kata target, misalnya kata "slot" pada 
+Komentar 1 (𝑑1): 
+1. Hitung TF (𝑡𝑓): Kata “slot” muncul sebanyak 1 kali di Komentar 1, maka 
+variabel 𝑡𝑓 = 1. 
+2. Hitung IDF ( 𝑖𝑑𝑓): Total komentar ( N) adalah 3. Kata “slot” muncul di 2 
+komentar (1 dan 3), maka 𝑑𝑓 = 2. Nilai 𝑖𝑑𝑓 = log(3/2) = log(1,5) ≈
+0,176. 
+3. Hitung Bobot Akhir (𝑊): 𝑊 = 1 × 0,176 = 0,176, yang artinya kata 
+"slot" pada Komentar 1 memiliki bobot 0,176. 
+Sebagai perbandingan, hitung juga kata hubung umum yang sering muncul seperti 
+"ini" pada Komentar 1 (𝑑1): 
+1. Hitung TF (𝑡𝑓): Kata “ini” muncul sebanyak 1 kali di Komentar 1, maka 
+variabel 𝑡𝑓 = 1. 
+===== HAL PDF 30 =====
+17 
+ 
+ 
+ 
+2. Hitung IDF ( 𝑖𝑑𝑓): Misalkan kata "ini" kebetulan muncul di seluruh 
+komentar (Komentar 1, 2, dan 3), maka 𝑑𝑓 = 3. Jadi nilai dari variabel 
+𝑖𝑑𝑓 = log(3/3) = log(1) = 0. 
+3. Hitung Bobot Akhir (𝑊): 𝑊 = 1 × 0 = 0. Kata "ini" memiliki bobot 0. 
+Dari perbandingan di atas, terbukti bahwa TF-IDF secara otomatis memberikan 
+bobot 0 pada kata -kata umum yang muncul di semua konteks, dan memberikan 
+bobot tinggi pada kata -kata spesifik yang menjadi ciri khas promosi judi online 
+(seperti "slot" dan "gacor"). Hasil matriks bobot inilah yang kemudian menjadi 
+variabel masukan utama bagi algoritma klasifikasi Support Vector Machine (SVM) 
+(Ardiansyah dkk., 2025). Contoh hasil pembobotan TF -IDF pada komentar 
+YouTube ditunjukkan pada Gambar 2.1. 
+ 
+Gambar 2.1 Contoh Matriks Bobot TF-IDF pada Komentar YouTube 
+Perlu dicatat bahwa formula yang dijelaskan di atas merupakan bentuk dasar 
+TF-IDF yang digunakan untuk membangun pemahaman konseptual. Pada 
+implementasi sistem dalam penelitian ini, TF -IDF diterapkan menggunakan 
+
+===== HAL PDF 31 =====
+18 
+ 
+ 
+ 
+pustaka Scikit-learn dengan beberapa penyesuaian parameter. Salah satunya adalah 
+sublinear_tf=True, yaitu pengaturan yang membuat perhitungan Term Frequency 
+tidak dihitung secara linear berdasarkan jumlah kemunculan kata apa adanya, 
+melainkan diubah menggunakan fungsi logaritma menjadi 1 + log(tf). Tujuannya 
+adalah untuk meredam dominasi kata yang muncul berulang kali dalam satu 
+komentar, sehingga sebuah kata yang muncul 20 kali tidak di anggap 20 kali lebih 
+penting dibandingkan kata yang hanya muncul sekali, melainkan hanya sedikit 
+lebih penting. Selain itu, pustaka Scikit -learn secara bawaan (tanpa perlu diatur 
+secara eksplisit) juga menerapkan teknik smoothing pada perhitungan IDF, yaitu 
+menambahkan angka 1 pada pembilang dan penyebut rumus IDF. Tujuannya adalah 
+untuk mencegah kemungkinan pembagian dengan angka nol apabila terdapat kata 
+yang tidak muncul sama sekali pada data latih. Penjelasan lebih lanjut meng enai 
+konfigurasi parameter ini beserta justifikasi pemilihannya dibahas secara rinci pada 
+Bab IV. 
+Secara keseluruhan, pembahasan di atas menunjukkan bahwa TF -IDF 
+merupakan metode ekstraksi fitur yang tepat digunakan dalam penelitian ini, karena 
+kemampuannya memberi bobot lebih tinggi pada kata -kata yang menjadi penciri 
+khas komentar promosi judi online, sekaligus menekan pengaruh kata -kata umum 
+yang tidak informatif bagi proses klasifikasi. 
+2.5.1 N-gram 
+N-gram adalah teknik ekstraksi fitur dalam pemrosesan teks yang menghasilkan 
+urutan berkesinambungan sebanyak n token dari sebuah teks. Setiap n-gram 
+merepresentasikan satu unit fitur yang dapat digunakan sebagai masukan bagi 
+algoritma klasifikasi. Ketika n bernilai 1, teknik ini disebut unigram dan setiap kata 
+===== HAL PDF 32 =====
+19 
+ 
+ 
+ 
+diperlakukan sebagai fitur tersendiri. Ketika n bernilai 2, disebut bigram dan setiap 
+pasangan kata yang berurutan diperlakukan sebagai satu fitur. Ketika n bernilai 3, 
+disebut trigram yang mencakup tiga kata berurutan sebagai satu unit fitur (Iriananda 
+dkk., 2024). 
+Keunggulan utama penggunaan n-gram di atas unigram terletak pada 
+kemampuannya menangkap konteks dan makna yang lebih kaya dari sebuah teks. 
+Beberapa konsep dalam bahasa memiliki makna yang berbeda ketika berdiri sendiri 
+dibandingkan ketika dikombinasikan, sehingga bigram dan trigram mampu 
+merepresentasikan informasi semantik yang hilang apabila hanya menggunakan 
+unigram. Sebagai contoh, frasa "slot gacor" atau "depo sekarang" dalam konteks 
+komentar judi online memiliki makna yang jauh lebih spesifik sebagai satu kesatuan 
+dibandingkan kata "slot" atau "depo" secara terpisah. 
+Namun, peningkatan nilai n juga membawa konsekuensi berupa pertumbuhan 
+dimensi ruang fitur yang eksponensial. Semakin besar nilai n, semakin banyak 
+kombinasi fitur yang dihasilkan, sehingga meningkatkan kebutuhan memori dan 
+waktu komputasi. Selain itu, n-gram dengan nilai besar cenderung menghasilkan 
+fitur yang sangat jarang ( sparse) karena kombinasi kata tertentu mungkin hanya 
+muncul sekali atau tidak sama sekali dalam dataset, yang dapat menurunkan 
+kemampuan generalisasi model. Oleh karena itu, pemilihan nilai n yang optimal 
+perlu dilakukan melalui eksperimen empiris untuk menemukan keseimbangan 
+antara kekayaan representasi fitur dan efisiensi komputasi (Iriananda dkk., 2024). 
+Hal ini menegaskan bahwa penerapan ngram_range=(1,2) pada penelitian ini 
+dipilih sebagai titik keseimbangan antara kekayaan representasi fitur dan efisiensi 
+komputasi, karena unigram saja tidak cukup menangkap frasa spesifik seperti "slot 
+===== HAL PDF 33 =====
+20 
+ 
+ 
+ 
+gacor", sementara trigram ke atas berisiko menghasilkan fitur yang terlalu jarang 
+(sparse) mengingat ukuran dataset penelitian ini. 
+2.6 Algoritma Support Vector Machine (SVM) 
+Support Vector Machine (SVM) merupakan algoritma pembelajaran mesin 
+berbasis supervised learning  yang bekerja dengan cara mencari bidang pemisah 
+terbaik (hyperplane) untuk membagi data ke dalam dua kelas yang berbeda. Secara 
+matematis, hyperplane pemisah pada Linear SVM didefinisikan sebagai: 
+𝑤 ⋅ 𝑥 +  𝑏 =  0 
+di mana w merupakan vektor bobot ( weight vector ) yang tegak lurus terhadap 
+hyperplane, x merupakan vektor fitur dari data masukan, dan b merupakan bias. 
+Tujuan utama SVM adalah menemukan nilai w dan b yang memaksimalkan margin, 
+yaitu jarak antara hyperplane dengan titik data terdekat dari masing -masing kelas 
+(support vector). Lebar margin tersebut diformulasikan sebagai: 
+𝑚𝑎𝑟𝑔𝑖𝑛 =  2 / ||𝑤|| 
+Ilustrasi konsep hyperplane dan margin pada SVM linear ditunjukkan pada Gambar 
+2.2. 
+===== HAL PDF 34 =====
+21 
+ 
+ 
+ 
+ 
+Gambar 2.2 Ilustrasi Hyperplane dan Margin pada Algoritma Linear SVM 
+Memaksimalkan margin ekuivalen dengan meminimalkan ||w||, sehingga 
+permasalahan ini diselesaikan sebagai optimasi kuadratik. Algoritma ini sangat 
+efektif dalam menangani klasifikasi teks karena kemampuannya dalam melakukan 
+pemetaan data ke ruang dimensi yang sangat tinggi. Untuk data teks berdimensi 
+tinggi seperti hasil ekstraksi TF-IDF, kernel linear terbukti lebih efisien dan tidak 
+rentan terhadap overfitting dibandingkan kernel non-linear seperti RBF, karena data 
+teks pada ruang TF -IDF umumnya sudah dapat dipisahkan secara linear. 
+Penggunaan Linear SVM terbukti mampu mencapai tingkat akurasi hingga 95% 
+dalam mendeteksi spam pada komentar YouTube, yang menunjukkan performa 
+stabil pada data teks media sosial (Airlangga, 2024a). 
+Selain ketangguhannya pada data berdimensi tinggi, SVM juga dikenal andal 
+dalam memproses teks bahasa alami yang kompleks. Penggabungan metode 
+ekstraksi fitur seperti TF-IDF dengan algoritma SVM mampu menghasilkan akurasi 
+di atas 96% dalam mengklasifikasik an komentar spam judi online berbahasa 
+Indonesia di platform YouTube (Ardiansyah dkk., 2025). Keunggulan ini 
+menjadikan SVM pilihan yang tepat untuk klasifikasi teks dengan variasi penulisan 
+
+===== HAL PDF 35 =====
+22 
+ 
+ 
+ 
+tinggi, seperti komentar pada platform YouTube yang kerap menggunakan 
+singkatan, eufemisme, dan karakter non-standar. 
+Berdasarkan uraian di atas, algoritma SVM merupakan metode klasifikasi yang 
+andal untuk menangani data teks berdimensi tinggi. Kemampuannya dalam 
+menemukan hyperplane optimal menjadikannya solusi yang relevan untuk 
+diimplementasikan dalam sistem deteksi spam, terutama ketika dikombinasikan 
+dengan teknik prapemrosesan dan ekstraksi fitur yang kuat. 
+2.6.1 Estimasi Probabilitas pada SVM (Platt Scaling) 
+Algoritma SVM pada dasarnya merupakan pengklasifikasi yang bersifat 
+deterministik, artinya keluaran alami dari model ini hanya berupa keputusan kelas 
+berdasarkan posisi suatu titik data terhadap hyperplane, yakni apakah titik tersebut 
+berada di sisi positif atau negatif bidang pemisah. Nilai yang dihasilkan oleh fungsi 
+keputusan ( decision function ) bukanlah probabilitas, melainkan jarak bertanda 
+(signed distance) antara titik data dengan hyperplane. Nilai ini tidak terbatas pada 
+rentang tertentu, sehingga tidak dapat langsung diinterpretasikan sebagai tingkat 
+keyakinan (confidence) yang bermakna bagi pengguna. 
+Untuk mengatasi keterbatasan tersebut, digunakan teknik kalibrasi probabilitas 
+yang dikenal sebagai Platt Scaling  (Géron, 2022). Metode ini bekerja dengan 
+memetakan nilai keluaran fungsi keputusan SVM ke dalam rentang probabilitas 
+antara 0 dan 1 menggunakan fungsi sigmoid, yang secara matematis diformulasikan 
+sebagai berikut: 
+𝑃(𝑦 =  1 | 𝑓(𝑥))  =  1 / (1 +  𝑒𝑥𝑝(𝐴 ·  𝑓(𝑥) +  𝐵)) 
+di mana f(x) merupakan nilai fungsi keputusan (jarak bertanda) dari titik data 
+terhadap hyperplane, sedangkan A dan B adalah dua parameter skalar yang 
+===== HAL PDF 36 =====
+23 
+ 
+ 
+ 
+dipelajari melalui metode maximum likelihood  pada data kalibrasi. Secara 
+konseptual, teknik ini setara dengan melatih sebuah model regresi logistik 
+sederhana di atas nilai keluaran decision function SVM, sehingga jarak mentah 
+terhadap hyperplane dapat dikonversi menjadi estimasi probabilitas yang 
+terkalibrasi. 
+Dalam implementasinya pada pustaka Scikit -learn, proses kalibrasi ini 
+diaktifkan melalui parameter probability=True pada model SVM. Estimasi 
+parameter A dan B dilakukan menggunakan cross-validation internal pada data 
+latih, yaitu terpisah dari proses pembentukan hyperplane utama, guna menghindari 
+estimasi probabilitas yang bias akibat pemakaian data yang sama (Géron, 2022). 
+Skor probabilitas hasil kalibrasi inilah yang kemudian menjadi dasar dari 
+mekanisme confidence threshold pada sistem yang dibangun, di mana pengguna 
+dapat menyesuaikan ambang batas keyakinan minimum sebelum sebuah komentar 
+dianggap sebagai spam dan disembunyikan. 
+Sebagai rangkuman, dapat dinyatakan bahwa estimasi probabilitas melalui Platt 
+Scaling menjadi jembatan yang menghubungkan hasil klasifikasi biner SVM yang 
+bersifat deterministik dengan kebutuhan sistem akan skor kepercayaan yang dapat 
+disesuaikan pengguna, sehingga keputusan penyembunyian komentar tidak bersifat 
+kaku, melainkan dapat diken dalikan sesuai tingkat toleransi masing -masing 
+pengguna terhadap risiko false positive maupun false negative. 
+2.7 Algoritma Pembanding 
+Selain algoritma SVM sebagai model utama, penelitian ini juga 
+mengimplementasikan dua algoritma pembanding dalam proses komparasi 
+performa, yaitu Multinomial Naive Bayes dan Logistic Regression. Komparasi ini 
+===== HAL PDF 37 =====
+24 
+ 
+ 
+ 
+dilakukan untuk membuktikan secara empiris bahwa pemilihan SVM sebagai 
+algoritma inti bukan sekadar asumsi, melainkan didasarkan pada hasil evaluasi 
+kuantitatif terhadap data yang sama. 
+2.7.1 Multinomial Naive Bayes 
+Naive Bayes  merupakan algoritma klasifikasi probabilistik yang bekerja 
+berdasarkan teorema Bayes dengan asumsi independensi kondisional antar fitur. 
+Algoritma ini menghitung probabilitas suatu dokumen teks masuk ke dalam kelas 
+tertentu berdasarkan frekuensi kemunculan setiap kata di dalam dokumen tersebut. 
+Varian Multinomial Naive Bayes  secara khusus dirancang untuk data yang 
+berbentuk frekuensi atau hitungan, sehingga sangat sesuai untuk dipadukan dengan 
+representasi fitur TF-IDF dalam klasifikasi teks (Azzahra dkk., 2024). 
+Keunggulan utama algoritma ini terletak pada kesederhanaan komputasinya. 
+Multinomial Naive Bayes  memiliki waktu pelatihan yang sangat cepat dan 
+kebutuhan memori yang rendah karena hanya perlu menghitung probabilitas kata 
+per kelas selama pelatihan. Karakteristik ini menjadikannya pilihan populer sebagai 
+baseline dalam penelitian klasifikasi teks. Namun, asumsi independensi antar fitur 
+yang dipegang algoritma ini dalam praktiknya jarang terpenuhi pada teks alami, 
+sehingga performa aktualnya sering lebih rendah dibandingkan model yang tidak 
+membuat asumsi tersebut. 
+Oleh karena itu, dapat dinyatakan bahwa Multinomial Naive Bayes  berperan 
+sebagai baseline yang tepat dalam penelitian ini, karena kesederhanaan dan 
+kecepatannya memberikan titik acuan performa minimum yang wajar, sekaligus 
+keterbatasan asumsi independensinya menjadi dasar pembanding untuk 
+membuktikan keunggulan model utama yang dipilih. 
+===== HAL PDF 38 =====
+25 
+ 
+ 
+ 
+2.7.2 Logistic Regression 
+Logistic Regression  adalah algoritma klasifikasi berbasis model linear yang 
+menggunakan fungsi sigmoid untuk memetakan kombinasi linear dari fitur-fitur 
+masukan ke dalam nilai probabilitas antara 0 dan 1. Dalam konteks klasifikasi biner 
+spam, algoritma ini mempelajari bobot (weight) untuk setiap fitur TF-IDF sehingga 
+dapat memperkirakan probabilitas sebuah komentar termasuk kelas spam atau ham 
+(Firizkiansah dkk., 2025). Kelas akhir ditentukan berdasarkan nilai ambang batas 
+(threshold) yang umumnya ditetapkan pada 0,5. 
+Dibandingkan Naive Bayes , Logistic Regression  tidak membuat asumsi 
+independensi antar fitur sehingga lebih mampu menangkap hubungan kompleks 
+antar kata dalam teks. Algoritma ini juga relatif mudah diinterpretasikan karena 
+bobot setiap fitur dapat diperiksa langsung untuk mengetahui kata-kata mana yang 
+paling berpengaruh terhadap keputusan klasifikasi. Namun demikian, Logistic 
+Regression cenderung kurang optimal pada data berdimensi sangat tinggi dengan 
+batas pemisah kelas yang tidak bersifat linear, kondisi yang justru menjadi 
+kekuatan utama SVM. 
+Mengutip dari penjelasan di atas, Logistic Regression menempati posisi sebagai 
+pembanding yang lebih kuat dibandingkan Naive Bayes  karena tidak terbebani 
+asumsi independensi antar fitur, namun tetap menjadi tolok ukur yang relevan untuk 
+menegaskan bahwa SVM lebih unggul dalam menangani karakteristik data teks TF-
+IDF yang berdimensi tinggi. 
+2.8 Evaluasi Model Klasifikasi 
+Evaluasi model merupakan tahap yang tidak terpisahkan dari proses 
+pengembangan sistem klasifikasi berbasis machine learning . Tujuan utama dari 
+===== HAL PDF 39 =====
+26 
+ 
+ 
+ 
+evaluasi adalah mengukur sejauh mana model yang telah dilatih mampu melakukan 
+prediksi yang benar terhadap data yang belum pernah dilihat sebelumnya, sehingga 
+memberikan gambaran objektif tentang performa model di dunia nyata (Helmiyah 
+& Pramestiawan, 2025). Tanpa evaluasi yang tepat, sebuah model yang tampak baik 
+pada data latih bisa jadi gagal total ketika dihadapkan pada data baru akibat 
+fenomena overfitting. 
+Alat utama yang digunakan dalam evaluasi model klasifikasi biner adalah 
+confusion matrix . Confusion matrix  adalah sebuah tabel yang merangkum hasil 
+prediksi model dengan membandingkannya terhadap label sebenarnya, 
+menghasilkan empat komponen utama. True Positive (TP) adalah jumlah data yang 
+benar-benar berlabel positif dan diprediksi benar sebagai positif. True Negative 
+(TN) adalah jumlah data yang benar -benar berlabel negatif dan diprediksi benar 
+sebagai negatif. False Positive  (FP) adalah jumlah data negatif yang keliru 
+diprediksi sebagai positif. False Negative  (FN) adalah jumlah data positif yang 
+keliru diprediksi sebagai negatif. Dalam konteks sistem ini, kelas positif merujuk 
+pada komentar spam dan kelas negatif merujuk pada komentar normal (ham). 
+Berdasarkan keempat komponen confusion matrix  tersebut, terdapat empat 
+metrik evaluasi utama yang lazim digunakan dalam klasifikasi teks. Pertama, 
+akurasi (accuracy) mengukur proporsi keseluruhan prediksi yang benar terhadap 
+total data uji, dan dirumuskan sebagai berikut: 
+𝐴𝑐𝑐𝑢𝑟𝑎𝑐𝑦 =  (𝑇𝑃 +  𝑇𝑁) / (𝑇𝑃 +  𝑇𝑁 +  𝐹𝑃 +  𝐹𝑁)] 
+Kedua, presisi ( precision) mengukur seberapa tepat model ketika memberikan 
+prediksi positif, yaitu berapa banyak dari semua komentar yang diprediksi spam 
+yang memang benar-benar spam: 
+===== HAL PDF 40 =====
+27 
+ 
+ 
+ 
+𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 =  𝑇𝑃 / (𝑇𝑃 +  𝐹𝑃) 
+Ketiga, recall mengukur kemampuan model dalam menemukan seluruh komentar 
+spam yang sebenarnya ada di dalam data, yaitu berapa banyak spam yang berhasil 
+terdeteksi dari total spam yang ada: 
+𝑅𝑒𝑐𝑎𝑙𝑙 =  𝑇𝑃 / (𝑇𝑃 +  𝐹𝑁) 
+Keempat, F1-score merupakan rata-rata harmonik antara presisi dan recall yang 
+memberikan keseimbangan antara keduanya. Metrik ini sangat berguna ketika 
+distribusi kelas tidak seimbang karena tidak mudah dipengaruhi oleh kelas 
+mayoritas: 
+𝐹1 − 𝑆𝑐𝑜𝑟𝑒 =  2 × (𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ×  𝑅𝑒𝑐𝑎𝑙𝑙) / (𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 +  𝑅𝑒𝑐𝑎𝑙𝑙) 
+ 
+Dalam konteks deteksi spam komentar judi online, metrik recall mendapat 
+perhatian khusus karena konsekuensi dari False Negative  yakni komentar spam 
+yang lolos dari deteksi jauh lebih merugikan pengguna dibandingkan False Positive 
+yakni komentar normal yang keliru disembunyikan. Oleh karena itu, F1-score 
+digunakan sebagai metrik evaluasi utama untuk memastikan keseimbangan antara 
+ketepatan dan kelengkapan deteksi. 
+Hal ini mengindikasikan bahwa pemilihan metrik evaluasi harus disesuaikan 
+dengan karakteristik dan konsekuensi dari kesalahan klasifikasi pada domain yang 
+diteliti; dalam konteks deteksi spam judi online, F1-score dipilih sebagai metrik 
+evaluasi utama karena mampu menjaga keseimbangan antara presisi dan recall, 
+sekaligus tidak mudah bias oleh ketimpangan jumlah data antara kelas spam dan 
+non-spam. 
+===== HAL PDF 41 =====
+28 
+ 
+ 
+ 
+2.9 Metode Pengembangan Perangkat Lunak (Waterfall) 
+Pengembangan perangkat lunak memerlukan pendekatan metodologis yang 
+terstruktur agar proses pembangunan sistem dapat berjalan secara sistematis dan 
+menghasilkan produk yang sesuai dengan kebutuhan yang telah ditetapkan. Salah 
+satu metode yang paling banyak  digunakan adalah metode Waterfall. Metode ini 
+bekerja secara linear dan sekuensial, di mana setiap tahap harus diselesaikan secara 
+tuntas sebelum dapat melanjutkan ke tahap berikutnya (Anis dkk., 2024). 
+Metode Waterfall dipilih dalam situasi di mana kebutuhan sistem telah 
+terdefinisi dengan jelas sejak awal dan tidak memerlukan perubahan spesifikasi 
+secara berulang di tengah proses pengembangan. Karakteristik ini berbeda dengan 
+metode Agile yang bersifat iteratif dan fleksibel terhadap perubahan kebutuhan. 
+Metode Waterfall terdiri dari lima tahap utama yang dilaksanakan secara berurutan, 
+yaitu analisis kebutuhan, perancangan sistem, implementasi, pengujian, dan 
+pemeliharaan (Anis dkk., 2024). Kelima tahap tersebut ditunjukkan pada Gambar 
+2.3. 
+===== HAL PDF 42 =====
+29 
+ 
+ 
+ 
+ 
+Gambar 2.3 Tahapan Metode Waterfall 
+Tahap pertama adalah analisis kebutuhan (requirements analysis), yaitu proses 
+identifikasi dan pendokumentasian seluruh kebutuhan fungsional dan non -
+fungsional sistem. Tahap kedua adalah perancangan sistem (system design), di mana 
+arsitektur sistem, alur kerja, dan antarmuka dirancang secara menyeluruh. Tahap 
+ketiga adalah implementasi ( implementation), yaitu penerjemahan rancangan ke 
+dalam kode program. Tahap keempat adalah pengujian ( testing), di mana sistem 
+diuji untuk memastikan tidak ada kesalahan dan berjalan sesuai kebutuhan. Tahap 
+kelima adalah pemeliharaan ( maintenance), yaitu proses perbaikan dan 
+pengembangan lanjutan setelah sistem digunakan. 
+Berdasarkan uraian di atas, metode Waterfall dinilai sesuai untuk penelitian ini 
+karena kebutuhan sistem telah terdefinisi sejak awal dan tidak memerlukan 
+
+===== HAL PDF 43 =====
+30 
+ 
+ 
+ 
+perubahan spesifikasi berulang, sehingga tahapan pengembangan dapat dijalankan 
+secara berurutan dan terdokumentasi dengan jelas. 
+2.10 Perbandingan Metode Machine Learning dan Deep Learning 
+Perkembangan metode klasifikasi teks dalam beberapa tahun terakhir 
+menunjukkan adanya pergeseran dari pendekatan Machine Learning  tradisional 
+menuju metode Deep Learning . Algoritma Machine Learning  seperti Support 
+Vector Machine  (SVM) umumnya mengandalkan fitur hasil ekstraksi manual 
+seperti Term Frequency-Inverse Document Frequency (TF-IDF), yang relatif ringan 
+secara komputasi namun tetap efektif untuk dataset berukuran kecil hingga 
+menengah. Sebaliknya, pendekatan Deep Learning  mampu mempelajari 
+representasi teks secara otomatis tanpa memerlukan rekayasa fitur secara manual. 
+Model berbasis Deep Learning  seperti LSTM mampu mencapai tingkat akurasi 
+tertinggi sebesar 95,65% dalam mendeteksi spam komentar YouTube, namun hal 
+tersebut berbanding lurus dengan kebutuhan sumber daya komputasi yang lebih 
+besar (Airlangga, 2024b).  
+Meskipun menawarkan akurasi yang tinggi, model Deep Learning  menuntut 
+kompleksitas implementasi yang lebih tinggi serta waktu pelatihan yang lebih lama 
+dibandingkan metode tradisional. Sebaliknya, metode Machine Learning  seperti 
+SVM mampu memberikan performa klasifikasi yang kompetitif dengan beban 
+komputasi yang jauh lebih ringan, sehingga lebih praktis untuk diimplementasikan 
+pada sistem dengan keterbatasan sumber daya (Airlangga, 2024a). 
+Dengan demikian, meskipun Deep Learning  menawarkan akurasi yang 
+kompetitif, penelitian ini memilih pendekatan Machine Learning  konvensional 
+karena kebutuhan inferensi real-time pada sisi peramban menuntut model yang 
+===== HAL PDF 44 =====
+31 
+ 
+ 
+ 
+ringan dan berlatensi rendah, sementara selisih akurasinya tidak sebanding dengan 
+tambahan beban komputasinya. 
+2.11 Pengumpulan Data melalui API dan Analisis Heuristik 
+Dalam pengembangan kecerdasan buatan, ketersediaan himpunan data 
+(dataset) yang melimpah dan relevan menjadi syarat mutlak. Pengumpulan data 
+dari platform web dapat dilakukan melalui dua pendekatan, yaitu  web 
+scraping yang mem -parsing struktur HTML halaman secara langsung, dan 
+pemanfaatan Application Programming Interface  (API) resmi yang disediakan 
+platform (Koprawi & Putra, 2023). Pendekatan berbasis API lebih diutamakan 
+karena data diterima dalam format terstruktur (JSON), lebih stabil terhadap 
+perubahan tampilan halaman, serta tidak melanggar ketentuan layanan platform . 
+Pada penelitian ini, pengumpulan data dilakukan melalui YouTube Data API v3 
+yang diakses secara asynchronous melalui runtime environment Node.js. 
+Lebih lanjut, untuk memastikan tingkat validitas data yang ditarik, teknik 
+scraping ini dikombinasikan dengan metode analisis heuristik. Dalam konteks ilmu 
+komputer, pendekatan heuristik merupakan teknik pemecahan masalah berbasis 
+aturan praktis ( rule-based) yang memanfaatkan pengetahuan domain untuk 
+menghasilkan keputusan secara efisien, meskipun tidak selalu menjamin solusi 
+yang optimal (Kaddoura dkk., 2022). Dalam penelitian ini, heuristik 
+diimplementasikan sebagai algoritma penyaringan ( filter) tahap pertama yang 
+memberikan parameter pembobotan (scoring) otomatis pada hasil ekstraksi. Sistem 
+akan mendeteksi kepadatan anomali karakter (seperti manipulasi Unicode) atau 
+kata kunci spesifik ( keywords), sehingga proses pengumpulan data latih promosi 
+===== HAL PDF 45 =====
+32 
+ 
+ 
+ 
+perjudian menjadi jauh lebih presisi dan terstruktur sebelum diteruskan ke model 
+pelatihan SVM. 
+Dari uraian tersebut dapat disimpulkan bahwa kombinasi pengumpulan data 
+melalui API resmi dengan penyaringan heuristik memberikan dua keuntungan 
+sekaligus, yaitu keabsahan sumber data secara legal dan efisiensi proses pelabelan 
+awal sebelum data digunakan untuk melatih model. 
+2.12 Spam Komentar pada Media Sosial (YouTube) 
+Spam komentar pada media sosial merupakan salah satu bentuk 
+penyalahgunaan platform digital yang dilakukan dengan tujuan tertentu, seperti 
+promosi, penyebaran informasi yang tidak relevan, maupun aktivitas penipuan. 
+Pada platform berbagi video seperti YouTube,  aktivitas ini umumnya dihasilkan 
+oleh bot atau akun otomatis yang memposting pesan secara berulang dengan pola 
+tertentu. Spam pada YouTube sering kali berasal dari sistem otomatis yang 
+dirancang untuk menyebarkan tautan berbahaya atau promosi massal yang 
+mengganggu kualitas interaksi pengguna (Khan, 2018). 
+Fenomena ini telah berkembang menjadi ancaman yang lebih serius di 
+Indonesia, khususnya terkait penyebaran konten ilegal. Penyebaran promosi judi 
+online di media sosial telah menjadi krisis siber yang mengancam ketahanan 
+nasional, di mana para pelaku memanfaatkan kolom komentar platform besar 
+seperti YouTube untuk menjangkau masyarakat secara masif (Herawati dkk., 2025). 
+Hal ini menyebabkan penurunan kual itas ekosistem digital dan berpotensi 
+menjerumuskan pengguna ke dalam risiko finansial. 
+Berdasarkan uraian di atas, spam pada platform YouTube telah bertransformasi 
+dari sekadar gangguan teknis menjadi sarana penyebaran konten ilegal yang 
+===== HAL PDF 46 =====
+33 
+ 
+ 
+ 
+terorganisir melalui bantuan bot. Oleh karena itu, diperlukan sistem perlindungan 
+yang mampu mendeteksi pola otomatisasi tersebut guna menjaga keamanan dan 
+kenyamanan pengguna dalam berinteraksi di ruang publik digital. 
+2.13 Arsitektur Chrome Extension (Manifest V3) 
+Ekstensi Google Chrome adalah perangkat lunak tambahan yang memperluas 
+fungsionalitas peramban dengan beroperasi pada sisi klien ( client-side). 
+Berdasarkan standar terbaru yakni Manifest V3 , ekstensi memiliki kemampuan 
+untuk membaca dan memodifikasi Document Object Model (DOM) pada halaman 
+web secara dinamis melalui Content Scripts  (Ramadhan & Fauzan, 2023). 
+Penggunaan ekstensi pada peramban Chrome sangat efektif untuk melakukan 
+pembatasan atau penyaringan konten secara langsung di sisi pengguna dengan cara 
+memanipulasi elemen halaman web yang sedang dibuka. 
+Selain untuk fungsi penapisan, arsitektur ekstensi juga mendukung proses 
+pengolahan data yang efisien. Fleksibilitas ini memungkinkan pengembang untuk 
+mengintegrasikan model cerdas ke dalam peramban guna mengeksekusi instruksi 
+tertentu, seperti menyembunyikan elemen komentar yang terdeteksi sebagai konten 
+terlarang secara real-time. 
+Dengan demikian, arsitektur Chrome Extension  berbasis Manifest V3  
+merupakan platform yang tepat untuk mengimplementasikan sistem filtrasi cerdas. 
+Kemampuannya dalam berinteraksi langsung dengan DOM dan menjalankan skrip 
+secara asynchronous menjadikannya solusi yang efisien untuk melindungi 
+pengguna dari paparan konten spam tanpa membebani performa perangkat secara 
+berlebihan. 
+===== HAL PDF 47 =====
+34 
+ 
+ 
+ 
+2.14 REST API dan Lingkungan FastAPI (Python) 
+Integrasi arsitektur perangkat lunak antara ekstensi peramban di sisi klien 
+(client-side) dengan mesin Machine Learning  di sisi peladen ( server-side) 
+memerlukan jalur komunikasi data yang stabil. Konsep Representational State 
+Transfer Application Programming Interface  (REST API) digunakan sebagai 
+jembatan pertukaran data ringan berbasis format JSON melalui protokol HTTP. 
+Agar layanan REST API ini dapat melayani permintaan deteksi teks secara instan, 
+diperlukan kerangka kerja (framework) yang memiliki kecepatan eksekusi tinggi. 
+FastAPI merupakan kerangka kerja modern berbasis bahasa pemrograman 
+Python yang dirancang khusus untuk membangun layanan web service  dengan 
+tingkat performa tinggi (Azhari, 2022). Berbeda dengan Flask yang bersifat general 
+purpose, FastAPI dirancang secara eksklusif sebagai web service dan mengadopsi 
+mekanisme pemrograman asynchronous sehingga mampu memproses permintaan 
+tanpa harus menunggu setiap proses selesai secara berurutan. FastAPI juga 
+memiliki sistem validasi tipe data bawaan yang ketat melalui pustaka Pydantic, 
+yang memastikan setiap data masukan telah tervalidasi sebelum dipr oses lebih 
+lanjut. 
+Berdasarkan pemaparan di atas, FastAPI dipilih sebagai kerangka kerja peladen 
+pada penelitian ini karena kemampuan asynchronous dan validasi tipe data 
+bawaannya sesuai dengan kebutuhan sistem yang harus melayani permintaan 
+klasifikasi secara cepat dan andal. 
+2.15 Unified Modeling Language (UML) 
+Dalam merancang perangkat lunak yang kompleks, dibutuhkan sebuah 
+pemodelan visual untuk memastikan seluruh alur sistem terekam secara 
+===== HAL PDF 48 =====
+35 
+ 
+ 
+ 
+komprehensif sebelum tahapan pengkodean ( coding) dilakukan. UML ( Unified 
+Modeling Language ) adalah standar bahasa pemodelan berbasis grafik yang 
+digunakan untuk mengidentifikasi kebutuhan sistem ( requirement), merancang 
+arsitektur analitis, serta mendokumentasikan spesifikasi perangkat lunak yang 
+berorientasi objek (Rosa & Shalahuddin, 2019). Dalam penelitian ini, tiga jenis 
+diagram UML digunakan untuk memodelkan sistem secara komprehensif, yaitu 
+use case diagram, activity diagram, dan sequence diagram. 
+2.15.1 Use Case Diagram 
+Use case diagram  merupakan bagian dari UML yang merepresentasikan 
+fungsionalitas sistem dari perspektif pengguna ( actor). Diagram ini tidak 
+menjelaskan secara teknis bagaimana sistem bekerja di balik layar, melainkan 
+menjabarkan batasan sistem (system boundary) serta mendeskripsikan operasi dan 
+skenario layanan yang dapat dilakukan aktor terhadap sistem. Komponen utama use 
+case diagram terdiri dari actor yang digambarkan sebagai ikon manusia, use case 
+yang digambarkan sebagai elips berisi nama fungsionalitas, system boundary  
+berupa kotak persegi yang membatasi cakupan sistem, serta relasi association, 
+include, dan extend yang menghubungkan komponen-komponen tersebut. Simbol-
+simbol yang digunakan dalam use case diagram ditunjukkan pada Gambar 2.4. 
+===== HAL PDF 49 =====
+36 
+ 
+ 
+ 
+ 
+Gambar 2.4 Simbol-Simbol Use Case Diagram 
+2.15.2 Activity Diagram 
+Activity diagram adalah diagram pemodelan dinamis yang menggambarkan alur 
+kerja prosedural (workflow) dari setiap proses bisnis di dalam sistem. Diagram ini 
+secara kronologis memetakan transisi eksekusi kontrol sistem, mulai dari 
+inisialisasi awal, pengambilan keputusan di setiap percabangan kondisi, hingga alur 
+penyelesaian akhir. Komponen utama activity diagram meliputi initial node berupa 
+lingkaran hitam penuh sebagai titik awal, action node berupa persegi panjang berisi 
+nama aksi, decision node berupa belah ketupat untuk percabangan kondisi, fork/join 
+node berupa garis horizontal untuk alur paralel, serta activity final node  berupa 
+lingkaran hitam bertepi sebagai titik akhir. Simbol -simbol yang digunakan dalam 
+activity diagram ditunjukkan pada Gambar 2.5. 
+
+===== HAL PDF 50 =====
+37 
+ 
+ 
+ 
+ 
+Gambar 2.5 Simbol-Simbol Activity Diagram 
+2.15.3 Sequence Diagram 
+Sequence diagram adalah diagram UML yang menggambarkan interaksi antar 
+objek atau komponen sistem berdasarkan urutan waktu (time-ordered). Diagram ini 
+sangat efektif untuk memodelkan komunikasi antar lapisan sistem ( layer) yang 
+berbeda, seperti interaksi antara ekstensi peramban, server API, dan model 
+klasifikasi. Komponen utama sequence diagram  meliputi lifeline berupa garis 
+putus-putus vertikal yang merepresentasikan objek atau komponen, activation bar 
+berupa persegi panjang tipis di atas lifeline yang menunjukkan periode aktif suatu 
+objek, serta message berupa anak panah horizontal yang merepresentasikan 
+komunikasi antar lifeline, baik berupa synchronous message (panah penuh), return 
+message (panah putus -putus), maupun asynchronous message  (panah terbuka). 
+
+===== HAL PDF 51 =====
+38 
+ 
+ 
+ 
+Simbol-simbol yang digunakan dalam sequence diagram ditunjukkan pada Gambar 
+2.6. 
+ 
+Gambar 2.6 Simbol-Simbol Sequence Diagram 
+Berdasarkan uraian di atas, ketiga jenis diagram UML tersebut digunakan 
+secara berdampingan dalam penelitian ini: use case diagram  untuk memetakan 
+batasan dan fungsionalitas sistem dari sudut pandang pengguna, activity diagram 
+untuk menggambarkan alur kerja proses deteksi komentar, serta sequence diagram 
+untuk merinci urutan komunikasi antara ekstensi peramban dan server klasifikasi. 
+Ketiganya menjadi dasar perancangan sistem yang diuraikan pada Bab IV . 
+2.16 Metode Analisis Sistem (PIECES) 
+Untuk mengukur tingkat kelayakan sistem yang dikembangkan, digunakan 
+kerangka kerja analisis PIECES. Menurut Putri & Indriyanti (2021), analisis 
+PIECES adalah metode evaluasi sistem yang meninjau permasalahan dan peluang 
+
+===== HAL PDF 52 =====
+39 
+ 
+ 
+ 
+perbaikan dari enam aspek utama, yaitu Performance (Kinerja), Information 
+(Informasi), Economics (Ekonomi), Control (Pengendalian), Efficiency (Efisiensi), 
+dan Service (Pelayanan). Keenam aspek tersebut dijabarkan pada tabel berikut. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+===== HAL PDF 53 =====
+40 
+ 
+ 
+ 
+Tabel 2.1 Aspek-Aspek Analisis PIECES 
+Aspek Penjelasan 
+Performance (Kinerja) Mengukur kemampuan sistem dalam memproses 
+sejumlah pekerjaan dalam satuan waktu tertentu. 
+Kinerja diukur melalui dua parameter utama: 
+throughput, yaitu jumlah pekerjaan yang berhasil 
+diselesaikan sistem dalam periode tertentu, dan 
+response time , yaitu rata -rata waktu yang 
+dibutuhkan sistem untuk merespons sebuah 
+permintaan. 
+Information (Informasi) Mengevaluasi kualitas informasi yang dihasilkan 
+sistem dari tiga dimensi utama: akurasi 
+(accurate), yang berarti informasi bebas dari 
+kesalahan; ketepatan waktu (timely), yang berarti 
+informasi tersedia saat dibutuhkan; dan relevansi 
+(relevant), yang berarti informasi sesuai dengan 
+kebutuhan pengguna. 
+Economics (Ekonomi) Menilai efisiensi biaya operasional sistem, 
+mencakup analisis pengurangan pengeluaran 
+yang tidak perlu dan peningkatan manfaat yang 
+diperoleh dari sistem yang dikembangkan 
+dibandingkan dengan kondisi sebelumnya. 
+Control (Pengendalian) Menilai kemampuan sistem dalam mencegah 
+atau mendeteksi kesalahan operasional, menjaga 
+keamanan data dari akses yang tidak sah, serta 
+memastikan keandalan sistem dalam 
+menghadapi potensi gangguan atau kerusakan. 
+Efficiency (Efisiensi) Mengukur sejauh mana sistem dapat 
+memaksimalkan keluaran ( output) dengan 
+menggunakan sumber daya masukan ( input) 
+seminimal mungkin, sehingga tidak terjadi 
+pemborosan waktu, tenaga, maupun biaya 
+operasional. 
+Service (Pelayanan) Menilai kemudahan dan kenyamanan yang 
+diberikan sistem kepada pengguna dalam 
+menyelesaikan tugasnya, termasuk keramahan 
+antarmuka, keandalan layanan, serta 
+kemampuan sistem dalam memenuhi kebutuhan 
+pengguna secara konsisten. 
+===== HAL PDF 54 =====
+41 
+ 
+ 
+ 
+Keenam aspek pada Tabel 2.1 tersebut menjadi kerangka acuan dalam 
+mendiagnosis kelemahan sistem berjalan pada Bab III, sekaligus menjadi dasar 
+dalam merumuskan solusi yang diusulkan pada Bab IV . 
+2.17 Studi Penelitian Terdahulu 
+Kajian terhadap studi penelitian terdahulu dilakukan untuk mengetahui 
+perkembangan penelitian yang telah ada, mengidentifikasi celah penelitian 
+(research gap), serta menjadi landasan bagi pengembangan sistem yang diusulkan. 
+Penelitian ini merujuk pada dua studi penelitian terdahulu yang memiliki tingkat 
+relevansi paling tinggi terhadap deteksi komentar spam promosi judi online di 
+platform YouTube menggunakan Machine Learning . Berikut adalah uraian dari 
+kedua penelitian tersebut: 
+1. Angelo dkk. (2025) , Comparative Performance of Machine Learning 
+Algorithms for Detecting Online Gambling Promotional Comments on 
+YouTube.  
+a) Input: Dataset komentar YouTube yang mengandung promosi judi 
+online berbahasa Indonesia, termasuk komentar yang menggunakan 
+teknik obfuscation seperti karakter Unicode, emoji, spasi tidak 
+beraturan, dan simbol untuk menghindari moderasi otomatis. Dataset 
+diperluas menggunakan teknik semi-supervised pseudo -labelling dari 
+1.648 menjadi 9.111 komentar. 
+b) Proses: Membandingkan performa empat algoritma Machine Learning 
+Multinomial Naive Bayes , Logistic Regression , Random Forest , dan 
+SVM menggunakan pipeline TF-IDF dengan normalisasi karakter 
+===== HAL PDF 55 =====
+42 
+ 
+ 
+ 
+khusus, stopword removal , dan stemming Nazief–Adriani. Optimasi 
+hiperparameter dan penyeimbangan kelas dilakukan melalui SMOTE. 
+c) Output: Seluruh model mencapai akurasi di atas 98% pada set 
+pengujian. SVM memberikan performa paling seimbang dengan F1-
+score tertinggi sebesar 0,9908 untuk kelas promosi, sehingga 
+direkomendasikan untuk deployment operasional dalam moderasi 
+otomatis komentar judi online. 
+2. Airlangga (2024a), Spam Detection on YouTube Comments Using Advanced 
+Machine Learning Models: A Comparative Study 
+a) Input: Himpunan data ( dataset) komentar YouTube yang telah 
+dikategorikan secara manual ke dalam dua kelas utama, yaitu spam dan 
+ham (normal). 
+b) Proses: Menjalankan studi perbandingan performa klasifikasi 
+menggunakan model Machine Learning  tingkat lanjut, yang meliputi 
+algoritma Linear SVM, Random Forest, dan XGBoost. 
+c) Output: Hasil evaluasi membuktikan bahwa algoritma Linear SVM 
+memberikan performa yang paling stabil dan unggul dengan tingkat 
+akurasi klasifikasi mencapai 95%. 
+Berdasarkan kedua penelitian terdahulu di atas, dapat disimpulkan bahwa 
+algoritma SVM secara konsisten menunjukkan performa terbaik dalam mendeteksi 
+komentar spam dan promosi judi online di YouTube. Namun demikian, kedua 
+penelitian tersebut menghasilkan model yang beroperasi secara offline model hanya 
+dapat digunakan melalui skrip atau antarmuka terpisah, bukan langsung terintegrasi 
+ke dalam pengalaman berselancar pengguna. Oleh karena itu, terdapat celah 
+===== HAL PDF 56 =====
+43 
+ 
+ 
+ 
+penelitian berupa kebutuhan akan sistem yang mampu menjalankan deteksi spam 
+secara real-time langsung di peramban pengguna, tanpa memerlukan intervensi 
+manual, melalui implementasi model SVM pada arsitektur Chrome Extension. 
+2.18 Persyaratan Sistem Konseptual 
+Berdasarkan hasil analisis terhadap studi penelitian terdahulu, sistem yang 
+dirancang dalam penelitian ini harus memenuhi persyaratan konseptual tertentu 
+guna menutupi celah kekurangan pada penelitian sebelumnya. Berikut adalah 
+rincian persyaratan sistem konseptual tersebut: 
+1. Modul Prapemrosesan Teks dengan Teknik String Normalization 
+a. Input: Data teks komentar dari platform YouTube yang mengandung 
+berbagai variasi penyamaran karakter (obfuscation), seperti penggunaan 
+homoglyphs, simbol Unicode khusus, dan karakter non -standar yang 
+digunakan untuk menghindari moderasi otomatis. 
+b. Proses: Mendeteksi karakter non -ASCII dan melakukan konversi teks 
+menggunakan teknik string normalization  untuk mengembalikan 
+karakter manipulatif ke bentuk teks standar sebelum diteruskan ke tahap 
+ekstraksi fitur. 
+c. Output: Teks komentar yang bersih dan ternormalisasi, siap diproses 
+oleh tahap ekstraksi fitur TF-IDF dan klasifikasi SVM. 
+d. Pengembangan ( Improvement): Angelo dkk. (2025) menunjukkan 
+bahwa komentar promosi judi online di YouTube secara aktif 
+menggunakan teknik obfuscation berbasis Unicode untuk menghindari 
+deteksi. Penelitian ini mengadopsi pendekatan normalisasi karakter 
+===== HAL PDF 57 =====
+44 
+ 
+ 
+ 
+serupa dan mengintegrasikannya ke dalam pipeline prapemrosesan yang 
+berjalan secara otomatis di sisi klien. 
+2. Modul Deteksi Real-Time Berbasis Chrome Extension 
+a. Input: Elemen Document Object Model (DOM) pada halaman YouTube 
+yang memuat teks komentar pengguna secara dinamis. 
+b. Proses: Menggunakan content script  untuk membaca teks komentar 
+secara asynchronous, mengirimkannya ke model SVM melalui REST 
+API FastAPI, dan menerima hasil klasifikasi untuk diterapkan pada 
+tampilan halaman. 
+c. Output: Perubahan status tampilan pada elemen komentar yang 
+teridentifikasi sebagai spam judi online melalui manipulasi CSS 
+(display: none), sehingga komentar tersebut tersembunyi secara visual 
+tanpa mengganggu konten lainnya. 
+d. Pengembangan ( Improvement): Airlangga (2024a) membuktikan 
+akurasi Linear SVM mencapai 95% dalam klasifikasi komentar spam 
+YouTube, namun implementasinya terbatas pada evaluasi data secara 
+offline. Penelitian ini mengembangkan sistem tersebut dengan 
+mengintegrasikan model SVM ke dalam arsitektur Chrome Extension 
+sehingga perlindungan dapat dirasakan langsung oleh pengguna secara 
+real-time tanpa intervensi manual. 
+3. Keandalan Klasifikasi dengan Algoritma SVM 
+a.  Input: Fitur numerik hasil ekstraksi Term Frequency-Inverse Document 
+Frequency (TF-IDF) dari teks komentar yang telah melalui tahap 
+normalisasi. 
+===== HAL PDF 58 =====
+45 
+ 
+ 
+ 
+b. Proses: Melakukan pemisahan data menggunakan hyperplane optimal 
+yang dibentuk oleh algoritma Linear SVM untuk menentukan label 
+akhir setiap komentar. 
+c. Output: Keputusan klasifikasi biner berupa label "Spam" atau "Ham" 
+(normal) dengan tingkat presisi dan recall yang tinggi. 
+d. Pengembangan ( Improvement): Sistem yang dibangun secara khusus 
+menargetkan komentar promosi judi online berbahasa Indonesia sebuah 
+domain yang belum menjadi fokus utama penelitian Airlangga (2024a) 
+maupun penelitian sebelumnya sehingga model dilatih menggunakan 
+dataset yang dikumpulkan dan dilabeli secara manual dari platform 
+YouTube untuk memastikan relevansi terhadap konteks bahasa dan 
+konten yang spesifik. 
+Berdasarkan ketiga modul di atas, persyaratan sistem konseptual pada 
+penelitian ini dapat dirangkum sebagai kebutuhan akan sebuah sistem yang mampu 
+menormalkan teks tersamar sebelum diklasifikasikan, bekerja secara otomatis di 
+sisi klien tanpa membebani pe laden platform, serta menghasilkan keputusan 
+klasifikasi yang akurat pada domain komentar judi online berbahasa Indonesia. 
+Ketiga persyaratan inilah yang menjadi acuan dalam perancangan sistem pada Bab 
+IV . 
+ 
+===== HAL PDF 59 =====
+46 
+ 
+BAB III 
+OBJEK PENELITIAN 
+3.1 Tinjauan Umum Objek Penelitian 
+Objek penelitian pada skripsi ini difokuskan pada pengembangan perangkat 
+lunak berbasis klien ( client-side), yaitu berupa ekstensi peramban web ( browser 
+extension) Google Chrome. Perangkat lunak ini dirancang secara khusus untuk 
+melakukan deteksi dan penyembunyian secara instan terhadap komentar yang 
+bermuatan promosi judi online pada antarmuka platform YouTube. Pendekatan ini 
+dipilih untuk memberikan lapisan keamanan tambahan yang independen bagi 
+pengguna, tanpa perlu menunggu intervensi dari administrator platform utama.  
+3.1.1 Behaviour Objek Penelitian 
+Tingkah laku ( behaviour) dari objek penelitian ini bertumpu pada interaksi 
+langsung dan dinamis antara ekstensi peramban dengan Document Object Model  
+(DOM) pada halaman web YouTube yang sedang dimuat oleh pengguna. Perangkat 
+lunak ini beroperasi secara asynchronous di latar belakang untuk meminimalisasi 
+beban komputasi peramban. Secara teknis, alur tingkah laku sistem dapat diuraikan 
+melalui tahapan operasional berikut: 
+1. Inisiasi dan Pemantauan Elemen (DOM Observation) 
+Ekstensi memanfaatkan antarmuka MutationObserver bawaan peramban 
+untuk memantau setiap perubahan pada struktur DOM. Saat pengguna 
+menggulir halaman dan komentar baru dimuat secara dinamis oleh YouTube 
+(melalui AJAX/Fetch), ekstensi secara otomatis mendeteksi node teks baru 
+tersebut tanpa perlu memuat ulang halaman. 
+ 
+===== HAL PDF 60 =====
+47 
+ 
+ 
+ 
+2. Ekstraksi dan Prapemrosesan Klien (String Normalization) 
+Teks komentar yang berhasil ditangkap kemudian diekstrak dan langsung 
+diproses secara lokal. Modul ini menjalankan algoritma String Normalization 
+menggunakan reguler ekspresi ( RegEx) untuk membersihkan karakter 
+pengganggu, serta memetakan dan mengonversi variasi karakter Unicode 
+khusus (seperti huruf Cyrillic atau simbol yang menyerupai alfabet Latin) 
+kembali menjadi format teks ASCII standar. 
+3. Transmisi Data Asynchronous 
+Teks yang telah dinormalisasi dikemas dalam format JavaScript Object 
+Notation (JSON) dan dikirimkan secara real-time menuju peladen API 
+(backend server ) menggunakan metode HTTP POST request  tanpa 
+mengganggu pengalaman menonton pengguna. 
+4. Klasifikasi pada Peladen (Model Evaluation) 
+Peladen berbasis Python menggunakan kerangka kerja FastAPI menerima 
+data teks dan mengeksekusi ekstraksi fitur lanjutan menggunakan TF -IDF. 
+Representasi numerik tersebut kemudian dimasukkan ke dalam model 
+Support Vector Machine  (SVM) yang telah dilatih sebelumnya, guna 
+menentukan garis pemisah ( hyperplane) dan menghasilkan label klasifikasi 
+(Spam atau Normal). 
+5. Manipulasi Antarmuka Pengguna (DOM Manipulation) 
+Peladen mengembalikan hasil prediksi ke ekstensi Chrome. Apabila label 
+yang dikembalikan adalah "Spam" dan skor keyakinannya melampaui 
+ambang batas (threshold) yang ditetapkan, Content Script dari ekstensi akan 
+mencari elemen komentar yang bersangkutan dan menerapkan 
+===== HAL PDF 61 =====
+48 
+ 
+ 
+ 
+penyembunyian melalui injeksi properti Cascading Style Sheets (CSS) sesuai 
+mode yang dipilih pengguna. Sistem menyediakan dua mode penyembunyian. 
+Pada mode Redupkan ( dim), komentar tetap berada di dalam DOM namun 
+ditampilkan dengan transparansi rendah ( opacity 15%) disertai badge 
+persentase keyakinan yang dapat diklik untuk memunculkan komentar 
+kembali. Pada mode Hilangkan ( remove), komentar disembunyikan 
+sepenuhnya dari tampilan melalui properti display: none . Secara bawaan 
+(default), sistem menggunakan mode Redupkan agar pengguna tetap dapat 
+meninjau komentar yang disembunyikan apabila terjadi kesalahan klasifikasi. 
+Tingkah laku dari objek penelitian ini memiliki keunggulan yang signifikan, 
+yaitu kemampuannya memberikan perlindungan proaktif yang disesuaikan secara 
+lokal di komputer pengguna, sehingga tidak memerlukan modifikasi pada arsitektur 
+basis data ( database) milik YouTube. Namun, batasan dari tingkah laku ini 
+mencakup tingkat ketergantungan yang tinggi terhadap ketersediaan koneksi 
+internet yang stabil untuk mengakses peladen API, serta kerentanan jika pihak 
+YouTube melakukan perombakan besar -besaran pada st ruktur tag HTML dan 
+penamaan class DOM mereka. 
+3.1.2 Struktur/Kategori Objek Penelitian 
+Objek penelitian ini dikategorikan sebagai perangkat lunak filtrasi konten 
+berbasis peramban dengan standar arsitektur pengembangan Manifest V3. Guna 
+mendukung proses deteksi berbasis Machine Learning yang berat, struktur sistem 
+ini mengusung pola arsitektur terdistribusi yang memisahkan beban kerja antara sisi 
+klien dan sisi peladen. Struktur objek penelitian ini terdiri dari: 
+ 
+===== HAL PDF 62 =====
+49 
+ 
+ 
+ 
+1. Sisi Klien (Ekstensi Chrome) 
+Bertindak sebagai agen interaktif di sisi pengguna. Terdiri dari Manifest File 
+(manifest.json) yang mengatur hak akses permission peramban, Content 
+Scripts yang diinjeksi langsung ke halaman YouTube untuk membaca teks dan 
+mengeksekusi manipulasi DOM, serta Service Workers (background.js) yang 
+mengelola siklus hidup ekstensi dan menangani rute komunikasi ke peladen 
+luar secara efisien. 
+2. Sisi Peladen (Backend API) 
+Bertindak sebagai pusat pemrosesan cerdas. Lingkungan peladen dibangun 
+menggunakan bahasa pemrograman Python dengan kerangka kerja FastAPI, 
+yang mengadopsi mekanisme pemrograman asynchronous sehingga sangat 
+optimal untuk menangani permintaan teks secara bersamaan dari ekstensi. 
+Peladen ini memuat pipeline prapemrosesan teks, ekstraksi fitur TF-IDF, dan 
+model Support Vector Machine (SVM) yang telah dilatih, serta menyediakan 
+dua endpoint REST API yaitu /predict untuk klasifikasi tunggal dan 
+/predict/batch untuk klasifikasi hingga 50 komentar sekaligus. 
+3.1.3 Profil Perusahaan YouTube 
+Meskipun objek utama penelitian ini berupa perangkat lunak ekstensi 
+peramban, platform tempat sistem ini beroperasi, yaitu YouTube, dikelola oleh 
+sebuah entitas perusahaan. Oleh karena itu, profil dan struktur organisasi 
+perusahaan tersebut perlu diuraikan sebagai bagian dari konteks penelitian. 
+YouTube merupakan platform berbagi video yang didirikan pada tahun 2005 
+oleh Chad Hurley, Steve Chen, dan Jawed Karim, yang merupakan mantan 
+karyawan perusahaan pembayaran digital PayPal (Wikipedia, 2025). Pada tahun 
+===== HAL PDF 63 =====
+50 
+ 
+ 
+ 
+2006, YouTube diakuisisi oleh Google dengan nilai sekitar 1,65 miliar dolar 
+Amerika Serikat, dan sejak saat itu beroperasi sebagai anak perusahaan (subsidiary) 
+di bawah Google. Setelah restrukturisasi korporat pada tahun 2015, Google berada 
+di bawah perusahaan induk Alphabet Inc. yang dipimpin oleh Sundar Pichai selaku 
+Chief Executive Officer  (CEO). Dengan demikian, secara struktural YouTube 
+menempati posisi sebagai unit bisnis di bawah Google LLC yang merupakan anak 
+perusahaan dari Alphabet Inc. 
+Kegiatan bisnis utama YouTube berpusat pada penyediaan layanan berbagi dan 
+streaming video, dengan model pendapatan utama berasal dari periklanan digital, 
+layanan berlangganan (YouTube Premium dan YouTube TV), serta fitur monetisasi 
+kreator seperti channel membership dan Super Chat. Sebagai salah satu platform 
+dengan basis pengguna terbesar di dunia, YouTube memproses miliaran interaksi 
+pengguna setiap harinya, termasuk unggahan video, penayangan, dan komentar, 
+sehingga volume interaksi yang masif ini menjadikan platform tersebut re ntan 
+terhadap penyalahgunaan berupa penyebaran komentar spam secara otomatis. 
+3.1.4 Struktur Organisasi YouTube 
+Posisi YouTube dalam struktur korporat serta pembagian unit fungsional yang 
+relevan dengan penelitian ini digambarkan pada Gambar 3.1 berikut. 
+===== HAL PDF 64 =====
+51 
+ 
+ 
+ 
+ 
+Gambar 3.1 Struktur Organisasi YouTube 
+Secara korporat, kepemimpinan tertinggi berada pada Alphabet Inc. dan Google 
+LLC yang dipimpin oleh Sundar Pichai selaku Chief Executive Officer (CEO). Di 
+tingkat YouTube, kepemimpinan dipegang oleh Neal Mohan yang diangkat sebagai 
+CEO YouTube pada tahun 2023 menggantikan Susan Wojcicki (Wikipedia, 2025). 
+Neal Mohan membawahi sejumlah divisi fungsional yang secara umum mencakup 
+Product & Engineering yang menangani pengembangan produk dan infrastruktur 
+teknis, Content & Creator Partnerships yang mengelola hubungan dengan kreator 
+konten, Business dan Advertising yang menangani monetisasi platform, serta Trust 
+& Safety yang bertanggung jawab atas keamanan platform, moderasi konten, dan 
+penanganan penyalahgunaan termasuk spam. Pembagian divisi ini merupakan 
+gambaran fungsional umum berdasarkan informasi yang tersedia secara publik, 
+bukan representasi bagan organisasi resmi internal YouTube. 
+Dalam konteks penelitian ini, divisi yang paling relevan adalah Trust & Safety, 
+karena unit inilah yang menangani kebijakan dan mekanisme moderasi komentar, 
+termasuk penyaringan spam promosi judi online yang menjadi fokus penelitian. 
+
+===== HAL PDF 65 =====
+52 
+ 
+ 
+ 
+Keterbatasan mekanisme moderasi otomatis yang dikelola oleh divisi ini menjadi 
+dasar bagi analisis sistem berjalan yang diuraikan pada sub-bab berikutnya. 
+3.2 Sistem Berjalan 
+3.2.1 Tinjauan Umum 
+Sistem penyaringan komentar yang berjalan saat ini pada platform YouTube 
+pada dasarnya beroperasi melalui mekanisme hibrida, yang menggabungkan filtrasi 
+otomatis berbasis kamus kata kunci (keyword-based filtering / regular expressions 
+blacklist) dan sistem moderasi manual berbasis pelaporan dari komunitas 
+(flagging). YouTube secara terpusat menyaring atau menahan komentar yang secara 
+eksplisit memuat kata -kata kasar, tautan URL ke situs berbahaya, atau kosakata 
+spesifik yang telah dimasukkan ke dalam konfigurasi daftar hitam oleh kreator 
+konten pada panel YouTube Studio. 
+3.2.2 Analisis Proses Sistem Berjalan 
+Walaupun sistem filter bawaan platform ini mampu beroperasi pada skala besar 
+(jutaan komentar per detik), proses identifikasi spam konvensional ini memiliki 
+celah struktural dalam menangani analisis semantik tingkat lanjut, khususnya 
+terhadap teknik penyamaran teks manipulatif (obfuscation). Analisis terhadap alur 
+kelemahan sistem berjalan dapat diuraikan melalui tahapan berikut: 
+1. Pelaku serangan (spammer) menggunakan skrip otomatis untuk menghasilkan 
+teks promosi judi online yang telah dimanipulasi secara visual. Manipulasi ini 
+memanfaatkan teknik substitusi karakter (homoglyphs), contohnya mengganti 
+alfabet Latin "O" dengan angka nol "0" atau huruf Yunani "Omicron", serta 
+menyisipkan tanda baca acak di antara susunan kata (contoh: "S.L.O.T", "J -
+u-d-i"). 
+===== HAL PDF 66 =====
+53 
+ 
+ 
+ 
+2. Komentar manipulatif tersebut dikirimkan ke pangkalan data server YouTube 
+melalui protokol standar aplikasi. 
+3. Mesin filtrasi bawaan platform menjalankan pencocokan string linier dengan 
+kamus kata kunci terlarang (misalnya: mencari kata "slot"). 
+4. Karena susunan byte dari karakter -karakter manipulatif tersebut (secara 
+Unicode) berbeda dengan kamus dasar, algoritma platform gagal 
+mengidentifikasinya sebagai leksikon yang melanggar kebijakan. Platform 
+menganggap susunan tersebut sebagai teks acak yang tidak bermakna atau 
+tidak membahayakan. 
+5. Komentar dinyatakan berstatus valid dan diotorisasi untuk ditampilkan pada 
+antarmuka publik. Akibatnya, promosi ilegal tersebut berhasil menembus 
+lapisan keamanan dan terpapar kepada jutaan pengguna. 
+3.2.3 Flowchart Sistem Berjalan 
+Alur kerja sistem filtrasi komentar yang berjalan saat ini digambarkan pada 
+Gambar 3.2. 
+===== HAL PDF 67 =====
+54 
+ 
+ 
+ 
+ 
+ 
+Gambar 3.2 Flowchart Sistem Berjalan 
+ 
+ 
+ 
+ 
+ 
+
+===== HAL PDF 68 =====
+55 
+ 
+ 
+ 
+Berikut ini adalah penjelasan dari diagram flowchart sistem berjalan: 
+1. Mulai (Start) 
+2. Entitas pengguna atau bot mengirimkan masukan berupa teks komentar ke 
+server YouTube. 
+3. Sistem YouTube menerima permintaan dan menjalankan proses pencocokan 
+dengan pangkalan data kata kunci (Keyword Blacklist Checking). 
+4. Titik Keputusan (Decision): Apakah teks komentar mengandung entitas kata 
+terlarang secara presisi? 
+5. Apabila kondisi bernilai "Ya", sistem menjalankan proses pemblokiran dan 
+menyembunyikan komentar ke peninjauan (Hold for Review). 
+6. Apabila kondisi bernilai "Tidak" (kata disamarkan dengan obfuscation yang 
+tidak terdaftar), sistem menjalankan proses otorisasi. 
+7. Komentar lolos dan dirender pada DOM halaman video secara publik. 
+8. Selesai (End). 
+3.3 Permasalahan Sistem (PIECES) 
+Untuk mengukur keandalan dan mendiagnosis secara presisi kelemahan yang 
+ada pada sistem berjalan, penelitian ini menggunakan metode evaluasi PIECES 
+(Performance, Information, Economics, Control, Efficiency, dan Service ). Berikut 
+adalah penjabaran analisis permasalahan dari sistem pemfilteran YouTube saat ini: 
+1. Analisis Kinerja (Performance) 
+Kinerja infrastruktur YouTube sangat mumpuni dalam memproses dan 
+menyaring jutaan komentar teks baku per detik. Namun, throughput 
+(kemampuan menyelesaikan pekerjaan) sistem ini menurun drastis ketika 
+berhadapan dengan teks yang dimanipulasi ( obfuscation). Kegagalan sistem 
+===== HAL PDF 69 =====
+56 
+ 
+ 
+ 
+dalam membedah karakter manipulatif secara instan mengakibatkan latensi 
+tinggi dalam penanganan spam, karena pada akhirnya platform harus 
+bergantung pada proses moderasi ( flagging) manual oleh pengguna yang 
+membutuhkan waktu respon (response time) sangat lambat. 
+2. Analisis Informasi (Information) 
+Sistem berjalan gagal mempertahankan kualitas informasi yang disajikan di 
+ruang publik. Lemahnya pemfilteran menyebabkan kolom komentar dibanjiri 
+oleh teks dan tautan yang sama sekali tidak relevan dengan konteks video. 
+Informasi promosi judi online yang lolos dari sistem ini sangat menyesatkan, 
+mereduksi nilai edukasi atau hiburan dari konten utama, dan mendegradasi 
+kualitas informasi platform secara keseluruhan. 
+3. Analisis Ekonomi (Economics) 
+Dari sudut pandang makro, lolosnya promosi perjudian ilegal ini 
+menimbulkan ancaman kerugian finansial yang masif bagi masyarakat yang 
+terjerat. Sementara dari sisi operasional platform, mempekerjakan ribuan 
+moderator manusia untuk menyaring sisa komentar spam yang gagal 
+ditangkap oleh mesin otomatis merupakan pemborosan anggaran (inefisiensi 
+biaya) yang seharusnya dapat ditekan dengan sistem cerdas di sisi klien. 
+4. Analisis Kendali (Control) 
+Tingkat pengendalian (control) sistem berjalan terbukti sangat lemah terhadap 
+serangan manipulasi String. Ketiadaan mekanisme String Normalization yang 
+agresif membuat sistem kehilangan kendali saat berhadapan dengan 
+homoglyphs, penyisipan tanda baca, atau penggunaan variasi fon Unicode 
+khusus. Celah keamanan ini mempermudah pihak tak bertanggung jawab 
+===== HAL PDF 70 =====
+57 
+ 
+ 
+ 
+menyisipkan Uniform Resource Locator (URL) berbahaya yang mengancam 
+privasi dan keamanan data pengguna. 
+5. Analisis Efisiensi (Efficiency) 
+Mekanisme pemfilteran bawaan yang mengandalkan pembaruan daftar hitam 
+(blacklist) kata kunci secara manual sangat tidak efisien. Spammer hanya 
+perlu mengubah satu struktur karakter (misalnya "SLOT" menjadi "5L0T") 
+untuk menembus filter. Pola ini memaksa administrator untuk terus 
+memperbarui kamus data secara konstan, sebuah proses yang menghabiskan 
+waktu dan tenaga, serta selalu tertinggal  selangkah dari laju otomatisasi bot 
+penyerang. 
+6. Analisis Pelayanan (Service) 
+Dampak akumulatif dari kelemahan sistem berjalan bermuara pada buruknya 
+tingkat pelayanan dan pengalaman pengguna ( user experience ). Kegagalan 
+platform dalam menciptakan lingkungan digital yang aman dari paparan 
+promosi ilegal memicu ketidaknyamanan berinteraksi, mematikan diskusi 
+yang konstruktif di kolom komentar, dan menurunkan tingkat kepercayaan 
+(trust) pengguna terhadap kredibilitas layanan platform tersebut. 
+Ringkasan dari keenam aspek analisis PIECES beserta identifikasi masalah dan 
+solusi yang diusulkan disajikan pada Tabel 3.1 berikut. 
+ 
+ 
+ 
+ 
+===== HAL PDF 71 =====
+58 
+ 
+ 
+ 
+Tabel 3.1 Ringkasan Analisis PIECES Sistem Berjalan 
+Aspek 
+PIECES 
+Identifikasi Masalah Solusi yang Diusulkan 
+Analisis 
+Kinerja 
+(Performance) 
+Throughput sistem 
+menurun drastis dan latensi  
+memanjang jika 
+berhadapan dengan 
+komentar yang 
+menggunakan teknik 
+penyamaran teks 
+(obfuscation). 
+Penerapan normalisasi 
+teks otomatis di sisi klien 
+sebelum proses klasifikasi 
+dimulai. 
+Analisis 
+Informasi 
+(Information) 
+Informasi promosi judi 
+online yang lolos 
+mereduksi kualitas konten, 
+menyesatkan publik, dan 
+mendegradasi nilai 
+edukasi/hiburan platform. 
+Implementasi model 
+klasifikasi berbasis 
+machine learning  untuk 
+mengidentifikasi dan 
+menyembunyikan konten 
+menyesatkan secara 
+otomatis. 
+Analisis 
+Ekonomi 
+(Economics) 
+Lolosnya spam memicu 
+risiko kerugian finansial di 
+masyarakat, serta 
+inefisiensi biaya 
+operasional karena masih 
+bergantung pada moderator 
+manusia. 
+Pengembangan sistem 
+deteksi otomatis di sisi 
+klien yang dapat diakses 
+secara gratis tanpa biaya 
+berlangganan layanan 
+moderasi berbayar. 
+Analisis 
+Kendali 
+(Control) 
+Lemahnya kendali sistem 
+(String Normalization yang 
+tidak agresif) menyebabkan 
+platform gagal memetakan 
+karakter Unicode khusus 
+dan URL berbahaya. 
+Penerapan tujuh tahap 
+normalisasi teks termasuk 
+konversi NFKC Unicode, 
+penanganan homoglyph 
+lintas skrip, dan kanonisasi 
+nama brand judi online 
+memperkuat lapisan 
+kendali deteksi. 
+Analisis 
+Efisiensi 
+(Efficiency) 
+Pembaruan kamus blacklist 
+secara manual sangat tidak 
+efisien dan selalu tertinggal 
+dari laju pembaruan 
+otomatisasi skrip bot 
+spammer. 
+Penerapan lapisan 
+normalisasi karakter yang 
+agresif untuk memperkuat 
+kendali deteksi terhadap 
+berbagai teknik 
+penyamaran teks. 
+Analisis 
+Pelayanan 
+(Service) 
+Paparan promosi ilegal 
+menurunkan kenyamanan 
+(user experience), merusak 
+diskusi konstruktif, dan 
+mendegradasi kredibilitas 
+layanan platform. 
+Penyembunyian komentar 
+spam secara otomatis di 
+peramban pengguna untuk 
+menciptakan pengalaman 
+berselancar yang lebih 
+bersih dan aman. 
+ 
+===== HAL PDF 72 =====
+59 
+ 
+ 
+ 
+Berdasarkan hasil analisis menggunakan metode PIECES terhadap sistem yang 
+berjalan, dapat disimpulkan bahwa kelemahan paling fundamental terletak pada 
+aspek Kendali (Control) dan Efisiensi (Efficiency). Ketidakmampuan sistem native 
+platform dalam mengurai teks yang dimanipulasi ( obfuscation) menyebabkan 
+efisiensi pemfilteran menurun dan hilangnya kendali terhadap penyebaran promosi 
+perjudian. Kegagalan pada dua aspek inti ini secara berantai berdampak buruk pada 
+Kinerja ( Performance) moderasi, merusak validitas Informasi ( Information), 
+memicu kerugian Ekonomi (Economics), dan pada akhirnya mendegradasi kualitas 
+Pelayanan (Service) kepada pengguna. 
+Oleh karena itu, sebagai solusi ilmiah dan teknis atas permasalahan tersebut, 
+sangat mendesak untuk dirancang sebuah sistem usulan berupa ekstensi peramban 
+Google Chrome. Sistem usulan ini diproyeksikan mampu menutupi celah kendali 
+platform dengan mengimpl ementasikan teknik String Normalization  langsung di 
+sisi klien ( client-side), serta meningkatkan efisiensi deteksi secara signifikan 
+melalui integrasi model kecerdasan buatan berbasis Support Vector Machine  
+(SVM). Kombinasi teknologi ini akan menciptakan benteng pertahanan yang 
+proaktif, adaptif, dan mampu menyembunyikan ancaman spam secara real-time 
+sebelum terpapar kepada pengguna. 
+===== HAL PDF 73 =====
+60 
+ 
+BAB IV  
+PERANCANGAN SISTEM 
+ 
+Berdasarkan hasil analisis PIECES terhadap sistem berjalan pada Bab III, 
+ditemukan bahwa kelemahan paling mendasar dari mekanisme pemfilteran 
+komentar YouTube saat ini terletak pada aspek Kendali ( Control) dan Efisiensi 
+(Efficiency), yang kemudian berdampak berantai pada aspek Kinerja, Informasi, 
+Ekonomi, dan Pelayanan. Untuk menjawab kelemahan tersebut, penelitian ini 
+mengusulkan sebuah sistem berupa ekstensi peramban Google Chrome yang 
+mengombinasikan teknik String Normalization  dengan algoritma klasifikasi 
+Support Vector Machine (SVM). 
+Secara garis besar, solusi yang ditawarkan bekerja dengan menyisipkan lapisan 
+normalisasi teks di sisi klien sebelum komentar sempat tampil kepada pengguna, 
+sehingga karakter-karakter hasil manipulasi (obfuscation) yang selama ini lolos dari 
+filter kata kunci bawaan YouTube dapat dikenali kembali dalam bentuk standarnya. 
+Teks yang telah dinormalisasi kemudian diklasifikasikan secara real-time oleh 
+model SVM yang telah dilatih menggunakan data komentar spam judi online 
+berbahasa Indonesia, sehingga keputusan penyaringan tidak lagi bergantung pada 
+pencocokan kata kunci statis, melainkan pada pola bahasa yang telah dipelajari dari 
+data. 
+Dengan pendekatan ini, aspek Kendali diperkuat melalui normalisasi karakter 
+yang mampu menangkal berbagai teknik obfuscation, aspek Efisiensi meningkat 
+karena sistem tidak lagi bergantung pada pembaruan daftar kata kunci secara 
+manual, aspek Informasi terjaga karena komentar menyesatkan dapat 
+disembunyikan secara otomatis, aspek Ekonomi tertangani karena sistem berjalan 
+===== HAL PDF 74 =====
+61 
+ 
+ 
+ 
+tanpa biaya berlangganan tambahan, dan aspek Pelayanan meningkat melalui 
+pengalaman berselancar yang lebih bersih bagi pengguna. Rincian kebutuhan, 
+arsitektur, serta implementasi dari solusi ini diuraikan pada sub-bab berikut. 
+4.1 Analisis Kebutuhan Sistem 
+Analisis kebutuhan sistem merupakan tahap awal dalam perancangan yang 
+bertujuan mengidentifikasi secara menyeluruh apa yang harus mampu dilakukan 
+oleh sistem yang diusulkan. Pada penelitian ini, sistem yang dirancang adalah 
+ekstensi peramban Google Chrome yang bekerja secara real-time untuk mendeteksi 
+dan menyembunyikan komentar promosi judi online pada platform YouTube 
+menggunakan model klasifikasi Support Vector Machine (SVM). 
+4.1.1 Kebutuhan Fungsional 
+Kebutuhan fungsional mendeskripsikan fungsi -fungsi utama yang harus dapat 
+dijalankan oleh sistem. Kebutuhan fungsional sistem ini adalah sebagai berikut: 
+1. Sistem harus mampu mendeteksi komentar baru yang dimuat secara dinamis 
+pada halaman YouTube tanpa memerlukan pemuatan ulang halaman. 
+2. Sistem harus mampu mengirimkan teks komentar ke server klasifikasi 
+melalui jaringan internet dan menerima hasilnya secara real-time. 
+3. Sistem harus mampu mengklasifikasikan komentar sebagai spam atau non -
+spam berdasarkan model SVM yang telah dilatih. 
+4. Sistem harus mampu menyembunyikan komentar yang terdeteksi sebagai 
+spam secara otomatis dari tampilan halaman YouTube sesuai mode yang 
+dipilih pengguna. 
+===== HAL PDF 75 =====
+62 
+ 
+ 
+ 
+5. Sistem harus menyediakan antarmuka popup yang menampilkan status 
+koneksi server dan statistik jumlah komentar yang telah dipindai dan 
+disembunyikan. 
+6. Sistem harus menyediakan dua mode penyembunyian yang dapat dipilih 
+pengguna: mode Redupkan yang menampilkan komentar spam dengan 
+transparansi 15% disertai badge persentase kepercayaan model yang dapat 
+diklik untuk memperlihatkan komentar kembali, dan mode Hilangkan yang 
+menyembunyikan komentar sepenuhnya dari tampilan. 
+7. Sistem harus menyediakan pengaturan ambang batas kepercayaan 
+(confidence threshold) yang dapat disesuaikan oleh pengguna melalui popup. 
+8. Sistem harus mampu menerima koreksi dari pengguna ketika terjadi 
+kesalahan klasifikasi melalui tombol "Bukan spam?" yang tersedia pada mode 
+Redupkan. 
+4.1.2 Kebutuhan Non-Fungsional 
+Kebutuhan non-fungsional mendeskripsikan batasan dan standar kualitas yang 
+harus dipenuhi sistem di luar fungsi utamanya. 
+1. Performa 
+Sistem harus mampu memproses dan mengklasifikasikan hingga 50 komentar 
+dalam satu permintaan dengan latensi yang tidak mengganggu pengalaman 
+berselancar pengguna. 
+2. Ketersediaan 
+Sistem harus dapat berjalan secara otomatis setiap kali pengguna membuka 
+halaman YouTube selama ekstensi aktif dan server dapat diakses melalui 
+jaringan internet 
+===== HAL PDF 76 =====
+63 
+ 
+ 
+ 
+3. Keandalan 
+Sistem harus tetap berfungsi dengan baik meskipun terjadi kegagalan koneksi 
+ke server, dengan cara menampilkan status offline tanpa menyebabkan 
+peramban berhenti bekerja. 
+4. Keamanan 
+Server API di-deploy pada infrastruktur Virtual Private Server  (VPS) yang 
+terpisah dari perangkat pengguna, sehingga model dan pipeline klasifikasi 
+tidak dapat diakses atau dimodifikasi secara langsung oleh pengguna akhir. 
+5. Kemudahan Penggunaan 
+Sistem beroperasi secara otomatis di latar belakang tanpa memerlukan 
+interaksi manual dari pengguna untuk setiap komentar yang diproses. 
+4.1.3 Kebutuhan Perangkat Lunak 
+Kebutuhan perangkat lunak mencakup seluruh perangkat lunak yang diperlukan 
+untuk menjalankan sistem, baik pada sisi pengembangan maupun sisi pengguna 
+akhir. Rincian kebutuhan tersebut disajikan pada Tabel 4.1. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+===== HAL PDF 77 =====
+64 
+ 
+ 
+ 
+Tabel 4.1 Kebutuhan Perangkat Lunak 
+No. Perangkat Lunak Fungsi 
+1 Google Chrome (versi 
+88 ke atas) 
+Peramban yang mendukung Manifest V3  
+untuk menjalankan ekstensi 
+2 Python 3.9 ke atas Runtime server FastAPI dan pipeline machine 
+learning 
+3 FastAPI Kerangka kerja REST API untuk server 
+klasifikasi 
+4 Scikit-learn Pustaka untuk pipeline TF-IDF dan model 
+SVM 
+5 Ubuntu Server 24.04 
+LTS 
+Sistem operasi VPS untuk menjalankan server 
+6 Uvicorn ASGI server  untuk menjalankan FastAPI di 
+VPS 
+7 Node.js Runtime untuk skrip scraper pengumpulan 
+data 
+8 Joblib Pustaka untuk menyimpan dan memuat model 
+terlatih 
+ 
+4.1.4 Kebutuhan Perangkat Keras 
+Kebutuhan perangkat keras mencakup spesifikasi minimum yang diperlukan 
+untuk menjalankan sistem secara optimal, baik pada sisi pengembangan maupun 
+sisi pengguna. Rincian kebutuhan tersebut disajikan pada Tabel 4.2. 
+Tabel 4.2 Kebutuhan Perangkat Keras 
+No. Komponen Spesifikasi 
+1 Processor (VPS) 2 vCPU 
+2 RAM (VPS) 2 GB 
+3 Penyimpanan (VPS) 40 GB SSD 
+4 Processor (Klien) Intel Core i3 atau setara, 1,8 GHz 
+5 RAM (Klien) 4 GB 
+6 Koneksi Jaringan Internet untuk komunikasi ekstensi ke VPS 
+ 
+===== HAL PDF 78 =====
+65 
+ 
+ 
+ 
+4.2 Metode Pengembangan Sistem 
+Penelitian ini menggunakan metode Waterfall dalam proses pengembangan 
+sistemnya. Penjelasan konseptual mengenai metode ini telah diuraikan pada sub-
+bab 2.9. Penerapan kelima tahapan Waterfall dalam konteks penelitian ini adalah 
+sebagai berikut: 
+1. Analisis Kebutuhan (Requirements Analysis) 
+Tahap ini mencakup identifikasi seluruh kebutuhan fungsional dan non -
+fungsional sistem yang telah diuraikan pada sub-bab 4.1. Kebutuhan 
+fungsional meliputi kemampuan sistem dalam mendeteksi komentar spam 
+judi online secara real-time, melakukan normalisasi karakter Unicode, 
+mengklasifikasikan teks menggunakan model SVM, serta menyembunyikan 
+komentar yang terdeteksi sebagai spam melalui manipulasi CSS. Kebutuhan 
+non-fungsional mencakup response time yang rendah agar tidak mengganggu 
+pengalaman pengguna saat menjelajahi YouTube. 
+2. Perancangan Sistem (System Design) 
+Tahap ini mencakup perancangan arsitektur sistem secara menyeluruh, 
+meliputi desain pipeline prapemrosesan teks, konfigurasi ekstraksi fitur TF -
+IDF, pemilihan parameter model SVM, perancangan endpoint REST API pada 
+FastAPI, serta perancangan alur komunikasi antara Chrome Extension dan 
+server. Perancangan sistem divisualisasikan melalui diagram UML yang 
+mencakup use case diagram , activity diagram, dan sequence diagram yang 
+diuraikan lebih lanjut pada sub-bab perancangan sistem di bab ini. 
+ 
+ 
+===== HAL PDF 79 =====
+66 
+ 
+ 
+ 
+3. Implementasi (Implementation) 
+Pada tahap ini seluruh rancangan diimplementasikan ke dalam kode program. 
+Implementasi dibagi menjadi dua komponen utama: sisi server menggunakan 
+Python dengan pustaka Scikit -learn untuk pipeline TF-IDF dan SVM serta 
+FastAPI sebagai kerangka kerja REST API yang di -deploy pada Virtual 
+Private Server (VPS), dan sisi klien menggunakan JavaScript dengan standar 
+arsitektur Manifest V3 untuk Chrome Extension. 
+4. Pengujian (Testing) 
+Tahap ini mencakup evaluasi performa model klasifikasi menggunakan 
+metrik akurasi, presisi, recall, dan F1-score terhadap data uji. Selain itu 
+dilakukan pengujian komparasi antara tiga algoritma , Linear SVM, 
+Multinomial Naive Bayes , dan Logistic Regression , untuk membuktikan 
+secara empiris keunggulan SVM sebagai model utama. Eksperimen tambahan 
+juga dilakukan terhadap konfigurasi N-gram dan pengaruh stemming terhadap 
+performa model. Hasil pengujian diuraikan secara lengkap pada sub -bab 
+pengujian sistem di bab ini. 
+5. Pemeliharaan (Maintenance) 
+Tahap akhir mencakup dokumentasi sistem, pengemasan model terlatih dalam 
+format joblib untuk deployment ke VPS, serta identifikasi potensi 
+pengembangan lanjutan seperti perluasan dataset, peningkatan teknik 
+normalisasi karakter, dan pengembangan mekanisme approval queue untuk 
+endpoint /report pada implementasi produksi. 
+===== HAL PDF 80 =====
+67 
+ 
+ 
+ 
+4.3 Rancangan Dataset 
+4.3.1 Sumber dan Metode Pengumpulan Data 
+Dataset yang digunakan dalam penelitian ini dikumpulkan dari platform 
+YouTube melalui YouTube Data API v3, yaitu antarmuka pemrograman aplikasi 
+resmi yang disediakan YouTube untuk mengakses data komentar secara terstruktur. 
+Proses pengambilan data diotomatisasi m enggunakan skrip berbasis Node.js yang 
+dijalankan melalui terminal, dengan ID video YouTube sebagai parameter masukan. 
+Skrip tersebut mengirimkan permintaan ke endpoint commentThreads pada 
+YouTube Data API menggunakan kunci API ( API key), lalu menerima seluruh 
+komentar beserta metadata-nya dalam format JSON. Data dikumpulkan dari video-
+video YouTube berbahasa Indonesia yang memiliki tingkat interaksi tinggi dan 
+berpotensi menjadi target penyebaran komentar promosi judi online. 
+Setiap komentar yang diperoleh diberi skor heuristik ( spam_score) yang 
+dihitung secara otomatis menggunakan skema penjumlahan bobot ( weighted 
+additive scoring) terhadap delapan sinyal yang diperiksa pada teks komentar hasil 
+normalisasi. Setiap sinyal yang terdeteksi menyumbangkan bobot tertentu terhadap 
+skor akhir, dengan skor total dibatasi maksimum 100. Rincian sinyal dan bobotnya 
+disajikan pada Tabel 4.3. 
+ 
+ 
+ 
+ 
+ 
+===== HAL PDF 81 =====
+68 
+ 
+ 
+ 
+Tabel 4.3 Skema Pembobotan Skor Heuristik (spam_score) 
+Sinyal Kategori Deskripsi Bobot 
+brand_pattern Primer Pola nama brand judi + angka 
+khas (mis. "SLOT777", 
+"MAXWIN88") 
++40 
+contact_link Primer Tautan atau nomor kontak 
+(mis. "wa.me/...", "bit.ly/...") 
++40 
+soft_brand_testimonial Primer Nama + 2 digit angka disertai 
+kalimat bernuansa testimoni 
+(mis. "ALEXIS17 sukses 
+bantu") 
++35 
+obfuscated_keyword Sekunder Kata kunci judi dengan teknik 
+obfuscation (mis. "g a c o r", 
+"m@xw!n") 
++30 
+plain_keyword Sekunder Kata kunci judi tanpa 
+obfuscation (hanya dihitung 
+bila obfuscation tidak 
+terdeteksi) 
++20 
+high_symbol_ratio Sekunder Rasio karakter simbol lebih 
+dari 15% dari total karakter 
++20 
+emoji_spam Tersier Dua atau lebih emoji berurutan +15 
+excessive_caps Tersier Lebih dari 50% karakter berupa 
+huruf kapital 
++10 
+ 
+Sinyal primer merupakan indikator kuat keberadaan promosi judi online, 
+sedangkan sinyal sekunder dan tersier berfungsi sebagai bukti pendukung. Ambang 
+skor 80 yang digunakan pada tahap penyaringan pertama dipilih karena nilai 
+tersebut hanya dapat dicapai apabila komentar memiliki minimal satu sinyal primer 
+yang kuat diserta i sinyal pendukung tambahan , misalnya komentar dengan 
+brand_pattern (+40) dan contact_link (+40) yang menghasilkan skor tepat 80 , 
+sehingga meminimalkan risiko kesalahan label akibat sinyal tunggal yang lemah. 
+4.3.2 Proses Pelabelan Data 
+Setiap komentar dalam dataset diberi label biner: spam untuk komentar yang 
+mengandung promosi judi online, dan non-spam (ham) untuk komentar normal 
+===== HAL PDF 82 =====
+69 
+ 
+ 
+ 
+yang tidak mengandung unsur promosi. Proses pelabelan dilakukan melalui dua 
+mekanisme. Pelabelan otomatis dilakukan oleh sistem scraper berdasarkan skor 
+heuristik. Pelabelan manual dilakukan melalui file manual_overrides.csv yang 
+memuat koreksi terhadap label yang dianggap tidak akurat, termasuk pemindahan 
+komentar dari kelas spam ke non -spam (untuk kasus false positive ) maupun 
+sebaliknya. 
+Tantangan khusus dalam pelabelan dataset ini adalah keberadaan komentar 
+yang menyebut nama situs judi online dalam konteks kritik atau peringatan, bukan 
+promosi. Komentar seperti "tolong blokir situs XYZ" secara semantis berbeda dari 
+"daftar sekarang di situs XYZ"  meskipun keduanya mengandung nama situs yang 
+sama. Komentar jenis pertama dikategorikan sebagai non -spam karena tidak 
+bersifat promotif. 
+4.3.3 Komposisi dan Pembagian Dataset 
+Dataset final disimpan dalam file data/ comments.csv yang merupakan hasil 
+penggabungan dan pengacakan ( shuffling) seluruh data spam dan non -spam. 
+Dataset terdiri dari 2.332 komentar berlabel spam dan 4.358 komentar berlabel non-
+spam, dengan total keseluruhan 6.690 baris data. Dataset kemudian dibagi menjadi 
+dua subset menggunakan fungsi train_test_split dari pustaka Scikit -learn dengan 
+rasio 80:20, 80% untuk data latih ( training set) dan 20% untuk data uji ( test set), 
+menghasilkan 5.352 data latih dan 1.338 data uji. Parameter stratify=y digunakan 
+untuk memastikan proporsi kelas spam dan non -spam terjaga secara seimbang di 
+kedua subset, sedangkan random_state=42 digunakan untuk memastikan hasil 
+pembagian dapat direproduksi secara konsisten. 
+===== HAL PDF 83 =====
+70 
+ 
+ 
+ 
+Selain dataset utama, penelitian ini juga menyiapkan data/ hard_test_set.csv 
+sebagai dataset uji khusus ( hard test set ) yang berisi komentar -komentar dengan 
+tingkat ambiguitas tinggi, yaitu komentar non -spam yang secara permukaan 
+menyerupai spam karena mengandung nama situs atau kata kunci judi online dalam 
+konteks diskusi atau kritik. Dataset ini digunakan untuk menguji ketangguhan 
+model terhadap kasus-kasus tepi (edge cases) yang sulit diklasifikasikan. 
+Tabel 4.4 Komposisi Dataset 
+Subset Jumlah Data Keterangan 
+Komentar Spam 2.332 34,9% dari total dataset 
+Komentar Non-Spam 4.358 65,1% dari total dataset 
+Total Dataset 6.690 Sebelum pembagian train-
+test 
+Data Latih (80%) 5.352 Digunakan untuk melatih 
+model 
+Data Uji (20%) 1.338 Digunakan untuk evaluasi 
+akhir 
+Hard Test Set Terpisah Kasus tepi dengan ambiguitas 
+tinggi 
+ 
+4.4 Pipeline Sistem  
+Pipeline sistem deteksi spam komentar judi online dalam penelitian ini terdiri 
+dari dua alur utama yang berjalan secara terintegrasi: alur pelatihan model (training 
+pipeline) yang berjalan secara offline, dan alur inferensi ( inference pipeline) yang 
+berjalan secara real-time saat ekstensi aktif di peramban pengguna. 
+4.4.1 Alur Pelatihan Model (Training Pipeline) 
+Alur pelatihan model merupakan proses satu kali yang menghasilkan model 
+SVM terlatih yang siap digunakan untuk klasifikasi. Tahapan dalam alur ini adalah 
+sebagai berikut: 
+ 
+===== HAL PDF 84 =====
+71 
+ 
+ 
+ 
+1. Pengumpulan Data 
+Komentar YouTube dikumpulkan melalui scraper berbasis Node.js dan 
+disimpan dalam format JSON terpisah untuk kelas spam dan non-spam. 
+2. Persiapan Dataset 
+Skrip pada file prepare_dataset.py memfilter data berdasarkan skor heuristik, 
+menerapkan koreksi manual, lalu menggabungkan dan mengacak seluruh data 
+menjadi satu file CSV . 
+3. Prapemrosesan Teks 
+Seluruh teks komentar diproses melalui pipeline normalisasi di 
+preprocessing.py, mulai dari penghapusan karakter zero-width, normalisasi 
+Unicode NFKC, normalisasi leet speak, kanonisasi nama brand judi online, 
+hingga penghapusan stopword. 
+4. Ekstraksi Fitur TF-IDF 
+Teks yang telah bersih dikonversi menjadi matriks numerik menggunakan 
+TfidfVectorizer dengan parameter ngram_range=(1,2), max_features=10.000, 
+sublinear_tf=True, dan min_df=2. 
+5. Pembagian Dataset 
+Data dibagi menjadi 80% data latih dan 20% data uji menggunakan 
+train_test_split dengan parameter stratify=y untuk menjaga proporsi kelas. 
+6. Pencarian Parameter Terbaik 
+GridSearchCV menguji lima kandidat nilai parameter C (0,01 / 0,1 / 1 / 10 / 
+100) melalui 5-fold cross -validation untuk menemukan konfigurasi SVM 
+yang menghasilkan F1-macro tertinggi. 
+ 
+===== HAL PDF 85 =====
+72 
+ 
+ 
+ 
+7. Pelatihan Model 
+Representasi numerik digunakan untuk melatih model Linear SVM dengan 
+parameter kernel='linear' dan class_weight='balanced' menggunakan nilai C 
+terbaik dari langkah sebelumnya. 
+8. Evaluasi dan Penyimpanan 
+Model dievaluasi menggunakan data uji 20% dan hard test set, lalu disimpan 
+dalam format joblib (svm_model.joblib) untuk di-deploy ke VPS. 
+Selama proses pengembangan, sistem juga menyediakan endpoint /report yang 
+memungkinkan peneliti memberikan koreksi label secara langsung dari antarmuka 
+ekstensi ketika ditemukan kesalahan klasifikasi. Data koreksi tersebut otomatis 
+ditambahkan ke comments.csv dan manual_overrides.csv, sehingga dapat 
+digunakan sebagai masukan tambahan pada iterasi pelatihan model berikutnya. 
+Mekanisme ini bersifat development-only dan tidak diaktifkan pada implementasi 
+produksi. Keseluruhan alur pelatihan model tersebut digambarkan pada Gambar 
+4.1. 
+===== HAL PDF 86 =====
+73 
+ 
+ 
+ 
+ 
+Gambar 4.1 Alur Pelatihan Model (Training Pipeline) 
+
+===== HAL PDF 87 =====
+74 
+ 
+ 
+ 
+4.4.2 Alur Inferensi Real-Time (Inference Pipeline) 
+Alur inferensi berjalan setiap kali pengguna membuka halaman YouTube 
+dengan ekstensi aktif. Tahapannya adalah sebagai berikut: 
+1. Deteksi Komentar 
+Content script menggunakan MutationObserver untuk memantau perubahan 
+DOM secara asynchronous dan menangkap teks komentar baru yang dimuat 
+secara dinamis. 
+2. Pengiriman ke Server 
+Teks komentar dikemas dalam format JSON dan dikirim ke server FastAPI 
+yang berjalan di VPS melalui HTTP POST ke endpoint /predict/batch untuk 
+efisiensi pemrosesan. 
+3. Prapemrosesan dan Klasifikasi 
+Server menjalankan pipeline prapemrosesan yang identik dengan tahap 
+pelatihan, mengekstrak fitur TF -IDF, lalu mengklasifikasikan teks 
+menggunakan model SVM yang telah dimuat dari file joblib. 
+4. Manipulasi DOM 
+Hasil prediksi dikembalikan ke content script. Komentar dengan label "spam" 
+dan confidence score di atas threshold yang ditetapkan diproses sesuai mode 
+yang dipilih pengguna. Pada mode ’Redupkan’, komentar ditampilkan dengan 
+transparansi 15% disertai badge yang menunjukkan persentase kepercayaan 
+model dan dapat diklik untuk memperlihatkan komentar kembali. Pada mode 
+’Hilangkan’, komentar disembunyikan sepenuhnya melalui injeksi properti 
+CSS display: none. 
+Keseluruhan alur inferensi real-time tersebut digambarkan pada Gambar 4.2. 
+===== HAL PDF 88 =====
+75 
+ 
+ 
+ 
+ 
+Gambar 4.2 Alur Inferensi Real-Time (Inference Pipeline) 
+
+===== HAL PDF 89 =====
+76 
+ 
+ 
+ 
+4.5 Perancangan Model 
+4.5.1 Konfigurasi Ekstraksi Fitur TF-IDF 
+Proses ekstraksi fitur TF -IDF pada penelitian ini menggunakan fungsi 
+TfidfVectorizer dari pustaka Scikit -learn, yang dikonfigurasi dengan empat 
+pengaturan utama. 
+Pengaturan pertama adalah max_features=10.000, yang berarti sistem hanya 
+akan mempertahankan 10.000 kata atau frasa dengan bobot TF -IDF tertinggi dari 
+keseluruhan data, dan membuang sisanya. Tujuannya supaya jumlah fitur tidak 
+membengkak tanpa batas, mengingat data komentar bisa mengandung puluhan ribu 
+kata unik yang berbeda-beda. 
+Pengaturan kedua adalah ngram_range=(1, 2), yang berarti sistem tidak hanya 
+menghitung kata secara satu per satu ( unigram), tetapi juga menghitung pasangan 
+dua kata yang berurutan ( bigram). Pengaturan ini penting karena beberapa frasa 
+dalam konteks judi online memiliki makna yang berbeda ketika dipisah 
+dibandingkan ketika digabung. Sebagai contoh, kata "slot" dan kata "gacor" jika 
+dihitung terpisah tidak terlalu mencurigakan, tetapi frasa "slot gacor" sebagai satu 
+kesatuan jauh lebih kuat sebagai penanda komentar promosi judi. 
+Pengaturan ketiga adalah min_df=2, yang berarti sistem akan mengabaikan kata 
+yang hanya muncul pada satu komentar saja di seluruh dataset. Kata yang hanya 
+muncul sekali biasanya tidak cukup informatif untuk dijadikan pola umum, dan 
+justru berisiko membuat model "menghafal" kasus tertentu alih -alih mempelajari 
+pola yang berlaku secara luas. 
+Pengaturan keempat adalah sublinear_tf=True, yang mengubah cara sistem 
+menghitung frekuensi kemunculan kata. Alih-alih menghitung jumlah kemunculan 
+===== HAL PDF 90 =====
+77 
+ 
+ 
+ 
+kata secara apa adanya, sistem menerapkan rumus logaritma sehingga kata yang 
+muncul berkali-kali dalam satu komentar tidak dianggap berkali-kali lebih penting. 
+Misalnya, kata yang muncul 20 kali dalam satu komentar tidak dianggap 20 kali 
+lebih penting diba ndingkan kata yang hanya muncul sekali, melainkan hanya 
+sedikit lebih penting saja. 
+4.5.2 Konfigurasi Model Linear SVM 
+Model klasifikasi pada penelitian ini menggunakan SVC ( Support Vector 
+Classifier) dari Scikit -learn dengan kernel linear (kernel='linear'), sesuai dengan 
+alasan yang telah dijelaskan pada sub-bab 2.6 bahwa kernel linear  lebih cocok 
+untuk data berdimensi tinggi seperti hasil ekstraksi TF-IDF. 
+Pengaturan class_weight='balanced' digunakan agar model tidak condong ke 
+satu kelas saja apabila jumlah data spam dan non -spam tidak seimbang. Sebagai 
+gambaran, jika dataset berisi lebih banyak komentar non-spam dibandingkan spam, 
+model tanpa pengaturan ini cenderung "malas" mempelajari ciri-ciri komentar spam 
+karena jumlahnya lebih sedikit. Pengaturan class_weight='balanced' memberi 
+bobot lebih besar pada kelas yang jumlahnya lebih sedikit, sehingga model tetap 
+belajar mengenali kedua kelas secara adil. 
+Pengaturan random_state=42 ditetapkan agar hasil pelatihan model selalu sama 
+setiap kali dijalankan ulang, sehingga hasilnya dapat direproduksi secara konsisten. 
+4.5.3 Pencarian Nilai Parameter Terbaik (GridSearchCV) 
+Nilai parameter regularisasi C pada SVM menentukan keseimbangan antara 
+margin yang lebar dan toleransi terhadap kesalahan klasifikasi pada data latih. Nilai 
+C yang kecil menghasilkan margin yang lebih lebar namun berisiko underfitting, 
+sedangkan nilai C yang besar menghasilkan batas keputusan yang lebih ketat namun 
+===== HAL PDF 91 =====
+78 
+ 
+ 
+ 
+berisiko overfitting. Untuk menentukan nilai C yang optimal secara objektif, 
+penelitian ini menggunakan GridSearchCV yang menguji lima kandidat nilai C , 
+yaitu 0,01, 0,1, 1, 10, dan 100 , melalui 5-fold cross -validation pada data latih 
+dengan metrik evaluasi F1-macro. Nilai C yang menghasilkan skor F1-macro rata-
+rata tertinggi pada seluruh fold dipilih sebagai parameter final model. 
+4.5.4 Validasi Model (5-Fold Cross-Validation) 
+Selain evaluasi menggunakan pembagian data 80:20, penelitian ini juga 
+melakukan 5-fold cross-validation terhadap keseluruhan dataset. Pada setiap fold, 
+model dilatih ulang menggunakan pipeline yang identik dan dievaluasi 
+menggunakan metrik F1-macro. Cara kerjanya, seluruh data dibagi menjadi 5 
+bagian yang kurang lebih sama besar, lalu model dilatih dan diuji sebanyak 5 kali 
+secara bergantian, setiap kali menggunakan satu bagian sebagai data uji dan empat 
+bagian lainnya sebagai data latih. Skor rata-rata dan standar deviasi dari kelima fold 
+tersebut dilaporkan untuk menunjukkan tingkat konsistensi performa model pada 
+subset data yang berbeda-beda. 
+4.5.5 Pertimbangan Stemming 
+Sebagai bagian dari proses eksplorasi metodologi, dilakukan eksperimen 
+terpisah untuk menguji pengaruh  stemming Sastrawi terhadap performa model. 
+Hasil eksperimen menunjukkan bahwa  stemming tidak memberikan peningkatan 
+performa yang signifikan secara statistik, sehingga  stemming diputuskan tidak 
+diintegrasikan ke dalam pipeline prapemrosesan produksi. Detail hasil eksperimen 
+ini dibahas lebih lanjut pada Sub-bab 4.10.7. 
+===== HAL PDF 92 =====
+79 
+ 
+ 
+ 
+4.5.6 Pertimbangan Pendekatan Hibrida 
+Pada tahap perancangan awal, sempat dipertimbangkan pendekatan hibrida 
+yang menggabungkan prediksi model SVM dengan aturan berbasis kata kunci 
+(rule-based) sebagai lapisan tambahan, dengan tujuan menutup potensi kelemahan 
+representasi bag-of-words dalam mengenali pola spam yang sangat eksplisit. 
+Pendekatan ini diimplementasikan sebagai fitur yang dapat diaktifkan atau 
+dinonaktifkan ( ENABLE_HYBRID_RULES) untuk memungkinkan pengujian 
+perbandingan secara terkontrol. Hasil pengujian dan keputusan akhir mengenai 
+pendekatan ini dibahas pada sub-bab pengujian sistem di bab ini. 
+4.6 Arsitektur Komponen Sistem 
+Sistem yang dikembangkan dalam penelitian ini terdiri dari tiga komponen 
+utama yang saling terintegrasi: scraper berbasis Node.js untuk pengumpulan data, 
+ekstensi Chrome berbasis Manifest V3 sebagai antarmuka pengguna di sisi klien, 
+dan server FastAPI berbasis Python sebagai mesin pemrosesan di sisi peladen. 
+Ketiga komponen ini beroperasi secara independen namun terhubung melalui 
+protokol HTTP. Hubungan antarkomponen tersebut digambarkan pada Gambar 4.3. 
+===== HAL PDF 93 =====
+80 
+ 
+ 
+ 
+ 
+Gambar 4.3 Diagram Arsitektur Komponen Sistem 
+4.6.1 Komponen Scraper (Node.js) 
+Komponen scraper merupakan skrip berbasis Node.js yang berjalan secara 
+mandiri di lingkungan terminal dan bertugas mengumpulkan data komentar 
+YouTube untuk keperluan pelatihan model. Komponen ini tidak terlibat dalam alur 
+operasional sistem saat ekstensi digunakan oleh pe ngguna akhir, perannya murni 
+sebagai alat pengumpulan data pada fase pengembangan. File utama komponen ini 
+adalah scraper/index.js yang menerima ID video YouTube sebagai argumen, 
+mengekstrak seluruh komentar beserta metadata -nya, lalu menyimpan hasilnya 
+dalam format JSON ke direktori data. 
+4.6.2 Komponen Chrome Extension (Manifest V3) 
+Komponen ekstensi Chrome merupakan antarmuka utama sistem yang 
+berinteraksi langsung dengan pengguna dan halaman YouTube. Komponen ini 
+terdiri dari tiga file inti yang memiliki peran berbeda. 
+
+===== HAL PDF 94 =====
+81 
+ 
+ 
+ 
+Content script  (extension/content.js) adalah skrip yang diinjeksi langsung ke 
+halaman YouTube dan bertanggung jawab atas seluruh logika deteksi secara real-
+time. Skrip ini menggunakan MutationObserver untuk memantau perubahan DOM, 
+mengekstrak teks komentar baru, mengirimkannya ke server melalui endpoint 
+/predict/batch, lalu menyembunyikan komentar yang diklasifikasikan sebagai spam 
+melalui manipulasi CSS. Skrip ini juga mengelola dua parameter operasional: 
+confidenceThreshold yang menentukan seberapa yakin model harus sebelum 
+sebuah komentar disembunyikan dengan nilai default 0,75, dan devMode yang 
+mengaktifkan tampilan visual tambahan berupa badge merah dan transparansi 
+komentar untuk keperluan koreksi dataset selama pengembangan. 
+Popup (extension/popup.html dan extension/popup.js) adalah antarmuka grafis 
+yang muncul ketika pengguna mengklik ikon ekstensi di peramban. Antarmuka ini 
+menampilkan status koneksi ke server, statistik jumlah komentar yang telah 
+dipindai dan disembunyikan, serta kontrol untuk mengatur nilai confidence 
+threshold melalui slider yang dapat digeser secara langsung oleh pengguna. 
+4.6.3 Komponen Server FastAPI (Python) 
+Komponen server merupakan mesin pemrosesan kecerdasan buatan yang di -
+deploy pada Virtual Private Server (VPS) berbasis Ubuntu Server 24.04 LTS dan 
+dapat diakses melalui jaringan internet. Server ini memuat model SVM terlatih dari 
+file svm_model.joblib pada saat pertama kali dijalankan, dan menyediakan empat 
+endpoint REST API yang dapat diakses oleh ekstensi: 
+a) /health : Memeriksa status ketersediaan server dan memastikan model telah 
+dimuat dengan benar. 
+===== HAL PDF 95 =====
+82 
+ 
+ 
+ 
+b) /predict : Menerima satu teks komentar dan mengembalikan label klasifikasi 
+beserta skor kepercayaan (confidence score). 
+c) /predict/batch : Menerima hingga 50 teks komentar dalam satu permintaan 
+dan mengembalikan hasil klasifikasi untuk seluruh komentar dalam satu 
+respons, sehingga lebih efisien dibandingkan mengirim permintaan satu per 
+satu. 
+d) Report : Menerima koreksi label dari pengguna dan menyimpannya ke dataset 
+untuk keperluan pelatihan ulang di masa mendatang. Endpoint ini aktif pada 
+mode pengembangan ( development mode) dan pada implementasi produksi 
+memerlukan mekanisme antrian persetujuan ( approval queue ) untuk 
+mencegah penyalahgunaan. 
+4.7 Diagram Use Case 
+Use case diagram digunakan untuk menggambarkan interaksi fungsional antara 
+aktor dengan sistem dari perspektif pengguna. Diagram ini menunjukkan batasan 
+sistem (system boundary), aktor yang terlibat, serta fungsi-fungsi utama yang dapat 
+dijalankan oleh sistem. Rancangan use case diagram  sistem ditunjukkan pada 
+Gambar 4.4. 
+===== HAL PDF 96 =====
+83 
+ 
+ 
+ 
+ 
+Gambar 4.4 Use Case Diagram Sistem Deteksi Spam Komentar YouTube 
+Berdasarkan use case  diagram di atas, sistem melibatkan satu aktor, yaitu 
+Pengguna, dan lima use case utama. Proses klasifikasi teks berjalan sebagai bagian 
+internal sistem yang dipicu melalui relasi include, bukan sebagai interaksi dengan 
+pihak eksternal, karena baik sisi klien maupun sisi peladen merupakan bagian dari 
+sistem yang sama sebagaimana telah diuraikan pada sub-bab 3.1.2 dan 4.6. 
+4.7.1 Use Case Narrative Menyaring Komentar Spam 
+Use case  ini memungkinkan pengguna untuk mendapatkan perlindungan 
+otomatis dari komentar promosi judi online saat menjelajahi halaman video 
+YouTube. Proses ini dipicu ketika pengguna membuka atau menggulir halaman 
+video, di mana sistem akan memantau, mengklasifikasikan, dan menyembunyikan 
+komentar yang terindikasi spam secara real-time tanpa memerlukan interaksi 
+manual dari pengguna. Rincian use case narrative untuk proses ini disajikan pada 
+Tabel 4.5. 
+
+===== HAL PDF 97 =====
+84 
+ 
+ 
+ 
+Tabel 4.5 Use Case Narrative Menyaring Komentar Spam 
+Use Case Name Menyaring Komentar Spam 
+Use Case Id UC01 
+Actor Pengguna 
+Description Use case yang menyaring komentar promosi judi online 
+secara otomatis pada halaman video YouTube. 
+Pre Condition Ekstensi telah terpasang dan aktif pada peramban 
+Chrome; server API dalam kondisi tersedia (online). 
+Post Condition Komentar yang terklasifikasi sebagai spam telah 
+disembunyikan sesuai mode yang dipilih pengguna. 
+Trigger Pengguna membuka atau menggulir halaman video 
+YouTube. 
+Typical  
+Course of Events 
+Actor Action System Response 
+Langkah 1: 
+Membuka atau menggulir 
+halaman video YouTube. 
+ 
+ Langkah 2: 
+Mendeteksi komentar baru 
+yang dimuat secara dinamis 
+pada DOM melalui 
+MutationObserver. 
+ Langkah 3: 
+Memicu use case  
+Mengklasifikasikan Teks 
+(include) untuk setiap 
+komentar baru. 
+ Langkah 4: 
+Menerima hasil klasifikasi 
+(label dan confidence) dari 
+server. 
+ Langkah 5: 
+Menyembunyikan 
+komentar berlabel spam 
+dengan skor keyakinan di 
+atas ambang batas, sesuai 
+mode Redupkan atau 
+Hilangkan. 
+Alternate Course Apabila server API tidak tersedia, sistem menampilkan 
+status offline pada popup dan tidak melakukan 
+penyembunyian komentar apa pun. 
+Extend Melaporkan Kesalahan Klasifikasi (UC05) 
+Include Mengklasifikasikan Teks (UC02) 
+ 
+===== HAL PDF 98 =====
+85 
+ 
+ 
+ 
+4.7.2 Use Case Narrative Mengklasifikasikan Teks 
+Use case ini menjelaskan proses internal sistem dalam mengolah teks komentar 
+hingga menghasilkan keputusan klasifikasi. Proses ini selalu dijalankan sebagai 
+bagian tak terpisahkan dari use case  Menyaring Komentar Spam melalui relasi 
+include, dan tidak dipicu oleh aktor eksternal manapun karena berlangsung 
+sepenuhnya di dalam batas sistem. Rincian use case narrative  untuk proses ini 
+disajikan pada Tabel 4.6. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+===== HAL PDF 99 =====
+86 
+ 
+ 
+ 
+Tabel 4.6 Use Case Narrative Mengklasifikasikan Teks 
+Use Case Name Mengklasifikasikan Teks 
+Use Case Id UC02 
+Actor - (proses internal sistem, dipicu melalui relasi include dari 
+UC01) 
+Description Use case  internal yang menjalankan prapemrosesan, 
+ekstraksi fitur, dan klasifikasi SVM terhadap teks 
+komentar. Dijalankan oleh komponen sisi peladen 
+sebagai bagian dari sistem yang sama, bukan interaksi 
+dengan pihak eksternal. 
+Pre Condition Model SVM telah dimuat ke memori pada komponen sisi 
+peladen. 
+Post Condition Label klasifikasi beserta skor keyakinan telah dihasilkan 
+dan diteruskan ke UC01. 
+Trigger Dipanggil secara otomatis oleh use case  Menyaring 
+Komentar Spam (UC01) melalui relasi include. 
+Typical  
+Course of Events 
+Actor Action System Response 
+ Langkah 1: 
+Menerima teks komentar 
+dari proses UC01 melalui 
+endpoint /predict/batch. 
+ Langkah 2: 
+Menjalankan pipeline 
+prapemrosesan (normalisasi 
+teks) yang identik dengan 
+tahap pelatihan. 
+ Langkah 3: 
+Mengekstraksi fitur TF-IDF 
+dari teks yang telah 
+dinormalisasi. 
+ Langkah 4: 
+Model SVM menghasilkan 
+label klasifikasi beserta 
+skor keyakinan ( confidence 
+score). 
+ Langkah 5: 
+Mengembalikan hasil 
+klasifikasi dalam format 
+JSON ke UC01. 
+Alternate Course Apabila teks komentar kosong setelah dinormalisasi, 
+sistem langsung mengembalikan label non -spam tanpa 
+melalui proses klasifikasi model. 
+Extend - 
+Include - 
+ 
+===== HAL PDF 100 =====
+87 
+ 
+ 
+ 
+4.7.3 Use Case Narrative Mengatur Confidence Threshold 
+Use case  ini memungkinkan pengguna menyesuaikan tingkat sensitivitas 
+deteksi sesuai preferensi masing -masing, dengan cara mengubah ambang batas 
+keyakinan minimum sebelum sebuah komentar dianggap spam dan disembunyikan. 
+Rincian use case narrative untuk proses ini disajikan pada Tabel 4.7. 
+Tabel 4.7 Use Case Narrative Mengatur Confidence Threshold 
+Use Case Name Mengatur Confidence Threshold 
+Use Case Id UC03 
+Actor Pengguna 
+Description Use case yang memungkinkan pengguna menyesuaikan 
+ambang batas keyakinan minimum untuk 
+penyembunyian komentar. 
+Pre Condition Pengguna telah membuka antarmuka popup ekstensi. 
+Post Condition Nilai confidence threshold  baru tersimpan dan berlaku 
+untuk proses klasifikasi berikutnya. 
+Trigger Pengguna ingin mengubah tingkat sensitivitas deteksi. 
+Typical  
+Course of Events 
+Actor Action System Response 
+Langkah 1: 
+Membuka popup ekstensi. 
+ 
+ Langkah 2: 
+Menampilkan slider 
+confidence threshold  
+dengan nilai saat ini (default 
+75%). 
+Langkah 3: 
+Menggeser slider ke nilai 
+baru (rentang 50%-95%). 
+ 
+ Langkah 4: 
+Menyimpan nilai baru ke  
+dalam penyimpanan lokal 
+yang lokasinya di peramban 
+(chrome.storage). 
+ Langkah 5: 
+Menerapkan nilai threshold 
+baru pada proses klasifikasi 
+selanjutnya tanpa perlu 
+memuat ulang halaman. 
+Alternate Course Apabila pengguna belum pernah mengatur threshold 
+sebelumnya, sistem menggunakan nilai bawaan (default) 
+sebesar 75%. 
+Extend - 
+Include - 
+===== HAL PDF 101 =====
+88 
+ 
+ 
+ 
+4.7.4 Use Case Narrative Memantau Statistik Deteksi 
+Use case  ini memungkinkan pengguna melihat efektivitas sistem secara 
+langsung melalui jumlah komentar yang telah dipindai dan disembunyikan sejak 
+ekstensi aktif pada tab yang sedang dibuka. Rincian use case narrative untuk proses 
+ini disajikan pada Tabel 4.8. 
+Tabel 4.8 Use Case Narrative Memantau Statistik Deteksi 
+Use Case Name Memantau Statistik Deteksi 
+Use Case Id UC04 
+Actor Pengguna 
+Description Use case yang menampilkan jumlah komentar yang telah 
+dipindai dan disembunyikan. 
+Pre Condition Ekstensi aktif dan setidaknya satu komentar telah 
+diproses pada halaman yang sedang dibuka. 
+Post Condition Statistik terkini ditampilkan pada antarmuka popup. 
+Trigger Pengguna membuka popup ekstensi. 
+Typical  
+Course of Events 
+Actor Action System Response 
+Langkah 1: 
+Membuka popup ekstensi. 
+ 
+ Langkah 2: 
+Mengambil nilai jumlah 
+komentar dipindai dan 
+disembunyikan dari 
+Content Script  pada tab 
+aktif. 
+ Langkah 3: 
+Menampilkan kedua nilai 
+tersebut pada panel statistik 
+popup. 
+Langkah 4 (opsional): 
+Menekan tombol " Reset 
+Statistik". 
+ 
+ Langkah 5 (opsional): 
+Mengembalikan kedua nilai 
+statistik ke nol. 
+Alternate Course - 
+Extend - 
+Include - 
+===== HAL PDF 102 =====
+89 
+ 
+ 
+ 
+ 
+4.7.5 Use Case Narrative Melaporkan Kesalahan Klasifikasi 
+Use case  ini memungkinkan pengguna melaporkan komentar yang keliru 
+diklasifikasikan sebagai spam ( false positive), khusus pada mode pengembangan 
+(dev mode), sebagai mekanisme pengumpulan data koreksi untuk pelatihan ulang 
+model. Rincian use case narrative untuk proses ini disajikan pada Tabel 4.9. 
+Tabel 4.9 Use Case Narrative Melaporkan Kesalahan Klasifikasi 
+Use Case Name Melaporkan Kesalahan Klasifikasi 
+Use Case Id UC05 
+Actor Pengguna 
+Description Use case  yang memungkinkan pengguna melaporkan 
+komentar yang keliru disembunyikan. 
+Pre Condition Sistem berjalan dalam mode pengembangan; sebuah 
+komentar telah disembunyikan pada mode Redupkan. 
+Post Condition Komentar yang dilaporkan tersimpan sebagai data 
+koreksi untuk pelatihan ulang model. 
+Trigger Pengguna menilai sebuah komentar salah 
+diklasifikasikan sebagai spam. 
+Typical  
+Course of Events 
+Actor Action System Response 
+Langkah 1: 
+Melihat komentar yang 
+diredupkan beserta tombol 
+"Bukan spam?". 
+ 
+Langkah 2: 
+Menekan tombol "Bukan 
+spam?". 
+ 
+ Langkah 3: 
+Mengirimkan data berupa  
+teks komentar ke endpoint 
+/report pada server. 
+ Langkah 4: 
+Menyimpan koreksi 
+tersebut untuk digunakan 
+pada iterasi pelatihan model 
+berikutnya. 
+Alternate Course Use case ini tidak tersedia pada mode produksi, karena 
+tombol "Bukan spam?" hanya dimunculkan pada mode 
+pengembangan. 
+Extend Menyaring Komentar Spam (UC01) 
+Include - 
+ 
+===== HAL PDF 103 =====
+90 
+ 
+ 
+ 
+4.8 Activity Diagram 
+Activity diagram  digunakan untuk menggambarkan alur kerja sistem secara 
+kronologis dari tahap inisiasi hingga eksekusi manipulasi antarmuka. Diagram ini 
+disajikan dalam format swimlane yang membagi tanggung jawab proses ke dalam 
+tiga jalur: Pengguna YouTube, Ekstensi Chrome, dan Server API. Rancangan 
+activity diagram sistem ditunjukkan pada Gambar 4.5. 
+ 
+Gambar 4.5 Activity Diagram Sistem Deteksi Spam Komentar YouTube 
+ 
+ 
+ 
+
+===== HAL PDF 104 =====
+91 
+ 
+ 
+ 
+Berdasarkan activity diagram  di atas, alur kerja sistem berjalan melalui tahapan 
+berikut: 
+1. Inisiasi 
+Pengguna membuka dan menggulir halaman video YouTube, yang memicu 
+ekstensi Chrome untuk mulai memantau perubahan DOM. 
+2. Deteksi Komentar 
+Ekstensi mendeteksi elemen komentar baru yang dimuat secara dinamis oleh 
+YouTube. Sistem memeriksa apakah teks komentar tersebut sudah pernah 
+diproses sebelumnya menggunakan objek WeakSet untuk mencegah 
+pemrosesan ganda. 
+3. Pengiriman ke Server 
+Teks komentar yang unik dikemas dalam format JSON dan dikirim ke Server 
+API melalui HTTP POST ke endpoint /predict/batch. 
+4. Pemrosesan di Server 
+Server API menerima permintaan, menjalankan pipeline prapemrosesan teks 
+yang identik dengan tahap pelatihan, mengekstrak fitur TF -IDF, lalu 
+mengklasifikasikan teks menggunakan model SVM. Server mengembalikan 
+respons JSON yang memuat label klasifikasi dan confidence score  untuk 
+setiap komentar. 
+5. Evaluasi Hasil 
+Ekstensi menerima respon dan mengevaluasi setiap hasil klasifikasi. 
+Komentar dengan label spam dan confidence score di atas threshold yang 
+ditetapkan (nilai default 0,75) diteruskan ke tahap manipulasi DOM. 
+ 
+===== HAL PDF 105 =====
+92 
+ 
+ 
+ 
+6. Manipulasi DOM 
+Komentar yang memenuhi syarat spam disembunyikan dari tampilan 
+pengguna melalui injeksi properti CSS display: none. Komentar yang tidak 
+memenuhi syarat dibiarkan tampil normal. 
+Perlu dicatat bahwa diagram di atas menggambarkan alur sistem dalam mode 
+produksi (production mode). Pada mode pengembangan (dev mode), komentar yang 
+terdeteksi sebagai spam tidak langsung disembunyikan sepenuhnya melainkan 
+ditampilkan dengan transparansi 15% disertai badge merah yang menunjukkan 
+persentase confidence score, serta tombol "Bukan spam?" untuk keperluan koreksi 
+dataset. Perbedaan tampilan antara kedua mode ini diuraikan lebih lanjut pada sub-
+bab Rancangan Tampilan. 
+4.9 Sequence Diagram 
+Sequence diagram  menggambarkan interaksi antar komponen sistem 
+berdasarkan urutan waktu ( time-ordered), mulai dari inisialisasi hingga proses 
+penyembunyian komentar spam secara real-time. Diagram ini melibatkan lima 
+objek utama, yaitu Pengguna, antarmuka Popup, Content Script, Server API, dan 
+DOM halaman YouTube. Alur interaksi sistem disajikan pada Gambar 4.6. 
+===== HAL PDF 106 =====
+93 
+ 
+ 
+ 
+ 
+Gambar 4.6 Sequence Diagram Sistem Deteksi Spam Komentar YouTube 
+Berdasarkan sequence diagram di atas, proses dimulai ketika pengguna 
+membuka antarmuka popup, yang memicu pemeriksaan status server melalui 
+endpoint /health  untuk memastikan model telah dimuat. Setelah pengguna 
+menetapkan nilai confidence threshold  dan mode penyembunyian, pengaturan 
+tersebut disimpan dan digunakan oleh Content Script. Ketika pengguna membuka 
+dan menggulir halaman video, MutationObserver pada Content Script mendeteksi 
+komentar yang dimuat secara dinamis, lalu mengirimkannya secara kolektif ke 
+endpoint /predict/batch. Server API menjalankan pipeline prapemrosesan, ekstraksi 
+fitur TF-IDF, dan klasifikasi SVM, kemudian mengembalikan label beserta skor 
+keyakinan. Content Script  menyembunyikan komentar yang diklasifikasikan 
+
+===== HAL PDF 107 =====
+94 
+ 
+ 
+ 
+sebagai spam dengan skor keyakinan melampaui ambang batas, sesuai mode yang 
+dipilih pengguna. 
+4.10 Pengujian Sistem 
+Pengujian sistem difokuskan pada evaluasi performa model klasifikasi SVM 
+sebagai inti dari sistem deteksi. Pengujian dilakukan melalui lima skema, yaitu 
+evaluasi pada data uji ( holdout), validasi silang ( cross-validation), pencarian 
+hyperparameter, perbandingan dengan algoritma baseline, serta dua eksperimen 
+tambahan berupa ablation study  pendekatan hibrida dan pengujian pengaruh 
+stemming. 
+Seluruh skema pengujian di atas menggunakan metrik evaluasi yang konsep 
+dasarnya telah diuraikan pada Sub -bab 2.8, yaitu accuracy, precision, recall, dan 
+F1-score yang dihitung berdasarkan empat komponen confusion matrix , True 
+Positive (TP), True Negative (TN), False Positive (FP), dan False Negative (FN): 
+𝐴𝑐𝑐𝑢𝑟𝑎𝑐𝑦 =  (𝑇𝑃 +  𝑇𝑁) / (𝑇𝑃 +  𝑇𝑁 +  𝐹𝑃 +  𝐹𝑁) 
+𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 =  𝑇𝑃 / (𝑇𝑃 +  𝐹𝑃) 
+𝑅𝑒𝑐𝑎𝑙𝑙 =  𝑇𝑃 / (𝑇𝑃 +  𝐹𝑁) 
+𝐹1 − 𝑆𝑐𝑜𝑟𝑒 =  2 × (𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ×  𝑅𝑒𝑐𝑎𝑙𝑙) / (𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 +  𝑅𝑒𝑐𝑎𝑙𝑙) 
+Karena klasifikasi pada penelitian ini bersifat biner (spam dan non -spam), 
+presisi, recall, dan F1-score di atas dihitung secara terpisah untuk masing -masing 
+kelas dengan memperlakukan kelas yang bersangkutan sebagai kelas positif secara 
+bergantian. Untuk memperoleh satu nilai tunggal yang merepresentasikan performa 
+model terhadap kedua kelas secara seimbang, penting mengingat jumlah data non-
+spam lebih banyak dibandingkan data spam pada Tabel 4. 4, penelitian ini 
+===== HAL PDF 108 =====
+95 
+ 
+ 
+ 
+menggunakan skema rata -rata makro ( macro average), yaitu rata -rata aritmetika 
+F1-score dari kedua kelas tanpa mempertimbangkan proporsi jumlah datanya: 
+𝐹1 − 𝑚𝑎𝑐𝑟𝑜 =  (𝐹1 − 𝑠𝑐𝑜𝑟𝑒_𝑠𝑝𝑎𝑚 +  𝐹1 − 𝑠𝑐𝑜𝑟𝑒_𝑛𝑜𝑛 − 𝑠𝑝𝑎𝑚) / 2 
+F1-macro dipilih sebagai metrik utama pada penelitian ini karena performanya 
+tidak tenggelam oleh kelas mayoritas, sehingga digunakan sebagai metrik scoring 
+pada pencarian hiperparameter (sub-bab 4.5.3) dan validasi silang (sub-bab 4.5.4), 
+serta menjadi metrik pembanding utama pada seluruh skema pengujian di sub -bab 
+ini. 
+4.10.1 Evaluasi pada Data Uji (Holdout) 
+Model SVM dievaluasi menggunakan 20% data uji (1.338 sampel) yang tidak 
+pernah dilihat selama pelatihan. Hasil evaluasi disajikan pada Tabel 4.10. 
+Tabel 4.10 Hasil Evaluasi Model SVM pada Data Uji 
+Metrik Nilai 
+Accuracy 97,53% 
+F1-macro 0,9726 
+Presisi (kelas spam) 0,98 
+Recall (kelas spam) 0,95 
+F1-score (kelas spam) 0,96 
+F1-score (kelas non-spam) 0,98 
+ 
+Rincian prediksi model terhadap data uji digambarkan melalui confusion matrix 
+pada Tabel 4.11. 
+Tabel 4.11 Confusion Matrix Model SVM pada Data Uji 
+ Prediksi non-spam Prediksi spam 
+Aktual non-spam 863 (TN) 9 (FP) 
+Aktual spam 24 (FN) 442 (TP) 
+ 
+===== HAL PDF 109 =====
+96 
+ 
+ 
+ 
+Berdasarkan persamaan yang diuraikan di awal Sub -bab 4.10, keempat metrik 
+pada Tabel 4.10 dapat ditelusuri langsung dari nilai TP, TN, FP, dan FN pada Tabel 
+4.11. Nilai akurasi dihitung sebagai: 
+𝐴𝑐𝑐𝑢𝑟𝑎𝑐𝑦       =  (𝑇𝑃 +  𝑇𝑁) / (𝑇𝑃 +  𝑇𝑁 +  𝐹𝑃 +  𝐹𝑁)  
+=  (442 +  863) / (442 +  863 +  9 +  24)  =  1.305 / 1.338 
+=  0,9753 (97,53%) 
+Nilai presisi kelas spam dihitung sebagai: 
+𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 =  𝑇𝑃 / (𝑇𝑃 +  𝐹𝑃)  =  442 / (442 +  9)  =  442 / 451 =  0,98 
+Nilai recall kelas spam dihitung sebagai: 
+Recall = TP / (TP + FN) = 442 / (442 + 24) = 442 / 466 = 0,95 
+Nilai F1-score kelas spam kemudian diperoleh dari rata -rata harmonik presisi dan 
+recall di atas: 
+  𝐹1 − 𝑆𝑐𝑜𝑟𝑒  =  2 × (𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 ×  𝑅𝑒𝑐𝑎𝑙𝑙) / (𝑃𝑟𝑒𝑐𝑖𝑠𝑖𝑜𝑛 +  𝑅𝑒𝑐𝑎𝑙𝑙)  
+=  2 × (0,98 ×  0,95) / (0,98 +  0,95)  =  1,862 / 1,93 
+=  0,96 
+Perhitungan yang identik berlaku untuk kelas non -spam dengan memperlakukan 
+TN sebagai  True Positive  dan FN sebagai  False Positive  pada kelas tersebut, 
+menghasilkan F1-score non-spam sebesar 0,98 sebagaimana disajikan pada Tabel 
+4.10. 
+𝐹1 − 𝑚𝑎𝑐𝑟𝑜 =  (0,96 +  0,98) / 2 =  0,97 
+Nilai ini sedikit berbeda dari nilai F1-macro yang dilaporkan (0,9726) karena 
+perhitungan aktual pada sistem menggunakan nilai presisi dan recall penuh sebelum 
+dibulatkan menjadi dua angka desimal seperti pada Tabel 4.10. 
+===== HAL PDF 110 =====
+97 
+ 
+ 
+ 
+Dari total 1.338 data uji, model hanya melakukan 9 kesalahan false positive 
+(komentar normal yang keliru ditandai spam) dan 24 kesalahan false negative  
+(komentar spam yang lolos). Nilai presisi kelas spam yang tinggi (0,98) 
+menunjukkan bahwa ketika model menandai sebuah komentar sebagai spam, 
+keputusan tersebut hampir selalu benar. Visualisasi confusion matrix tersebut dalam 
+bentuk heatmap disajikan pada Gambar 4.7. 
+ 
+Gambar 4.7 Confusion Matrix Model SVM (visualisasi heatmap) 
+4.10.2 Validasi Silang (5-Fold Cross-Validation) 
+Untuk menguji konsistensi performa model terhadap variasi pembagian data, 
+dilakukan 5-fold cross-validation pada keseluruhan dataset. Hasilnya menunjukkan 
+rata-rata F1-macro sebesar 0,9741 dengan standar deviasi 0,0030 (±0,30%) . 
+Standar deviasi yang dilaporkan merupakan ukuran sebaran dari lima nilai F1-
+
+===== HAL PDF 111 =====
+98 
+ 
+ 
+ 
+macro yang dihasilkan pada kelima fold, dihitung menggunakan persamaan standar 
+deviasi:  
+𝜎 =  √( 𝛴(𝑥ᵢ −  𝑥 )² / 𝑛 ) 
+dengan xᵢ adalah skor F1-macro pada fold ke-i, x̄  adalah rata-rata F1-macro dari 
+kelima fold (0,9741), dan n adalah jumlah fold (5). 
+Standar deviasi yang sangat kecil ini membuktikan bahwa performa model 
+stabil dan tidak bergantung pada pembagian data tertentu. Skor F1-macro per fold 
+disajikan pada Gambar 4.8. 
+ 
+Gambar 4.8 Skor F1-macro per Fold pada 5-Fold Cross-Validation 
+4.10.3 Pencarian Hiperparameter (GridSearchCV) 
+Pencarian nilai parameter regularisasi C dilakukan melalui GridSearchCV 
+terhadap lima kandidat nilai (0,01, 0,1, 1, 10, dan 100) menggunakan 5-fold cross-
+
+===== HAL PDF 112 =====
+99 
+ 
+ 
+ 
+validation. Nilai C = 1 terpilih karena menghasilkan skor F1-macro rata-rata 
+tertinggi. Hasil pencarian disajikan pada Gambar 4.9. 
+ 
+Gambar 4.9 Hasil GridSearchCV Pencarian Nilai C Terbaik 
+4.10.4 Perbandingan dengan Algoritma Baseline 
+Untuk membuktikan secara empiris bahwa pemilihan SVM bukan sekadar 
+asumsi, model dibandingkan dengan dua algoritma baseline, yaitu Multinomial 
+Naive Bayes dan Logistic Regression, menggunakan pembagian data dan parameter 
+TF-IDF yang identik. Hasil perbandingan disajikan pada Tabel 4.12. 
+Tabel 4.12 Perbandingan Performa SVM dengan Algoritma Baseline 
+Model Accuracy F1-macro 
+SVM (C=1, kernel linear) 97,53% 0,9726 
+Logistic Regression 97,09% 0,9675 
+Multinomial Naive Bayes 93,95% 0,9313 
+ 
+
+===== HAL PDF 113 =====
+100 
+ 
+ 
+ 
+Hasil ini membuktikan bahwa SVM memberikan performa terbaik dibandingkan 
+kedua algoritma baseline, sehingga pemilihannya sebagai model utama didukung 
+oleh bukti kuantitatif. 
+4.10.5 Evaluasi pada Hard Test Set 
+Selain data uji reguler, model diuji terhadap hard test set  yang berisi 135 
+komentar dengan tingkat ambiguitas tinggi. Perlu ditekankan bahwa hard test set 
+ini secara sengaja dirancang hanya berisi komentar non-spam, yaitu komentar yang 
+menyebut nama situs judi online dalam konteks kritik, cerita korban, atau diskusi 
+anti-judol. Dengan demikian, dataset ini berfungsi sebagai pengujian ketahanan 
+model terhadap false positive (uji presisi), bukan sebagai dataset berimbang. Oleh 
+karena itu, metrik yang relevan pada pengujian ini adalah accuracy dan jumlah false 
+positive, sementara recall dan F1-macro tidak digunakan karena ketiadaan kelas 
+spam pada dataset. 
+Pada pengujian ini, model mencapai accuracy 98,52% dengan hanya  2 false 
+positive dari 135 komentar. Hal ini membuktikan bahwa model mampu 
+membedakan penyebutan nama situs judi dalam konteks non -promosi, sehingga 
+tidak mudah keliru menyembunyikan komentar kritik atau diskusi yang sah. 
+4.10.6 Ablation Study Pendekatan Hibrida 
+Pengujian ini menjawab pertimbangan pada sub-bab 4.5.6 mengenai 
+pendekatan hibrida (penggabungan SVM dengan aturan berbasis kata kunci). 
+Dilakukan perbandingan performa antara SVM murni dan SVM yang 
+dikombinasikan dengan aturan hibrida ( ENABLE_HYBRID_RULES). Hasilnya 
+disajikan pada Tabel 4.13. 
+ 
+===== HAL PDF 114 =====
+101 
+ 
+ 
+ 
+ 
+ 
+Tabel 4.13 Perbandingan SVM Murni dengan SVM + Aturan Hibrida 
+Dataset Mode Accuracy F1-
+macro 
+FP FN 
+Data Uji (n=1.338) SVM murni 97,53% 0,9726 9 24 
+Data Uji (n=1.338) SVM + Hibrida 90,21% 0,8867 22 109 
+Hard Test Set (n=135) SVM murni 98,52% - 2 0 
+Hard Test Set (n=135) SVM + Hibrida 82,22% - 24 0 
+ 
+Hasil ablation study  membuktikan bahwa penambahan aturan hibrida 
+justru menurunkan performa secara signifikan, baik pada data uji (turun 7,32 poin 
+persentase) maupun pada hard test set (turun 16,30 poin persentase). Penurunan ini 
+terjadi karena aturan berbasis kata kunci memaksa komentar yang menyebut sinyal 
+keras menjadi spam, sehingga meningkatkan false positive. Berdasarkan temuan 
+ini, pendekatan hibrida  dinonaktifkan (ENABLE_HYBRID_RULES = False ) dan 
+tidak digunakan pada sistem final. 
+4.10.7 Pengujian Pengaruh Stemming 
+Pengujian ini menjawab pertimbangan pada Sub -bab 4.5.5 mengenai 
+penggunaan stemming. Eksperimen dilakukan dengan membandingkan performa 
+model tanpa stemming dan dengan stemming Sastrawi menggunakan 5-fold cross-
+validation.  
+Untuk memastikan bahwa selisih performa yang teramati bukan sekadar 
+kebetulan akibat variasi acak antar fold, digunakan uji-t berpasangan (paired t-test), 
+yaitu uji hipotesis yang membandingkan rata -rata dari dua kelompok data yang 
+saling berpasangan atau berasal dari sumber pengukuran yang sama . Dalam kasus 
+ini, skor F1-macro dari fold cross-validation yang sama, diukur dengan dan tanpa 
+===== HAL PDF 115 =====
+102 
+ 
+ 
+ 
+stemming. Uji ini dirumuskan melalui dua hipotesis: H0 (tidak terdapat perbedaan 
+rata-rata performa yang signifikan antara kedua kondisi) dan H1 (terdapat 
+perbedaan rata-rata performa yang signifikan). Nilai statistik uji dihitung dengan 
+persamaan: 
+𝑡 =  𝑑  / (𝑠_𝑑 / √𝑛) 
+dengan d̄  adalah rata-rata selisih skor F1-macro berpasangan antar fold, s_d adalah 
+standar deviasi dari selisih tersebut, dan n adalah jumlah fold (5). Nilai t kemudian 
+dikonversi menjadi p-value, yaitu probabilitas memperoleh selisih seperti yang 
+teramati apabila H0 benar. Keputusan diambil dengan membandingkan p-value 
+terhadap ambang signifikansi (α) sebesar 0,05: apabila p-value < 0,05, H0 ditolak 
+dan perbedaan dianggap signifikan secara statistik; apabila p-value ≥ 0,05, H0 tidak 
+dapat ditolak dan perbedaan dianggap tidak signifikan. 
+Hasil eksperimen menunjukkan bahwa rata -rata F1-macro dengan stemming 
+justru sedikit lebih rendah (selisih -0,0006), dan 4 dari 5 fold menunjukkan 
+stemming berperforma lebih buruk. Uji statistik menghasilkan p-value = 0,3575, 
+yang jauh di atas ambang signifikansi α = 0,05, sehingga H0 tidak dapat ditolak: 
+perbedaan performa antara menggunakan dan tidak menggunakan stemming tidak 
+signifikan secara statistik, dan kemungkinan besar hanya disebabkan oleh variasi 
+acak antar fold. Hasil pengujian disajikan pada Gambar 4.10. 
+===== HAL PDF 116 =====
+103 
+ 
+ 
+ 
+ 
+Gambar 4.10 Perbandingan F1-macro Tanpa vs Dengan Stemming 
+4.10.8 Ringkasan Hasil Pengujian 
+Berdasarkan seluruh pengujian di atas, dapat disimpulkan bahwa model SVM 
+dengan kernel linear dan parameter C=1 memberikan performa deteksi yang tinggi 
+dan stabil (accuracy 97,53%, F1-macro 0,9726, CV 0,9741 ± 0,30%), mengungguli 
+algoritma baseline, serta tangguh terhadap kasus ambigu pada hard test set  
+(accuracy 98,52%). Dua eksperimen tambahan membuktikan bahwa baik 
+pendekatan hibrida maupun stemming tidak memberikan manfaat, sehingga 
+keduanya tidak digunakan pada sistem final. Keputusan -keputusan desain ini 
+didasarkan pada bukti empiris, bukan asumsi. 
+4.11 Rancangan Tampilan 
+Rancangan tampilan sistem terdiri atas dua bagian, yaitu struktur tampilan yang 
+menggambarkan hierarki antarmuka, dan rancangan layar yang menampilkan 
+wujud visual dari setiap komponen antarmuka. 
+
+===== HAL PDF 117 =====
+104 
+ 
+ 
+ 
+4.11.1 Struktur Tampilan 
+Antarmuka sistem terbagi menjadi dua bagian utama. Bagian pertama adalah 
+antarmuka popup ekstensi yang muncul ketika pengguna mengklik ikon ekstensi 
+pada peramban. Bagian kedua adalah antarmuka hasil pada halaman YouTube, yaitu 
+perubahan visual pada elemen komentar yang terdeteksi sebagai spam. Struktur 
+hierarki tampilan sistem disajikan seba gai berikut: Tampilan antarmuka popup 
+ekstensi ditunjukkan pada Gambar 4.11, sedangkan tampilan hasilnya pada 
+halaman YouTube ditunjukkan pada Gambar 4.12. 
+1. Antarmuka Popup Ekstensi 
+ 
+Gambar 4.11 Antarmuka Chrome Extension 
+a) Header (nama dan identitas ekstensi)  
+b) Kartu Status Server (indikator koneksi ke server)  
+
+===== HAL PDF 118 =====
+105 
+ 
+ 
+ 
+c) Panel Statistik (jumlah komentar dipindai dan disembunyikan)  
+d) Pemilih Mode Penyembunyian (Redupkan / Hilangkan)  
+e) Pengatur Confidence Threshold (slider) 
+f) Tombol Aksi (Cek Status Server dan Reset Statistik) 
+2. Antarmuka Hasil pada Halaman YouTube 
+ 
+Gambar 4.12 Antarmuka Halaman YouTube dengan Chrome Extension 
+a) Tampilan mode Redupkan (komentar diredupkan + badge keyakinan) 
+b) Tampilan mode Hilangkan (komentar disembunyikan sepenuhnya) 
+4.11.2 Rancangan Layar 
+Rancangan layar antarmuka popup ekstensi ditunjukkan pada Gambar 4. 13. 
+Popup menampilkan kartu status server yang menunjukkan ketersediaan koneksi 
+(indikator berwarna hijau untuk aktif, merah untuk tidak aktif) beserta alamat 
+
+===== HAL PDF 119 =====
+106 
+ 
+ 
+ 
+server. Di bawahnya terdapat panel statistik berisi dua nilai, yaitu jumlah komentar 
+spam yang disembunyikan dan jumlah komentar yang telah dipindai. Pengguna 
+dapat memilih mode penyembunyian melalui tombol Redupkan atau Hilangkan, 
+serta menyesuaikan nilai confidence threshold  antara 50% hingga 95% melalui 
+slider. Bagian bawah menyediakan tombol untuk memeriksa ulang status server 
+dan mengatur ulang statistik. 
+===== HAL PDF 120 =====
+107 
+ 
+ 
+ 
+ 
+Gambar 4.13 Rancangan Antarmuka Popup Ekstensi 
+Rancangan tampilan hasil pada halaman YouTube ditunjukkan pada Gambar 
+4.14. Pada mode Redupkan, komentar yang terdeteksi sebagai spam tetap berada 
+pada halaman namun ditampilkan dengan transparansi rendah ( opacity 15%) 
+disertai badge yang menampilkan persentase keyakinan model, yang dapat diklik 
+untuk memunculkan kembali komentar tersebut.  
+
+===== HAL PDF 121 =====
+108 
+ 
+ 
+ 
+ 
+Gambar 4.14 Hasil Implementasi dengan Mode Redupkan 
+Pada mode Hilangkan, komentar yang terdeteksi sebagai spam disembunyikan 
+sepenuhnya dari tampilan sehingga tidak lagi terlihat oleh pengguna. Hasil 
+implementasinya ditunjukkan pada Gambar 4.15. 
+ 
+Gambar 4.15 Hasil Implementasi dengan Mode Hilangkan 
+4.12 Analisis Kelayakan Sistem 
+Analisis kelayakan sistem dilakukan untuk menilai apakah sistem usulan layak 
+diterapkan, ditinjau dari tiga aspek sesuai pedoman, yaitu kelayakan teknologi, 
+kelayakan operasional, dan kelayakan hukum. 
+
+===== HAL PDF 122 =====
+109 
+ 
+ 
+ 
+4.12.1 Kelayakan Teknologi 
+Secara teknologi, sistem yang diusulkan layak untuk diterapkan karena seluruh 
+komponennya dibangun menggunakan teknologi yang matang dan tersedia luas. 
+Sisi klien menggunakan ekstensi Google Chrome berbasis Manifest V3  yang 
+didukung oleh peramban Chrome versi 88 ke atas. Sisi peladen menggunakan 
+bahasa Python dengan kerangka kerja FastAPI dan pustaka Scikit -learn, yang di -
+deploy pada Virtual Private Server (VPS) dengan spesifikasi minimum 2 vCPU, 
+RAM 2 GB, dan penyimpanan 40 GB. Kebutuhan sumber daya yang relatif ringan 
+ini menunjukkan bahwa sistem dapat dijalankan tanpa memerlukan infrastruktur 
+komputasi berbiaya tinggi, sehingga secara teknologi sistem in i feasible untuk 
+diimplementasikan dan dioperasikan secara berkelanjutan. 
+4.12.2 Kelayakan Operasional 
+Secara operasional, sistem dirancang agar mudah digunakan oleh pengguna 
+awam tanpa memerlukan keahlian teknis khusus. Setelah ekstensi terpasang, sistem 
+beroperasi secara otomatis di latar belakang setiap kali pengguna membuka 
+halaman YouTube, tanpa memerl ukan interaksi manual untuk setiap komentar. 
+Pengguna hanya perlu melakukan pengaturan sederhana melalui antarmuka popup 
+yang intuitif, seperti memilih mode penyembunyian dan menyesuaikan tingkat 
+sensitivitas deteksi. Dengan tingkat keterlibatan pengguna yang minimal dan 
+antarmuka yang sederhana, sistem ini layak dari sisi operasional. 
+4.12.3 Kelayakan Hukum 
+Secara hukum, sistem yang diusulkan telah dirancang untuk mematuhi 
+ketentuan yang berlaku. Pengumpulan data komentar dilakukan melalui YouTube 
+Data API v3, yaitu antarmuka resmi yang disediakan YouTube, sehingga 
+===== HAL PDF 123 =====
+110 
+ 
+ 
+ 
+pengambilan data tidak melanggar ketentuan layanan ( terms of service ) platform. 
+Sistem juga tidak melakukan modifikasi terhadap basis data atau konten milik 
+YouTube; penyembunyian komentar hanya terjadi secara lokal pada tampilan 
+peramban pengguna (sisi klien) tanpa mengubah data di server YouTube. Selain itu, 
+tujuan sistem ini, yaitu menyaring promosi judi online, sejalan dengan upaya 
+penegakan hukum di Indonesia yang melarang segala bentuk promosi dan praktik 
+perjudian daring. Dengan demikian, sistem ini layak secara hukum untuk 
+diterapkan. 
+  
+===== HAL PDF 124 =====
+111 
+ 
+BAB V 
+KESIMPULAN DAN SARAN 
+5.1 Kesimpulan 
+Sistem berjalan pada YouTube terbukti lemah menangani komentar promosi 
+judi online yang disamarkan melalui teknik obfuscation (homoglyph, diakritik, leet 
+speak), karena hanya mengandalkan pencocokan kata kunci statis . Kelemahan ini 
+teridentifikasi pada aspek Kendali dan Efisiensi melalui analisis PIECES di Bab III 
+dan berdampak berantai ke aspek Kinerja, Informasi, Ekonomi, dan Pelayanan. 
+Untuk menjawabnya, penelitian ini merancang ekstensi Google Chrome berbasis 
+Manifest V3 yang mengombinasikan String Normalization dengan algoritma SVM. 
+Berdasarkan hasil pengujian, dapat disimpulkan: 
+1. Sistem beroperasi real-time di sisi klien tanpa membebani server YouTube 
+maupun bergantung pada pembaruan kamus kata kunci manual, langsung 
+menjawab kelemahan Kendali dan Efisiensi pada sistem berjalan. 
+2. String Normalization terbukti efektif menangani berbagai teknik obfuscation 
+yang sebelumnya lolos dari filter YouTube, menjadi fondasi bagi model 
+klasifikasi mengenali pola spam yang tersamarkan. 
+3. Model SVM kernel linear (C=1) mencapai accuracy 97,53% dan F1-macro 
+0,9726 pada data uji, dengan 5-fold cross-validation 0,9741±0,30% (stabil) 
+dan accuracy 98,52% pada hard test set (135 kasus ambigu, 2 false positive), 
+mengungguli Logistic Regression  (97,09%) dan Naive Bayes  (93,95%), 
+membuktikan pemilihan SVM didukung bukti empiris. 
+4. Dua eksperimen tambahan , ablation study aturan hibrida (turun 7,32 -16,30 
+poin persentase) dan pengujian stemming Sastrawi ( p-value 0,3575, tidak 
+===== HAL PDF 125 =====
+112 
+ 
+ 
+ 
+signifikan), membuktikan penambahan kompleksitas pipeline tidak selalu 
+meningkatkan performa, sehingga keduanya tidak digunakan pada sistem 
+final. 
+5. Mekanisme confidence threshold  (50%-95%, default 75%, dikalibrasi via 
+Platt Scaling) dan dua mode penyembunyian (Redupkan/Hilangkan) memberi 
+kendali kepada pengguna sesuai preferensi masing -masing terhadap risiko 
+false positive dan false negative. 
+6. Sistem layak diterapkan dari aspek teknologi, operasional, maupun hukum, 
+karena pengumpulan data dilakukan melalui YouTube Data API v3 resmi 
+tanpa memodifikasi data milik platform. 
+Secara keseluruhan, sistem yang diusulkan berhasil menjawab kelemahan 
+Kendali dan Efisiensi pada sistem berjalan, sekaligus berdampak positif pada aspek 
+Kinerja, Informasi, Ekonomi, dan Pelayanan bagi pengguna YouTube. 
+5.2 Saran 
+Berdasarkan keterbatasan yang ditemukan selama penelitian, berikut adalah 
+saran untuk pengembangan lanjutan: 
+1. Pembaruan Dataset 
+Dataset bersifat statis, sementara pola spam terus berkembang. Disarankan 
+mekanisme re-training berkala memanfaatkan data dari endpoint /report. 
+2. Fitur Rekayasa Tambahan 
+Model berbasis TF -IDF masih rentan pada kasus ambigu (komentar 
+korban/kritik yang menyebut brand). Disarankan eksplorasi fitur tambahan 
+seperti rasio simbol atau embedding kontekstual. 
+ 
+===== HAL PDF 126 =====
+113 
+ 
+ 
+ 
+3. Evaluasi pada Platform Lain 
+Penelitian ini terbatas pada YouTube berbahasa Indonesia. Disarankan 
+pengujian dan adaptasi pipeline pada platform seperti Instagram atau TikTok. 
+4. Approval Queue untuk Endpoint /report 
+Endpoint ini masih development-only tanpa validasi. Disarankan penambahan 
+mekanisme antrean persetujuan sebelum data koreksi digunakan untuk 
+pelatihan ulang. 
+5. Perbandingan dengan Deep Learning 
+Penelitian ini membatasi diri pada Machine Learning  konvensional demi 
+efisiensi real-time. Disarankan eksplorasi model seperti LSTM atau 
+transformer beserta kajian trade-off akurasi versus latensi. 
+6. Ketahanan terhadap Perubahan Struktur DOM 
+Sistem bergantung pada struktur DOM YouTube yang dapat berubah sewaktu-
+waktu. Disarankan mekanisme pemantauan otomatis terhadap perubahan 
+struktur halaman. 
+ 
+ 
+===== HAL PDF 127 =====
+ 
+ 
+ 
+DAFTAR PUSTAKA 
+Abdillah, W. F., Premana, A., & Bhakti, R. M. H. (2021). Analisis sentimen 
+penanganan COVID -19 dengan support vector machine: Evaluasi leksikon 
+dan metode ekstraksi fitur. Jurnal Ilmiah Intech: Information Technology 
+Journal of UMUS, 3(2), 160–170. https://doi.org/10.46772/intech.v3i02.556 
+Airlangga, G. (2024a). Spam detection on YouTube comments using advanced 
+machine learning models: A comparative study. Brilliance: Research of 
+Artificial Intelligence, 4(2), 500 –508. 
+https://doi.org/10.47709/brilliance.v4i2.4670 
+Airlangga, G. (2024b). Spam detection in YouTube comments using deep learning 
+models: A comparative study of MLP, CNN, LSTM, BiLSTM, GRU, and 
+attention mechanisms. MALCOM: Indonesian Journal of Machine Learning 
+and Computer Science, 4(4), 1533 –1538. 
+https://doi.org/10.57152/malcom.v4i4.1671 
+Angelo, M., Robet, R., & Hendrik, J. (2025). Comparative performance of machine 
+learning algorithms for detecting online gambling promotional comments on 
+YouTube. Jurnal Teknologi dan Manajemen Informatika, 11(2), 132 –142. 
+https://doi.org/10.26905/jtmi.v11i2.16286 
+Anis, Y ., Wahyudi, E. N., & Kurniawan, H. C. (2024). Metode waterfall dalam 
+pengembangan sistem inventaris guna meningkatkan efisiensi manajemen 
+stok barang. Jurnal Teknologi dan Sistem Informasi Bisnis, 6(2), 329 –338. 
+https://doi.org/10.47233/jteksis.v6i2.1351 
+Ardiansyah, Nasution, A. M., & Novelan, M. S. (2025). Implementasi kecerdasan 
+buatan dalam deteksi cybercrime: Komparasi model Naive Bayes dan SVM 
+pada pola komentar judi online. Indonesian Journal of Education and 
+Computer Science, 3(3), 170 –179. 
+https://doi.org/10.60076/indotech.v3i3.1762 
+Arrayyan, D. R., Guntara, R. G., & Nugraha, M. R. (2025). Deteksi komentar spam 
+judi online berbahasa Indonesia menggunakan XGBoost dan TF -IDF. Jurnal 
+Algoritma, 22(2), 2066 –2075. https://doi.org/10.33364/algoritma/v.22-
+2.3012 
+Azhari, R. Y . (2022). Web service framework: Flask dan FastAPI. Technology and 
+Informatics Insight Journal, 1(1), 58–65. https://doi.org/10.32639/tiij.v1i1.54 
+Azzahra, F. N., Rohana, T., Rahmat, R., & Juwita, A. R. (2024). Penerapan metode 
+Naive Bayes dalam klasifikasi spam SMS menggunakan fitur teks untuk 
+mengatasi ancaman pada pengguna. Journal of Information System Research, 
+5(3), 873–880. https://doi.org/10.47065/josh.v5i3.5070 
+Chua, S., Tan, A., Nohuddin, P. N. E., & Ahmad Hijazi, M. H. (2024). Comparing 
+the effectiveness and efficiency of machine learning models for spam 
+detection on Twitter. Journal of Advanced Research in Applied Sciences and 
+Engineering Technology, 60(2), 15 3–164. 
+https://doi.org/10.37934/araset.60.2.153164 
+ 
+===== HAL PDF 128 =====
+ 
+ 
+ 
+ 
+Efrizoni, L., Defit, S., Tajuddin, M., & Anggrawan, A. (2022). Komparasi ekstraksi 
+fitur dalam klasifikasi teks multilabel menggunakan algoritma machine  
+learning. MATRIK: Jurnal Manajemen, Teknik Informatika dan Rekayasa  
+Komputer, 21(3), 653–666. https://doi.org/10.30812/matrik.v21i3.1851 
+Firizkiansah, A., Muhammad, A., & Maulana, I. R. (2025). Optimasi klasifikasi 
+data teks menggunakan algoritma logistic regression dengan TF -IDF dan 
+SMOTE. JIKOMTI: Jurnal Ilmiah Ilmu Komputer dan Teknologi Informasi, 
+2(1), 29–36. https://ojs.sains.ac.id/index.php/Jikomti/article/view/97 
+Géron, A. (2022). Hands -on machine learning with Scikit -Learn, Keras, and 
+TensorFlow: Concepts, tools, and techniques to build intelligent systems (3rd 
+ed.). O'Reilly Media. 
+Helmiyah, S., & Pramestiawan, R. (2025). Analisis komparatif algoritma machine 
+learning dengan metrik akurasi, presisi, recall, dan F1 -score pada dataset 
+kacang kering. Jurnal Ilmu Komputer dan Teknologi, 6(3), 152 –159. 
+https://doi.org/10.35960/ikomti.v6i3.2031 
+Herawati, D. A., Risdhianto, A., & Saptono, E. (2025). Indonesia darurat judi 
+online: Judi online sebagai ancaman nirmiliter terhadap ketahanan nasional. 
+CITIZEN: Jurnal Ilmiah Multidisiplin Indonesia, 5(5), 1251 –1261. 
+https://doi.org/10.53866/jimi.v5i5.991 
+Iriananda, S. W., Budiawan, R. W., Rahman, A. Y ., & Istiadi. (2024). Optimasi 
+klasifikasi sentimen komentar pengguna game bergerak menggunakan SVM, 
+grid search dan kombinasi N -gram. Jurnal Teknologi Informasi dan Ilmu 
+Komputer, 11(4), 743–752. https://doi.org/10.25126/jtiik.1148244 
+Kaddoura, S., Chandrasekaran, G., Popescu, D. E., & Duraisamy, J. H. (2022). A 
+systematic literature review on spam content detection and classification. 
+PeerJ Computer Science, 8, e830. https://doi.org/10.7717/peerj-cs.830 
+Khairunnisa, S., Adiwijaya, A., & Al Faraby, S. (2021). Pengaruh text preprocessing 
+terhadap analisis sentimen komentar masyarakat pada media sosial Twitter 
+(studi kasus pandemi COVID -19). Jurnal Media Informatika Budidarma, 
+5(2), 406–414. https://doi.org/10.30865/mib.v5i2.2835 
+Khan, R. A. (2018). Spammer detection: A study of spam filter comments on 
+YouTube videos. LGU International Journal for Electronic Crime 
+Investigation, 2(4). https://doi.org/10.54692/ijeci.2018.020425 
+Koprawi, M., & Putra, W. S. (2023). Implementasi web scraping pada Google 
+Cendekia sebagai sarana profiling penelitian dosen. Science Tech: Jurnal Ilmu 
+Pengetahuan dan Teknologi, 9(1), 59 –72. 
+https://doi.org/10.30738/st.vol9.no1.a14188 
+Nanda, R., Haerani, E., Gusti, S. K., & Ramadhani, S. (2022). Klasifikasi berita 
+menggunakan metode support vector machine. Jurnal Nasional Komputasi 
+dan Teknologi Informasi, 5(2), 269 –278. 
+https://doi.org/10.32672/jnkti.v5i2.4193 
+Oktavia, A. N., Iqbal, M., Saputra, R. W., Zulfikar, M. I., & Saifudin, A. (2024). 
+Implementasi metode natural language processing dalam studi analisis 
+semantik dan emosi buzzer pada tweet di aplikasi X. BIIKMA: Buletin Ilmiah 
+===== HAL PDF 129 =====
+ 
+ 
+ 
+ 
+Ilmu Komputer dan Multimedia, 2(1), 154 –159. 
+https://jurnalmahasiswa.com/index.php/biikma/article/view/1093 
+Pratama, R. Y . (2026). Pengembangan sistem chatbot cerdas berbasis natural 
+language processing (NLP) untuk peningkatan layanan informasi hotel. Jurnal 
+Informatika dan Teknik Elektro Terapan, 14(1). 
+https://doi.org/10.23960/jitet.v14i1.8528 
+Putri, N. K. A., & Indriyanti, A. D. (2021). Penerapan PIECES framework sebagai 
+evaluasi tingkat kepuasan mahasiswa terhadap penggunaan sistem informasi 
+akademik terpadu (SIAKADU) pada Universitas Negeri Surabaya. Journal of 
+Emerging Information Systems an d Business Intelligence, 2(2), 78 –84. 
+https://ejournal.unesa.ac.id/index.php/JEISBI/article/view/39730 
+Ramadhan, R. F., & Fauzan, A. (2023). Pembatasan internet berbasis ekstensi web 
+pada Chrome browser. Proceedings Series on Physical & Formal Sciences, 6, 
+192–199. https://doi.org/10.30595/pspfs.v6i.869 
+Rosa, A. S., & Shalahuddin, M. (2019). Rekayasa perangkat lunak: Terstruktur dan 
+berorientasi objek (Edisi revisi). Informatika. 
+Sari, M., & Asmendri. (2020). Penelitian kepustakaan (library research) dalam 
+penelitian pendidikan IPA. Natural Science: Jurnal Penelitian Bidang IPA dan 
+Pendidikan IPA, 6(1), 41–53. https://doi.org/10.15548/nsc.v6i1.1555 
+Sinaga, A., & Nainggolan, S. P. (2023). Analisis perbandingan akurasi dan waktu 
+proses algoritma stemming Arifin-Setiono dan Nazief-Adriani pada dokumen 
+teks bahasa Indonesia. Sebatik, 27(1), 63 –69. 
+https://doi.org/10.46984/sebatik.v27i1.2072 
+Sugiyono. (2022). Metode penelitian kuantitatif, kualitatif, dan R&D (Cetakan ke-
+4). Alfabeta. 
+Wikipedia. (2025). YouTube. Wikimedia Foundation. 
+https://en.wikipedia.org/wiki/YouTube 
