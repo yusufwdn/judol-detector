@@ -22,7 +22,7 @@ dasar pertimbangan menambah engineered features di iterasi berikutnya.
 
 Penjelasan lengkap (kategorisasi 5 pola error, metodologi, hasil
 lengkap) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-9--2026-06-30).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-9--2026-06-30).
 
 ## Metadata model (diekstrak dari file ini)
 

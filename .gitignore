@@ -1,26 +1,34 @@
-# --- Python ---
+# Python
 env/
+venv/
 __pycache__/
 *.pyc
 *.pyo
 .ipynb_checkpoints/
 
-# --- Node.js (scraper) ---
+# Node
 node_modules/
 
-# --- Secrets ---
+# Kredensial
 .env
 .env.*
 
-# --- Scraper output (raw run artifacts, bukan final_spam.json / final_non_spam.json) ---
+# Keluaran mentah scraper, bukan final_spam.json / final_non_spam.json
 scraper/result/
 
-# --- OS / Editor junk ---
+# Hasil build ekstensi, didistribusikan lewat GitHub Releases
+dist/
+
+# Editor dan perkakas lokal
+.vscode/
+.idea/
+.claude/
+*.code-workspace
+
+# OS
 .DS_Store
 Thumbs.db
-.vscode/
 
-# --- Reports (commit PNG outputs so thesis advisor can see them) ---
-# reports/*.png are intentionally NOT ignored
-
-.docs/*temp*
+# Catatan kerja pribadi, tidak ikut dipublikasikan
+.docs/
+arsip/

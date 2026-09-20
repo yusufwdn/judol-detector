@@ -67,7 +67,7 @@ def compose(source, out_name):
     """Comment column on the left, extension popup on the right."""
     c = Image.new("RGB", (W, H), BG)
 
-    # Popup first — it sets how much width is left for the comments.
+    # Popup first, it sets how much width is left for the comments.
     # Capped at 1.15x so the upscale never turns mushy.
     popup = fit(crop(source, POPUP), 340, H - MARGIN * 2, max_scale=1.15)
     px = W - MARGIN - popup.width
@@ -88,7 +88,7 @@ for stale in ("_popup_check.png",):
 
 print("Building store screenshots...\n")
 
-# 1. Dim mode — the strongest single image. Shows the control panel and the
+# 1. Dim mode, the strongest single image. Shows the control panel and the
 #    result of that control in one frame, so it needs no caption to be read.
 compose("4-dim-mode.png", "1-detection-in-action.png")
 
@@ -120,7 +120,7 @@ for i, (fname, label, colour) in enumerate([
     c.paste(img, ((W - img.width) // 2, top + label_h))
 save(c, "2-before-after.png")
 
-# 3. Hide mode — same framing as image 1 so the pair reads as one set.
+# 3. Hide mode, same framing as image 1 so the pair reads as one set.
 compose("5-hide-mode.png", "3-hide-mode.png")
 
 print("\nDone. Upload the files in store-ready/ in filename order.")

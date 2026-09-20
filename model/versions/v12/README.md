@@ -25,7 +25,7 @@ sekarang terdeteksi spam dengan confidence 99.6–100%.
 
 Penjelasan lengkap (daftar kampanye, root cause kenapa scraper tidak
 mendeteksi, before/after) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-11--2026-06-30).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-11--2026-06-30).
 
 ## Metadata model (diekstrak dari file ini)
 

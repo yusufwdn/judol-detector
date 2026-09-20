@@ -6,7 +6,7 @@
 > heuristik scraper). Akurasi 98.23% di bawah ini **terinflasi** karena
 > model sebagian menghafal label yang salah. Lihat
 > [`v12/`](../v12/) untuk versi yang sudah diperbaiki, dan
-> [`DATASET_LOG.md` Versi 11](../../../DATASET_LOG.md#versi-11--2026-06-30)
+> [Riwayat dataset, Versi 11](../../../docs/riwayat-dataset.md#versi-11--2026-06-30)
 > untuk investigasi lengkapnya. Diarsipkan tetap di sini sebagai bukti nyata
 > kenapa audit data manual penting — bukan cuma percaya heuristik otomatis.
 
@@ -29,7 +29,7 @@ nyata dari keberagaman data, bukan hafalan.
 
 Penjelasan lengkap (metodologi scraping, evaluasi sebelum/sesudah, daftar
 video ID) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-10--2026-06-30).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-10--2026-06-30).
 
 ## Metadata model (diekstrak dari file ini)
 

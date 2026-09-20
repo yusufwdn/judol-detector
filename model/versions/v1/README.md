@@ -9,7 +9,7 @@ Accuracy: ~100% (tidak realistis, lihat README FAQ)
 Dataset awal. Non-spam SINTETIS (template), bukan data nyata.
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-1--sebelum-2026-06-16).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-1--sebelum-2026-06-16).
 
 ## Metadata model (diekstrak dari file ini)
 

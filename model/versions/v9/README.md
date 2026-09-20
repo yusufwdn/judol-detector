@@ -14,7 +14,7 @@ Accuracy: 97.57% (F1 0.9752) -- SVM murni, hybrid rules off
 Dataset di-rebuild bersih dari prepare_dataset.py (resolve ketidaksinkronan v8b). Hybrid rules (server.py) DIMATIKAN setelah ablation study membuktikan menurunkan akurasi 6-13 poin. Model produksi saat ini.
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-8--2026-06-19).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-8--2026-06-19).
 
 ## Metadata model (diekstrak dari file ini)
 

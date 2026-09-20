@@ -9,7 +9,7 @@ Accuracy: 97.23% (F1 0.9671)
 Non-spam diganti ke data scraping nyata (2509 komentar). K-fold CV + GridSearchCV + baseline comparison mulai ada di train.py.
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-2--2026-06-16).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-2--2026-06-16).
 
 ## Metadata model (diekstrak dari file ini)
 

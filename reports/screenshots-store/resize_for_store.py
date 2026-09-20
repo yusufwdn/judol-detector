@@ -2,13 +2,12 @@
 """Ubah screenshot mentah jadi ukuran persis 1280x800 untuk Chrome Web Store.
 
 Chrome Web Store menolak gambar yang ukurannya tidak persis 1280x800 (atau
-640x400). Skrip ini mengambil screenshot apa adanya — ukuran berapa pun,
-hasil Win+Shift+S sekalipun — lalu menyusunnya di atas kanvas 1280x800:
+640x400). Skrip ini mengambil screenshot apa adanya, ukuran berapa pun,
+hasil Win+Shift+S sekalipun, lalu menyusunnya di atas kanvas 1280x800:
 gambar diperbesar/diperkecil proporsional (tidak gepeng), diletakkan di
 tengah, dan sisa ruangnya diisi warna latar.
 
 CARA PAKAI
-----------
 1. Simpan screenshot mentah ke folder `mentah/` di sebelah skrip ini.
    Nama bebas, format PNG/JPG. Urutan tampil di toko mengikuti urutan nama,
    jadi awali dengan angka: 1-sebelum-sesudah.png, 2-popup.png, 3-redupkan.png

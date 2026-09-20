@@ -9,7 +9,7 @@ Accuracy: 98.44% (F1 0.9843)
 500 spam manual diimport, hybrid rule jadi dua arah (A+B), rescue pattern brand diperbaiki (case-insensitive, minimum 3 huruf).
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-6--2026-06-18).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-6--2026-06-18).
 
 ## Metadata model (diekstrak dari file ini)
 

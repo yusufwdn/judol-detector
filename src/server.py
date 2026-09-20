@@ -1,28 +1,13 @@
-﻿"""
-server.py
-=========
-FastAPI server that exposes the trained SVM model as a REST API.
+"""REST API yang menyajikan model SVM terlatih.
 
-WHY AN API?
------------
-A browser extension (JavaScript) cannot directly import Python libraries.
-The solution is a lightweight HTTP server that acts as a bridge:
+Ekstensi peramban tidak bisa memuat pustaka Python, jadi model disajikan
+lewat HTTP. Ekstensi mengirim teks komentar apa adanya, server menormalisasi
+dan memprediksinya, lalu mengembalikan label beserta nilai kepercayaan.
 
-  JS Extension  ->  POST /predict  ->  Python Server  ->  returns JSON prediction
+Normalisasi sengaja dikerjakan di sini, bukan di sisi ekstensi. Alasannya ada
+di preprocessing.py.
 
-When the extension finds a comment on YouTube:
-  1. It sends the raw comment text to POST /predict
-  2. The server runs the preprocessing pipeline + SVM prediction
-  3. The server returns {"label": "spam", "confidence": 0.94, "is_spam": true}
-  4. The extension hides the comment if is_spam == true and confidence >= 0.75
-
-WHY PREPROCESSING RUNS IN PYTHON, NOT IN THE EXTENSION
--------------------------------------------------------
-See preprocessing.py for the full explanation. Short version:
-Training and inference MUST apply identical transformations to the text.
-Doing normalization in JavaScript introduces subtle differences in how
-unicode and regex are handled compared to Python, which degrades accuracy.
-Keeping everything in the Python server eliminates this risk entirely.
+Endpoint didokumentasikan di docs/api.md.
 """
 
 import csv
@@ -35,36 +20,23 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, field_validator
 
-# Add project root to path so src.preprocessing can be imported
+# Akar proyek ditambahkan ke path supaya src.preprocessing bisa diimpor.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 
 from src.preprocessing import clean_text
 
-# ---------------------------------------------------------------------------
-# APPLICATION SETUP
-# ---------------------------------------------------------------------------
-
 app = FastAPI(
     title="Judol Spam Detector API",
-    description="Detects online gambling spam comments in YouTube using SVM",
+    description="Deteksi komentar spam promosi judi online di YouTube",
     version="1.0.0"
 )
 
-# CORS (Cross-Origin Resource Sharing)
-# ---------------------------------------------------------------------------
-# Required so the browser extension can communicate with the server.
-#
-# Two allowed origins, not one:
-# - chrome-extension://<ID>: requests from popup.js (runs in the extension's
-#   own context, pinned via the "key" field in manifest.json).
-# - https://www.youtube.com: requests from content.js. Content scripts
-#   execute inside the host page's context, so fetch() from them carries
-#   the PAGE's origin, not the extension's — this is a browser-level quirk,
-#   not something we can change from content.js.
-#
-# This still blocks arbitrary third-party sites from calling the API; it's
-# scoped to the same domain already declared in host_permissions.
+# Dua origin, bukan satu. popup.js berjalan di konteks ekstensi sendiri jadi
+# Origin-nya chrome-extension://<ID>, sedangkan content.js disuntikkan ke
+# halaman YouTube sehingga fetch darinya membawa Origin milik halaman itu.
+# Membatasi ke ID ekstensi saja bikin content.js kena blok CORS padahal
+# popup.js jalan normal.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -75,45 +47,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ---------------------------------------------------------------------------
-# MODEL LOADING
-# ---------------------------------------------------------------------------
-# Load the model once at startup, not on every request.
-# Loading from disk on every request would make the API extremely slow.
-
 MODEL_PATH           = os.path.join(BASE_DIR, "model", "svm_model.joblib")
 DATA_PATH            = os.path.join(BASE_DIR, "data", "comments.csv")
 MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
 PRIVACY_HTML_PATH    = os.path.join(BASE_DIR, "deploy", "privacy-policy.html")
 
-# Shared secret required on /report, which appends straight into the training
-# dataset. Read from the environment only — there is deliberately no default.
-#
-# A hardcoded fallback would be worse than no token at all: the source is
-# handed to reviewers and published alongside the thesis, so anyone reading it
-# could append rows to the training data of the live server. With no default,
-# an unconfigured server simply refuses the endpoint (503 below) instead of
-# accepting a secret that everyone can read.
-#
-# /report is a development-only tool: the extension only ever calls it when
-# DEV_MODE is enabled in content.js, which ships as false. Set REPORT_TOKEN in
-# the environment (see deploy/judol-api.service) only on a machine where you
-# actually intend to collect corrections.
+# Token untuk /report, yang menulis langsung ke dataset pelatihan. Dibaca dari
+# environment saja, tanpa nilai bawaan. Nilai bawaan yang ditulis di sini akan
+# terbaca siapa pun karena repositori ini publik, jadi justru lebih buruk
+# daripada tidak ada token sama sekali. Tanpa environment, endpoint-nya menolak
+# semua permintaan dengan 503.
 REPORT_TOKEN = os.environ.get("REPORT_TOKEN")
 
 model = None
 
 
 def load_model():
-    """Load the serialized Pipeline from disk. Called once at server startup."""
+    """Muat pipeline dari disk. Dipanggil sekali saat server start, bukan tiap
+    permintaan."""
     global model
     if not os.path.exists(MODEL_PATH):
         raise FileNotFoundError(
-            f"Model file not found: {MODEL_PATH}\n"
-            f"Run training first: python src/train.py"
+            f"Berkas model tidak ditemukan: {MODEL_PATH}\n"
+            f"Jalankan pelatihan dulu: python src/train.py"
         )
     model = joblib.load(MODEL_PATH)
-    print(f"[OK] Model loaded from: {MODEL_PATH}")
+    print(f"[OK] Model dimuat dari: {MODEL_PATH}")
 
 
 @app.on_event("startup")
@@ -121,11 +80,8 @@ async def startup_event():
     load_model()
 
 
-# ---------------------------------------------------------------------------
-# REQUEST / RESPONSE SCHEMAS
-# ---------------------------------------------------------------------------
-# Pydantic validates all incoming request data before it reaches the handler.
-# This prevents crashes from unexpected or malformed input.
+# Pydantic memvalidasi seluruh permintaan sebelum sampai ke handler, jadi tiap
+# endpoint tidak perlu memeriksa masukannya sendiri.
 
 class PredictRequest(BaseModel):
     text: str
@@ -154,79 +110,54 @@ class BatchPredictResponse(BaseModel):
     results: list[PredictResponse]
 
 
-# ---------------------------------------------------------------------------
-# HYBRID RULE — Hard Spam Signal Check  [DINONAKTIFKAN — lihat catatan di bawah]
-# ---------------------------------------------------------------------------
+# Aturan heuristik di atas keputusan SVM. Sudah diukur dan terbukti merugikan,
+# jadi dimatikan. Kodenya tidak dihapus supaya hasil ablasinya bisa
+# diverifikasi ulang lewat src/evaluate_hybrid_ablation.py.
 #
-# STATUS: DICOBA, DIUKUR, DAN DIMATIKAN (ENABLE_HYBRID_RULES = False)
-# ---------------------------------------------------------------------------
-# Rule ini awalnya ditambahkan untuk dua alasan:
-#   Rule A: SVM bilang "spam" tapi teks tidak punya kata judi pasti → override
-#           ke "non_spam" (mencegah false positive dari kata ambigu seperti
-#           "hoki", "serius", "keren").
-#   Rule B: SVM bilang "non_spam" tapi teks punya kata judi pasti → override
-#           ke "spam" (mencegah false negative).
+# Aturan A menimpa spam jadi non_spam kalau teks tidak memuat kata judi yang
+# pasti. Aturan B menimpa non_spam jadi spam kalau kata itu ada.
 #
-# Saat itu kelihatan membantu di `data/hard_test_set.csv` (141 kasus ambigu).
-# Tapi setelah model dilatih ulang dengan dataset yang lebih besar (Versi 8,
-# 5132 baris) dan diuji dengan ablation study (src/evaluate_hybrid_ablation.py,
-# bandingkan SVM murni vs SVM+hybrid di DUA dataset evaluasi), hasilnya:
+#                     SVM murni   SVM + aturan   selisih
+#   Data uji            97,53%       90,21%       -7,32
+#   Kasus ambigu        98,52%       82,22%      -16,30
 #
-#                         SVM murni      SVM + Hybrid      Delta
-#   Train-test split      97.57% acc     91.33% acc        -6.23%
-#   Hard test set         92.91% acc     80.14% acc       -12.77%
+# Aturan A nyala 66 kali di data uji, cuma 4 yang benar. Spam asli sering tidak
+# memuat kata persis dari daftar ("daftar sekarang, wd lancar, gabung yuk"),
+# jadi aturan ini justru membatalkan deteksi yang sudah benar. Aturan B nyala
+# 27 kali dan tidak satu pun benar: "togel" dan "toto" paling sering muncul di
+# komentar yang mengkritik judol, bukan mempromosikannya.
 #
-# Breakdown per-rule (lihat reports/hybrid_ablation.txt untuk detail lengkap):
-#   Rule A: 66x nyala di train-test split → cuma 4 benar, 62 SALAH (94% salah).
-#           Spam asli sering tidak memuat kata persis dari HARD_SPAM_SIGNALS
-#           (mis. "daftar sekarang, wd lancar, gabung yuk"), jadi Rule A malah
-#           meloloskan spam yang sudah benar dideteksi SVM.
-#   Rule B: 0 benar dari 27x nyala TOTAL di kedua dataset (0%). Kata seperti
-#           "togel"/"toto" sering muncul di komentar yang justru MENGKRITIK
-#           judol, bukan mempromosikannya — Rule B salah paham konteks ini.
-#
-# KESIMPULAN: begitu model dilatih dengan data yang lebih banyak dan beragam,
-# SVM sendiri sudah lebih baik dari override berbasis kata kunci manual.
-# Hybrid rule dipertahankan di kode ini (bukan dihapus) sebagai bukti proses
-# eksperimen — dimatikan via flag, bukan dihapus, supaya bisa diaktifkan lagi
-# dan diuji ulang kalau pola spam baru di masa depan menunjukkan kebutuhan
-# yang berbeda. Untuk mengaktifkan kembali, set ENABLE_HYBRID_RULES = True
-# lalu jalankan ulang `python src/evaluate_hybrid_ablation.py` untuk
-# memverifikasi efeknya sebelum di-deploy.
-#
-# MAINTENANCE (kalau diaktifkan lagi):
-# Daftar HARD_SPAM_SIGNALS perlu diperbarui manual kalau spammer mulai
-# menggunakan kata/brand baru yang belum terdaftar — ini keterbatasan utama
-# pendekatan berbasis aturan, di luar soal akurasi yang sudah diukur di atas.
+# Angka di atas dari reports/hybrid_ablation.txt. Kalau flag ini diaktifkan
+# lagi, jalankan ulang skrip ablasinya dulu sebelum deploy.
 
 ENABLE_HYBRID_RULES = False
 
 HARD_SPAM_SIGNALS = {
     # Istilah judi yang tidak punya makna lain dalam percakapan sehari-hari
-    "gacor",      # slang: slot dengan RTP tinggi / sering keluar jackpot — SANGAT spesifik ke promosi
-    "scatter",    # simbol bonus di mesin slot — tidak muncul di percakapan normal
+    "gacor",      # slang: slot dengan RTP tinggi / sering keluar jackpot, SANGAT spesifik ke promosi
+    "scatter",    # simbol bonus di mesin slot, tidak muncul di percakapan normal
     "jackpot",    # kemenangan besar di mesin judi
     "maxwin",     # kemenangan maksimum di slot
     "togel",      # lotere ilegal
     "toto",       # lotere / situs judi
-    "rtp",        # Return to Player — istilah teknis slot, tidak wajar di komentar biasa
-    # "slot" dihapus — terlalu sering muncul di cerita korban/diskusi anti-judol:
+    "rtp",        # Return to Player, istilah teknis slot, tidak wajar di komentar biasa
+    # "slot" dihapus, terlalu sering muncul di cerita korban/diskusi anti-judol:
     #   "saya kenal judi slot, hidup berantakan"  → bukan promosi
     #   "blokir situs slot gituan"                → permintaan blokir
     # Spam yang sebut "slot" hampir selalu juga punya "gacor"/judolbrand/brand
     # yang masih tertangkap sinyal lain. SVM kini dilatih cukup membedakan konteks.
-    # "situs" dihapus — terlalu generik: "situs darkweb", "situs jembot",
+    # "situs" dihapus, terlalu generik: "situs darkweb", "situs jembot",
     # "tempat yang dikunjungi" adalah kata wajar tanpa konotasi judi.
     # Brand yang memakai "situs" + nama judol tetap tertangkap via judolbrand.
-    "withdraw",   # tarik dana kemenangan — konteks tarik selalu di akun judi
-    # "deposit" dihapus — muncul wajar di cerita korban: "dia jual barang buat deposit lagi"
+    "withdraw",   # tarik dana kemenangan, konteks tarik selalu di akun judi
+    # "deposit" dihapus, muncul wajar di cerita korban: "dia jual barang buat deposit lagi"
     # Spam yang sebut "deposit" hampir selalu juga punya "gacor"/brand/withdraw
     # yang masih tertangkap sinyal lain. SVM sekarang cukup kuat untuk handle ini.
     # Nama brand / situs yang diketahui (angka dihapus preprocessing: PSTOTO99 → pstoto)
     "pstoto", "jptogel", "supermoney", "xuxu", "bardi",
     "bukit", "dora", "pluto", "jalak",
     "pangeran", "kyt",
-    # CATATAN: "bambu" dan "giat" dihapus karena terlalu generik — keduanya adalah
+    # CATATAN: "bambu" dan "giat" dihapus karena terlalu generik, keduanya adalah
     # kata Indonesia biasa (tanaman bambu, kata sifat rajin) yang muncul di komentar
     # normal non-judi. Brand yang pakai nama ini + suffix angka (bambu88, giat777)
     # sudah tertangkap via Step 5b → judolbrand.
@@ -245,7 +176,7 @@ HARD_SPAM_SIGNALS = {
 def has_hard_spam_signal(cleaned_text: str) -> bool:
     """
     Return True jika teks (sudah dipreprocessing) mengandung minimal satu kata
-    dari HARD_SPAM_SIGNALS — kata yang secara pasti berhubungan dengan judi online
+    dari HARD_SPAM_SIGNALS, kata yang secara pasti berhubungan dengan judi online
     dan tidak punya interpretasi lain yang masuk akal.
 
     Menggunakan set intersection untuk efisiensi O(min(n,m)).
@@ -281,13 +212,9 @@ class ReportResponse(BaseModel):
     duplicate: bool = False
 
 
-# ---------------------------------------------------------------------------
-# ENDPOINTS
-# ---------------------------------------------------------------------------
-
 @app.get("/")
 def root():
-    """Root endpoint. Confirms the server is running."""
+    """Konfirmasi server hidup."""
     return {
         "status": "online",
         "message": "Spam Detector API is running. Use POST /predict to classify a comment."
@@ -296,7 +223,7 @@ def root():
 
 @app.get("/health")
 def health():
-    """Returns model load status. Useful for the extension to check before sending requests."""
+    """Status pemuatan model. Dipanggil ekstensi sebelum mulai mengirim komentar."""
     return {
         "status": "ok" if model is not None else "model_not_loaded",
         "model_loaded": model is not None
@@ -305,13 +232,10 @@ def health():
 
 @app.get("/privacy", response_class=HTMLResponse)
 def privacy_policy():
-    """Serves the privacy policy page required for Chrome Web Store publication.
+    """Halaman kebijakan privasi untuk pengajuan Chrome Web Store.
 
-    Google opens this URL during review, so it must be reachable publicly.
-    Serving it from FastAPI instead of Nginx keeps things simple: the app
-    already sits behind the `location /` proxy, so no extra Nginx block and
-    no /var/www directory are needed — the file lives with the code and is
-    deployed by the same git pull.
+    Disajikan lewat FastAPI, bukan Nginx, supaya ikut ter-deploy oleh git pull
+    yang sama tanpa perlu blok Nginx tambahan atau direktori /var/www.
     """
     try:
         with open(PRIVACY_HTML_PATH, "r", encoding="utf-8") as f:
@@ -325,43 +249,23 @@ def privacy_policy():
 
 @app.post("/predict", response_model=PredictResponse)
 def predict(request: PredictRequest):
-    """
-    Classify a single comment.
-
-    Request body:
-        {"text": "raw comment text here"}
-
-    Response:
-        {
-            "label": "spam",
-            "confidence": 0.94,
-            "is_spam": true
-        }
-    """
+    """Klasifikasi satu komentar."""
     if model is None:
-        raise HTTPException(status_code=503, detail="Model not ready, try again shortly")
+        raise HTTPException(status_code=503, detail="Model belum siap, coba lagi sebentar")
 
-    # Apply the same preprocessing pipeline used during training
     cleaned = clean_text(request.text)
 
     if not cleaned:
-        # Text became empty after cleaning (e.g. pure emoji input)
+        # Teks habis setelah normalisasi, misalnya isinya emoji semua.
         return PredictResponse(label="non_spam", confidence=0.5, is_spam=False)
 
     label = model.predict([cleaned])[0]
 
-    # Retrieve probability score for the predicted label
     proba = model.predict_proba([cleaned])[0]
     classes = model.classes_
     label_idx = list(classes).index(label)
     confidence = float(proba[label_idx])
 
-    # Hybrid rule — DINONAKTIFKAN (ENABLE_HYBRID_RULES = False).
-    # Diukur lewat ablation study (lihat komentar panjang di atas dan
-    # reports/hybrid_ablation.txt) dan terbukti net negative setelah model
-    # dilatih ulang dengan dataset Versi 8 — SVM murni lebih akurat di kedua
-    # dataset evaluasi. Kode tetap di sini, tinggal aktifkan flag-nya kalau
-    # suatu saat perlu diuji ulang.
     if ENABLE_HYBRID_RULES:
         has_signal = has_hard_spam_signal(cleaned)
 
@@ -411,8 +315,6 @@ def predict_batch(request: BatchPredictRequest):
         label_idx = list(classes).index(label)
         confidence = float(proba[label_idx])
 
-        # Hybrid rule — DINONAKTIFKAN, sama seperti di /predict (lihat penjelasan
-        # lengkap + ablation study di atas).
         if ENABLE_HYBRID_RULES:
             has_signal = has_hard_spam_signal(cleaned)
 
@@ -458,7 +360,7 @@ def report_false_positive(request: ReportRequest, x_report_token: str = Header(d
     if x_report_token != REPORT_TOKEN:
         raise HTTPException(status_code=401, detail="Invalid or missing X-Report-Token header")
 
-    # Deduplicate — cek di comments.csv DAN manual_overrides.csv
+    # Deduplicate, cek di comments.csv DAN manual_overrides.csv
     for check_path in (DATA_PATH, MANUAL_OVERRIDES_CSV):
         if os.path.exists(check_path):
             with open(check_path, "r", encoding="utf-8") as f:
@@ -468,13 +370,13 @@ def report_false_positive(request: ReportRequest, x_report_token: str = Header(d
                     if row and row[0].strip() == request.text:
                         return ReportResponse(
                             success=False,
-                            message="Komentar ini sudah ada di dataset — tidak ditambahkan lagi.",
+                            message="Komentar ini sudah ada di dataset, tidak ditambahkan lagi.",
                             duplicate=True,
                         )
 
     # Append ke comments.csv (efek langsung ke training berikutnya)
     # Kolom ketiga ("source") harus diisi "manual_override" agar selaras dengan
-    # skema 3-kolom yang dihasilkan prepare_dataset.py — kalau cuma 2 kolom,
+    # skema 3-kolom yang dihasilkan prepare_dataset.py, kalau cuma 2 kolom,
     # baris ini akan misalign saat dibaca ulang sebagai DataFrame.
     with open(DATA_PATH, "a", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
@@ -496,9 +398,7 @@ def report_false_positive(request: ReportRequest, x_report_token: str = Header(d
     )
 
 
-# ---------------------------------------------------------------------------
-# ENTRY POINT
-# ---------------------------------------------------------------------------
+# Titik masuk
 
 if __name__ == "__main__":
     print("=" * 55)

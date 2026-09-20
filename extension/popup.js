@@ -1,13 +1,10 @@
 /**
- * popup.js
- * ========
- * Logic for the extension popup UI.
- * The popup appears when the user clicks the extension icon in the browser toolbar.
+ * Panel pengaturan yang muncul saat ikon ekstensi diklik di bilah alat.
  */
 
 const API_BASE = "https://api-svm.cupsky.my.id";
 
-// DOM element references
+// Rujukan elemen DOM
 const statusDot = document.getElementById("statusDot");
 const statusLabel = document.getElementById("statusLabel");
 const statusSub = document.getElementById("statusSub");
@@ -21,7 +18,7 @@ const hideModeDimBtn = document.getElementById("hideModeDimBtn");
 const hideModeRemoveBtn = document.getElementById("hideModeRemoveBtn");
 
 /**
- * Check the health of the Python API server and update the status indicator.
+ * Periksa kesehatan server lalu perbarui indikator status.
  */
 async function checkServer() {
   setStatus("loading", "Checking server...", "Please wait while we check the server status");
@@ -47,11 +44,11 @@ async function checkServer() {
 }
 
 /**
- * Update the status indicator dot and labels.
+ * Perbarui titik indikator beserta labelnya.
  *
  * @param {"online" | "offline" | "loading"} state
- * @param {string} label - Primary status text
- * @param {string} sub   - Secondary/detail text
+ * @param {string} label - teks status utama
+ * @param {string} sub   - teks keterangan
  */
 function setStatus(state, label, sub) {
   statusDot.className = `status-dot ${state}`;
@@ -60,8 +57,8 @@ function setStatus(state, label, sub) {
 }
 
 /**
- * Get the active tab in the current window, so stats always reflect
- * whichever page the user is actually looking at.
+ * Ambil tab yang sedang aktif, supaya angka yang ditampilkan selalu milik
+ * halaman yang benar-benar sedang dilihat pengguna.
  *
  * @returns {Promise<chrome.tabs.Tab | null>}
  */
@@ -74,13 +71,12 @@ function getActiveTab() {
 }
 
 /**
- * Load and display spam detection statistics for the active tab.
+ * Muat dan tampilkan statistik deteksi untuk tab aktif.
  *
- * Stats live only in each tab's content.js memory (not in chrome.storage),
- * because a shared storage key would get overwritten every time any tab
- * scans comments — the popup would then show whichever tab wrote last
- * instead of the tab the user is currently viewing. Asking the active tab
- * directly guarantees the numbers always match what's on screen.
+ * Angkanya hanya hidup di memori content.js tiap tab, bukan di
+ * chrome.storage, karena kunci storage yang dipakai bersama akan tertimpa
+ * setiap kali tab mana pun memindai komentar. Bertanya langsung ke tab aktif
+ * memastikan angkanya selalu cocok dengan yang terlihat di layar.
  */
 async function loadStats() {
   const tab = await getActiveTab();
@@ -91,8 +87,8 @@ async function loadStats() {
   }
 
   chrome.tabs.sendMessage(tab.id, { type: "getStats" }, (response) => {
-    // chrome.runtime.lastError fires when content.js isn't injected on this
-    // tab (e.g. not a YouTube page) — just show zero in that case.
+    // chrome.runtime.lastError muncul kalau content.js tidak disuntikkan di
+    // tab ini, misalnya halamannya bukan YouTube. Tampilkan nol saja.
     if (chrome.runtime.lastError || !response) {
       hiddenCount.textContent = 0;
       scannedCount.textContent = 0;
@@ -104,7 +100,7 @@ async function loadStats() {
 }
 
 /**
- * Reset the active tab's statistics counters and refresh the UI.
+ * Nolkan penghitung statistik tab aktif lalu segarkan tampilannya.
  */
 async function resetStats() {
   const tab = await getActiveTab();
@@ -117,13 +113,11 @@ async function resetStats() {
   });
 }
 
-// ---------------------------------------------------------------------------
-// THRESHOLD SLIDER
-// ---------------------------------------------------------------------------
+// Penggeser ambang batas
 
 /**
- * Load the saved confidence threshold from chrome.storage and set the slider.
- * Defaults to 0.75 (75%) if the user hasn't changed it before.
+ * Muat ambang kepercayaan tersimpan lalu setel posisi penggeser.
+ * Nilai bawaannya 0,75 kalau pengguna belum pernah mengubahnya.
  */
 function loadThreshold() {
   chrome.storage.local.get(["confidenceThreshold"], (data) => {
@@ -134,12 +128,11 @@ function loadThreshold() {
 }
 
 /**
- * Save the threshold to chrome.storage when the user moves the slider.
+ * Simpan ambang saat penggeser digerakkan.
  *
- * Why save as a decimal (0.0–1.0)?
- * content.js compares threshold against the model's confidence score, which
- * the API always returns as a decimal. Storing as decimal avoids a conversion
- * step in content.js and keeps the format consistent with the API response.
+ * Disimpan sebagai desimal, bukan persen, supaya formatnya sama dengan nilai
+ * kepercayaan yang dikembalikan API. Dengan begitu content.js bisa langsung
+ * membandingkannya tanpa konversi.
  */
 thresholdSlider.addEventListener("input", () => {
   const pct = parseInt(thresholdSlider.value, 10);
@@ -147,12 +140,10 @@ thresholdSlider.addEventListener("input", () => {
   chrome.storage.local.set({ confidenceThreshold: pct / 100 });
 });
 
-// ---------------------------------------------------------------------------
-// HIDE MODE — Dim (default) vs Remove
-// ---------------------------------------------------------------------------
+// Mode penyembunyian
 
 /**
- * Reflect the current hide mode in the toggle buttons.
+ * Tandai mode yang sedang aktif di tombol pilihan.
  *
  * @param {"dim" | "remove"} mode
  */
@@ -162,8 +153,8 @@ function applyHideModeUI(mode) {
 }
 
 /**
- * Load the saved hide mode from chrome.storage. Defaults to "dim" (current
- * behavior: semi-transparent overlay + badge that can reveal the comment).
+ * Muat mode penyembunyian tersimpan. Bawaannya "dim", yaitu komentar
+ * diredupkan dan diberi lencana yang bisa diklik untuk menampilkannya lagi.
  */
 function loadHideMode() {
   chrome.storage.local.get(["hideMode"], (data) => {
@@ -173,8 +164,8 @@ function loadHideMode() {
 }
 
 /**
- * Save the hide mode whenever the user clicks a mode button.
- * content.js listens via chrome.storage.onChanged and updates immediately.
+ * Simpan mode setiap kali tombolnya diklik. content.js mendengarkan lewat
+ * chrome.storage.onChanged dan langsung menyesuaikan.
  */
 function setHideMode(mode) {
   chrome.storage.local.set({ hideMode: mode });
@@ -184,14 +175,12 @@ function setHideMode(mode) {
 hideModeDimBtn.addEventListener("click", () => setHideMode("dim"));
 hideModeRemoveBtn.addEventListener("click", () => setHideMode("remove"));
 
-// ---------------------------------------------------------------------------
-// EVENT LISTENERS & STARTUP
-// ---------------------------------------------------------------------------
+// Pendengar peristiwa dan inisialisasi
 
 btnCheck.addEventListener("click", checkServer);
 btnReset.addEventListener("click", resetStats);
 
-// Run on popup open
+// Dijalankan saat popup dibuka
 checkServer();
 loadStats();
 loadThreshold();

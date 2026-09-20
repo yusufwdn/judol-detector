@@ -9,7 +9,7 @@ Accuracy: 96.95%
 Commit lanjutan Versi 8: dataset diperluas lagi, fix persistensi endpoint /report ke dua file. Total baris sudah 5132 sesuai DATASET_LOG, tapi split spam/non_spam sedikit beda dari tabel resmi (kemungkinan entri /report di luar rebuild).
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-8--2026-06-19).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-8--2026-06-19).
 
 ## Metadata model (diekstrak dari file ini)
 

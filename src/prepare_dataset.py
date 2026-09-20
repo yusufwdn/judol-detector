@@ -1,6 +1,5 @@
 """
 prepare_dataset.py
-==================
 Converts raw scraped JSON into a clean, balanced CSV ready for training.
 
 Steps:
@@ -32,9 +31,7 @@ INPUT_NON_SPAM_JSON = os.path.join(BASE_DIR, "scraper", "final_non_spam.json")
 OUTPUT_CSV = os.path.join(BASE_DIR, "data", "comments.csv")
 MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
 
-# ---------------------------------------------------------------------------
-# CONFIGURATION
-# ---------------------------------------------------------------------------
+# Konfigurasi
 
 # Minimum spam_score for a scraped entry to be included in training.
 #
@@ -43,25 +40,24 @@ MANUAL_OVERRIDES_CSV = os.path.join(BASE_DIR, "data", "manual_overrides.csv")
 # Entries below 80 may have triggered only weak secondary signals
 # (e.g., high emoji ratio alone), which increases the risk of false positives.
 # Score >= 80 requires at least one strong primary signal (brand name or
-# contact link) plus corroborating secondary signals — a much safer threshold.
+# contact link) plus corroborating secondary signals, a much safer threshold.
 #
 # Trade-off: raising this value = cleaner data, fewer samples.
 #            lowering this value = more samples, more label noise.
 SPAM_SCORE_THRESHOLD = 80
 
 
-
 def load_spam_data(json_path: str, threshold: int) -> list:
     """
     Load spam entries from the scraped JSON file using a two-pass filter.
 
-    PASS 1 — Primary threshold (score >= threshold):
+    PASS 1, Primary threshold (score >= threshold):
         High-confidence entries with multiple strong signals. Always included.
 
-    PASS 2 — Brand name rescue (score < threshold, brand_pattern only):
+    PASS 2, Brand name rescue (score < threshold, brand_pattern only):
         The scraper's brand_pattern signal matches on substrings, so it fires
         on innocent Indonesian words like "kesambet" (contains "bet") or
-        "ribet" — these are false positives that correctly got a low score.
+        "ribet", these are false positives that correctly got a low score.
 
         BUT real gambling brands also sometimes only trigger brand_pattern (score 40)
         when they appear alone without a contact link. Examples:
@@ -86,11 +82,9 @@ def load_spam_data(json_path: str, threshold: int) -> list:
     Returns:
         List of dicts with keys 'text' and 'label'.
     """
-    # ---------------------------------------------------------------------------
     # BRAND DETECTION PATTERNS untuk Pass 2 (rescue)
-    # ---------------------------------------------------------------------------
     #
-    # Pola 1 — huruf (case-insensitive) + digit
+    # Pola 1, huruf (case-insensitive) + digit
     #   Contoh: WIFI4D, freebet88, Koreo138, bbca4d, SlotLions88
     #
     #   Kenapa case-insensitive?
@@ -105,7 +99,7 @@ def load_spam_data(json_path: str, threshold: int) -> list:
     #   "ribet", "kesambet", "diabet" tidak punya digit → tidak kena.
     BRAND_RESCUE_PATTERN = re.compile(r'\b[A-Z]{2,}\d+[A-Z0-9]*\b', re.IGNORECASE)
 
-    # Pola 2 — Suffix khas brand judi Indonesia TANPA digit
+    # Pola 2, Suffix khas brand judi Indonesia TANPA digit
     #   Format: [4+ huruf kapital][TOTO|BET|WIN|QQ]
     #
     #   Kenapa suffix ini aman?
@@ -151,15 +145,15 @@ def load_spam_data(json_path: str, threshold: int) -> list:
             skipped_low_score += 1
             continue
 
-        # Pass 1: primary threshold — high confidence, always include
+        # Pass 1: primary threshold, high confidence, always include
         if score >= threshold:
             spam_entries.append({"text": text, "label": "spam", "source": source})
 
         # Pass 2: rescue entries below threshold that contain a confirmed real
         # gambling brand name in normalized_text.
         #
-        # KONDISI LAMA: signals == ["brand_pattern"]  (exact match — hanya 1 sinyal)
-        # KONDISI BARU: "brand_pattern" in signals    (membership check — brand bisa hadir
+        # KONDISI LAMA: signals == ["brand_pattern"]  (exact match, hanya 1 sinyal)
+        # KONDISI BARU: "brand_pattern" in signals    (membership check, brand bisa hadir
         #               bersamaan dengan sinyal lain seperti emoji_spam / high_symbol_ratio)
         #
         # Kenapa diubah?
@@ -167,7 +161,7 @@ def load_spam_data(json_path: str, threshold: int) -> list:
         # menggunakan banyak emoji dan simbol sebagai dekorasi. Akibatnya komentar mereka
         # mendapat 2-3 sinyal (brand_pattern + emoji_spam + high_symbol_ratio) sehingga
         # score-nya 60-75, tapi kondisi rescue LAMA mengharuskan tepat 1 sinyal.
-        # Mereka ke-skip padahal jelas spam — brand ROMA4D terlihat jelas di normalized_text.
+        # Mereka ke-skip padahal jelas spam, brand ROMA4D terlihat jelas di normalized_text.
         #
         # Kondisi rescue: brand_pattern sudah terpenuhi dari scraper.
         # Verifikasi tambahan via dua pola brand di normalized_text:
@@ -182,7 +176,7 @@ def load_spam_data(json_path: str, threshold: int) -> list:
 
         else:
             # Could be a false positive like "kesambet" (brand_pattern on "bet"),
-            # a soft brand (Miya88 — mixed case, doesn't match ALL-CAPS regex),
+            # a soft brand (Miya88, mixed case, doesn't match ALL-CAPS regex),
             # or genuinely weak signal. Skip either way.
             skipped_low_score += 1
             if "brand_pattern" in signals and score < threshold:
@@ -234,13 +228,12 @@ def load_non_spam_data(json_path: str) -> list:
     return entries
 
 
-
 def apply_manual_overrides(spam: list, non_spam: list, overrides_path: str):
     """
     Apply manual label corrections from data/manual_overrides.csv.
 
     KENAPA FUNGSI INI ADA:
-    prepare_dataset.py di-generate ulang setiap kali ada scraping baru — artinya
+    prepare_dataset.py di-generate ulang setiap kali ada scraping baru, artinya
     comments.csv akan ditimpa dan semua koreksi manual (relabeling false positive,
     tambah entry baru) akan hilang. Solusinya: simpan koreksi di file terpisah
     (manual_overrides.csv) yang dibaca setiap kali prepare_dataset.py dijalankan.
@@ -261,7 +254,7 @@ def apply_manual_overrides(spam: list, non_spam: list, overrides_path: str):
     import csv as csv_module
 
     if not os.path.exists(overrides_path):
-        print("  (tidak ada manual_overrides.csv — dilewati)")
+        print("  (tidak ada manual_overrides.csv, dilewati)")
         return spam, non_spam
 
     with open(overrides_path, "r", encoding="utf-8") as f:
@@ -300,7 +293,7 @@ def apply_manual_overrides(spam: list, non_spam: list, overrides_path: str):
     print(f"    Entry ditambah ke spam    : {added_spam}")
     if removed < len(fp_texts):
         not_found = len(fp_texts) - removed
-        print(f"    (FP tidak ditemukan di auto-set: {not_found} — sudah di-skip sebelumnya)")
+        print(f"    (FP tidak ditemukan di auto-set: {not_found}, sudah di-skip sebelumnya)")
 
     return spam, non_spam
 

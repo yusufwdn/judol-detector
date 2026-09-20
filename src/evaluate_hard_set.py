@@ -1,44 +1,15 @@
-"""
-evaluate_hard_set.py
-====================
-Evaluasi model (SVM murni) terhadap "hard test set" — komentar ambigu yang
-secara leksikal mirip spam tapi bukan promosi judi.
+"""Uji model terhadap data/hard_test_set.csv.
 
-KENAPA PERLU EVALUASI TERPISAH?
----------------------------------
-Test set biasa (80/20 split dari comments.csv) berisi komentar yang relatif
-mudah dibedakan: spam eksplisit vs komentar sehari-hari yang netral. Angka
-akurasi dari test set biasa tidak mencerminkan kemampuan model menghadapi
-kasus abu-abu:
+Data uji biasa hasil pembagian 80/20 berisi kasus yang relatif mudah: promosi
+eksplisit lawan komentar netral. Angkanya tidak menunjukkan seberapa baik model
+menangani kasus abu-abu, yaitu komentar yang menyebut nama situs judi tapi
+justru mengkritik atau melaporkannya. Contohnya:
 
-  "link hondatoto penipu bisa mengubah no rek dana kita secepatny hati2"
-  -> Bukan promosi — ini peringatan. Tapi menyebut nama brand judol.
-  -> Model kemungkinan salah klasifikasikan sebagai spam.
+    "link hondatoto penipu bisa mengubah no rek dana kita secepatny hati2"
 
-Hard test set dirancang khusus untuk mengukur kasus seperti ini. Hasilnya
-dilaporkan TERPISAH dari angka evaluasi utama — bukan untuk menggantikannya,
-tapi sebagai lapisan analisis tambahan yang jujur tentang batasan model.
+Kumpulan ini seluruhnya berlabel non-spam, jadi yang bermakna di sini adalah
+akurasi dan jumlah false positive, bukan F1-macro. Lihat docs/evaluasi.md.
 
-KENAPA SVM MURNI (TANPA HYBRID RULE)?
----------------------------------------
-Ablation study (`evaluate_hybrid_ablation.py`, lihat `PENJELASAN_TEKNIS.md
-§33`) membuktikan hybrid rule berbasis kata kunci (HARD_SPAM_SIGNALS)
-menaikkan false positive dan MENURUNKAN akurasi baik di test set biasa
-maupun hard test set. Hybrid rule dimatikan permanen sejak Versi 9
-(`ENABLE_HYBRID_RULES = False` di server.py). Script ini dulu masih
-menerapkan hybrid rule versi lama secara manual — sudah diperbaiki supaya
-konsisten dengan keputusan itu dan dengan metodologi yang sebenarnya
-dipakai untuk angka-angka di `DATASET_LOG.md` sejak Versi 9.
-
-SUMBER DATA:
-  data/hard_test_set.csv (135 entri, semua berlabel non_spam) — komentar
-  ambigu dari 2 video YouTube bertema judi online (kM99uBssHvQ,
-  pzE8S6N0vwo). Set ini murni mengukur false positive rate model pada
-  kritik/diskusi anti-judol yang menyebut istilah/brand judi — bukan set
-  campuran spam+non_spam, karena itu baris "Aktual spam" di confusion
-  matrix akan selalu 0.
-
-Jalankan:
     python src/evaluate_hard_set.py
 """
 
@@ -150,7 +121,7 @@ def main():
             "hybrid_B": "Hybrid B: non_spam->spam (ada sinyal keras)",
             "empty_text": "Teks kosong setelah preprocessing",
         }.get(via, via)
-        print(f"  {via:12} ({cnt:3}x) — {desc}")
+        print(f"  {via:12} ({cnt:3}x), {desc}")
 
     # Detail false positive
     if fp:

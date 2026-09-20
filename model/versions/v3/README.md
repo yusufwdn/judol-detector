@@ -9,7 +9,7 @@ Accuracy: 97.23% (F1 0.9671) — lihat tabel Versi 4 di DATASET_LOG
 +3 hard negative examples (kata berbobot spam dalam konteks normal kalimat).
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-3--2026-06-18).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-3--2026-06-18).
 
 ## Metadata model (diekstrak dari file ini)
 

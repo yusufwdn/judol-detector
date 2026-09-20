@@ -1,94 +1,69 @@
 /**
- * content.js
- * ==========
- * Injected into YouTube pages.
- * Finds comment elements, sends them to the API, and hides spam results.
+ * Content script yang disuntikkan ke halaman YouTube. Membaca komentar dari
+ * DOM, mengirimnya ke API, lalu menyembunyikan yang terdeteksi spam.
  *
- * WHAT IS A CONTENT SCRIPT?
- * --------------------------
- * Browser extensions can inject JavaScript into web pages the user is viewing.
- * This script runs inside the page context, so it can:
- * - Read and modify the DOM (HTML elements on the page)
- * - Fetch to our localhost API
- * - But CANNOT access the page's own JavaScript variables (browser security)
- *
- * WHY RAW TEXT ONLY — NO PRE-PROCESSING IN JS
- * --------------------------------------------
- * This script sends raw, unmodified comment text to the server.
- * All normalization (unicode, emoji, homoglyphs) happens in Python.
- * This is intentional: the training pipeline also processes raw text,
- * so training and inference always use the same transformations.
- * Doing normalization in two different environments (JS + Python) would
- * introduce subtle inconsistencies that silently degrade model accuracy.
+ * Teks dikirim apa adanya tanpa dinormalisasi di sini. Seluruh normalisasi
+ * dikerjakan Python supaya pelatihan dan prediksi memakai perlakuan yang sama.
+ * Lihat src/preprocessing.py.
  */
-
-// ---------------------------------------------------------------------------
-// CONFIGURATION
-// ---------------------------------------------------------------------------
 
 const API_BASE = "https://api-svm.cupsky.my.id";
 const API_URL = `${API_BASE}/predict`;
 const BATCH_API_URL = `${API_BASE}/predict/batch`;
-// Left empty on purpose. /report writes straight into the training dataset,
-// and this file ships to every user and is published with the thesis source —
-// a token written here is readable by anyone, which is no protection at all.
+// Sengaja dikosongkan. /report menulis langsung ke dataset pelatihan, dan
+// berkas ini terdistribusi ke setiap pengguna, jadi token yang ditulis di sini
+// bisa dibaca siapa pun dan tidak melindungi apa-apa.
 //
-// The endpoint is only ever called when DEV_MODE below is true. When you do
-// want to collect corrections locally, paste the server's REPORT_TOKEN here in
-// your own working copy and flip DEV_MODE — just never commit either change.
+// Endpoint-nya cuma dipanggil kalau DEV_MODE di bawah bernilai true. Untuk
+// mengumpulkan koreksi secara lokal, isi token di salinan kerja sendiri dan
+// jangan ikut di-commit.
 const REPORT_TOKEN = "";
 
-// Default threshold — will be overridden by value from chrome.storage on init.
-// Users can change this via the slider in the popup.
+// Nilai bawaan, ditimpa oleh nilai dari chrome.storage saat inisialisasi.
+// Pengguna mengubahnya lewat penggeser di popup.
 let confidenceThreshold = 0.75;
 
-// How a detected spam comment is visually handled — set via the popup.
-// "dim": semi-transparent overlay + badge the user can click to reveal it.
-// "remove": the comment is hidden outright (display: none), no badge.
+// Cara komentar spam ditangani secara visual, dipilih lewat popup.
+// "dim": diredupkan, diberi lencana yang bisa diklik untuk menampilkannya lagi.
+// "remove": disembunyikan sepenuhnya, tanpa lencana.
 let hideMode = "dim";
 
-// Dev flag — analogous to NODE_ENV in Node.js. This is a developer-only
-// switch: flip it manually in this file before running locally, then flip
-// it back before shipping. It is never exposed in the popup UI and never
-// read from chrome.storage, so end users have no way to turn it on.
-// When true, a "Bukan spam?" button appears on every hidden comment, letting
-// whoever is testing report false positives straight into the CSV dataset.
+// Saklar khusus pengembang: diubah manual di berkas ini sebelum menjalankan
+// secara lokal, lalu dikembalikan sebelum dirilis. Tidak pernah muncul di
+// popup dan tidak dibaca dari chrome.storage, jadi pengguna akhir tidak punya
+// cara mengaktifkannya.
+// Kalau true, tombol "Bukan spam?" muncul di tiap komentar yang disembunyikan.
 const DEV_MODE = false;
 
 /**
- * Log only when running in development mode — keeps the production
- * console clean for end users while still helping during debugging.
- * console.warn calls (server errors) are left as-is since those are
- * useful to any user troubleshooting a dead server.
+ * Hanya mencatat log saat mode pengembangan, supaya konsol pengguna akhir
+ * tetap bersih. console.warn dibiarkan apa adanya karena berguna bagi siapa
+ * pun yang sedang menelusuri server yang mati.
  */
 function devLog(...args) {
   if (DEV_MODE) console.log(...args);
 }
 
-// CSS selectors for comment elements on YouTube.
-// Most likely to break when YouTube updates its UI.
+// Selektor elemen komentar YouTube. Ini bagian yang paling mungkin rusak
+// kalau YouTube mengubah tampilannya.
 const SELECTORS = {
-  commentContainer: "ytd-comment-thread-renderer", // One full comment thread
-  commentText: "#content-text", // The comment text node
+  commentContainer: "ytd-comment-thread-renderer", // satu utas komentar utuh
+  commentText: "#content-text", // simpul teks komentarnya
 };
 
-// ---------------------------------------------------------------------------
-// STATE
-// ---------------------------------------------------------------------------
+// Status runtime
 
-let processedComments = new WeakSet(); // Tracks elements already processed
+let processedComments = new WeakSet(); // elemen yang sudah diproses
 let hiddenCount = 0;
 let scannedCount = 0;
 let isServerAvailable = false;
 
-// ---------------------------------------------------------------------------
-// SERVER HEALTH CHECK
-// ---------------------------------------------------------------------------
+// Pemeriksaan kesehatan server
 
 /**
- * Check whether the Python API server is running and the model is loaded.
- * Called once at startup AND automatically when a batch request fails,
- * so the extension recovers gracefully if the server restarts mid-session.
+ * Periksa apakah server hidup dan modelnya sudah dimuat. Dipanggil sekali saat
+ * inisialisasi, dan otomatis lagi setiap permintaan batch gagal, supaya
+ * ekstensi pulih sendiri kalau server sempat restart.
  *
  * @returns {Promise<boolean>}
  */
@@ -111,7 +86,7 @@ async function checkServerHealth() {
     console.warn(`[Judol Detector] API server not found at ${API_BASE}`);
   }
 
-  // Sync server status to storage so the popup can reflect it
+  // Simpan status server supaya popup bisa menampilkannya
   if (typeof chrome !== "undefined" && chrome.storage) {
     chrome.storage.local.set({ isServerAvailable });
   }
@@ -119,14 +94,12 @@ async function checkServerHealth() {
   return isServerAvailable;
 }
 
-// ---------------------------------------------------------------------------
-// API CALLS
-// ---------------------------------------------------------------------------
+// Pemanggilan API
 
 /**
- * Send a single comment to the prediction API.
+ * Kirim satu komentar ke API prediksi.
  *
- * @param {string} text - Raw comment text
+ * @param {string} text - teks komentar mentah
  * @returns {Promise<{is_spam: boolean, confidence: number, label: string} | null>}
  */
 async function predictComment(text) {
@@ -146,13 +119,13 @@ async function predictComment(text) {
 }
 
 /**
- * Send multiple comments in a single batch request (more efficient).
+ * Kirim banyak komentar sekaligus dalam satu permintaan.
  *
- * If the request fails (network error or server down), automatically
- * re-checks server health so the extension stops trying on the next
- * scan cycle instead of failing silently every time.
+ * Kalau gagal karena jaringan atau server mati, kesehatan server diperiksa
+ * ulang supaya pemindaian berikutnya berhenti mencoba, bukan gagal diam-diam
+ * setiap kali.
  *
- * @param {string[]} texts - Array of raw comment texts
+ * @param {string[]} texts - array teks komentar mentah
  * @returns {Promise<Array | null>}
  */
 async function predictBatch(texts) {
@@ -168,9 +141,8 @@ async function predictBatch(texts) {
     const data = await response.json();
     return data.results;
   } catch {
-    // Batch failed — server may have gone down after the initial health check.
-    // Re-check so isServerAvailable is updated and future scans don't keep
-    // hitting a dead server.
+    // Server mungkin mati setelah pemeriksaan awal. Periksa ulang supaya
+    // isServerAvailable ikut diperbarui.
     console.warn(
       "[Judol Detector] Batch request failed, re-checking server...",
     );
@@ -179,26 +151,17 @@ async function predictBatch(texts) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// DOM MANIPULATION
-// ---------------------------------------------------------------------------
+// Manipulasi DOM
 
 /**
- * [DEV MODE] Send a comment text to the server to be saved as non_spam in the dataset.
- * Called when the user clicks "Bukan spam?" on a hidden comment.
+ * Pasang tombol "Bukan spam?" pada komentar yang sudah disembunyikan.
+ * Aman dipanggil berkali-kali karena memeriksa dulu apakah tombolnya sudah ada.
  *
- * @param {string} text       - Original raw comment text
- * @param {Element} reportBtn - The button element (updated to show feedback)
- */
-/**
- * Attach a "Bukan spam?" report button to an already-hidden comment element.
- * Checks first that a button doesn't already exist (safe to call multiple times).
- *
- * @param {Element} element      - The hidden comment container
- * @param {string}  originalText - Raw comment text to send to /report
+ * @param {Element} element      - wadah komentar yang disembunyikan
+ * @param {string}  originalText - teks mentah yang dikirim ke /report
  */
 function attachReportButton(element, originalText) {
-  if (element.querySelector("[data-judol-report]")) return; // already attached
+  if (element.querySelector("[data-judol-report]")) return; // sudah terpasang
 
   const reportBtn = document.createElement("div");
   reportBtn.dataset.judolReport = "true";
@@ -261,19 +224,14 @@ async function reportFalsePositive(text, reportBtn) {
 }
 
 /**
- * Hide a spam comment according to the user's chosen hideMode.
+ * Sembunyikan komentar spam sesuai hideMode yang dipilih pengguna.
  *
- * "dim": semi-transparent overlay + badge — comment stays in the DOM and
- * the user can click the badge to reveal it.
- * "remove": the comment is hidden outright (display: none), no badge.
+ * Tombol laporan hanya dipasang di mode "dim", karena elemen yang sudah
+ * di-display:none tidak punya permukaan untuk menempelkannya.
  *
- * In dev mode, an additional "Bukan spam?" button is shown (dim mode only,
- * since a removed element has no visible surface to attach it to). Clicking
- * it sends the comment text to POST /report so it gets saved as non_spam.
- *
- * @param {Element} element   - The comment container DOM element
- * @param {number} confidence - Model confidence score (0-1)
- * @param {string} originalText - Raw comment text (needed for /report)
+ * @param {Element} element     - wadah komentar di DOM
+ * @param {number} confidence   - nilai kepercayaan model, 0 sampai 1
+ * @param {string} originalText - teks mentah, dibutuhkan /report
  */
 function hideSpamComment(element, confidence, originalText) {
   element.dataset.judolDetected = "spam";
@@ -293,7 +251,7 @@ function hideSpamComment(element, confidence, originalText) {
   element.style.borderRadius = "4px";
   element.style.position = "relative";
 
-  // Small badge showing spam confidence, clickable to reveal
+  // Lencana kecil berisi nilai kepercayaan, bisa diklik untuk menampilkan
   const badge = document.createElement("div");
   badge.style.cssText = `
     position: absolute;
@@ -309,9 +267,8 @@ function hideSpamComment(element, confidence, originalText) {
     cursor: pointer;
   `;
   badge.textContent = `Spam ${Math.round(confidence * 100)}%`;
-  badge.title = "Click to reveal this comment";
+  badge.title = "Klik untuk menampilkan komentar ini";
 
-  // Click the badge to restore the comment
   badge.addEventListener("click", (e) => {
     e.stopPropagation();
     element.style.opacity = "1";
@@ -321,7 +278,7 @@ function hideSpamComment(element, confidence, originalText) {
 
   element.appendChild(badge);
 
-  // Dev mode: show a "Bukan spam?" button to report this comment as a false positive
+  // Mode pengembangan: tombol untuk melaporkan false positive
   if (DEV_MODE) {
     attachReportButton(element, originalText);
   }
@@ -331,43 +288,39 @@ function hideSpamComment(element, confidence, originalText) {
 }
 
 /**
- * hiddenCount/scannedCount live only in this tab's memory — they are never
- * written to chrome.storage. That storage is shared by every tab, so any
- * tab writing there would clobber the others' numbers (last write wins).
- * Instead the popup asks the active tab directly for its counts, see the
- * "getStats"/"resetStats" message listener below.
+ * hiddenCount dan scannedCount hanya hidup di memori tab ini, tidak pernah
+ * ditulis ke chrome.storage. Storage itu dipakai bersama semua tab, jadi tab
+ * mana pun yang menulis akan menimpa angka milik tab lain. Popup menanyakan
+ * angkanya langsung ke tab aktif lewat pesan "getStats" di bawah.
  */
 function persistStats() {}
 
-// ---------------------------------------------------------------------------
-// COMMENT SCANNING
-// ---------------------------------------------------------------------------
+// Pemindaian komentar
 
 /**
- * Scan all visible comment elements, collect unprocessed ones, and
- * send them to the API in batches of up to 50.
+ * Kumpulkan komentar yang belum diproses lalu kirim ke API per 50 teks.
  */
 async function scanComments() {
   if (!isServerAvailable) return;
 
   const commentElements = document.querySelectorAll(SELECTORS.commentContainer);
 
-  // Collect elements that haven't been processed yet
+  // Kumpulkan elemen yang belum pernah diproses
   const toProcess = [];
   commentElements.forEach((el) => {
     if (!processedComments.has(el)) {
       const textEl = el.querySelector(SELECTORS.commentText);
       if (textEl && textEl.textContent.trim().length > 0) {
         toProcess.push({ element: el, text: textEl.textContent.trim() });
-        processedComments.add(el); // Mark as seen immediately so re-scans skip it
+        processedComments.add(el); // ditandai langsung supaya pemindaian ulang melewatinya
       }
     }
   });
 
   if (toProcess.length === 0) return;
 
-  // Update scannedCount BEFORE sending to API — these comments are "scanned"
-  // regardless of whether they turn out to be spam or not.
+  // Dihitung sebelum dikirim, karena komentar ini tetap terpindai terlepas
+  // dari hasil klasifikasinya.
   scannedCount += toProcess.length;
   persistStats();
 
@@ -375,7 +328,7 @@ async function scanComments() {
     `[Judol Detector] Scanning ${toProcess.length} new comment(s)... (total scanned: ${scannedCount})`,
   );
 
-  // Send in batches matching the API's max batch size
+  // Ukuran batch mengikuti batas maksimum di sisi API
   const BATCH_SIZE = 50;
   for (let i = 0; i < toProcess.length; i += BATCH_SIZE) {
     const batch = toProcess.slice(i, i + BATCH_SIZE);
@@ -392,13 +345,11 @@ async function scanComments() {
   }
 }
 
-// ---------------------------------------------------------------------------
-// SETTINGS — Load threshold from storage and listen for changes
-// ---------------------------------------------------------------------------
+// Pengaturan
 
 /**
- * Load the confidence threshold saved by the user via the popup slider.
- * Falls back to 0.75 (75%) if nothing is stored yet.
+ * Muat ambang kepercayaan yang disimpan pengguna lewat penggeser di popup.
+ * Kembali ke 0,75 kalau belum ada yang tersimpan.
  */
 async function loadSettings() {
   if (typeof chrome === "undefined" || !chrome.storage) return;
@@ -417,7 +368,7 @@ async function loadSettings() {
         );
         if (DEV_MODE) {
           devLog(
-            "[Judol Detector][DEV] Dev mode is ON — 'Bukan spam?' button enabled.",
+            "[Judol Detector][DEV] Dev mode is ON, 'Bukan spam?' button enabled.",
           );
         }
         resolve();
@@ -427,9 +378,8 @@ async function loadSettings() {
 }
 
 /**
- * Listen for threshold changes made by the user in the popup while
- * this content script is already running. Without this listener, a
- * threshold change only takes effect after a full page reload.
+ * Tanpa pendengar ini, perubahan ambang di popup baru berlaku setelah halaman
+ * dimuat ulang.
  */
 if (typeof chrome !== "undefined" && chrome.storage) {
   chrome.storage.onChanged.addListener((changes) => {
@@ -446,15 +396,12 @@ if (typeof chrome !== "undefined" && chrome.storage) {
   });
 }
 
-// ---------------------------------------------------------------------------
-// MESSAGING — Let the popup query/reset THIS tab's stats on demand
-// ---------------------------------------------------------------------------
+// Pesan antar-komponen
 
 /**
- * The popup has no way to know which tab's numbers it's looking at unless
- * it asks the tab directly. It sends "getStats"/"resetStats" to the active
- * tab's content script (chrome.tabs.sendMessage), and we reply with this
- * tab's own in-memory counters instead of a shared/global value.
+ * Popup tidak punya cara tahu angka tab mana yang sedang dilihatnya kecuali
+ * bertanya langsung. Ia mengirim "getStats" atau "resetStats" ke content
+ * script tab aktif, dan dijawab dengan penghitung milik tab ini sendiri.
  */
 if (
   typeof chrome !== "undefined" &&
@@ -472,17 +419,14 @@ if (
   });
 }
 
-// ---------------------------------------------------------------------------
-// MUTATION OBSERVER — Watch for dynamically loaded comments
-// ---------------------------------------------------------------------------
+// Pemantau DOM
 
 /**
- * YouTube loads comments lazily as the user scrolls.
- * MutationObserver fires whenever new nodes are added to the DOM,
- * triggering a fresh scan for unprocessed comments.
+ * YouTube memuat komentar sambil pengguna menggulir, jadi penambahan simpul
+ * DOM dipakai sebagai pemicu pemindaian ulang.
  *
- * Debounce: wait 1 second after the last DOM change before scanning.
- * This prevents excessive API calls while the page is still loading.
+ * Diberi jeda satu detik setelah perubahan terakhir supaya tidak memanggil
+ * API berkali-kali saat halaman masih sibuk memuat.
  */
 let scanTimeout = null;
 
@@ -491,12 +435,10 @@ const observer = new MutationObserver(() => {
   scanTimeout = setTimeout(scanComments, 1000);
 });
 
-// ---------------------------------------------------------------------------
-// INITIALIZATION
-// ---------------------------------------------------------------------------
+// Inisialisasi
 
 async function init() {
-  // Load user settings (threshold, hideMode) before doing anything else.
+  // Pengaturan dimuat lebih dulu sebelum apa pun dikerjakan.
   await loadSettings();
   devLog("[Judol Detector] Extension loaded...");
 
@@ -513,7 +455,7 @@ async function init() {
     `[Judol Detector] Server OK · threshold: ${Math.round(confidenceThreshold * 100)}% · starting comment monitoring...`,
   );
 
-  // Initial scan for comments already present on page load
+  // Pindai komentar yang sudah ada saat halaman selesai dimuat
   await scanComments();
 
   // Watch for new comments added via infinite scroll
@@ -523,5 +465,5 @@ async function init() {
   });
 }
 
-// Start the extension
+// Jalankan ekstensi
 init();

@@ -9,7 +9,7 @@ Accuracy: (tidak dicatat terpisah — lihat v8b)
 Commit eksplisit "Versi 8": leet speak normalization ditambahkan, hard test set diperluas ke 141 entri. Non-spam belum final di commit ini.
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-8--2026-06-19).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-8--2026-06-19).
 
 ## Metadata model (diekstrak dari file ini)
 

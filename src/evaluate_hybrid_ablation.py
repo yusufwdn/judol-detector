@@ -1,26 +1,12 @@
-"""
-evaluate_hybrid_ablation.py
-============================
-Ablation study: SVM murni vs SVM + Hybrid Rules.
+"""Ukur dampak aturan heuristik tambahan terhadap akurasi.
 
-KENAPA SCRIPT INI ADA
-----------------------
-server.py menerapkan dua hybrid rule di atas prediksi SVM (lihat HARD_SPAM_SIGNALS
-di server.py). Tanpa angka pembanding, klaim "hybrid rule membantu akurasi" hanya
-argumen kualitatif — rawan ditanya balik saat sidang: "memangnya seberapa besar
-efeknya? Kalau SVM saja sudah cukup, kenapa masih perlu rule manual?"
+Menjalankan model yang sama dua kali per data uji, sekali memakai prediksi SVM
+apa adanya dan sekali dengan aturan heuristik diterapkan, lalu membandingkan
+akurasi dan F1-macro keduanya.
 
-Script ini menjawab itu dengan angka: menjalankan model SVM yang sama dua kali
-per dataset evaluasi — sekali tanpa hybrid rule (raw SVM predict), sekali dengan
-hybrid rule diterapkan (logika identik dengan server.py) — lalu membandingkan
-accuracy dan F1-macro keduanya.
+Hasilnya menunjukkan aturan itu merugikan, dan itu sebabnya
+ENABLE_HYBRID_RULES di src/server.py bernilai False. Lihat docs/eksperimen.md.
 
-Dievaluasi di dua dataset:
-1. Train-test split (80/20, random_state=42, stratify=y) — SAMA PERSIS dengan
-   split yang dipakai train.py, supaya hasilnya bisa dikutip berdampingan.
-2. Hard test set (data/hard_test_set.csv) — 141 kasus ambigu.
-
-Cara pakai:
     python src/evaluate_hybrid_ablation.py
 """
 
@@ -43,7 +29,7 @@ if hasattr(sys.stdout, "reconfigure"):
 sys.path.insert(0, BASE_DIR)
 from src.preprocessing import clean_text, preprocess_batch
 
-# Sama persis dengan HARD_SPAM_SIGNALS di server.py — wajib disinkronkan manual
+# Sama persis dengan HARD_SPAM_SIGNALS di server.py, wajib disinkronkan manual
 # kalau daftar di server.py berubah.
 HARD_SPAM_SIGNALS = {
     "gacor", "scatter", "jackpot", "maxwin", "togel", "toto", "rtp",

@@ -1,21 +1,20 @@
 """
 experiment_features.py
-======================
 Eksperimen: apakah mengubah konfigurasi TF-IDF meningkatkan performa model?
 
 Dua parameter TF-IDF yang diuji:
 
-1. ngram_range — seberapa panjang "potongan kata" yang dijadikan fitur
+1. ngram_range, seberapa panjang "potongan kata" yang dijadikan fitur
    - (1,1): hanya kata tunggal    → "daftar", "bonus", "sekarang"
    - (1,2): kata + pasangan kata  → "daftar", "daftar sekarang"  ← baseline
    - (1,3): + tiga kata sekaligus → "daftar", "daftar sekarang", "daftar sekarang bonus"
 
-2. max_features — berapa banyak fitur yang disimpan setelah seleksi
+2. max_features, berapa banyak fitur yang disimpan setelah seleksi
    - 5000  : ambil 5.000 fitur paling informatif
    - 10000 : ambil 10.000 fitur paling informatif  ← baseline
    - 20000 : ambil 20.000 fitur paling informatif
 
-Script ini melatih satu model per konfigurasi dengan data dan SVM identik —
+Script ini melatih satu model per konfigurasi dengan data dan SVM identik -
 satu-satunya yang berubah adalah pengaturan TF-IDF.
 
 Run setelah train.py selesai (hanya butuh data/comments.csv):
@@ -23,8 +22,8 @@ Run setelah train.py selesai (hanya butuh data/comments.csv):
 
 Output:
 - Tabel perbandingan di console
-- reports/experiment_features.png — grafik perbandingan F1-macro
-- reports/experiment_features.csv — tabel lengkap untuk referensi
+- reports/experiment_features.png, grafik perbandingan F1-macro
+- reports/experiment_features.csv, tabel lengkap untuk referensi
 """
 
 import os
@@ -49,7 +48,7 @@ sys.path.insert(0, BASE_DIR)
 from src.preprocessing import preprocess_batch
 
 # Parameter SVM tetap konstan di semua eksperimen.
-# Yang berubah hanya TF-IDF — ini yang membuat perbandingan adil.
+# Yang berubah hanya TF-IDF, ini yang membuat perbandingan adil.
 SVM_PARAMS = dict(
     C=1,
     kernel="linear",
@@ -95,7 +94,7 @@ CONFIGS = [
 
 
 def load_and_preprocess() -> tuple:
-    """Muat dataset, preprocess, dan split — sama persis dengan train.py."""
+    """Muat dataset, preprocess, dan split, sama persis dengan train.py."""
     df = pd.read_csv(DATA_PATH)
     df = df.dropna(subset=["text", "label"])
     df["text"] = df["text"].astype(str)
@@ -155,7 +154,7 @@ def save_bar_chart(results: list) -> str:
     Simpan grafik batang perbandingan F1-macro semua konfigurasi.
 
     Grafik ini memudahkan pembaca melihat sekilas apakah ada konfigurasi
-    yang unggul dari baseline — atau apakah semua hasilnya setara.
+    yang unggul dari baseline, atau apakah semua hasilnya setara.
     """
     os.makedirs(REPORTS_DIR, exist_ok=True)
 
@@ -233,7 +232,7 @@ def interpret_results(results: list) -> None:
     """
     Cetak interpretasi otomatis tiap konfigurasi dibandingkan baseline.
 
-    Ini titik awal untuk kalimat pembahasan di skripsi — bukan pengganti
+    Ini titik awal untuk kalimat pembahasan di skripsi, bukan pengganti
     analisis manual, tapi membantu merumuskan argumen yang tepat.
     """
     baseline = next(r for r in results if r["name"] == "Baseline")
@@ -250,14 +249,14 @@ def interpret_results(results: list) -> None:
         significant = abs_delta >= 0.005
 
         verdict = "SIGNIFIKAN" if significant else "tidak signifikan"
-        print(f"\n  [{r['name']}] F1-macro {sign} {abs_delta:.4f} — {verdict}")
+        print(f"\n  [{r['name']}] F1-macro {sign} {abs_delta:.4f}, {verdict}")
 
     print("\n" + "=" * 75)
 
 
 def main():
     print("=" * 75)
-    print("EKSPERIMEN KONFIGURASI TF-IDF — JUDOL SPAM DETECTOR")
+    print("EKSPERIMEN KONFIGURASI TF-IDF, JUDOL SPAM DETECTOR")
     print("=" * 75)
 
     print(f"\n[1/3] Memuat dan memproses data...")

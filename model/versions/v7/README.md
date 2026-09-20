@@ -9,7 +9,7 @@ Accuracy: 98.23% (F1 0.9822)
 20 entri direlabel (false positive spam->non_spam), manual_overrides.csv dibuat untuk persistensi koreksi lintas rebuild.
 
 Penjelasan lengkap (kenapa, contoh kasus, dampak terukur) ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-7--2026-06-19).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-7--2026-06-19).
 
 ## Metadata model (diekstrak dari file ini)
 

@@ -1,23 +1,12 @@
-"""
-inspect_features.py
-===================
-Extracts and visualizes the most influential words/bigrams learned by the SVM.
+"""Tampilkan kata dan bigram paling berpengaruh menurut model.
 
-For a linear SVM, each feature (word or bigram from TF-IDF) has a coefficient.
-- Large positive coefficient → feature strongly pushes toward "spam"
-- Large negative coefficient → feature strongly pushes toward "non_spam"
+Pada SVM linear tiap fitur punya koefisien. Koefisien positif besar mendorong
+ke arah spam, negatif besar mendorong ke arah non-spam. Membukanya adalah cara
+memeriksa bahwa model belajar sinyal yang masuk akal, bukan derau.
 
-This lets us answer: "What did the model actually learn?"
-If the top spam features are "daftar", "slot4d", "bonus new member", etc.,
-we can be confident the model learned real spam signals — not noise.
+Dijalankan setelah train.py.
 
-Run AFTER train.py:
     python src/inspect_features.py
-
-Output:
-- Top features printed to console
-- Bar chart saved to reports/top_features.png
-- Full feature list saved to reports/feature_weights.csv
 """
 
 import os
@@ -70,7 +59,7 @@ def extract_feature_weights(pipeline) -> pd.DataFrame:
     feature_names = tfidf.get_feature_names_out()
 
     # coef_ adalah sparse matrix dari scipy dengan shape (1, n_features).
-    # np.asarray() pada sparse matrix TIDAK menghasilkan dense array —
+    # np.asarray() pada sparse matrix TIDAK menghasilkan dense array -
     # harus pakai .toarray() untuk konversi eksplisit ke numpy 2D array,
     # lalu .ravel() untuk flatten ke 1D.
     weights = svm.coef_.toarray().ravel()
@@ -174,7 +163,7 @@ def save_csv(df: pd.DataFrame) -> str:
 
 def main():
     print("=" * 60)
-    print("FEATURE INSPECTION — SVM JUDOL DETECTOR")
+    print("FEATURE INSPECTION, SVM JUDOL DETECTOR")
     print("=" * 60)
 
     print("\n[1/3] Memuat model...")

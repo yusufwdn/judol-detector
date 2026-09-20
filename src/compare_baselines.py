@@ -1,15 +1,12 @@
-"""
-compare_baselines.py
-====================
-One-time experiment script: compare the trained SVM model against simpler
-baseline classifiers (Naive Bayes, Logistic Regression) on the same data split.
+"""Bandingkan SVM dengan Naive Bayes dan Logistic Regression.
 
-Run AFTER train.py has been executed (requires model/svm_model.joblib):
+Ketiganya dilatih pada dataset dan pembagian data yang sama. Dijalankan
+setelah train.py, karena butuh model/svm_model.joblib.
+
     python src/compare_baselines.py
 
-Output:
-- Comparison table printed to console
-- Confusion matrix PNG for each model saved to reports/
+Mencetak tabel perbandingan dan menyimpan confusion matrix tiap model ke
+reports/.
 """
 
 import os
@@ -41,7 +38,7 @@ sys.path.insert(0, BASE_DIR)
 from src.preprocessing import preprocess_batch
 
 # PENTING: Parameter TF-IDF ini harus sama persis dengan yang ada di train.py.
-# Kalau beda, perbandingannya tidak adil — beda hasilnya bisa dari feature-nya,
+# Kalau beda, perbandingannya tidak adil, beda hasilnya bisa dari feature-nya,
 # bukan dari algoritmanya.
 TFIDF_PARAMS = dict(
     max_features=10000,
@@ -52,7 +49,7 @@ TFIDF_PARAMS = dict(
 
 
 def load_and_prepare_data() -> tuple:
-    """Load, preprocess, and split data — identik dengan train.py."""
+    """Load, preprocess, and split data, identik dengan train.py."""
     print("[1/3] Loading and preprocessing data...")
     df = pd.read_csv(DATA_PATH)
     df = df.dropna(subset=["text", "label"])
@@ -64,7 +61,7 @@ def load_and_prepare_data() -> tuple:
     cleaned = preprocess_batch(texts)
 
     # random_state dan test_size harus sama dengan train.py supaya split-nya
-    # identik — kita membandingkan model di test set yang sama persis.
+    # identik, kita membandingkan model di test set yang sama persis.
     X_train, X_test, y_train, y_test = train_test_split(
         cleaned, labels,
         test_size=0.2,
@@ -94,7 +91,7 @@ def save_confusion_matrix_plot(
         linewidths=0.5,
         ax=ax
     )
-    ax.set_title(f"Confusion Matrix — {filename.replace('_', ' ').title()}", fontsize=12, pad=10)
+    ax.set_title(f"Confusion Matrix, {filename.replace('_', ' ').title()}", fontsize=12, pad=10)
     ax.set_ylabel("Aktual", fontsize=11)
     ax.set_xlabel("Prediksi", fontsize=11)
     plt.tight_layout()
@@ -110,7 +107,7 @@ def run_comparison(X_train, X_test, y_train, y_test) -> None:
     Train baseline classifiers and compare with the saved SVM model.
 
     All three models use the same TF-IDF parameters and the same data split.
-    The only variable is the classifier — making the comparison fair.
+    The only variable is the classifier, making the comparison fair.
     """
     print("\n[2/3] Training baseline classifiers...")
 
@@ -193,7 +190,7 @@ def run_comparison(X_train, X_test, y_train, y_test) -> None:
 
 def main():
     print("=" * 60)
-    print("BASELINE COMPARISON — JUDOL SPAM DETECTOR")
+    print("BASELINE COMPARISON, JUDOL SPAM DETECTOR")
     print("=" * 60 + "\n")
 
     X_train, X_test, y_train, y_test = load_and_prepare_data()

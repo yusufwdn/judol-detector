@@ -1,6 +1,5 @@
 """
 experiment_stemming.py
-======================
 Eksperimen: apakah menambahkan stemming meningkatkan performa model?
 
 Stemming = proses memotong kata ke bentuk dasarnya.
@@ -20,7 +19,7 @@ Run setelah train.py selesai (tidak perlu model tersimpan, tapi butuh dataset):
 
 Output:
 - Tabel perbandingan di console
-- reports/experiment_stemming.png — grafik perbandingan F1-score per kelas
+- reports/experiment_stemming.png, grafik perbandingan F1-score per kelas
 """
 
 import os
@@ -47,7 +46,7 @@ sys.path.insert(0, BASE_DIR)
 from src.preprocessing import preprocess_batch
 
 # Pengaturan TF-IDF dan SVM harus sama persis dengan train.py agar
-# perbandingannya adil — yang berubah HANYA preprocessing-nya.
+# perbandingannya adil, yang berubah HANYA preprocessing-nya.
 TFIDF_PARAMS = dict(
     max_features=10000,
     ngram_range=(1, 2),
@@ -62,9 +61,7 @@ SVM_PARAMS = dict(
     random_state=42,
 )
 
-# ---------------------------------------------------------------------------
-# STEMMER SETUP
-# ---------------------------------------------------------------------------
+# Penyiapan stemmer
 # StemmerFactory() membaca kamus Sastrawi dan membuat objek stemmer.
 # Proses ini bisa memakan 1-2 detik karena kamus cukup besar.
 # Kita buat stemmer sekali di sini (modul level) supaya tidak dibuat ulang
@@ -185,9 +182,9 @@ def save_comparison_chart(results: list) -> str:
     width = 0.25
 
     fig, ax = plt.subplots(figsize=(9, 5))
-    bars1 = ax.bar([i - width for i in x], f1_spam, width, label="F1 — spam", color="#e74c3c", alpha=0.85)
-    bars2 = ax.bar(x, f1_non, width, label="F1 — non_spam", color="#2980b9", alpha=0.85)
-    bars3 = ax.bar([i + width for i in x], f1_macro, width, label="F1 — macro avg", color="#27ae60", alpha=0.85)
+    bars1 = ax.bar([i - width for i in x], f1_spam, width, label="F1, spam", color="#e74c3c", alpha=0.85)
+    bars2 = ax.bar(x, f1_non, width, label="F1, non_spam", color="#2980b9", alpha=0.85)
+    bars3 = ax.bar([i + width for i in x], f1_macro, width, label="F1, macro avg", color="#27ae60", alpha=0.85)
 
     # Tambahkan nilai di atas tiap batang
     for bars in [bars1, bars2, bars3]:
@@ -223,11 +220,11 @@ def run_cv_comparison(X_no_stem: list, X_with_stem: list, y: list) -> dict:
 
     WHY THIS IS MORE RELIABLE THAN THE SINGLE-SPLIT COMPARISON ABOVE:
     A single split's delta can be an artifact of which rows happened to
-    land in the test set — especially after the dataset changes size/
+    land in the test set, especially after the dataset changes size/
     composition between experiment runs (see DATASET_LOG.md). Averaging
     over 5 folds is more stable, and because cv=5 (an integer) uses an
     UNSHUFFLED (Stratified)KFold, the fold assignment depends only on
-    label order — which is IDENTICAL for X_no_stem and X_with_stem (same
+    label order, which is IDENTICAL for X_no_stem and X_with_stem (same
     rows, same order, only the text content differs). That means fold i
     of "no stemming" and fold i of "with stemming" test on the exact same
     samples, so the per-fold DIFFERENCE is a valid paired comparison, not
@@ -275,7 +272,7 @@ def run_cv_comparison(X_no_stem: list, X_with_stem: list, y: list) -> dict:
         print(f"""
   Selisih TIDAK signifikan secara statistik (p={p_value:.4f} >= 0.05).
   Meski single-split di atas menunjukkan delta positif/negatif, setelah
-  diuji di 5 subset data berbeda selisihnya tidak konsisten arahnya —
+  diuji di 5 subset data berbeda selisihnya tidak konsisten arahnya -
   kemungkinan besar itu adalah noise dari komposisi split tertentu, BUKAN
   efek stemming yang bisa diandalkan. Untuk skripsi, ini justifikasi yang
   lebih kuat untuk TETAP TIDAK mengintegrasikan stemming ke produksi,
@@ -325,7 +322,7 @@ def save_cv_comparison_chart(scores_no_stem, scores_with_stem, p_value: float) -
     ax.set_ylabel("F1-macro", fontsize=11)
     sig_label = "signifikan" if p_value < 0.05 else "tidak signifikan"
     ax.set_title(
-        f"Eksperimen Stemming — 5-Fold CV Berpasangan\n"
+        f"Eksperimen Stemming, 5-Fold CV Berpasangan\n"
         f"(paired t-test: p={p_value:.4f}, {sig_label})",
         fontsize=12,
     )
@@ -364,7 +361,7 @@ def interpret_result(results: list) -> None:
     """
     Cetak interpretasi otomatis berdasarkan selisih F1-macro.
 
-    Ini bukan pengganti analisis manual — tapi bisa jadi titik awal
+    Ini bukan pengganti analisis manual, tapi bisa jadi titik awal
     untuk kalimat interpretasi di bab pembahasan skripsi.
     """
     base = next(r for r in results if "Tanpa" in r["label"])
@@ -382,7 +379,7 @@ def interpret_result(results: list) -> None:
 
   Mengapa bisa terjadi?
   - Komentar spam banyak mengandung nama brand (ROMA4D, WIFI4D) yang
-    memang sudah dalam bentuk dasar — stemming tidak mengubahnya.
+    memang sudah dalam bentuk dasar, stemming tidak mengubahnya.
   - TF-IDF dengan bigram sudah cukup menangkap variasi kata (misalnya
     "daftar sekarang" dan "mendaftar sekarang" menjadi dua fitur berbeda,
     tapi keduanya tetap bisa dikenali polanya).
@@ -425,7 +422,7 @@ def interpret_result(results: list) -> None:
 
 def main():
     print("=" * 65)
-    print("EKSPERIMEN STEMMING — JUDOL SPAM DETECTOR")
+    print("EKSPERIMEN STEMMING, JUDOL SPAM DETECTOR")
     print("=" * 65)
 
     # --- Muat data ---

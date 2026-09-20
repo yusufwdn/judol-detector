@@ -1,35 +1,14 @@
-"""
-train.py
-========
-Trains the SVM spam classifier pipeline and saves the model to disk.
+"""Latih pipeline TF-IDF + SVM lalu simpan ke model/svm_model.joblib.
 
-ML PIPELINE OVERVIEW
----------------------
-Training runs through these stages:
+Dijalankan setelah prepare_dataset.py. Selain melatih, skrip ini juga
+menjalankan 5-fold cross-validation, mencari nilai C lewat GridSearchCV, dan
+menyimpan grafik evaluasi ke reports/.
 
-1. TF-IDF (Term Frequency - Inverse Document Frequency)
-   Converts text into numeric feature vectors.
-   - Words frequent in one document but rare across others get high weight.
-   - Example: "daftar" appears often in spam but rarely in normal comments
-     -> high IDF -> high weight -> useful discriminative feature.
+Yang diserialisasi adalah seluruh pipeline, termasuk TF-IDF yang sudah
+terlatih, bukan hanya SVM-nya. TF-IDF menyimpan kamus kata beserta bobot IDF,
+jadi tanpa itu nomor fitur saat prediksi tidak merujuk kata yang sama.
 
-2. Hyperparameter Tuning (GridSearchCV)
-   Automatically searches for the best C value via 5-fold cross-validation
-   on the training set. This replaces the previous "C=1.0 as default" approach
-   with an empirically selected value — stronger justification for the thesis.
-
-3. SVM (Support Vector Machine)
-   Finds the optimal hyperplane separating the two classes.
-   "Optimal" means the widest possible margin to the nearest data points
-   (the support vectors) on each side.
-   Key parameters:
-   - C      : regularization strength (lower = more generalization)
-   - kernel : decision boundary shape ('linear' is best for high-dim text)
-
-4. Evaluation
-   - K-fold cross-validation (cv=5) on full data: average ± std deviation
-   - Train/test split (80/20): detailed per-class metrics and confusion matrix
-   - Baseline comparison: SVM vs Naive Bayes vs Logistic Regression
+Penjelasan pilihan parameter ada di docs/model.md.
 """
 
 import os
@@ -37,7 +16,7 @@ import sys
 import pandas as pd
 import joblib
 import matplotlib
-matplotlib.use("Agg")   # non-interactive backend — safe for Windows terminal
+matplotlib.use("Agg")   # backend non-interaktif, aman dipanggil dari terminal
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.svm import SVC
@@ -58,8 +37,8 @@ if hasattr(sys.stdout, "reconfigure"):
 sys.path.insert(0, BASE_DIR)
 from src.preprocessing import preprocess_batch
 
-# Shared TF-IDF params — same settings used in SVM pipeline and baselines
-# so the comparison is fair (same features, different classifiers).
+# Dipakai bersama oleh pipeline SVM dan skrip pembanding, supaya semua
+# algoritma dibandingkan di atas himpunan fitur yang sama.
 TFIDF_PARAMS = dict(
     max_features=10000,
     ngram_range=(1, 2),
@@ -69,11 +48,10 @@ TFIDF_PARAMS = dict(
 
 
 def load_data(path: str) -> tuple:
-    """
-    Load and validate the training dataset from CSV.
+    """Baca dan validasi dataset dari CSV.
 
     Returns:
-        tuple: (X, y) where X is a list of text strings and y is a list of labels.
+        tuple: (X, y), X berisi teks dan y berisi labelnya.
     """
     print(f"[1/7] Loading dataset from: {path}")
     df = pd.read_csv(path)
@@ -103,19 +81,14 @@ def preprocess_data(texts: list) -> list:
 
 
 def run_cross_validation(X: list, y: list) -> None:
-    """
-    Run 5-fold cross-validation on the FULL dataset.
+    """Jalankan 5-fold cross-validation pada seluruh dataset.
 
-    Why on full data (not just X_train)?
-    Cross-validation's purpose is to estimate how well the model generalizes
-    to unseen data. Using all available data gives the most stable estimate —
-    the more data we fold over, the lower the variance of the estimate.
+    Dipakai seluruh data, bukan hanya bagian latih, karena tujuannya menaksir
+    kemampuan generalisasi dan semakin banyak data yang dilipat semakin kecil
+    ragam taksirannya.
 
-    This is separate from the 80/20 split: k-fold gives the average score,
-    the split gives the detailed per-class breakdown and confusion matrix.
-
-    The mean ± std output is what you cite in the thesis as the cross-validated
-    F1-score — more credible than a single split's number.
+    Terpisah dari pembagian 80/20: cross-validation memberi skor rata-rata,
+    sedangkan pembagian memberi rincian per kelas dan confusion matrix.
     """
     print("\n[3/7] K-Fold Cross-Validation (cv=5)...")
     print("    Training a temporary pipeline (not the final model)...")
@@ -139,18 +112,15 @@ def run_cross_validation(X: list, y: list) -> None:
 
 
 def save_cv_fold_plot(scores, output_dir: str) -> str:
-    """
-    Save a bar chart of the 5-fold F1-macro scores, with the mean and
-    +/- 1 std deviation band overlaid.
+    """Simpan diagram batang skor tiap fold beserta pita rata-rata dan
+    simpangan bakunya.
 
-    Why a plot instead of just the mean +/- std numbers?
-    A single "96.61% +/- 0.59%" line hides whether the variance comes from
-    one weak fold or is spread evenly — a chart makes that visible at a
-    glance, and is easier to cite in a thesis defense than reading numbers
-    off a console log.
+    Satu baris "96,61% +/- 0,59%" tidak menunjukkan apakah ragamnya berasal
+    dari satu fold yang lemah atau tersebar merata. Grafiknya membuat itu
+    terlihat langsung.
 
     Returns:
-        str: Path to the saved PNG file.
+        str: lokasi berkas PNG yang disimpan.
     """
     os.makedirs(output_dir, exist_ok=True)
     mean = scores.mean()
@@ -171,7 +141,7 @@ def save_cv_fold_plot(scores, output_dir: str) -> str:
 
     ax.set_ylim(min(scores) - 0.02, 1.0)
     ax.set_ylabel("F1-macro", fontsize=11)
-    ax.set_title("5-Fold Cross-Validation — F1-macro per Fold", fontsize=13, pad=12)
+    ax.set_title("5-Fold Cross-Validation, F1-macro per Fold", fontsize=13, pad=12)
     ax.legend(loc="lower right")
     plt.tight_layout()
 
@@ -182,16 +152,11 @@ def save_cv_fold_plot(scores, output_dir: str) -> str:
 
 
 def split_data(X: list, y: list) -> tuple:
-    """
-    Split the dataset into training and test sets.
+    """Bagi dataset menjadi bagian latih dan bagian uji.
 
-    Why split at all? To measure model performance on data it has NEVER seen
-    during training. Evaluating on training data would give inflated scores
-    that do not reflect real-world behavior.
-
-    test_size=0.2   -> 20% held out for testing, 80% used for training
-    random_state=42 -> fixed seed ensures the split is reproducible
-    stratify=y      -> preserves the spam/non-spam ratio in both splits
+    test_size=0.2   -> 20% disisihkan untuk pengujian
+    random_state=42 -> pengacakan dikunci supaya pembagiannya bisa diulang
+    stratify=y      -> proporsi spam terhadap non-spam dijaga sama di keduanya
     """
     print("\n[4/7] Splitting data (80% train / 20% test)...")
     X_train, X_test, y_train, y_test = train_test_split(
@@ -206,29 +171,23 @@ def split_data(X: list, y: list) -> tuple:
 
 
 def find_best_hyperparams(X_train: list, y_train: list) -> dict:
-    """
-    Use GridSearchCV to find the optimal C value for the SVM.
+    """Cari nilai C terbaik lewat GridSearchCV.
 
-    What is C?
-    C is the "regularization parameter" — it controls the trade-off between:
-    - Low C  : the model accepts more misclassifications to get a wider margin
-               (more generalization, less overfitting)
-    - High C : the model tries to classify every training point correctly
-               (tighter fit, more risk of overfitting)
+    C mengatur seberapa keras model menghukum kesalahan pada data latih. Nilai
+    kecil menghasilkan margin lebih lebar dan model yang lebih toleran, nilai
+    besar memaksa model mengikuti data latih lebih rapat dengan risiko
+    overfitting.
 
-    GridSearchCV trains and evaluates the model for each candidate C value
-    using 5-fold cross-validation on the training set. It picks the C that
-    gives the highest average F1-macro score.
-
-    This is run on X_train only (not the full dataset) to prevent data leakage
-    — the test set must stay completely unseen during all model decisions.
+    Dijalankan hanya pada bagian latih, bukan seluruh dataset. Data uji harus
+    tetap tidak tersentuh selama seluruh pengambilan keputusan soal model,
+    kalau tidak taksiran performanya jadi terlalu optimistis.
 
     Returns:
-        dict with 'best_C' and 'best_score'.
+        dict berisi 'best_C' dan 'best_score'.
     """
     print("\n[5/6] Hyperparameter tuning via GridSearchCV...")
     print("    Searching C in [0.01, 0.1, 1, 10, 100]...")
-    print("    (5-fold CV on training set for each value — ini bisa 1-2 menit)")
+    print("    (5-fold CV on training set for each value, ini bisa 1-2 menit)")
 
     param_grid = {"svm__C": [0.01, 0.1, 1, 10, 100]}
 
@@ -273,18 +232,15 @@ def find_best_hyperparams(X_train: list, y_train: list) -> dict:
 
 
 def save_gridsearch_plot(grid_search: GridSearchCV, output_dir: str) -> str:
-    """
-    Save a plot of F1-macro CV score vs. C (log scale), with error bars
-    from the std across folds and the selected C highlighted.
+    """Simpan kurva skor terhadap nilai C dalam skala logaritmik, lengkap
+    dengan galat antar fold dan penanda nilai yang terpilih.
 
-    Why this matters for the thesis:
-    "C=1 dipilih via GridSearchCV" is a claim readers can't visually verify
-    from a single number — this plot shows the full trade-off curve (higher
-    C overfitting, lower C underfitting) so the choice looks empirically
-    justified rather than arbitrary.
+    Angka tunggal tidak menunjukkan bentuk pertukarannya. Kurva ini
+    memperlihatkan sisi mana yang underfitting dan mana yang overfitting,
+    sehingga pilihan C terlihat berdasar.
 
     Returns:
-        str: Path to the saved PNG file.
+        str: lokasi berkas PNG yang disimpan.
     """
     os.makedirs(output_dir, exist_ok=True)
     cv_results = grid_search.cv_results_
@@ -307,7 +263,7 @@ def save_gridsearch_plot(grid_search: GridSearchCV, output_dir: str) -> str:
     ax.set_xscale("log")
     ax.set_xlabel("Nilai C (skala log)", fontsize=11)
     ax.set_ylabel("F1-macro (rata-rata 5-fold CV)", fontsize=11)
-    ax.set_title("GridSearchCV — Pencarian Nilai C Terbaik", fontsize=13, pad=12)
+    ax.set_title("GridSearchCV, Pencarian Nilai C Terbaik", fontsize=13, pad=12)
     ax.legend(loc="lower right")
     ax.grid(alpha=0.3)
     plt.tight_layout()
@@ -319,14 +275,12 @@ def save_gridsearch_plot(grid_search: GridSearchCV, output_dir: str) -> str:
 
 
 def build_and_train_pipeline(X_train: list, y_train: list, best_C: float) -> Pipeline:
-    """
-    Build and train the final SVM pipeline using the best C from GridSearchCV.
+    """Bangun dan latih pipeline final memakai C hasil GridSearchCV.
 
-    Why use Pipeline instead of separate steps?
-    Pipeline ensures the TF-IDF vectorizer is fitted ONLY on training data.
-    If fitted separately on the full dataset before splitting, it would
-    inadvertently leak information from the test set — a subtle but critical
-    mistake called data leakage.
+    Dibungkus Pipeline, bukan dikerjakan bertahap secara terpisah, supaya
+    TF-IDF dipasang hanya pada data latih. Memasangnya pada seluruh dataset
+    sebelum pembagian akan membocorkan informasi dari data uji ke dalam kamus
+    fitur, dan hasil evaluasinya jadi tidak sah.
     """
     print(f"\n  Training final SVM model (C={best_C})...")
 
@@ -347,15 +301,10 @@ def build_and_train_pipeline(X_train: list, y_train: list, best_C: float) -> Pip
 
 
 def save_confusion_matrix_plot(y_test: list, y_pred: list, output_dir: str) -> str:
-    """
-    Save confusion matrix as a heatmap PNG file.
-
-    The plot uses color intensity to show the magnitude of each cell:
-    darker blue = more samples. This is easier to read at a glance than a
-    plain table of numbers, and can be directly embedded in the thesis.
+    """Simpan confusion matrix sebagai heatmap.
 
     Returns:
-        str: Path to the saved PNG file.
+        str: lokasi berkas PNG yang disimpan.
     """
     os.makedirs(output_dir, exist_ok=True)
     labels = ["non_spam", "spam"]
@@ -372,7 +321,7 @@ def save_confusion_matrix_plot(y_test: list, y_pred: list, output_dir: str) -> s
         linewidths=0.5,
         ax=ax
     )
-    ax.set_title("Confusion Matrix — SVM Judol Detector", fontsize=13, pad=12)
+    ax.set_title("Confusion Matrix, SVM Judol Detector", fontsize=13, pad=12)
     ax.set_ylabel("Aktual", fontsize=11)
     ax.set_xlabel("Prediksi", fontsize=11)
     plt.tight_layout()
@@ -384,34 +333,31 @@ def save_confusion_matrix_plot(y_test: list, y_pred: list, output_dir: str) -> s
 
 
 def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> None:
-    """
-    Evaluate model performance, print a detailed report, and save confusion
-    matrix plot.
+    """Evaluasi model, cetak laporan rinci, dan simpan confusion matrix.
 
-    Confusion Matrix layout:
+    Susunan confusion matrix:
 
-                      Predicted: non_spam | Predicted: spam
-    Actual: non_spam |   TN (correct)     |  FP (false alarm)
-    Actual: spam     |   FN (missed)      |  TP (correct)
+                      Prediksi non_spam | Prediksi spam
+    Aktual non_spam  |       TN         |      FP
+    Aktual spam      |       FN         |      TP
 
-    TN = True Negative  : non-spam correctly identified
-    TP = True Positive  : spam correctly identified
-    FP = False Positive : non-spam wrongly flagged as spam
-    FN = False Negative : spam that slipped through (most dangerous)
+    FP berarti komentar wajar ikut disembunyikan, FN berarti spam lolos.
+    Untuk kasus ini FP lebih merugikan karena menyembunyikan komentar yang sah
+    dari pengguna.
     """
     print("\n[6/6] Evaluating model...")
     y_pred = pipeline.predict(X_test)
 
     print("\n" + "=" * 60)
-    print("MODEL EVALUATION REPORT — SVM")
+    print("LAPORAN EVALUASI MODEL, SVM")
     print("=" * 60)
 
     acc = accuracy_score(y_test, y_pred)
     f1_macro = f1_score(y_test, y_pred, average="macro")
-    print(f"\nOverall Accuracy : {acc:.2%}")
-    print(f"F1-score (macro) : {f1_macro:.4f}")
+    print(f"\nAkurasi keseluruhan : {acc:.2%}")
+    print(f"F1-score (macro)    : {f1_macro:.4f}")
 
-    print("\nPer-class Report:")
+    print("\nLaporan per kelas:")
     print(classification_report(y_test, y_pred))
 
     labels = ["non_spam", "spam"]
@@ -421,20 +367,19 @@ def evaluate_model(pipeline: Pipeline, X_test: list, y_test: list) -> None:
     print(f"{'Aktual non_spam':20} {cm[0][0]:>18} {cm[0][1]:>14}")
     print(f"{'Aktual spam':20} {cm[1][0]:>18} {cm[1][1]:>14}")
 
-    print("\nBreakdown:")
-    print(f"  TN (non-spam correctly identified) : {cm[0][0]}")
-    print(f"  FP (non-spam wrongly flagged)       : {cm[0][1]}")
-    print(f"  FN (spam that slipped through)      : {cm[1][0]}")
-    print(f"  TP (spam correctly detected)        : {cm[1][1]}")
+    print("\nRincian:")
+    print(f"  TN (non-spam terdeteksi benar)  : {cm[0][0]}")
+    print(f"  FP (non-spam salah ditandai)    : {cm[0][1]}")
+    print(f"  FN (spam yang lolos)            : {cm[1][0]}")
+    print(f"  TP (spam terdeteksi benar)      : {cm[1][1]}")
 
     plot_path = save_confusion_matrix_plot(y_test, y_pred, REPORTS_DIR)
     print(f"\n  Confusion matrix plot saved: {plot_path}")
     print("=" * 60)
 
 
-
 def save_model(pipeline: Pipeline, path: str) -> None:
-    """Serialize the trained pipeline to disk using joblib."""
+    """Simpan pipeline terlatih ke disk memakai joblib."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
     joblib.dump(pipeline, path)
     size_kb = os.path.getsize(path) / 1024
@@ -452,13 +397,13 @@ def main():
     # 2. Preprocess
     cleaned_texts = preprocess_data(texts)
 
-    # 3. K-fold cross-validation (on full data — for thesis reporting)
+    # 3. K-fold cross-validation (on full data, for thesis reporting)
     run_cross_validation(cleaned_texts, labels)
 
     # 4. Split into train and test sets
     X_train, X_test, y_train, y_test = split_data(cleaned_texts, labels)
 
-    # 5. Find best C via GridSearchCV (on X_train only — no data leakage)
+    # 5. Find best C via GridSearchCV (on X_train only, no data leakage)
     best_params = find_best_hyperparams(X_train, y_train)
 
     # 6. Train final model with best C, evaluate, save

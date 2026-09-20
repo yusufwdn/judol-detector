@@ -28,7 +28,7 @@ linear teregularisasi terhadap token brand yang diulang 3x dalam satu
 komentar — bukan soal kurang data.
 
 Penjelasan lengkap ada di
-[DATASET_LOG.md](../../../DATASET_LOG.md#versi-12--2026-06-30).
+[Riwayat dataset](../../../docs/riwayat-dataset.md#versi-12--2026-06-30).
 
 ## Metadata model (diekstrak dari file ini)
 

@@ -1,9 +1,7 @@
 const fs = require("fs");
 require("dotenv").config();
 
-// ==========================================
-// ARGUMENT PARSING
-// ==========================================
+// Penguraian argumen
 
 // Cara pakai:
 //   node index.js <video_id> [mode]
@@ -32,9 +30,7 @@ if (!["video", "live"].includes(RUN_MODE)) {
   process.exit(1);
 }
 
-// ==========================================
-// CONFIGURATION
-// ==========================================
+// Konfigurasi
 
 const API_KEY = process.env.YOUTUBE_API_KEY;
 if (!API_KEY) {
@@ -52,9 +48,7 @@ const SPAM_TARGET_COUNT = parseInt(process.env.SPAM_TARGET_COUNT || "100", 10);
 // Threshold minimum skor heuristik agar komentar dianggap spam (0-100)
 const SPAM_SCORE_THRESHOLD = 30;
 
-// ==========================================
-// OUTPUT DIRECTORY SETUP
-// ==========================================
+// Penyiapan direktori keluaran
 
 const OUTPUT_DIR = "./result";
 const HISTORY_FILE = `${OUTPUT_DIR}/scrape_history.json`;
@@ -65,9 +59,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   console.log(`[Setup] Folder output dibuat: ${OUTPUT_DIR}`);
 }
 
-// ==========================================
-// SCRAPE HISTORY
-// ==========================================
+// Riwayat pengambilan
 
 /**
  * Membaca riwayat scraping dari file JSON.
@@ -112,13 +104,11 @@ function warnIfAlreadyScraped(videoId) {
   console.warn(
     `[Warning] Video ID "${videoId}" sudah pernah di-scrape sebelumnya.\n` +
       `          Terakhir : mode=${lastRun.mode}, waktu=${lastRun.timestamp}\n` +
-      `          Total run: ${runs.length}x — scraping tetap dilanjutkan.\n`,
+      `          Total run: ${runs.length}x, scraping tetap dilanjutkan.\n`,
   );
 }
 
-// ==========================================
 // SPAM SCORING ENGINE (HEURISTIC-BASED)
-// ==========================================
 
 /**
  * Menganalisis teks komentar dan mengembalikan skor probabilitas spam (0-100).
@@ -222,7 +212,7 @@ function analyzeSpamScore(rawText) {
     activeSignals.push("excessive_caps");
   }
 
-  // [+35] Pola "soft brand" — nama + angka 2 digit arbitrary + framing testimoni
+  // [+35] Pola "soft brand", nama + angka 2 digit arbitrary + framing testimoni
   // Contoh: "ALEXIS17 sukses bantu", "HOKI99 nggak pernah kecewa"
   // Logika: brand judol soft sering pakai nama latin + 2 digit + kalimat endorse
   const softBrandPattern = /\b[a-z]{4,10}\d{2,3}\b/i;
@@ -252,9 +242,7 @@ function analyzeSpamScore(rawText) {
   };
 }
 
-// ==========================================
 // UTILITY: HTTP FETCH WITH RETRY
-// ==========================================
 
 /**
  * Wrapper fetch dengan mekanisme retry dan exponential backoff.
@@ -297,9 +285,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// ==========================================
 // OUTPUT: SAVE RESULTS TO JSON FILE
-// ==========================================
 
 /**
  * Menyimpan array hasil komentar spam ke file JSON di dalam folder /result.
@@ -324,9 +310,7 @@ function saveResults(results, prefix) {
   return filename;
 }
 
-// ==========================================
 // SCRAPER MODE 1: VIDEO COMMENTS
-// ==========================================
 
 /**
  * Mengambil komentar dari video YouTube biasa (bukan live) menggunakan
@@ -425,9 +409,7 @@ async function scrapeVideoComments() {
   }
 }
 
-// ==========================================
 // SCRAPER MODE 2: LIVE CHAT
-// ==========================================
 
 /**
  * Memantau dan mengambil pesan spam dari live chat YouTube secara real-time.
@@ -539,9 +521,7 @@ async function scrapeLiveChat(liveVideoId) {
   }
 }
 
-// ==========================================
-// ENTRY POINT
-// ==========================================
+// Titik masuk
 
 if (RUN_MODE === "live") {
   scrapeLiveChat(VIDEO_ID);
