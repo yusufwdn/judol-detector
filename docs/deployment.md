@@ -47,8 +47,8 @@ sendiri blok TLS-nya saat dijalankan dengan `certbot --nginx`.
 ## Langkah pemasangan
 
 ```bash
-git clone https://github.com/yusufwdn/svm-judol-spam.git
-cd svm-judol-spam
+git clone https://github.com/yusufwdn/judol-detector.git
+cd judol-detector
 python3 -m venv venv
 venv/bin/pip install -r deploy/requirements-serve.txt
 
