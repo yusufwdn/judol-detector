@@ -429,8 +429,8 @@ per satu.
 
 Tidak berubah secara signifikan dari rebuild sebelumnya (hanya 3 baris
 berbeda dari 5132) — Accuracy 97.57%, F1-macro 0.9752, 5 FP, 20 FN. Lihat
-[`model/versions/v9/README.md`](model/versions/v9/README.md) dan
-[`model/versions/v10/README.md`](model/versions/v10/README.md) untuk detail.
+[`model/versions/v9/README.md`](../model/versions/v9/README.md) dan
+[`model/versions/v10/README.md`](../model/versions/v10/README.md) untuk detail.
 
 ### Untuk Sidang
 
