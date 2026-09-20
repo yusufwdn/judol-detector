@@ -1,0 +1,14 @@
+{
+  "name": "judol-detector-scraper",
+  "version": "1.0.0",
+  "description": "Pengumpul komentar YouTube berlabel untuk melatih Judol Spam Detector",
+  "main": "index.js",
+  "scripts": {
+    "aggregate": "node filter.js"
+  },
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}

@@ -23,6 +23,7 @@ BUILD-TIME (manual, sesekali)
         |
         v
   scraper/index.js              ambil komentar, beri skor heuristik awal
+  scraper/filter.js             gabungkan hasil banyak video
         |
         v  scraper/final_spam.json, scraper/final_non_spam.json
         |
@@ -94,15 +95,16 @@ menimbulkan kopling yang merepotkan.
 
 ## Isi kode inti
 
-| Berkas | Baris | Peran |
-|---|---|---|
-| [`scraper/index.js`](../scraper/index.js) | 550 | Mengambil komentar dari YouTube API dan memberi skor heuristik |
-| [`src/prepare_dataset.py`](../src/prepare_dataset.py) | 357 | Menyaring hasil scraper menjadi dataset berlabel |
-| [`src/preprocessing.py`](../src/preprocessing.py) | 366 | Normalisasi teks tujuh tahap, dipakai pelatihan dan prediksi |
-| [`src/train.py`](../src/train.py) | 475 | Melatih model, mengevaluasi, menyimpan artefak |
-| [`src/server.py`](../src/server.py) | 515 | REST API |
-| [`extension/content.js`](../extension/content.js) | 527 | Membaca komentar dari DOM dan menyembunyikan yang spam |
-| [`extension/popup.js`](../extension/popup.js) | 198 | Panel pengaturan ekstensi |
+| Berkas | Peran |
+|---|---|
+| [`scraper/index.js`](../scraper/index.js) | Mengambil komentar dari YouTube API dan memberi skor heuristik |
+| [`scraper/filter.js`](../scraper/filter.js) | Menggabungkan hasil banyak video menjadi berkas agregat |
+| [`src/prepare_dataset.py`](../src/prepare_dataset.py) | Menyaring hasil scraper menjadi dataset berlabel |
+| [`src/preprocessing.py`](../src/preprocessing.py) | Normalisasi teks tujuh tahap, dipakai pelatihan dan prediksi |
+| [`src/train.py`](../src/train.py) | Melatih model, mengevaluasi, menyimpan artefak |
+| [`src/server.py`](../src/server.py) | REST API |
+| [`extension/content.js`](../extension/content.js) | Membaca komentar dari DOM dan menyembunyikan yang spam |
+| [`extension/popup.js`](../extension/popup.js) | Panel pengaturan ekstensi |
 
 Ditambah lima skrip eksperimen yang tidak ikut berjalan saat runtime, tetapi
 menghasilkan angka yang dilaporkan di [evaluasi.md](evaluasi.md) dan

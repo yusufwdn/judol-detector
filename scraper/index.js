@@ -4,28 +4,40 @@ require("dotenv").config();
 // Penguraian argumen
 
 // Cara pakai:
-//   node index.js <video_id> [mode]
+//   node index.js <video_id> [run_mode] [data_mode]
 //
 // Contoh:
-//   node index.js z-BTQKhWrJc           → scrape komentar video (default)
-//   node index.js z-BTQKhWrJc live      → scrape live chat
+//   node index.js z-BTQKhWrJc                        → scrape spam dari komentar video (default)
+//   node index.js z-BTQKhWrJc video spam             → sama seperti di atas (eksplisit)
+//   node index.js z-BTQKhWrJc video non_spam         → scrape komentar NON-spam dari video
+//   node index.js z-BTQKhWrJc live spam              → scrape spam dari live chat
+//   node index.js z-BTQKhWrJc live non_spam          → scrape non-spam dari live chat
 
 const VIDEO_ID = process.argv[2];
 const RUN_MODE = process.argv[3] || "video";
+const DATA_MODE = process.argv[4] || "spam";
 
 if (!VIDEO_ID) {
   console.error(
     "[Config Error] Video ID wajib diisi sebagai argumen pertama.\n" +
       "Contoh: node index.js z-BTQKhWrJc\n" +
-      "        node index.js z-BTQKhWrJc live",
+      "        node index.js z-BTQKhWrJc video non_spam",
   );
   process.exit(1);
 }
 
 if (!["video", "live"].includes(RUN_MODE)) {
   console.error(
-    `[Config Error] Mode tidak valid: "${RUN_MODE}".\n` +
+    `[Config Error] run_mode tidak valid: "${RUN_MODE}".\n` +
       `Mode yang tersedia: "video" (default) atau "live".`,
+  );
+  process.exit(1);
+}
+
+if (!["spam", "non_spam"].includes(DATA_MODE)) {
+  console.error(
+    `[Config Error] data_mode tidak valid: "${DATA_MODE}".\n` +
+      `Mode yang tersedia: "spam" (default) atau "non_spam".`,
   );
   process.exit(1);
 }
@@ -42,11 +54,14 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// Minimum jumlah komentar spam yang ingin dikumpulkan sebelum script berhenti
-const SPAM_TARGET_COUNT = parseInt(process.env.SPAM_TARGET_COUNT || "100", 10);
+// Minimum jumlah komentar yang ingin dikumpulkan sebelum script berhenti
+const TARGET_COUNT = parseInt(process.env.TARGET_COUNT || "100", 10);
 
-// Threshold minimum skor heuristik agar komentar dianggap spam (0-100)
+// Threshold skor heuristik untuk klasifikasi:
+// - Komentar dengan skor >= SPAM_SCORE_THRESHOLD + hasPrimarySignal → spam
+// - Komentar dengan skor < NON_SPAM_SCORE_THRESHOLD + tidak ada primarySignal → non_spam
 const SPAM_SCORE_THRESHOLD = 30;
+const NON_SPAM_SCORE_THRESHOLD = 10;
 
 // Penyiapan direktori keluaran
 
@@ -108,6 +123,88 @@ function warnIfAlreadyScraped(videoId) {
   );
 }
 
+// Pembantu normalisasi Unicode
+//
+// KENAPA INI ADA DI SINI?
+// NFKC saja (dipakai di analyzeSpamScore sejak awal) hanya membereskan
+// varian Unicode dekoratif dalam BLOK yang sama (mathematical bold,
+// full-width, dll). Ia TIDAK bisa menerjemahkan lintas SCRIPT, misalnya
+// Cyrillic 'а' (U+0430) tidak pernah dianggap "sama" dengan Latin 'a'
+// oleh algoritma NFKC, walau bentuknya identik secara visual. Karena itu
+// kampanye yang memakai homoglyph Cyrillic/Greek/Thai bisa lolos scoring
+// tanpa terdeteksi brand_pattern/contact_link/keyword sama sekali.
+//
+// Begitu juga leet-speak (H0KI777, s1tus, d3p0s1t), digit yang dipakai
+// menggantikan huruf membuat regex huruf-only (mis. brandPattern
+// `[a-z]{3,}...`) gagal cocok, karena digit memutus rangkaian huruf.
+//
+// Kedua map ini adalah PORT dari HOMOGLYPH_MAP dan leet normalization di
+// `src/preprocessing.py` (proyek utama), bukan salinan penuh pipeline 7
+// langkah di sana (yang untuk training model), hanya bagian yang relevan
+// supaya scoring heuristik scraper tidak lagi buta terhadap trik yang
+// sama. Root cause insiden Mantulhoki/Hoki777 (lihat TODO.md Fase 1).
+
+const HOMOGLYPH_MAP = new Map(
+  Object.entries({
+    // Cyrillic → Latin
+    а: "a",
+    е: "e",
+    о: "o",
+    р: "p",
+    с: "c",
+    х: "x",
+    і: "i",
+    ѕ: "s",
+    є: "e",
+    А: "A",
+    Е: "E",
+    О: "O",
+    Р: "P",
+    С: "C",
+    Т: "T",
+    Х: "X",
+    // Greek → Latin
+    ν: "v",
+    ο: "o",
+    α: "a",
+    ρ: "p",
+    // Thai → Latin (bentuk mirip, contoh "ro๓a" → Thai ๓ mirip huruf m)
+    "๓": "m",
+  }),
+);
+
+const HOMOGLYPH_REGEX = new RegExp(
+  `[${[...HOMOGLYPH_MAP.keys()].join("")}]`,
+  "g",
+);
+
+/**
+ * Ganti karakter homoglyph (Cyrillic/Greek/Thai yang bentuknya mirip Latin)
+ * dengan padanan Latin-nya. Lihat komentar HOMOGLYPH_MAP di atas.
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+function applyHomoglyphMap(text) {
+  return text.replace(HOMOGLYPH_REGEX, (ch) => HOMOGLYPH_MAP.get(ch));
+}
+
+/**
+ * Normalisasi leet-speak dalam kata alphanumeric: 0→o, 1→i.
+ * Hanya 2 substitusi ini (sama seperti preprocessing.py) karena keduanya
+ * paling umum dipakai spam judol Indonesia (H0KI777, s1tus) dan cukup
+ * tidak ambigu, 3/4/5 sengaja tidak disentuh karena berisiko memutilasi
+ * angka yang legitimate.
+ *
+ * @param {string} text - Teks yang SUDAH di-lowercase
+ * @returns {string}
+ */
+function normalizeLeetSpeak(text) {
+  return text.replace(/\b[a-z0-9]*[0-9][a-z0-9]*\b/g, (word) =>
+    word.replace(/0/g, "o").replace(/1/g, "i"),
+  );
+}
+
 // SPAM SCORING ENGINE (HEURISTIC-BASED)
 
 /**
@@ -131,16 +228,24 @@ function analyzeSpamScore(rawText) {
 
   // Normalisasi NFKC: menghancurkan font unicode estetik yang sering dipakai spammer
   // Contoh: "𝗦𝗟𝗢𝗧" → "SLOT", "Ｇａｃｏｒ" → "Gacor"
-  const normalizedText = rawText.normalize("NFKC");
-  const lowerText = normalizedText.toLowerCase();
+  //
+  // Lalu homoglyph substitution: NFKC tidak menjangkau lintas script, jadi
+  // Cyrillic/Greek/Thai lookalike (dаftаr, ro๓a) perlu map terpisah.
+  // `normalizedText` yang disimpan ke dataset SUDAH termasuk substitusi ini,
+  // supaya nilai `normalized_text` di output konsisten dengan skor yang dihitung.
+  const normalizedText = applyHomoglyphMap(rawText.normalize("NFKC"));
+
+  // Leet-speak (H0KI777 → hoki777) dinormalisasi SETELAH lowercase, sama
+  // seperti urutan di preprocessing.py, supaya brandPattern/keyword regex
+  // di bawah bisa mengenali kata yang sebelumnya terputus oleh digit.
+  const lowerText = normalizeLeetSpeak(normalizedText.toLowerCase());
 
   // --- SINYAL PRIMER ---
 
   // [+40] Pola brand judol: kombinasi nama + angka khas (88, 99, 777, dll)
-  // Contoh: "MAXWIN88", "SLOT777", "BET138", "HOBIQQ", "BANDARQQ"
-  // Ditambahkan: suffix "qq" untuk keluarga poker/domino online (HobiQQ, BandarQQ, DominoQQ)
+  // Contoh: "MAXWIN88", "SLOT777", "BET138"
   const brandPattern =
-    /[a-z]{3,}(88|99|77|69|138|388|777|888|4d|toto|bet|win|qq)\b/i;
+    /[a-z]{3,}(88|99|77|69|138|388|777|888|4d|toto|bet|win)\b/i;
   if (brandPattern.test(lowerText)) {
     score += 40;
     activeSignals.push("brand_pattern");
@@ -313,32 +418,81 @@ function saveResults(results, prefix) {
 // SCRAPER MODE 1: VIDEO COMMENTS
 
 /**
+ * Mengecek apakah suatu komentar lolos filter berdasarkan DATA_MODE aktif.
+ *
+ * - "spam"     : skor >= SPAM_SCORE_THRESHOLD DAN ada primary signal
+ * - "non_spam" : skor < NON_SPAM_SCORE_THRESHOLD DAN tidak ada primary signal
+ *                DAN panjang teks minimal 10 karakter (hindari komentar kosong/pendek)
+ *
+ * @param {{ score: number, hasPrimarySignal: boolean, normalizedText: string }} analysis
+ * @returns {boolean}
+ */
+function isTargetComment(analysis) {
+  if (DATA_MODE === "spam") {
+    return analysis.score >= SPAM_SCORE_THRESHOLD && analysis.hasPrimarySignal;
+  }
+  // non_spam: skor rendah, tidak ada sinyal primer, dan cukup panjang
+  return (
+    analysis.score < NON_SPAM_SCORE_THRESHOLD &&
+    !analysis.hasPrimarySignal &&
+    analysis.normalizedText.trim().length >= 10
+  );
+}
+
+/**
+ * Komentar dengan skor 10-29 ("dead zone") tidak cukup tinggi untuk masuk
+ * spam (>=30) tapi juga tidak cukup rendah untuk masuk non_spam (<10) -
+ * sebelumnya rentang ini dibuang total tanpa jejak. Kasus FN "PBB4D"
+ * (lihat DATASET_LOG.md Versi 11) berasal dari sini: komentar kritik/korban
+ * yang menyebut brand ALL-CAPS+digit memicu brand_pattern, tapi tidak
+ * cukup untuk lolos threshold spam karena tidak ada sinyal primer lain.
+ * Rentang ini kemungkinan besar berisi banyak contoh "kritik + sebut brand"
+ * yang justru paling dibutuhkan model, jadi disimpan terpisah untuk
+ * direview manual, bukan dibuang. Lihat TODO.md Fase 1.
+ *
+ * @param {{ score: number }} analysis
+ * @returns {boolean}
+ */
+function isBorderlineComment(analysis) {
+  return (
+    analysis.score >= NON_SPAM_SCORE_THRESHOLD &&
+    analysis.score < SPAM_SCORE_THRESHOLD
+  );
+}
+
+/**
  * Mengambil komentar dari video YouTube biasa (bukan live) menggunakan
  * YouTube Data API v3 endpoint `commentThreads`.
  *
  * Scraping berhenti jika:
- * - Jumlah spam terkumpul sudah memenuhi SPAM_TARGET_COUNT
+ * - Jumlah komentar terkumpul sudah memenuhi TARGET_COUNT
  * - Tidak ada halaman komentar berikutnya (nextPageToken habis)
  * - Terjadi error dari API
  */
 async function scrapeVideoComments() {
   warnIfAlreadyScraped(VIDEO_ID);
 
-  const spamResults = [];
+  const results = [];
+  const borderlineResults = [];
   let nextPageToken = "";
   let totalScanned = 0;
 
+  const label = DATA_MODE === "spam" ? "spam" : "non_spam";
+  const filePrefix = `${label}_video`;
+
+  const commentOrder = process.env.COMMENT_ORDER || "relevance";
   const baseUrl =
     `https://www.googleapis.com/youtube/v3/commentThreads` +
-    `?part=snippet&videoId=${VIDEO_ID}&key=${API_KEY}&maxResults=100`;
+    `?part=snippet&videoId=${VIDEO_ID}&key=${API_KEY}&maxResults=100&order=${commentOrder}`;
 
   console.log(`[Video Mode] Mulai scraping komentar dari video: ${VIDEO_ID}`);
   console.log(
-    `[Config] Target spam: ${SPAM_TARGET_COUNT} | Threshold skor: ${SPAM_SCORE_THRESHOLD}\n`,
+    `[Config] Data mode: ${DATA_MODE} | Target: ${TARGET_COUNT} komentar | ` +
+      `Threshold spam: >=${SPAM_SCORE_THRESHOLD} | Threshold non-spam: <${NON_SPAM_SCORE_THRESHOLD}\n`,
   );
 
   try {
-    while (spamResults.length < SPAM_TARGET_COUNT) {
+    while (results.length < TARGET_COUNT) {
       const requestUrl = nextPageToken
         ? `${baseUrl}&pageToken=${nextPageToken}`
         : baseUrl;
@@ -364,28 +518,32 @@ async function scrapeVideoComments() {
 
         const analysis = analyzeSpamScore(singleLineText);
 
-        // Simpan hanya jika:
-        // 1. Skor memenuhi threshold minimum, DAN
-        // 2. Ada minimal satu sinyal primer (brand/link) aktif
-        //    → Mencegah false positive dari emoji/capslock biasa
-        if (
-          analysis.score >= SPAM_SCORE_THRESHOLD &&
-          analysis.hasPrimarySignal
-        ) {
-          spamResults.push({
+        if (isTargetComment(analysis)) {
+          results.push({
             video_id: VIDEO_ID,
             timestamp: new Date().toISOString(),
             original_text: singleLineText,
             normalized_text: analysis.normalizedText,
             spam_score: analysis.score,
             active_signals: analysis.activeSignals,
-            label: "spam", // Label awal untuk dataset SVM; perlu diverifikasi manual
+            label, // "spam" atau "non_spam", perlu diverifikasi manual sebelum masuk dataset
+          });
+        } else if (isBorderlineComment(analysis)) {
+          // Skor 10-29, tidak dibuang, disimpan terpisah untuk review manual.
+          borderlineResults.push({
+            video_id: VIDEO_ID,
+            timestamp: new Date().toISOString(),
+            original_text: singleLineText,
+            normalized_text: analysis.normalizedText,
+            spam_score: analysis.score,
+            active_signals: analysis.activeSignals,
+            label: "borderline",
           });
         }
       }
 
       console.log(
-        `[Scan] Komentar dicek: ${totalScanned} | Spam terindikasi: ${spamResults.length}/${SPAM_TARGET_COUNT}`,
+        `[Scan] Dicek: ${totalScanned} | Terkumpul (${label}): ${results.length}/${TARGET_COUNT} | Borderline: ${borderlineResults.length}`,
       );
 
       nextPageToken = data.nextPageToken;
@@ -399,10 +557,13 @@ async function scrapeVideoComments() {
     }
 
     console.log(
-      `\n[Selesai] Ditemukan ${spamResults.length} komentar spam dari ${totalScanned} komentar.`,
+      `\n[Selesai] Terkumpul ${results.length} komentar "${label}" dan ${borderlineResults.length} komentar borderline dari ${totalScanned} komentar.`,
     );
 
-    saveResults(spamResults, "spam_video");
+    saveResults(results, filePrefix);
+    if (borderlineResults.length > 0) {
+      saveResults(borderlineResults, "borderline_video");
+    }
     recordScrapeHistory(VIDEO_ID, "video");
   } catch (error) {
     console.error("[Fatal Error]", error.message);
@@ -424,7 +585,10 @@ async function scrapeVideoComments() {
 async function scrapeLiveChat(liveVideoId) {
   warnIfAlreadyScraped(liveVideoId);
 
-  const spamResults = [];
+  const results = [];
+  const borderlineResults = [];
+  const label = DATA_MODE === "spam" ? "spam" : "non_spam";
+  const filePrefix = `${label}_livechat`;
 
   console.log(
     `[Live Mode] Mencari live chat ID untuk video: ${liveVideoId}...`,
@@ -449,7 +613,7 @@ async function scrapeLiveChat(liveVideoId) {
 
   console.log(`[Live Mode] Live Chat ID ditemukan: ${liveChatId}`);
   console.log(
-    `[Config] Target spam: ${SPAM_TARGET_COUNT} | Mulai memantau...\n`,
+    `[Config] Data mode: ${DATA_MODE} | Target: ${TARGET_COUNT} | Mulai memantau...\n`,
   );
 
   // --- TAHAP 2: Polling Live Chat ---
@@ -459,7 +623,7 @@ async function scrapeLiveChat(liveVideoId) {
     `?liveChatId=${liveChatId}&part=snippet&key=${API_KEY}`;
 
   try {
-    while (spamResults.length < SPAM_TARGET_COUNT) {
+    while (results.length < TARGET_COUNT) {
       const requestUrl = nextPageToken
         ? `${chatBaseUrl}&pageToken=${nextPageToken}`
         : chatBaseUrl;
@@ -477,24 +641,31 @@ async function scrapeLiveChat(liveVideoId) {
         const messageText = item.snippet.displayMessage;
         const analysis = analyzeSpamScore(messageText);
 
-        if (
-          analysis.score >= SPAM_SCORE_THRESHOLD &&
-          analysis.hasPrimarySignal
-        ) {
-          spamResults.push({
+        if (isTargetComment(analysis)) {
+          results.push({
             video_id: liveVideoId,
             timestamp: new Date().toISOString(),
             original_text: messageText,
             normalized_text: analysis.normalizedText,
             spam_score: analysis.score,
             active_signals: analysis.activeSignals,
-            label: "spam",
+            label,
+          });
+        } else if (isBorderlineComment(analysis)) {
+          borderlineResults.push({
+            video_id: liveVideoId,
+            timestamp: new Date().toISOString(),
+            original_text: messageText,
+            normalized_text: analysis.normalizedText,
+            spam_score: analysis.score,
+            active_signals: analysis.activeSignals,
+            label: "borderline",
           });
         }
       }
 
       console.log(
-        `[Live Scan] Spam terkumpul: ${spamResults.length}/${SPAM_TARGET_COUNT}`,
+        `[Live Scan] Terkumpul (${label}): ${results.length}/${TARGET_COUNT} | Borderline: ${borderlineResults.length}`,
       );
 
       nextPageToken = chatData.nextPageToken;
@@ -511,10 +682,13 @@ async function scrapeLiveChat(liveVideoId) {
     }
 
     console.log(
-      `\n[Selesai] Terkumpul ${spamResults.length} pesan spam dari live chat.`,
+      `\n[Selesai] Terkumpul ${results.length} pesan "${label}" dan ${borderlineResults.length} pesan borderline dari live chat.`,
     );
 
-    saveResults(spamResults, "spam_livechat");
+    saveResults(results, filePrefix);
+    if (borderlineResults.length > 0) {
+      saveResults(borderlineResults, "borderline_livechat");
+    }
     recordScrapeHistory(liveVideoId, "live");
   } catch (error) {
     console.error("[Fatal Error]", error.message);

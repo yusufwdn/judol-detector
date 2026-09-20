@@ -14,6 +14,7 @@ Dokumentasi Judol Spam Detector. Untuk gambaran singkat proyek, lihat
 
 | Dokumen | Isi |
 |---|---|
+| [scraper.md](scraper.md) | Pengumpulan komentar, pembobotan skor, kategori borderline |
 | [dataset.md](dataset.md) | Sumber data, proses penyaringan dua tahap, dan pelabelan |
 | [riwayat-dataset.md](riwayat-dataset.md) | Catatan perubahan dataset dan model dari versi ke versi |
 | [preprocessing.md](preprocessing.md) | Tujuh tahap normalisasi teks dan alasan tiap tahapnya |

@@ -12,6 +12,7 @@ node_modules/
 # Kredensial
 .env
 .env.*
+!.env.example
 
 # Keluaran mentah scraper, bukan final_spam.json / final_non_spam.json
 scraper/result/

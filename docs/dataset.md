@@ -34,9 +34,10 @@ heuristik seperti kemunculan pola nama situs, tautan kontak, dan kata kunci
 yang disamarkan. Skor ini hanya penyaring awal, bukan label akhir.
 
 Keluaran mentah per video tersimpan di `scraper/result/` dan tidak ikut
-diversikan. Tahap agregasi yang menggabungkannya menjadi
-`scraper/final_spam.json` dan `scraper/final_non_spam.json` dikerjakan oleh
-repositori scraper terpisah.
+diversikan. [`scraper/filter.js`](../scraper/filter.js) menggabungkannya
+menjadi `scraper/final_spam.json` dan `scraper/final_non_spam.json`.
+
+Rincian pembobotan skor ada di [scraper.md](scraper.md).
 
 Data yang disimpan hanya ID video, waktu pengambilan, dan teks komentar. Nama
 pengguna, ID kanal, dan identitas pengomentar lainnya tidak ikut disimpan.

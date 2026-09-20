@@ -140,18 +140,20 @@ Lalu jalankan ulang `prepare_dataset.py` dan `train.py`.
 
 ## Menjalankan scraper
 
-Scraper membutuhkan kunci YouTube Data API v3 di berkas `.env`:
-
-```
-YOUTUBE_API_KEY=kunci_api_kamu
+```bash
+cd scraper
+npm install
+cp .env.example .env      # lalu isi YOUTUBE_API_KEY
 ```
 
 ```bash
-node scraper/index.js <VIDEO_ID>                    # mode spam
-node scraper/index.js <VIDEO_ID> video non_spam     # mode non-spam
+node index.js <VIDEO_ID>                    # mode spam
+node index.js <VIDEO_ID> video non_spam     # mode non-spam
+node filter.js                              # gabungkan hasil semua video
 ```
 
 Keluaran mentah tersimpan di `scraper/result/` dan tidak ikut diversikan.
-Tahap agregasi yang menggabungkan hasil per video menjadi `final_spam.json`
-dan `final_non_spam.json` dikerjakan oleh repositori terpisah, lihat
-[dataset.md](dataset.md#pengumpulan-data).
+`filter.js` menggabungkannya menjadi `final_spam.json` dan
+`final_non_spam.json`, yaitu berkas yang dibaca `prepare_dataset.py`.
+
+Rincian argumen dan pemberian skornya ada di [scraper.md](scraper.md).
